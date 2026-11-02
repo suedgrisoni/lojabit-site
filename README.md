@@ -33,12 +33,22 @@ No painel ficaram só **2 códigos carregadores** (veja `painel/`), mais os que 
 ## Como mudar um código
 
 1. Edite `src/<id>.html` (ou crie um novo e coloque em `ordem.json` no lugar certo).
-2. Rode `python3 build.py` (precisa de Node com `terser` para compactar o JS).
-3. Faça o commit e o push.
-4. Rode `python3 ferramentas/carregador.py` — ele gera `painel/cabecalho.html` e `painel/rodape.html`
+2. Rode `python3 build.py` (precisa de Node com `terser` para compactar o JS; sem ele o JS sai sem compactar).
+3. Teste antes de publicar: `python3 ferramentas/testa.py` abre o site ao vivo com os arquivos novos de `dist/`
+   (só no navegador do teste) e compara com o site de hoje, no celular e no computador.
+4. Faça o commit e o push.
+5. Rode `python3 ferramentas/carregador.py` — ele gera `painel/cabecalho.html` e `painel/rodape.html`
    com o endereço de cada arquivo preso ao **commit em que ele mudou pela última vez**
    (assim o cliente só baixa de novo o arquivo que mudou).
-5. Cole esses 2 conteúdos nos códigos carregadores do painel e confira o site no celular.
+6. Cole no painel só o carregador que mudou — cabeçalho no código **1720982 "Etapa 3 - arquivos cabeçalho"**,
+   rodapé no **1718611 "Etapa 3 - arquivos rodapé"** — e confira o site no celular (as páginas ficam ~5 min em cache).
+
+**Não cole o código de volta no painel**: ele rodaria duas vezes (no painel e no arquivo).
+
+Atenção: a Loja Integrada pode mudar a ordem dos códigos de "todas as páginas" quando muitos são salvos de uma vez
+(em 02/11, depois de salvar os 80, vários trocaram de lugar). Dentro dos arquivos a ordem é a de `ordem.json` e não muda.
+No painel sobraram poucos códigos com conteúdo, e nenhum depende dos carregadores; o que importa é o que a loja já garante:
+códigos de uma página só vêm antes dos de todas as páginas, e a "Configuração CSS do tema NDellas" (todas as páginas, com checkout) vem por último.
 
 Os endereços são presos a um commit (`@<sha>`), por isso o jsDelivr e o celular podem guardar o arquivo por 1 ano sem risco:
 um conteúdo novo sempre tem um endereço novo.
