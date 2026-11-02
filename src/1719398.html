@@ -1,0 +1,8 @@
+<script>/* LOJABIT - SEO: links internos de marca apontam para a categoria da marca (/lattafa) em vez da página /marca/lattafa.html, que tem o mesmo conteúdo com título genérico. Só troca as marcas que têm categoria própria; as outras continuam em /marca/. */(function(){"use strict";
+if(window.__lbSeoMarca)return;window.__lbSeoMarca=1;
+var M="|abdul-samad-al-qurashi|acqua-di-parma|afnan|al-haramain|al-wataniah|ard-al-zaafaran|armaf|asdaaf|aurora-scents|azzaro|bdk-parfums-paris|bidaya-parfums|boadicea|byredo|calvin-klein|carolina-herrera|casamorati|chanel|citizen|clive-christian|conde-parfum|creed|dior|dolce-gabbana|emper|fragrance-du-bois|french-avenue|giardini-di-toscana|gilles-cantuel|giorgio-armani|gisada|givenchy|gritti|hind-al-oud|hugo-boss|invicta|jean-paul-gaultier|jo-malone-london|khadlaj|lancome|lattafa|lattafa-pride|lorenzo-pazzaglia|maison-alhambra|maison-asrar|maison-francis-kurkdjian|mancera|mathey-tissot|mawwal-arabia|mido|mind-games|montale-paris|montblanc|narcotica|niche-emarati|nishane|orient|orientica|paco-rabanne|paris-corner|prada|ralph-lauren|rasasi|rayhaan|regalien|roja-parfums|seiko|sospiro|stephane-humbert-lucas|technos|timex|tissot|tiziana-terenzi|uniquee-luxury|versace|volare|xerjoff|yves-saint-laurent|zakat|zimaya|";
+var R=/^(?:https?:\/\/(?:www\.)?lojabit\.com)?\/marca\/([a-z0-9-]+)\.html(?:[?#].*)?$/i;
+function troca(){var a=document.querySelectorAll('a[href*="/marca/"]');for(var i=0;i<a.length;i++){var m=(a[i].getAttribute("href")||"").match(R);if(m&&M.indexOf("|"+m[1].toLowerCase()+"|")!==-1)a[i].setAttribute("href","/"+m[1].toLowerCase())}}
+var n=0;(function roda(){troca();if(++n<12)setTimeout(roda,n<6?400:1500)})();
+document.addEventListener("DOMContentLoaded",troca);
+})();</script>

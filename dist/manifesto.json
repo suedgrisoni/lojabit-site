@@ -1,0 +1,427 @@
+{
+ "arquivos": {
+  "cab.css": {
+   "bytes": 91250,
+   "sha256": "acd6ca8266289cff24ccf05a045d47dd1609a78808b85abff50ddb4d59fdf52c",
+   "minificado": true
+  },
+  "cab.js": {
+   "bytes": 202927,
+   "sha256": "231438c702db49014daf1279a9045a11f7f72499c1935872d2e2fdb56b53e192",
+   "minificado": true
+  },
+  "rod.css": {
+   "bytes": 46249,
+   "sha256": "3375f38656dc826e5a01ce93c8cf6c93af2015150aa73ed18aa75e3c16b3209c",
+   "minificado": true
+  },
+  "rod.js": {
+   "bytes": 341351,
+   "sha256": "49c37512f6149dabf339ba7044d9ecac3b6933e91fecb2a73b9626c9fc82f7b1",
+   "minificado": true
+  }
+ },
+ "codigos": [
+  {
+   "id": 1720982,
+   "nome": "WhatsApp - etiqueta sem esticar",
+   "grupo": "cab"
+  },
+  {
+   "id": 1720791,
+   "nome": "Famílias - registro automático",
+   "grupo": "cab"
+  },
+  {
+   "id": 1721125,
+   "nome": "Frete gratis - regra unica",
+   "grupo": "cab"
+  },
+  {
+   "id": 1719394,
+   "nome": "SEO - descrição das páginas",
+   "grupo": "cab"
+  },
+  {
+   "id": 1717239,
+   "nome": "Visual novo 1 - interruptor",
+   "grupo": "cab"
+  },
+  {
+   "id": 1717240,
+   "nome": "Visual novo 2 - estilo 1",
+   "grupo": "cab"
+  },
+  {
+   "id": 1717241,
+   "nome": "Visual novo 3 - estilo 2",
+   "grupo": "cab"
+  },
+  {
+   "id": 1717242,
+   "nome": "Visual novo 4 - estilo 3",
+   "grupo": "cab"
+  },
+  {
+   "id": 1717243,
+   "nome": "Visual novo 5 - estilo 4",
+   "grupo": "cab"
+  },
+  {
+   "id": 1717244,
+   "nome": "Visual novo 6 - estilo 5",
+   "grupo": "cab"
+  },
+  {
+   "id": 1717245,
+   "nome": "Visual novo 7 - estilo 6",
+   "grupo": "cab"
+  },
+  {
+   "id": 1717251,
+   "nome": "Visual novo 12 - menu ajustado",
+   "grupo": "cab"
+  },
+  {
+   "id": 1717259,
+   "nome": "Busca com sugestões - estilo",
+   "grupo": "cab"
+  },
+  {
+   "id": 1717261,
+   "nome": "Visual novo 13 - topo (estilo)",
+   "grupo": "cab"
+  },
+  {
+   "id": 1717275,
+   "nome": "Visual novo 15 - deptos (estilo)",
+   "grupo": "cab"
+  },
+  {
+   "id": 1717280,
+   "nome": "Visual novo 17 - extras (estilo)",
+   "grupo": "cab"
+  },
+  {
+   "id": 1717255,
+   "nome": "Links antigos - redirecionar",
+   "grupo": "cab"
+  },
+  {
+   "id": 1720981,
+   "nome": "Familias - faixa so na home",
+   "grupo": "cab"
+  },
+  {
+   "id": 1717284,
+   "nome": "Título da página de ofertas",
+   "grupo": "cab"
+  },
+  {
+   "id": 1717290,
+   "nome": "Visual novo 20 - historia (css)",
+   "grupo": "cab"
+  },
+  {
+   "id": 1717531,
+   "nome": "Celular app 7 - estilo produto",
+   "grupo": "cab"
+  },
+  {
+   "id": 1717518,
+   "nome": "Celular app 1 - interruptor",
+   "grupo": "cab"
+  },
+  {
+   "id": 1717519,
+   "nome": "Celular app 2 - estilo folhas",
+   "grupo": "cab"
+  },
+  {
+   "id": 1717529,
+   "nome": "Celular app 6 - estilo sacola",
+   "grupo": "cab"
+  },
+  {
+   "id": 1717545,
+   "nome": "Visual novo 24 - paginas (css 1)",
+   "grupo": "cab"
+  },
+  {
+   "id": 1717547,
+   "nome": "Visual novo 26 - sacola (css)",
+   "grupo": "cab"
+  },
+  {
+   "id": 1717546,
+   "nome": "Visual novo 25 - paginas (css 2)",
+   "grupo": "cab"
+  },
+  {
+   "id": 1717553,
+   "nome": "Celular app 10 - estilo extra",
+   "grupo": "cab"
+  },
+  {
+   "id": 1717554,
+   "nome": "Celular app 14 - estilo produto2",
+   "grupo": "cab"
+  },
+  {
+   "id": 1717472,
+   "nome": "Visual novo 22 - compacto (css)",
+   "grupo": "cab"
+  },
+  {
+   "id": 1717571,
+   "nome": "Institucional 1 - estilo",
+   "grupo": "cab"
+  },
+  {
+   "id": 1717582,
+   "nome": "WhatsApp - botao flutuante",
+   "grupo": "cab"
+  },
+  {
+   "id": 1717639,
+   "nome": "Celular app 19 - tablet 1",
+   "grupo": "cab"
+  },
+  {
+   "id": 1717640,
+   "nome": "Celular app 20 - tablet 2",
+   "grupo": "cab"
+  },
+  {
+   "id": 1717732,
+   "nome": "Visual novo 24 - sem pulo",
+   "grupo": "cab"
+  },
+  {
+   "id": 1717741,
+   "nome": "Celular app 24 - primeiras fotos",
+   "grupo": "cab"
+  },
+  {
+   "id": 979194,
+   "nome": "Configuração JS do tema NDellas",
+   "grupo": "cab"
+  },
+  {
+   "id": 1718611,
+   "nome": "Filtros 4 - extras",
+   "grupo": "rod"
+  },
+  {
+   "id": 1719391,
+   "nome": "SEO - @LOJABIT sem link",
+   "grupo": "rod"
+  },
+  {
+   "id": 1719398,
+   "nome": "SEO - links de marca",
+   "grupo": "rod"
+  },
+  {
+   "id": 1719331,
+   "nome": "SEO - H1",
+   "grupo": "rod"
+  },
+  {
+   "id": 1719402,
+   "nome": "SEO - duplicados e alt",
+   "grupo": "rod"
+  },
+  {
+   "id": 1719793,
+   "nome": "Visual novo 35 - avaliacoes 2",
+   "grupo": "rod"
+  },
+  {
+   "id": 1720730,
+   "nome": "Famílias - selos na foto",
+   "grupo": "rod"
+  },
+  {
+   "id": 1720744,
+   "nome": "Celular - menu rola até o fim",
+   "grupo": "rod"
+  },
+  {
+   "id": 1720699,
+   "nome": "Famílias - menu e quanto rende",
+   "grupo": "rod"
+  },
+  {
+   "id": 1721177,
+   "nome": "Confiança - por que comprar",
+   "grupo": "rod"
+  },
+  {
+   "id": 1717237,
+   "nome": "Menu duplo - famílias",
+   "grupo": "rod"
+  },
+  {
+   "id": 1717247,
+   "nome": "Visual novo 9 - menu e home",
+   "grupo": "rod"
+  },
+  {
+   "id": 1717249,
+   "nome": "Visual novo 11 - topo e rodape",
+   "grupo": "rod"
+  },
+  {
+   "id": 1717262,
+   "nome": "Visual novo 14 - topo (icones)",
+   "grupo": "rod"
+  },
+  {
+   "id": 1717260,
+   "nome": "Busca com sugestões",
+   "grupo": "rod"
+  },
+  {
+   "id": 1717281,
+   "nome": "Visual novo 18 - extras (busca)",
+   "grupo": "rod"
+  },
+  {
+   "id": 1717276,
+   "nome": "Visual novo 16 - deptos (painel)",
+   "grupo": "rod"
+  },
+  {
+   "id": 1721435,
+   "nome": "Busca - tamanhos na hora",
+   "grupo": "rod"
+  },
+  {
+   "id": 1717287,
+   "nome": "Visual novo 19 - redes (rodape)",
+   "grupo": "rod"
+  },
+  {
+   "id": 1717291,
+   "nome": "Visual novo 21 - historia (js)",
+   "grupo": "rod"
+  },
+  {
+   "id": 1717474,
+   "nome": "Visual novo 23 - produto (js)",
+   "grupo": "rod"
+  },
+  {
+   "id": 1717532,
+   "nome": "Celular app 8 - sacola",
+   "grupo": "rod"
+  },
+  {
+   "id": 1717522,
+   "nome": "Celular app 5 - compra rapida",
+   "grupo": "rod"
+  },
+  {
+   "id": 1717520,
+   "nome": "Celular app 3 - barra",
+   "grupo": "rod"
+  },
+  {
+   "id": 1717521,
+   "nome": "Celular app 4 - catalogo",
+   "grupo": "rod"
+  },
+  {
+   "id": 1717533,
+   "nome": "Celular app 9 - produto e rodape",
+   "grupo": "rod"
+  },
+  {
+   "id": 1717549,
+   "nome": "Visual novo 28 - paginas (js)",
+   "grupo": "rod"
+  },
+  {
+   "id": 1717555,
+   "nome": "Celular app 11 - casa confianca",
+   "grupo": "rod"
+  },
+  {
+   "id": 1717556,
+   "nome": "Celular app 12 - listas e busca",
+   "grupo": "rod"
+  },
+  {
+   "id": 1717548,
+   "nome": "Visual novo 27 - sacola (js)",
+   "grupo": "rod"
+  },
+  {
+   "id": 1717557,
+   "nome": "Celular app 13 - produto extra",
+   "grupo": "rod"
+  },
+  {
+   "id": 1717565,
+   "nome": "Celular app 15 - avaliacoes",
+   "grupo": "rod"
+  },
+  {
+   "id": 1717573,
+   "nome": "Institucional 3 - montar",
+   "grupo": "rod"
+  },
+  {
+   "id": 1717572,
+   "nome": "Institucional 2 - textos",
+   "grupo": "rod"
+  },
+  {
+   "id": 1717246,
+   "nome": "Visual novo 8 - tamanhos",
+   "grupo": "rod"
+  },
+  {
+   "id": 1717661,
+   "nome": "Foto do tamanho (decants)",
+   "grupo": "rod"
+  },
+  {
+   "id": 1717711,
+   "nome": "Avisos - longe dos botoes",
+   "grupo": "rod"
+  },
+  {
+   "id": 1718148,
+   "nome": "Visual novo 29 - galeria",
+   "grupo": "rod"
+  },
+  {
+   "id": 1718168,
+   "nome": "Visual novo 31 - prazo/parecidos",
+   "grupo": "rod"
+  },
+  {
+   "id": 1718284,
+   "nome": "Visual novo 32 - guia v2",
+   "grupo": "rod"
+  },
+  {
+   "id": 1718457,
+   "nome": "Filtros 3 - tela",
+   "grupo": "rod"
+  },
+  {
+   "id": 1718456,
+   "nome": "Filtros 2 - motor",
+   "grupo": "rod"
+  },
+  {
+   "id": 1718455,
+   "nome": "Filtros 1 - estilo",
+   "grupo": "rod"
+  }
+ ],
+ "troca_tablet": true
+}

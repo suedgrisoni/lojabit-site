@@ -1,0 +1,124 @@
+<script>
+/* LOJABIT - famílias em cores nos menus (faixa do computador, folhas do celular, menu ☰ e painel Departamentos)
+   + "Quanto rende" equilibrado no celular.
+   As famílias e ocasiões vêm do REGISTRO AUTOMÁTICO (código "Famílias - registro automático", cabeçalho):
+   categoria nova dentro de "Encontre seu Perfume" aparece aqui sozinha.
+   Prévia: ?lbfam=1 (desliga com ?lbfam=0). Publicar: PUBLICADO = true. */
+(function () {
+  'use strict';
+  var PUBLICADO = true;
+  if (window.__lbfamM) return;
+  window.__lbfamM = 1;
+  var on = PUBLICADO;
+  try {
+    if (/[?&]lbfam=1\b/.test(location.search)) localStorage.setItem('lbFam', '1');
+    if (/[?&]lbfam=0\b/.test(location.search)) localStorage.removeItem('lbFam');
+    if (localStorage.getItem('lbFam') === '1') on = true;
+  } catch (e) {}
+  if (!on) return;
+  function esc(t) { return String(t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  var aqui = location.pathname.replace(/\/$/, '').slice(1);
+  function reg() { try { return window.__lbReg ? window.__lbReg() : null; } catch (e) { return null; } }
+  /* chips com a cor de cada categoria (classe lbcor-ID vem do registro) */
+  function chips(l) {
+    return l.map(function (x) {
+      var at = aqui === x.slug;
+      return '<a class="lbfchip lbcor-' + x.id + (at ? ' ativo' : '') + '" href="' + esc(x.url) + '"' + (at ? ' aria-current="page"' : '') + '><i></i>' + esc(x.curto) + '</a>';
+    }).join('');
+  }
+  /* seletores fortes: o tema e o código do Departamentos estilizam links desses blocos com !important */
+  var C = 'a.lbfchip.lbfchip';
+  var CH = ['html body #lb-familias.lbf2 ', 'html body .lbx-fam.lbf2 ', 'html body .main-menu-mobile .lbm-chips.lbf2 ', 'html body li.all-categories .lbd .lbd-fam.lbf2 '];
+  function sel(s) { return CH.map(function (p) { return p + s; }).join(','); }
+  var css =
+    '#lb-familias.lbf2{border-bottom:1px solid var(--lb-line,#ECE5DA)!important}' +
+    '#lb-familias.lbf2 .lbf-in{display:flex!important;flex-wrap:wrap!important;justify-content:center!important;align-items:center!important;gap:6px 5px!important;max-width:1240px!important;padding:8px 16px 9px!important;overflow:visible!important}' +
+    '.lbf2 .lbf2-g{display:contents}' +
+    '#lb-familias.lbf2 .lbf2-r,.lbd-fam.lbf2 .lbf2-r{flex:none;margin:0 4px 0 2px;font:500 9.5px/1 Jost,Arial,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--lb-gold-text,#8F6E2E)}' +
+    '.lbf2 .lbf2-sep{flex:none;width:1px;height:16px;margin:0 6px;background:var(--lb-line2,#DCD2C2)}' +
+    sel(C) + '{display:inline-flex!important;align-items:center;gap:5px;flex:none;width:auto!important;margin:0!important;padding:3px 9px 3px 7px!important;border:1px solid var(--l,#ddd)!important;border-radius:999px!important;' +
+    'background:var(--b,#fff)!important;font:500 11.5px/1.25 Jost,Arial,sans-serif!important;letter-spacing:.01em!important;text-transform:none!important;color:#2B2622!important;line-height:1.25!important;text-decoration:none!important;white-space:nowrap;transition:background .15s,transform .15s}' +
+    sel(C + ':hover') + '{background:var(--h,#f5f5f5)!important;transform:translateY(-1px)}' +
+    sel(C + '.ativo') + '{background:var(--c)!important;border-color:var(--c)!important;color:#fff!important}' +
+    sel(C + ' i') + '{display:block!important;width:7px!important;height:7px!important;border-radius:50%!important;background:var(--c,#999)!important;flex:none}' +
+    sel(C + '.ativo i') + '{background:#fff!important}' +
+    '.lbx-fam.lbf2,.lbm-chips.lbf2{display:flex!important;flex-wrap:wrap!important;gap:7px 6px!important;overflow:visible!important}' +
+    '.lbx-fam.lbf2 .lbf2-r,.lbm-chips.lbf2 .lbf2-r{width:100%;margin:6px 0 0;font:500 10px/1 Jost,Arial,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--lb-gold-text,#8F6E2E)}' +
+    '.lbx-fam.lbf2 .lbf2-r:first-child,.lbm-chips.lbf2 .lbf2-r:first-child{margin-top:0}' +
+    'html body .lbx-fam.lbf2 a.lbfchip.lbfchip,html body .main-menu-mobile .lbm-chips.lbf2 a.lbfchip.lbfchip{padding:6px 11px 6px 9px!important;font-size:13px!important}' +
+    /* painel Departamentos (computador): faixa de baixo com todas as famílias e ocasiões */
+    '.lbd-fam.lbf2{display:flex!important;flex-wrap:wrap!important;align-items:center!important;gap:6px 5px!important}' +
+    '.lbd-fam.lbf2>span:first-child{flex:none;margin-right:6px}' +
+    /* Quanto rende no celular: colunas iguais, número em destaque, uma nota só embaixo */
+    '@media (max-width:767px){' +
+    '.lbdc-mini.lbr2 .lbdc-mini-l{display:flex!important;flex-wrap:nowrap!important;gap:0!important}' +
+    '.lbdc-mini.lbr2 .lbdc-mini-l>div{flex:1 1 0!important;min-width:0;padding:0 6px!important;border-left:1px solid var(--lb-line,#ECE5DA)!important;text-align:center}' +
+    '.lbdc-mini.lbr2 .lbdc-mini-l>div:first-child{border-left:0!important}' +
+    '.lbdc-mini.lbr2 .lbdc-mini-l b{font-size:19px!important}' +
+    '.lbdc-mini.lbr2 .lbdc-mini-l span{margin-top:6px!important;font-size:11px!important;line-height:1.25!important;color:var(--lb-muted,#776E64)!important}' +
+    '.lbdc-mini.lbr2 .lbdc-mini-l span em{display:block;font:600 17px/1.1 var(--lb-serif,"Cormorant Garamond",Georgia,serif);font-style:normal;color:var(--lb-ink,#0A0A0B);font-variant-numeric:lining-nums}' +
+    '.lbdc-mini.lbr2 .lbdc-mini-l small{margin-top:3px!important;font-size:11px!important;color:var(--lb-gold-text,#8F6E2E)!important}' +
+    '.lbdc-mini.lbr2 .lbr2-n{margin:10px 0 0;padding-top:8px;border-top:1px dashed var(--lb-line,#ECE5DA);font-size:11px;line-height:1.35;text-align:center;color:var(--lb-muted,#776E64)}' +
+    '}';
+  function estilo() { if (!document.getElementById('lbfam2-css')) { var s = document.createElement('style'); s.id = 'lbfam2-css'; s.textContent = css; document.head.appendChild(s); } }
+  /* dois grupos: Famílias | Ocasião e clima (e um terceiro só se houver coleção marcada para aparecer) */
+  function grupos(r, comSep) {
+    var h = '<span class="lbf2-g"><span class="lbf2-r">Famílias</span>' + chips(r.fam) + '</span>';
+    if (r.oca.length) h += (comSep ? '<span class="lbf2-sep" aria-hidden="true"></span>' : '') + '<span class="lbf2-g"><span class="lbf2-r">Ocasião e clima</span>' + chips(r.oca) + '</span>';
+    return h;
+  }
+  function menuPC(r) {
+    var n = document.getElementById('lb-familias');
+    if (!n || n.classList.contains('lbf2')) return;
+    (n.querySelector('.lbf-in') || n).innerHTML = grupos(r, true);
+    n.classList.add('lbf2');
+  }
+  function folhas(r) {
+    [].forEach.call(document.querySelectorAll('.lbx-fam:not(.lbf2), .lbm-chips:not(.lbf2)'), function (n) {
+      n.innerHTML = grupos(r, false);
+      n.classList.add('lbf2');
+    });
+  }
+  function deptos(r) {
+    [].forEach.call(document.querySelectorAll('.lbd-fam:not(.lbf2)'), function (n) {
+      var t = n.querySelector('span');
+      n.innerHTML = (t ? '<span>' + esc(t.textContent) + '</span>' : '') + chips(r.fam) + (r.oca.length ? '<span class="lbf2-sep" aria-hidden="true"></span>' + chips(r.oca) : '');
+      n.classList.add('lbf2');
+    });
+  }
+  function rende() {
+    [].forEach.call(document.querySelectorAll('.lbdc-mini:not(.lbr2)'), function (m) {
+      var ok = false;
+      [].forEach.call(m.querySelectorAll('.lbdc-mini-l>div'), function (d) {
+        var s = d.querySelector('span'), sm = d.querySelector('small');
+        var a = s && s.textContent.match(/≈\s*([\d.]+)\s*(.*)/);
+        if (a) { s.innerHTML = '<em>≈ ' + esc(a[1]) + '</em>' + esc(a[2] || 'borrifadas'); ok = true; }
+        var u = sm && sm.textContent.match(/(\d+)\s*usos?/);
+        if (u) sm.textContent = u[1] + ' usos';
+      });
+      if (!ok) return;
+      var nt = document.createElement('p'); nt.className = 'lbr2-n'; nt.textContent = 'Cada uso = cerca de 10 borrifadas';
+      m.appendChild(nt);
+      m.classList.add('lbr2');
+    });
+  }
+  function tudo() {
+    try {
+      estilo();
+      var r = reg();
+      if (r && r.fam.length) { menuPC(r); folhas(r); deptos(r); }
+      if (!matchMedia('(min-width:768px)').matches) rende();
+    } catch (e) {}
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', tudo); else tudo();
+  addEventListener('load', function () { tudo(); setTimeout(tudo, 1200); setTimeout(tudo, 3500); });
+  document.addEventListener('click', function () { setTimeout(tudo, 80); setTimeout(tudo, 600); }, true);
+  function vigia() {
+    if (!window.MutationObserver || !document.documentElement) return;
+    var t = 0, mo = new MutationObserver(function () { clearTimeout(t); t = setTimeout(tudo, 120); });
+    mo.observe(document.documentElement, { childList: true, subtree: true });
+    setTimeout(function () { mo.disconnect(); }, 20000);
+  }
+  if (document.documentElement) vigia(); else document.addEventListener('DOMContentLoaded', vigia);
+})();
+</script>

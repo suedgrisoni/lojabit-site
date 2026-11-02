@@ -1,0 +1,92 @@
+<style data-lbv="32">/* LOJABIT 32: guia do decant v2 (PC e celular). Publicado 22/10/2026 */
+.lbdc,.lbdc-mini{--s:var(--lb-sans,Jost,Arial,sans-serif);--f:var(--lb-serif,"Cormorant Garamond",Georgia,serif)}
+.lbdc-mini{margin:12px 0 4px;padding:12px 16px 13px!important;background:#fff;border:1px solid var(--lb-line,#ECE5DA);border-left:2px solid var(--lb-gold,#C9A55C);font-family:var(--s);color:var(--lb-body,#403A34)}
+.lbdc-mini-h{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0 0 9px}
+.lbdc-mini-h span{font:500 10.5px/1 var(--s);letter-spacing:.22em;text-transform:uppercase;color:var(--lb-gold-text,#8F6E2E)}
+.lbdc-mini-h a{font-size:12.5px;line-height:1;color:var(--lb-gold-text,#8F6E2E)!important;text-decoration:underline!important;text-underline-offset:3px;cursor:pointer;white-space:nowrap}
+.lbdc-mini-l{display:flex;flex-wrap:wrap;gap:8px 0}
+.lbdc-mini-l>div{flex:0 1 auto;min-width:0;padding:0 18px;border-left:1px solid var(--lb-line,#ECE5DA);transition:opacity .15s}
+.lbdc-mini-l>div:first-child{padding-left:0;border-left:0}
+.lbdc-mini-l b{display:block;font:600 21px/1 var(--f);color:var(--lb-gold-deep,#A88340)}
+.lbdc-mini-l span{display:block;margin-top:4px;font-size:13px;line-height:1.3;color:var(--lb-ink,#0A0A0B)}
+.lbdc-mini-l small{display:block;font-size:11.5px;line-height:1.3;color:var(--lb-muted,#776E64)}
+.lbdc-mini-l.sel>div{opacity:.4}.lbdc-mini-l.sel>div.on{opacity:1}
+.lbdc{clear:both;position:relative;margin:56px 0 8px;padding:56px 0 52px;background:var(--lb-ivory,#FAF7F2);border-image:linear-gradient(var(--lb-line,#ECE5DA) 0 1px,var(--lb-ivory,#FAF7F2) 1px calc(100% - 1px),var(--lb-line,#ECE5DA) calc(100% - 1px)) fill 0/0/0 100vmax;font-family:var(--s);color:var(--lb-body,#403A34);scroll-margin-top:calc(var(--lbh,100px) + 60px)}
+.lbdc-k{display:block;margin:0 0 10px;font:500 12px/1 var(--s);letter-spacing:.3em;text-transform:uppercase;color:var(--lb-gold-text,#8F6E2E)}
+.lbdc h2,.lbdc h3,.lbdc h4{padding:0!important;border:0!important;text-transform:none!important;letter-spacing:0!important;text-align:left!important;font-family:var(--f)!important;font-weight:500!important}
+.lbdc h2{margin:0 0 10px!important;font-size:42px!important;line-height:1.1!important;color:var(--lb-ink,#0A0A0B)!important}
+.lbdc h3{margin:0 0 14px!important;font-size:26px!important;line-height:1.15!important;color:var(--lb-ink,#0A0A0B)!important}
+.lbdc-s{max-width:660px;margin:0 0 34px!important;font-size:15.5px;line-height:1.6;color:var(--lb-muted,#776E64)}
+.lbdc-r{display:flex;gap:40px;align-items:stretch;margin:0 0 46px}
+.lbdc-intro{flex:0 0 270px}
+.lbdc-intro p{margin:0!important;font-size:14.5px;line-height:1.6;color:var(--lb-muted,#776E64)}
+.lbdc-cards{flex:1 1 0;min-width:0;display:flex;gap:16px}
+.lbdc-c{position:relative;flex:1 1 0;min-width:0;padding:28px 24px 20px;background:#fff;border:1px solid rgba(201,165,92,.5)}
+.lbdc-c:before,.lbdc-call:before{content:"";position:absolute;inset:5px;border:1px solid rgba(201,165,92,.2);pointer-events:none}
+.lbdc-c:only-child{max-width:420px}.lbdc-ml,.lbdc-q,.lbdc-mini-l b,.lbdc-m>b,.lbdc-tips em{font-family:var(--f)!important;font-variant-numeric:lining-nums!important}
+.lbdc-c svg{position:absolute;top:22px;right:20px;width:32px;height:52px}
+.lbdc-c svg .l{fill:rgba(201,165,92,.25);stroke:none}
+.lbdc-ml{display:block;font:600 52px/1 var(--f);color:var(--lb-gold-deep,#A88340)}
+.lbdc-b{display:block;margin:10px 0 16px;font:500 12px/1.2 var(--s);letter-spacing:.18em;text-transform:uppercase;color:var(--lb-ink,#0A0A0B)}
+.lbdc-c dl{margin:0!important;padding:10px 0 0!important;border-top:1px solid var(--lb-line,#ECE5DA)}
+.lbdc-c dl div{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:5px 0}
+.lbdc-c dt{margin:0!important;font-size:13px;font-weight:400!important;line-height:1.35;color:var(--lb-muted,#776E64)}
+.lbdc-c dd{margin:0!important;font:600 15px/1.2 var(--s);color:var(--lb-ink,#0A0A0B);white-space:nowrap}
+.lbdc-meter{flex:1.3 1 0;min-width:0}
+.lbdc-m{display:grid;grid-template-columns:64px minmax(0,1fr);gap:8px 18px;align-items:center;padding:14px 0;border-top:1px solid var(--lb-line,#ECE5DA)}
+.lbdc-m>b{grid-row:span 2;font:600 36px/1 var(--f);color:var(--lb-gold-deep,#A88340);text-align:center}
+.lbdc-m>b small{display:block;margin-top:5px;font:500 9.5px/1 var(--s);letter-spacing:.12em;text-transform:uppercase;color:var(--lb-muted,#776E64)}
+.lbdc-dots{display:grid;grid-template-columns:repeat(20,minmax(0,1fr));gap:5px;max-width:430px}
+.lbdc-dots i{display:block;aspect-ratio:1/1;border:1px solid var(--lb-line2,#DCD2C2);border-radius:50%;background:#fff}
+.lbdc-dots i.f{background:var(--lb-gold,#C9A55C);border-color:var(--lb-gold,#C9A55C)}
+.lbdc-m.x>b{color:#B5AA9B}.lbdc-m.x .lbdc-dots i.f{background:var(--lb-line2,#DCD2C2);border-color:var(--lb-line2,#DCD2C2)}
+.lbdc-m p{margin:0!important;font-size:13.5px;line-height:1.45;color:var(--lb-body,#403A34)}
+.lbdc-m p strong{font-weight:500;color:var(--lb-ink,#0A0A0B)}
+.lbdc-call{position:relative;flex:1 1 0;min-width:0;display:flex;flex-direction:column;justify-content:center;padding:34px 34px 30px;background:#0A0A0B;color:#fff}
+.lbdc-call:before{inset:6px;border-color:rgba(201,165,92,.4)}
+.lbdc-call .lbdc-k{color:var(--lb-gold,#C9A55C)}
+.lbdc h4{margin:0 0 14px!important;font-size:32px!important;line-height:1.1!important;color:#fff!important}
+.lbdc-call p{margin:0 0 16px!important;font-size:14.5px;line-height:1.65;color:rgba(255,255,255,.78)}
+.lbdc-call .lbdc-q{margin:0!important;padding-top:14px;border-top:1px solid rgba(201,165,92,.35);font:italic 500 21px/1.3 var(--f);color:#E7C785}
+.lbdc-tips{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:26px 36px;margin:4px 0 0!important;padding:0!important;list-style:none!important}
+.lbdc-tips li{display:grid;grid-template-columns:44px minmax(0,1fr);gap:0 12px;margin:0!important;padding:0!important;list-style:none!important}
+.lbdc-tips em{grid-row:span 2;font:500 32px/1 var(--f);font-style:normal;color:var(--lb-gold,#C9A55C)}
+.lbdc-tips b{margin:2px 0 5px;font-size:15px;font-weight:500;line-height:1.3;color:var(--lb-ink,#0A0A0B)}
+.lbdc-tips span{font-size:13.5px;line-height:1.55;color:var(--lb-body,#403A34)}
+.lbdc-ver{display:none;margin:16px 0 0;padding:0 22px;min-height:44px;border:1px solid var(--lb-ink,#0A0A0B);background:transparent;font:600 12px/1 var(--s);letter-spacing:.12em;text-transform:uppercase;color:var(--lb-ink,#0A0A0B);cursor:pointer}
+.lbdc-f{margin:30px 0 0!important;font-size:12px;line-height:1.5;color:var(--lb-muted,#776E64)}
+@media(max-width:979px){.lbdc{margin:28px 0 6px;padding:34px 0 30px}.lbdc h2{font-size:30px!important}.lbdc h3{font-size:23px!important;margin-bottom:12px!important}.lbdc h4{font-size:26px!important}.lbdc-s{margin-bottom:24px!important;font-size:14.5px}
+.lbdc-r{flex-direction:column;gap:18px;margin-bottom:34px}.lbdc-intro{flex:none}.lbdc-cards{flex-direction:column;gap:10px}
+.lbdc-c{display:grid;grid-template-columns:auto minmax(0,1fr);gap:0 18px;align-items:center;max-width:none;padding:16px 18px}.lbdc-c svg{display:none}.lbdc-ml{grid-row:span 2;font-size:40px}.lbdc-b{margin:0 0 4px;font-size:11px;letter-spacing:.14em}.lbdc-c dl{padding:6px 0 0!important}.lbdc-c dl div{padding:2px 0}.lbdc-c dt{font-size:12.5px}.lbdc-c dd{font-size:14px}
+.lbdc-m{grid-template-columns:48px minmax(0,1fr);gap:6px 12px}.lbdc-m>b{font-size:29px}.lbdc-m>b small{font-size:8.5px;letter-spacing:.06em}.lbdc-dots{gap:3px}
+.lbdc-call{padding:26px 22px 24px}.lbdc-call p{font-size:14px}.lbdc-call .lbdc-q{font-size:19px}
+.lbdc-tips{grid-template-columns:1fr;gap:18px}.lbdc-tips li.lbdc-mais{display:none}.lbdc-tips.aberto li.lbdc-mais{display:grid}.lbdc-ver{display:inline-flex;align-items:center}
+.lbdc-mini-l>div{padding:0 12px}.lbdc-mini-l b{font-size:19px}.lbdc-mini-l span{font-size:12.5px}.lbdc-mini-l small{font-size:11px}}
+</style>
+<script>(function(){"use strict";var PUBLICADO=true,on=PUBLICADO;try{var q=location.search;if(/[?&]lbguia=1(&|$)/.test(q))localStorage.setItem("lbGuia","1");if(/[?&]lbguia=0(&|$)/.test(q))localStorage.removeItem("lbGuia");if(localStorage.getItem("lbGuia")==="1")on=true}catch(e){}if(!on||window.__lbdc)return;window.__lbdc=1;
+var BORR={5:90,10:180,30:550};
+function usos(t,n){return Math.floor(BORR[t]/n)}
+function fr(t){var b=t==30?'<rect x="5" y="27" width="30" height="33" rx="6"/><rect x="9" y="33" width="22" height="23" rx="3" class="l"/><rect x="14" y="13" width="12" height="14" rx="1.5"/>':t==10?'<rect x="13" y="20" width="14" height="40" rx="4"/><rect x="16" y="28" width="8" height="28" rx="2" class="l"/><rect x="12" y="7" width="16" height="13" rx="1.5"/>':'<rect x="14" y="30" width="12" height="30" rx="3.5"/><rect x="16.5" y="36" width="7" height="20" rx="2" class="l"/><rect x="13" y="18" width="14" height="12" rx="1.5"/>';return'<svg viewBox="0 0 40 64" aria-hidden="true" fill="none" stroke="#C9A55C" stroke-width="1.4">'+b+"</svg>"}
+function dots(n){for(var s="",i=0;i<20;i++)s+="<i"+(i<n?' class="f"':"")+"></i>";return'<span class="lbdc-dots" aria-hidden="true">'+s+"</span>"}
+var MED=[[1,"3","ou menos",3,"<strong>Pouco demais.</strong> O perfume não projeta, some rápido e quase ninguém sente."],[0,"10","borrifadas",10,"<strong>Dia a dia.</strong> Projeção e fixação do jeito que o perfume foi feito para ter."],[0,"20","borrifadas",20,"<strong>Máximo da fragrância.</strong> Para eventos, noite e quando você quer ser notado."]];
+var DICAS=[["Renove no meio do dia","Leve o decant na bolsa, na mochila ou no bolso. Um retoque depois do almoço ou antes de sair do trabalho e o perfume volta como se tivesse acabado de passar."],["Chegue perfumado ao evento","Borrife no carro ou antes de entrar na festa, no jantar, na reunião ou no encontro. O perfume é a primeira impressão que você deixa."],["Retoque no meio da festa","Em casamento, balada ou evento longo, um retoque discreto no pescoço e nos pulsos segura o perfume até o fim da noite."],["Aplique do jeito certo","Borrife a um palmo da pele: pescoço, nuca, atrás das orelhas, peito e pulsos. Não esfregue, isso atrapalha a evolução das notas."],["Teste antes de levar o frasco","Use por vários dias, em climas e ocasiões diferentes, e veja como o perfume se comporta na sua pele."],["Viaje leve","Cabe na nécessaire e na bagagem de mão, até em voo internacional (frascos de até 100 ml). Guarde longe do sol e do calor."]];
+function tams(){var s={};[].forEach.call(document.querySelectorAll(".produto .atributo-item[data-variacao-nome]"),function(a){var m=String(a.getAttribute("data-variacao-nome")).match(/(\d+)\s*ml/i);if(m&&BORR[+m[1]])s[+m[1]]=1});return Object.keys(s).map(Number).sort(function(a,b){return a-b})}
+function monta(){if(!document.body||!/pagina-produto/.test(document.body.className)||document.getElementById("lbdc"))return;var ks=tams();if(!ks.length)return;
+var at=document.querySelector(".produto .atributos"),ab=document.querySelector(".produto .abas-custom"),row=ab&&(ab.closest(".produto>.row-fluid")||ab.closest(".row-fluid"));if(!at||!row)return;
+var sec=document.createElement("section");sec.id="lbdc";sec.className="lbdc";sec.setAttribute("aria-label","Guia do decant");
+var cards=ks.map(function(t){return'<div class="lbdc-c">'+fr(t)+'<span class="lbdc-ml">'+t+' ml</span><span class="lbdc-b">≈ '+BORR[t]+' borrifadas</span><dl><div><dt>Dia a dia · 10 borrifadas</dt><dd>'+usos(t,10)+' usos</dd></div><div><dt>Máximo · 20 borrifadas</dt><dd>'+usos(t,20)+" usos</dd></div></dl></div>"}).join("");
+sec.innerHTML='<span class="lbdc-k">Guia do decant</span><h2>Quanto rende e como usar o seu decant</h2><p class="lbdc-s">Decant é o perfume original passado do frasco lacrado para um frasquinho com borrifador. Mesmo perfume, em tamanho de bolso.</p>'+
+'<div class="lbdc-r"><div class="lbdc-intro"><h3>Quanto rende cada tamanho</h3><p>Cada uso é uma aplicação completa: 10 borrifadas no dia a dia ou 20 para tirar o máximo da fragrância.</p></div><div class="lbdc-cards">'+cards+"</div></div>"+
+'<div class="lbdc-r"><div class="lbdc-meter"><h3>Quantas borrifadas usar</h3>'+MED.map(function(m){return'<div class="lbdc-m'+(m[0]?" x":"")+'"><b>'+m[1]+"<small>"+m[2]+"</small></b>"+dots(m[3])+"<p>"+m[4]+"</p></div>"}).join("")+"</div>"+
+'<div class="lbdc-call"><span class="lbdc-k">Dica de ouro</span><h4>Borrifar pouco é jogar perfume fora</h4><p>Com 2 ou 3 borrifadas o perfume não chega a projetar nem a fixar: some em pouco tempo, quase ninguém sente e aquelas gotas vão embora sem fazer efeito. Na quantidade certa, cada borrifada trabalha a seu favor: o perfume abre, evolui na pele e deixa rastro por onde você passa.</p><p class="lbdc-q">Economize no tamanho, nunca na borrifada.</p></div></div>'+
+'<h3>Dicas para aproveitar o seu decant</h3><ul class="lbdc-tips">'+DICAS.map(function(d,i){return"<li"+(i>2?' class="lbdc-mais"':"")+"><em>0"+(i+1)+"</em><b>"+d[0]+"</b><span>"+d[1]+"</span></li>"}).join("")+'</ul><button type="button" class="lbdc-ver">Ver mais dicas</button><p class="lbdc-f">Valores aproximados. O rendimento muda um pouco conforme o borrifador e o jeito de aplicar.</p>';
+row.parentNode.insertBefore(sec,row);
+var vm=sec.querySelector(".lbdc-ver");vm.addEventListener("click",function(){sec.querySelector(".lbdc-tips").classList.add("aberto");vm.style.display="none"});
+var mini=document.createElement("div");mini.className="lbdc-mini";mini.innerHTML='<div class="lbdc-mini-h"><span>Quanto rende</span><a role="button" tabindex="0">Como usar o decant ›</a></div><div class="lbdc-mini-l">'+ks.map(function(t){return'<div data-ml="'+t+'"><b>'+t+" ml</b><span>≈ "+BORR[t]+" borrifadas</span><small>"+usos(t,10)+" usos de 10 borrifadas</small></div>"}).join("")+"</div>";
+at.parentNode.insertBefore(mini,at.nextSibling);
+var lk=mini.querySelector("a");function vai(){sec.scrollIntoView({behavior:"smooth",block:"start"})}lk.addEventListener("click",vai);lk.addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();vai()}});
+function marca(){var a=document.querySelector(".produto .atributos li.active>.atributo-item[data-variacao-nome]"),l=mini.querySelector(".lbdc-mini-l"),m=a&&String(a.getAttribute("data-variacao-nome")).match(/(\d+)\s*ml/i),t=m&&BORR[+m[1]]?+m[1]:0;l.classList.toggle("sel",!!t);[].forEach.call(l.children,function(c){c.classList.toggle("on",+c.getAttribute("data-ml")===t)})}
+document.addEventListener("click",function(e){if(e.target.closest&&e.target.closest(".atributo-item"))setTimeout(marca,150)});marca()}
+function liga(){try{monta()}catch(e){}}
+liga();document.readyState==="loading"&&document.addEventListener("DOMContentLoaded",liga);window.addEventListener("load",function(){liga();setTimeout(liga,1500)});
+})();</script>

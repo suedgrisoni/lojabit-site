@@ -1,0 +1,191 @@
+<script>
+/* LOJABIT - REGISTRO AUTOMÁTICO das famílias olfativas e ocasiões (fonte única do site).
+   Lê as subcategorias de "Encontre seu Perfume" (24474617) que a própria loja escreve no menu de toda página.
+   Categoria nova criada no painel dentro de "Encontre seu Perfume" entra sozinha no menu, nos menus do celular,
+   no painel de Departamentos, no filtro lateral e nos selos das fotos — sem mexer em código.
+   - nome "Perfumes para ..." (ou Versáteis, Marcantes, Longa duração) = ocasião; outro "Perfumes ..." = família;
+     o que não começa com "Perfumes" (ex.: Presentes de Natal) = coleção (não entra nas famílias).
+   - cor: as conhecidas têm cor fixa; as novas ganham uma cor da paleta reserva (sempre a mesma para a mesma categoria).
+   Uso nos outros códigos: window.__lbReg() -> { lista, fam, oca, col, porId, porSlug, porLetra, doCartao(classe) }.
+   Também liga o filtro lateral (código "Filtros 2 - motor") às famílias do registro. Cabeçalho, todas as páginas exceto checkout. */
+(function () {
+  'use strict';
+  if (window.__lbReg) return;
+  var MAE = 24474617;
+  /* id: [letra do mapa, tipo, nome curto, singular, cor] — ordem desta lista = ordem no site */
+  var CONHECIDAS = [
+    [24474618, 'd', 'f', 'Doces', 'Doce', '#C9822E'], [24474621, 'b', 'f', 'Baunilha', 'Baunilha', '#C9A15A'],
+    [24474620, 'a', 'f', 'Amadeirados', 'Amadeirado', '#8B5A2B'], [24474619, 'o', 'f', 'Oud', 'Oud', '#5B2C1F'],
+    [24474622, 'f', 'f', 'Florais', 'Floral', '#D46A9A'], [24484483, 't', 'f', 'Frutados', 'Frutado', '#E4574E'],
+    [24484480, 'c', 'f', 'Cítricos', 'Cítrico', '#D9A800'], [24474623, 'r', 'f', 'Frescos', 'Fresco', '#3FB8AF'],
+    [24484492, 'q', 'f', 'Aquáticos', 'Aquático', '#2E86C1'], [24484489, 'v', 'f', 'Verdes', 'Verde', '#4E9A3E'],
+    [24484481, 'm', 'f', 'Aromáticos', 'Aromático', '#7E8B4E'], [24484482, 'e', 'f', 'Especiados', 'Especiado', '#B4432B'],
+    [24484485, 'n', 'f', 'Ambarados', 'Ambarado', '#B8731B'], [24484486, 'p', 'f', 'Atalcados', 'Atalcado', '#A88BC7'],
+    [24484487, 's', 'f', 'Almiscarados', 'Almiscarado', '#9C9186'], [24484491, 'u', 'f', 'Couro', 'Couro', '#4A3326'],
+    [24484490, 'k', 'f', 'Tabaco', 'Tabaco', '#7A5230'], [24484493, 'z', 'f', 'Terrosos', 'Terroso', '#6F6A3A'],
+    [24474625, '', 'o', 'Dia a dia', 'Dia a dia', '#D9A441'], [24474626, '', 'o', 'Noite', 'Noite', '#2C3E73'],
+    [24474627, '', 'o', 'Versáteis', 'Versátil', '#7D848E'], [24474624, '', 'o', 'Marcantes', 'Marcante', '#9E2B25'],
+    [24484495, '', 'o', 'Calor', 'Calor', '#F08A24'], [24484496, '', 'o', 'Frio', 'Frio', '#4A9FD0'],
+    [24484497, '', 'o', 'Longa duração', 'Longa duração', '#6B4FA0']
+  ];
+  /* reserva usada só quando o DOM não traz o menu (ex.: página fora do padrão): slugs das conhecidas */
+  var SLUGS = { 24474618: 'perfumes-doces', 24474621: 'perfumes-de-baunilha', 24474620: 'perfumes-amadeirados', 24474619: 'perfumes-com-oud',
+    24474622: 'perfumes-florais', 24484483: 'perfumes-frutados', 24484480: 'perfumes-citricos', 24474623: 'perfumes-frescos-e-citricos',
+    24484492: 'perfumes-aquaticos', 24484489: 'perfumes-verdes', 24484481: 'perfumes-aromaticos', 24484482: 'perfumes-especiados',
+    24484485: 'perfumes-ambarados', 24484486: 'perfumes-atalcados', 24484487: 'perfumes-almiscarados', 24484491: 'perfumes-de-couro',
+    24484490: 'perfumes-com-tabaco', 24484493: 'perfumes-terrosos', 24474625: 'perfumes-para-o-dia-a-dia', 24474626: 'perfumes-para-a-noite',
+    24474627: 'perfumes-versateis', 24474624: 'perfumes-marcantes', 24484495: 'perfumes-para-o-calor', 24484496: 'perfumes-para-o-frio',
+    24484497: 'perfumes-de-longa-duracao' };
+  var RESERVA = ['#8E5B9A', '#3D7F7A', '#B5654A', '#5E7FA8', '#9A8A3E', '#A0526B', '#4F7D5C', '#7A6CA8', '#B0803A', '#5B6E8C'];
+  var K = {};
+  CONHECIDAS.forEach(function (c, i) { K[c[0]] = { l: c[1], tipo: c[2] === 'f' ? 'familia' : 'ocasiao', curto: c[3], sing: c[4], cor: c[5], ord: i }; });
+
+  function maiuscula(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+  function curtoDe(nome) {
+    var s = String(nome || '').replace(/\s*\([^)]*\)\s*/g, ' ').replace(/^\s*perfumes?\s+/i, '').replace(/^(com|de|da|do|para o|para a|para os|para as|para)\s+/i, '');
+    return maiuscula(s.replace(/\s+e\s+.*$/i, '').trim());
+  }
+  function singular(s) {
+    return s.split(' ').map(function (w, i) {
+      if (i > 0) return w;
+      if (/ões$/i.test(w)) return w.replace(/ões$/i, 'ão');
+      if (/áveis$|íveis$/i.test(w)) return w.replace(/veis$/i, 'vel');
+      if (/áteis$/i.test(w)) return w.replace(/eis$/i, 'il');
+      if (/ais$/i.test(w)) return w.replace(/ais$/i, 'al');
+      if (/res$/i.test(w)) return w.replace(/es$/i, '');
+      if (/[aeiouáéíóúâêô]s$/i.test(w)) return w.slice(0, -1);
+      return w;
+    }).join(' ');
+  }
+  function tipoDe(nome) {
+    var n = String(nome || '').toLowerCase();
+    if (!/^\s*perfumes?\b/.test(n)) return 'colecao';
+    if (/^\s*perfumes?\s+para\b|vers[aá]teis|marcantes|longa dura/.test(n)) return 'ocasiao';
+    return 'familia';
+  }
+  function corReserva(slug) {
+    var h = 0;
+    for (var i = 0; i < slug.length; i++) h = (h * 31 + slug.charCodeAt(i)) >>> 0;
+    return RESERVA[h % RESERVA.length];
+  }
+  function rgba(h, a) { var n = parseInt(h.slice(1), 16); return 'rgba(' + (n >> 16) + ',' + (n >> 8 & 255) + ',' + (n & 255) + ',' + a + ')'; }
+  function escuro(h) { var n = parseInt(h.slice(1), 16); return 'rgb(' + Math.round((n >> 16) * .5) + ',' + Math.round((n >> 8 & 255) * .5) + ',' + Math.round((n & 255) * .5) + ')'; }
+
+  function lerMenu() {
+    var li = document.querySelector('li.categoria-id-' + MAE), out = [], vis = {};
+    if (!li) return out;
+    [].forEach.call(li.querySelectorAll(':scope > ul > li'), function (f) {
+      var m = /categoria-id-(\d+)/.exec(f.className), a = f.querySelector(':scope > a[href]');
+      if (!m || !a || vis[m[1]]) return;
+      vis[m[1]] = 1;
+      var url = a.getAttribute('href'), slug = '';
+      try { slug = new URL(url, location.href).pathname.replace(/^\/|\/$/g, ''); } catch (e) { return; }
+      out.push({ id: +m[1], slug: slug, nome: (a.getAttribute('title') || a.textContent || '').replace(/\s+/g, ' ').trim() });
+    });
+    return out;
+  }
+  var R = null;
+  function monta() {
+    var lidas = lerMenu(), doMenu = lidas.length > 0;
+    if (!doMenu) lidas = CONHECIDAS.map(function (c) { return { id: c[0], slug: SLUGS[c[0]], nome: '' }; });
+    var lista = lidas.map(function (x) {
+      var k = K[x.id], curto = k ? k.curto : curtoDe(x.nome), cor = k ? k.cor : corReserva(x.slug);
+      return { id: x.id, slug: x.slug, url: '/' + x.slug, nome: x.nome || curto, curto: curto, sing: k ? k.sing : singular(curto),
+        tipo: k ? k.tipo : tipoDe(x.nome), cor: cor, l: k ? k.l : '', ord: k ? k.ord : 1000, nova: !k,
+        clara: rgba(cor, .32), fundo: rgba(cor, .09), forte: rgba(cor, .18), texto: escuro(cor) };
+    });
+    lista.sort(function (a, b) { return (a.ord - b.ord) || a.curto.localeCompare(b.curto); });
+    var r = { lista: lista, doMenu: doMenu, porId: {}, porSlug: {}, porLetra: {} };
+    lista.forEach(function (x) { r.porId[x.id] = x; r.porSlug[x.slug] = x; if (x.l) r.porLetra[x.l] = x; });
+    r.fam = lista.filter(function (x) { return x.tipo === 'familia'; });
+    r.oca = lista.filter(function (x) { return x.tipo === 'ocasiao'; });
+    r.col = lista.filter(function (x) { return x.tipo === 'colecao'; });
+    /* famílias de um cartão pelas classes prod-cat-ID, na ordem do registro */
+    r.doCartao = function (cls) {
+      var s = ' ' + String(cls || '') + ' ';
+      return r.fam.filter(function (x) { return s.indexOf(' prod-cat-' + x.id + ' ') > -1; });
+    };
+    /* cores por classe: .lbcor-ID define --c (cor), --l (borda), --b (fundo), --h (fundo ao passar), --k (texto) */
+    var css = lista.map(function (x) {
+      return '.lbcor-' + x.id + '{--c:' + x.cor + ';--l:' + x.clara + ';--b:' + x.fundo + ';--h:' + x.forte + ';--k:' + x.texto + '}';
+    }).join('');
+    var st = document.getElementById('lbreg-css');
+    if (!st && document.head) { st = document.createElement('style'); st.id = 'lbreg-css'; document.head.appendChild(st); }
+    if (st) st.textContent = css;
+    return r;
+  }
+  window.__lbReg = function () {
+    if (!R || (!R.doMenu && document.querySelector('li.categoria-id-' + MAE))) R = monta();
+    return R;
+  };
+
+  /* ---------- filtro lateral: a "Família olfativa" passa a vir do registro ---------- */
+  var VELHAS = { d: [24474618], b: [24474621], w: [24474620], o: [24484485], u: [24474619], f: [24474622], r: [24484483],
+    c: [24484480, 24474623], q: [24484492], a: [24484481], e: [24484482], l: [24484491, 24484490], t: [24484486, 24484487] };
+  var COBERTAS = { 24474625: 1, 24474626: 1, 24474627: 1, 24484495: 1, 24484496: 1 };
+  function traduzHash() {
+    var m = /([#&]filtros=)([^&]*)/.exec(location.hash);
+    if (!m) return;
+    var partes = decodeURIComponent(m[2]).split(';'), mudou = false;
+    partes = partes.map(function (x) {
+      var a = x.split('.');
+      if (a[0] !== 'fa' || !a[1]) return x;
+      var novos = [];
+      a[1].split('~').forEach(function (o) {
+        if (VELHAS[o]) { mudou = true; VELHAS[o].forEach(function (id) { if (novos.indexOf(String(id)) < 0) novos.push(String(id)); }); }
+        else if (novos.indexOf(o) < 0) novos.push(o);
+      });
+      return 'fa.' + novos.join('~');
+    });
+    if (mudou) try { history.replaceState(history.state, '', location.pathname + location.search + location.hash.replace(m[0], m[1] + encodeURIComponent(partes.join(';')))); } catch (e) {}
+  }
+  function ligaFiltro(L) {
+    try {
+      var r = window.__lbReg(), GK = L && L.GK;
+      if (!GK || !GK.fa || L.__reg) return;
+      L.__reg = 1;
+      /* produto ainda sem página de estilo (entrou hoje): usa as etiquetas antigas do robô, traduzidas */
+      var velhaDe = {};
+      Object.keys(VELHAS).forEach(function (k) { VELHAS[k].forEach(function (id) { (velhaDe[id] = velhaDe[id] || []).push(k); }); });
+      var ids = r.fam.map(function (x) { return x.id; });
+      GK.fa.o = r.fam.map(function (x) { return [String(x.id), x.sing]; });
+      GK.fa.f = function (p, o) {
+        if (VELHAS[o]) return VELHAS[o].some(function (i) { return GK.fa.f(p, String(i)); });
+        var id = +o;
+        if (p.c.indexOf(id) > -1) return true;
+        if (!p.fa || ids.some(function (i) { return p.c.indexOf(i) > -1; })) return false;
+        return (velhaDe[id] || []).some(function (k) { return p.fa.indexOf(k) > -1; });
+      };
+      /* ocasiões do registro que o "Quando usar" ainda não cobre (hoje: Marcantes e Longa duração; e as que forem criadas) */
+      var extra = r.oca.filter(function (x) { return !COBERTAS[x.id]; });
+      if (extra.length && !L.GK.ox && L.G) {
+        var g = { k: 'ox', t: 'Mais opções', s: 'Quando usar', o: extra.map(function (x) { return [String(x.id), x.curto]; }),
+          f: function (p, o) { return p.c.indexOf(+o) > -1; } };
+        var i = -1;
+        L.G.forEach(function (x, j) { if (x.s === 'Quando usar') i = j; });
+        L.G.splice(i > -1 ? i + 1 : L.G.length, 0, g);
+        L.GK.ox = g;
+      }
+      /* atalho "Doces" aponta para a família do registro */
+      (L.ATALHOS || []).forEach(function (a) {
+        if (a[1] && a[1].fa) a[1].fa = a[1].fa.reduce(function (s, o) { return s.concat((VELHAS[o] || [o]).map(String)); }, []);
+      });
+      /* bolinha com a cor da família nos botões do filtro */
+      var css = r.fam.map(function (x) {
+        return '.lbf-o[data-k="fa"][data-o="' + x.id + '"]::before,.lbf-at[data-k="fa"][data-o="' + x.id + '"]::before{content:"";display:inline-block;width:7px;height:7px;margin:0 6px 1px 0;border-radius:50%;background:' + x.cor + ';vertical-align:middle}';
+      }).join('');
+      var st = document.createElement('style'); st.id = 'lbreg-fil'; st.textContent = css; (document.head || document.documentElement).appendChild(st);
+    } catch (e) {}
+  }
+  traduzHash();
+  addEventListener('hashchange', traduzHash);
+  /* o motor dos filtros faz window.__lbfM = {...}: liga as famílias do registro no mesmo instante (antes de desenhar a tela) */
+  try {
+    var guardado = window.__lbfM;
+    if (guardado) ligaFiltro(guardado);
+    else Object.defineProperty(window, '__lbfM', { configurable: true, enumerable: true,
+      get: function () { return guardado; }, set: function (v) { guardado = v; ligaFiltro(v); } });
+  } catch (e) {}
+  document.addEventListener('DOMContentLoaded', function () { if (window.__lbfM) ligaFiltro(window.__lbfM); window.__lbReg(); });
+})();
+</script>

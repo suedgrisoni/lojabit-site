@@ -1,0 +1,54 @@
+<script>/* LOJABIT - visual novo 14: topo novo (logo com subtítulo, atendimento com endereço e horário, ícones de favoritos, conta e sacola) e links do WhatsApp com mensagem pronta (com o nome do produto na página do produto). Só roda quando o "Visual novo 13" liga a classe lbtopo. */
+(function(){"use strict";
+var de=document.documentElement;
+if(!window.__lbOn||window.__lbTopo||!/\blbtopo\b/.test(de.className))return;
+window.__lbTopo=1;
+var NUM="5524981226521",TEL="tel:+5524981226521",FONE="(24) 98122-6521",
+MAPA="https://maps.app.goo.gl/39qh4fCFyPqTUp539?g_st=ac",MAIL="contato@lojabit.com",
+HOR="Segunda a sexta, das 10h às 19h<br>Sábado, das 10h às 13h";
+/* mensagem que o cliente manda no WhatsApp */
+function msg(){var b=document.body?document.body.className:"",p=location.pathname;
+if(/\bpagina-produto\b/.test(b)){var h=document.querySelector(".pagina-produto h1.nome-produto")||document.querySelector(".pagina-produto .info-principal-produto .nome-produto");var n=h?h.textContent.replace(/\s+/g," ").trim():"";if(n)return"Olá! Gostaria de comprar "+(/^(perfume|creme|rel[oó]gio|kit|body|hidratante|decant)/i.test(n)?"o ":"este produto: ")+n+". Pode me ajudar?\n"+location.origin+p}
+if(/^\/carrinho/.test(p))return"Olá! Estou finalizando uma compra no site da @LOJABIT e gostaria de uma ajuda.";
+return"Olá! Gostaria de fazer uma compra na @LOJABIT. Pode me ajudar?"}
+function wa(){return"https://wa.me/"+NUM+"?text="+encodeURIComponent(msg())}
+var RX=/(wa\.me\/(message\/IDYQCXOLYE4QO1|0?5524981226521|24981226521)|api\.whatsapp\.com\/(send\?phone=0?5524981226521|message\/IDYQCXOLYE4QO1)|whatsapp:\/\/send\?phone=0?5524981226521)/i;
+function links(){for(var a=document.querySelectorAll('a[href*="wa.me"],a[href*="whatsapp"]'),k=0;k<a.length;k++){var h=a[k].getAttribute("href")||"";if(RX.test(h)&&!a[k].hasAttribute("data-lbwa")){var n=wa();if(h!==n){a[k].setAttribute("href",n);a[k].setAttribute("target","_blank");a[k].setAttribute("rel","noopener")}}}}
+document.addEventListener("click",function(e){var a=e.target&&e.target.closest&&e.target.closest("a[href]");if(a&&!a.hasAttribute("data-lbwa")&&RX.test(a.getAttribute("href")||""))a.setAttribute("href",wa())},true);
+function ic(p,c){return '<svg class="lbi-svg'+(c?" "+c:"")+'" viewBox="0 0 24 24" aria-hidden="true" focusable="false">'+p+"</svg>"}
+var I={
+at:ic('<path d="M4 13.6v-1.8a8 8 0 0 1 16 0v1.8"/><rect x="3" y="12.4" width="4.4" height="6.6" rx="1.8"/><rect x="16.6" y="12.4" width="4.4" height="6.6" rx="1.8"/><path d="M18.8 19v.4a2.6 2.6 0 0 1-2.6 2.6h-3"/>'),
+fav:ic('<path d="M12 20.2s-8-4.9-8-10.7A4.4 4.4 0 0 1 12 7a4.4 4.4 0 0 1 8 2.5c0 5.8-8 10.7-8 10.7z"/>'),
+conta:ic('<circle cx="12" cy="8.2" r="3.9"/><path d="M4.6 20.6c.9-3.9 3.8-6.3 7.4-6.3s6.5 2.4 7.4 6.3"/>'),
+sacola:ic('<path d="M4.4 7.8h15.2l-1.1 13.4H5.5z"/><path d="M8.4 10.4V6.9a3.6 3.6 0 0 1 7.2 0v3.5"/>'),
+tel:ic('<path d="M7 3.8h2.6l1.5 3.9-2.1 1.4a11 11 0 0 0 5.9 5.9l1.4-2.1 3.9 1.5V17a2.2 2.2 0 0 1-2.4 2.2A15.6 15.6 0 0 1 4.8 6.2 2.2 2.2 0 0 1 7 3.8z"/>'),
+pin:ic('<path d="M12 21s-6.5-6-6.5-11.2a6.5 6.5 0 0 1 13 0C18.5 15 12 21 12 21z"/><circle cx="12" cy="9.8" r="2.4"/>'),
+mail:ic('<rect x="3.5" y="5.5" width="17" height="13" rx="1.6"/><path d="M4.2 6.6 12 12.6l7.8-6"/>'),
+hora:ic('<circle cx="12" cy="12" r="8.6"/><path d="M12 7.4V12l3.1 2"/>'),
+seta:ic('<path d="M9.5 6.5 15 12l-5.5 5.5"/>',"lbi-seta"),
+fechar:ic('<path d="M6 6l12 12M18 6 6 18"/>'),
+msg:ic('<path d="M4.5 5.5h15v10h-8.6l-4.4 3.6v-3.6h-2z"/>')};
+function lab(ico,t){return '<span class="lbi-i">'+ico+'</span><small class="lbi-l">'+t+"</small>"}
+function linha(href,ico,tit,txt,acao,fora,cls){return '<a class="lbi-row'+(cls?" "+cls:"")+'" href="'+href+'"'+(fora?' target="_blank" rel="noopener"':"")+'><span class="lbi-ico">'+ico+'</span><span class="lbi-txt"><b>'+tit+"</b><span>"+txt+"</span>"+(acao?"<em>"+acao+"</em>":"")+"</span>"+I.seta+"</a>"}
+function lista(){return '<div class="lbi-ctt"><p class="lbi-kick">Fale com a gente</p>'+
+linha(wa(),'<i class="fa fa-whatsapp" aria-hidden="true"></i>',"WhatsApp",FONE,"Iniciar conversa",1,"lbi-wa")+
+linha(TEL,I.tel,"Telefone",FONE,"Ligar")+
+linha(MAPA,I.pin,"Loja física","R. Luiz Alves Pereira, 377, Loja 43<br>Aterrado Center Shopping, embaixo do Hotel Dexter<br>Aterrado · Volta Redonda/RJ","Ver no mapa",1)+
+linha("mailto:"+MAIL,I.mail,"E-mail",MAIL,"")+
+'<div class="lbi-row lbi-row-fixa"><span class="lbi-ico">'+I.hora+'</span><span class="lbi-txt"><b>Horário de atendimento</b><span>'+HOR+"</span></span></div>"+
+'<a class="lbi-form" href="#modalContato" data-toggle="modal" data-target="#modalContato">'+I.msg+"<span>Prefere escrever? Mande uma mensagem pelo site</span></a></div>"}
+function sacola(car){if(!car)return;var a=car.querySelector(":scope > a");if(!a)return;var i=a.querySelector(":scope > i");if(i&&!i.querySelector(".lbi-svg"))i.innerHTML=I.sacola;if(!a.querySelector(".lbi-l"))a.insertAdjacentHTML("beforeend",'<small class="lbi-l">Sacola</small>');a.setAttribute("aria-label","Sacola de compras");var m=car.closest(".col-mobile-menu,.col-icons");m&&m.classList.add("lbi-car")}
+function logo(){for(var s=document.querySelectorAll(".lbl-sub:not(.lbl-sub2)"),k=0;k<s.length;k++){s[k].className+=" lbl-sub2";s[k].innerHTML='<span>Alta Perfumaria</span><i aria-hidden="true"></i><span>Perfumes Importados</span><i aria-hidden="true"></i><span>Relógios</span>'}}
+function topo(){var col=document.querySelector("#cabecalho .col-icons");if(!col)return;var help=col.querySelector(".help"),card=help&&help.querySelector(".card-menu-help");if(!col.classList.contains("lbi-on")){if(help){var a=help.querySelector(":scope > a");if(a){a.innerHTML=lab(I.at,"Atendimento");a.setAttribute("title","Atendimento: WhatsApp, telefone e endereço");a.setAttribute("aria-label","Atendimento: WhatsApp, telefone e endereço")}if(card){card.innerHTML=lista();card.removeAttribute("style");card.className+=" lbi-card"}}var fav=col.querySelector(".favorite > a");if(fav){fav.innerHTML=lab(I.fav,"Favoritos");fav.setAttribute("aria-label","Meus favoritos")}var acc=col.querySelector(".account-info"),sp=acc&&acc.querySelector(":scope > span");if(sp)sp.innerHTML=lab(I.conta,acc.querySelector(".card-menu-account-not-logged")?"Entrar":"Minha conta");col.className+=" lbi-on"}sacola(col.querySelector(".carrinho"))}
+function abrir(){var s=folha();s.classList.add("lbi-aberto");de.classList.add("lbi-trava");var b=document.querySelector(".lbi-mob-at");b&&b.setAttribute("aria-expanded","true");var x=s.querySelector(".lbi-sheet-x");x&&x.focus()}
+function fechar(){var s=document.getElementById("lbi-sheet");if(!s)return;s.classList.remove("lbi-aberto");de.classList.remove("lbi-trava");var b=document.querySelector(".lbi-mob-at");b&&b.setAttribute("aria-expanded","false")}
+function folha(){var s=document.getElementById("lbi-sheet");if(s)return s;s=document.createElement("div");s.id="lbi-sheet";s.className="lbi-sheet";s.setAttribute("role","dialog");s.setAttribute("aria-modal","true");s.setAttribute("aria-label","Atendimento");s.innerHTML='<div class="lbi-sheet-fundo" data-lbi-fechar></div><div class="lbi-sheet-caixa"><div class="lbi-sheet-topo"><span>Atendimento</span><button type="button" class="lbi-sheet-x" data-lbi-fechar aria-label="Fechar">'+I.fechar+"</button></div>"+lista()+"</div>";document.body.appendChild(s);s.addEventListener("click",function(e){var t=e.target;if(t.closest&&(t.closest("[data-lbi-fechar]")||t.closest(".lbi-form")))fechar()});return s}
+function celular(){var m=document.querySelector("#cabecalho .col-mobile-menu");if(!m)return;var car=m.querySelector(".carrinho");if(!m.classList.contains("lbi-on")&&car){var b=document.createElement("button");b.type="button";b.className="lbi-mob-at";b.setAttribute("aria-label","Atendimento: WhatsApp, telefone e endereço");b.setAttribute("aria-haspopup","dialog");b.setAttribute("aria-expanded","false");b.innerHTML=lab(I.at,"Contato");b.addEventListener("click",abrir);car.parentNode.insertBefore(b,car);m.className+=" lbi-on"}sacola(car)}
+function tudo(){try{logo()}catch(e){}try{topo()}catch(e){}try{celular()}catch(e){}try{links()}catch(e){}}
+document.addEventListener("keydown",function(e){if(e.key==="Escape")fechar()});
+tudo();var n=0;(function r(){tudo();++n<8&&setTimeout(r,600)})();
+document.readyState==="loading"&&document.addEventListener("DOMContentLoaded",tudo);
+/* pega o que entra depois (subtítulo do logo, botão flutuante do WhatsApp) antes de aparecer na tela */
+if(window.MutationObserver){var ag=0,mo=new MutationObserver(function(){if(ag)return;ag=1;requestAnimationFrame(function(){ag=0;try{logo()}catch(e){}try{links()}catch(e){}})});mo.observe(de,{childList:true,subtree:true});setTimeout(function(){mo.disconnect()},15000)}
+window.addEventListener("load",function(){tudo();setTimeout(tudo,2500)});
+})();</script>

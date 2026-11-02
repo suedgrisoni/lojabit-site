@@ -1,0 +1,10 @@
+<script>
+/* LOJABIT - título e descrição da página de ofertas (/ofertas), que não tem campo de SEO no painel. */
+(function () {
+  if (!/^\/ofertas\/?$/.test(location.pathname)) return;
+  document.title = 'Ofertas de Perfumes Importados e Árabes | @LOJABIT';
+  var m = document.querySelector('meta[name="description"]');
+  if (!m) { m = document.createElement('meta'); m.setAttribute('name', 'description'); (document.head || document.documentElement).appendChild(m); }
+  m.setAttribute('content', "Perfumes importados, árabes e de nicho originais em oferta na @LOJABIT. Decants de 5, 10 e 30 ml, 10% off no Pix e até 6x sem juros. Envio para todo o Brasil.");
+})();
+</script>

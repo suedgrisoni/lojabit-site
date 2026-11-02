@@ -1,0 +1,21 @@
+<script>
+/* LOJABIT - links antigos que deixaram de existir (anúncios agrupados de hidratantes e body splash inativados e páginas institucionais renomeadas, 18/10/2026).
+   Quem chega por eles vai para a página nova. Para acrescentar: '/link-antigo': '/link-novo'. */
+(function () {
+  var M = {
+    '/nnnnn': '/hidratante-victorias-secret',
+    '/creme-hidratante-angel-isabelle-la-belle-200gr-alta-consistencia-pomada-2025-09-25-14-37-07': '/hidratante-isabelle-la-belle',
+    '/body-splash-lattafa-angham-250ml': '/body-splash-angham-lattafa-250ml',
+    '/body-splash-victorias-secret-amber-romance-250ml': '/body-splash-amber-romance-victorias-secret-250ml',
+    '/creme-hidratante-delilah-maison-alhambra-110gr-alta-consistencia-pomada': '/creme-hidratante-maison-alhambra-delilah-110g',
+    '/creme-hidratante-pomada-ard-al-zaafaran': '/hidratante-ard-al-zaafaran',
+    '/pagina/politicas-de-seguranca.html': '/pagina/politica-de-seguranca.html',
+    '/pagina/loja-confiavel.html': '/pagina/e-seguro-comprar-na-lojabit.html',
+    '/pagina/politicas-de-troca-devolucoes.html': '/pagina/trocas-devolucoes-e-garantia.html',
+    '/pagina/politicas-privacidade.html': '/pagina/politica-de-privacidade.html'
+  };
+  var p = location.pathname.replace(/\/+$/, '');
+  var d = M[p];
+  if (d && d !== p) location.replace(d + location.search + location.hash);
+})();
+</script>

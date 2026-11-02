@@ -1,0 +1,87 @@
+<style data-lbv="10" media="not all">
+/* LOJABIT - visual novo 17: preços de todas as opções nas sugestões da busca e cadastro de novidades (só com a classe lbdep, ligada pelo Visual novo 15) */
+/* 3. busca: todos os preços */
+html.lbdep #lbSug .lbN{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;white-space:normal}
+html.lbdep #lbSug .lbP{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px}
+@media(min-width:768px){html.lbdep #lbSug{min-width:520px}}
+html.lbdep #lbSug .lbP i{display:inline-flex;align-items:baseline;gap:4px;padding:3px 6px;border:1px solid var(--lb-line,#ECE5DA);border-radius:4px;background:var(--lb-ivory,#FAF7F2);font:400 11px/1.2 Jost,Arial,sans-serif;font-style:normal;color:var(--lb-muted,#776E64);white-space:nowrap}
+html.lbdep #lbSug .lbP i b{font-weight:600;color:var(--lb-text,#141414)}
+html.lbdep #lbSug .lbP i.lbP-esgot{opacity:.5;text-decoration:line-through}
+/* 4. cadastro de novidades */
+html.lbdep .posicao-rodape.hidden-phone.lbn-mostra{display:block!important}
+html.lbdep .lbn-faixa{background:var(--lb-ivory,#FAF7F2)!important;border-top:1px solid var(--lb-line,#ECE5DA);border-bottom:1px solid var(--lb-line,#ECE5DA)}
+html.lbdep .componente.newsletter.lbn-on{margin:0!important;padding:0!important;border:0!important;background:none!important;box-shadow:none!important}
+html.lbdep .lbn{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);align-items:center;gap:48px;max-width:1080px;margin:0 auto;padding:56px 24px;text-align:left}
+html.lbdep .lbn-coroa svg{display:block;width:34px;height:17px;margin:0 0 14px;fill:none;stroke:var(--lb-gold-deep,#A88340);stroke-width:1.3;stroke-linejoin:round}
+html.lbdep .lbn-coroa svg circle{fill:var(--lb-gold-deep,#A88340);stroke:none}
+html.lbdep .lbn-kick{display:block;margin:0 0 10px;font:500 11px/1 Jost,Arial,sans-serif;letter-spacing:.24em;text-transform:uppercase;color:var(--lb-gold-text,#8F6E2E)}
+html.lbdep .lbn-tit{display:block;margin:0 0 12px;font:600 38px/1.05 "Cormorant Garamond",Georgia,serif;color:var(--lb-ink,#0A0A0B)}
+html.lbdep .lbn-tit em{font-style:italic;font-weight:500;color:var(--lb-gold-deep,#A88340)}
+html.lbdep .lbn-txt{margin:0;font:400 15px/1.6 Jost,Arial,sans-serif;color:var(--lb-body,#403A34)}
+html.lbdep .lbn-lista{display:flex;flex-wrap:wrap;gap:6px 18px;margin:16px 0 0;padding:0;list-style:none}
+html.lbdep .lbn-lista li{position:relative;padding-left:14px;font:500 12px/1.4 Jost,Arial,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--lb-text,#141414)}
+html.lbdep .lbn-lista li:before{content:"";position:absolute;left:0;top:.5em;width:5px;height:5px;background:var(--lb-gold,#C9A55C);transform:rotate(45deg)}
+html.lbdep .lbn .newsletter-cadastro.input-conteiner{display:flex!important;align-items:stretch;gap:0;width:100%;margin:0;padding:0;border:1px solid var(--lb-ink,#0A0A0B);background:#fff;box-shadow:none}
+html.lbdep .lbn-esq,html.lbdep .lbn-dir{min-width:0}
+html.lbdep .lbn input[name=email]{flex:1 1 auto;width:0!important;min-width:0!important;height:54px!important;margin:0!important;padding:0 18px!important;border:0!important;border-radius:0!important;background:#fff!important;box-shadow:none!important;font:400 15px/1 Jost,Arial,sans-serif!important;color:var(--lb-text,#141414)!important}
+html.lbdep .lbn .newsletter-assinar{flex:none;width:auto!important;height:54px!important;margin:0!important;padding:0 22px!important;border:0!important;border-radius:0!important;background:var(--lb-ink,#0A0A0B)!important;font:500 12px/1 Jost,Arial,sans-serif!important;letter-spacing:.16em;text-transform:uppercase;color:var(--lb-gold,#C9A55C)!important;cursor:pointer;transition:background .2s,color .2s}
+html.lbdep .lbn .newsletter-assinar:before,html.lbdep .lbn .newsletter-assinar:after{content:none!important;display:none!important}
+html.lbdep #barraNewsletter .componente.newsletter .lbn button.newsletter-assinar,html.lbdep .componente.newsletter .lbn button.newsletter-assinar{background:var(--lb-ink,#0A0A0B)!important;color:var(--lb-gold,#C9A55C)!important}
+html.lbdep #barraNewsletter .componente.newsletter .lbn button.newsletter-assinar:hover,html.lbdep .componente.newsletter .lbn button.newsletter-assinar:hover{background:var(--lb-gold,#C9A55C)!important;color:var(--lb-ink,#0A0A0B)!important}
+html.lbdep .lbn .newsletter-assinar:hover{background:var(--lb-gold,#C9A55C)!important;color:var(--lb-ink,#0A0A0B)!important}
+html.lbdep .lbn-letra{margin:12px 0 0;font:400 12px/1.5 Jost,Arial,sans-serif;color:var(--lb-muted,#776E64)}
+html.lbdep .lbn-letra a{color:var(--lb-muted,#776E64)!important;text-decoration:underline}
+html.lbdep .lbn .newsletter-confirmacao{margin:0;padding:18px 20px;border:1px solid var(--lb-gold,#C9A55C);background:#fff;font:500 15px/1.5 Jost,Arial,sans-serif;color:var(--lb-text,#141414)}
+html.lbdep .lbn .newsletter-confirmacao i{display:none}
+@media(max-width:767px){html.lbdep .lbn{grid-template-columns:minmax(0,1fr);gap:22px;padding:40px 20px}html.lbdep .lbn-tit{font-size:31px}html.lbdep .lbn .newsletter-assinar{padding:0 16px!important}}
+/* 6. setinhas nos ícones do topo (atendimento, entrar/minha conta, sacola e favoritos quando logado) */
+html.lbdep #cabecalho .col-icons .lbm-tem small.lbi-l{display:inline-flex!important;align-items:center;gap:5px}
+html.lbdep #cabecalho .col-icons .lbm-tem small.lbi-l:after{content:"";flex:none;width:5px;height:5px;border-right:1.4px solid var(--lb-gold-deep,#A88340);border-bottom:1.4px solid var(--lb-gold-deep,#A88340);transform:translateY(-2px) rotate(45deg);transition:transform .25s}
+html.lbdep #cabecalho .col-icons .lbm-tem.lbm-aberto small.lbi-l:after{transform:translateY(1px) rotate(225deg)}
+html.lbdep #cabecalho .col-icons .lbm-tem:not(.lbm-aberto):hover small.lbi-l:after{animation:lbm-dica .9s ease-in-out infinite}
+@keyframes lbm-dica{0%,100%{transform:translateY(-2px) rotate(45deg)}50%{transform:translateY(0) rotate(45deg)}}
+html.lbdep #cabecalho .col-icons .carrinho.lbm-tem>a{cursor:pointer}
+html.lbdep #cabecalho .lbm-vazio{display:flex;flex-direction:column;align-items:center;gap:6px;padding:18px 16px;text-align:center;font:400 13.5px/1.4 Jost,Arial,sans-serif;color:var(--lb-body,#403A34)}
+html.lbdep #cabecalho .lbm-vazio b{font:600 22px/1.1 "Cormorant Garamond",Georgia,serif;color:var(--lb-ink,#0A0A0B)}
+html.lbdep #cabecalho .lbm-vazio a,html.lbdep #cabecalho .lbf-card .lbf-ver{display:inline-flex;justify-content:center;margin-top:8px;padding:10px 16px;background:var(--lb-ink,#0A0A0B)!important;font:500 11px/1 Jost,Arial,sans-serif!important;letter-spacing:.14em;text-transform:uppercase;color:var(--lb-gold,#C9A55C)!important;text-decoration:none!important}
+html.lbdep #cabecalho .lbm-vazio a:hover,html.lbdep #cabecalho .lbf-card .lbf-ver:hover{background:var(--lb-gold,#C9A55C)!important;color:var(--lb-ink,#0A0A0B)!important}
+html.lbdep #cabecalho .lbf-card{position:absolute;top:100%;right:0;left:auto;z-index:1200;width:330px;padding:14px!important;background:#fff;border:1px solid var(--lb-line,#ECE5DA);box-shadow:0 14px 34px rgba(10,10,11,.12);text-align:left}
+html.lbdep #cabecalho .lbf-card .lbf-kick{display:block;margin:0 0 8px;font:500 10.5px/1 Jost,Arial,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:var(--lb-gold-text,#8F6E2E)}
+html.lbdep #cabecalho .lbf-card .lbf-it{display:grid;grid-template-columns:48px 1fr;gap:10px;align-items:center;padding:7px 4px;border-radius:6px;text-decoration:none!important}
+html.lbdep #cabecalho .lbf-card .lbf-it:hover{background:var(--lb-ivory,#FAF7F2)}
+html.lbdep #cabecalho .lbf-card .lbf-it img{width:48px;height:48px;object-fit:contain;background:#fff}
+html.lbdep #cabecalho .lbf-card .lbf-it span{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font:400 13px/1.35 Jost,Arial,sans-serif;color:var(--lb-text,#141414)}
+html.lbdep #cabecalho .lbf-card .lbf-it em{display:block;font:500 12.5px/1.3 Jost,Arial,sans-serif;font-style:normal;color:var(--lb-gold-text,#8F6E2E)}
+html.lbdep #cabecalho .lbf-card .lbf-ver{display:flex}
+html.lbdep #cabecalho .lbf-card p{margin:4px 0;font:400 13.5px/1.45 Jost,Arial,sans-serif;color:var(--lb-body,#403A34)}
+/* 7. animação de abertura de todos os menus: surgir com zoom leve (opção 3) */
+@keyframes lbm-surgir{from{scale:.95;filter:opacity(0)}to{scale:1;filter:none}}
+html.lbdep .main-menu-desktop .nivel-um>li.menu-dropdown.lbm-aberto>.card-menu,html.lbdep li.all-categories.lbd-aberto .lbd{transform-origin:top left!important;animation:lbm-surgir .22s cubic-bezier(.2,.9,.3,1.1) both!important}
+html.lbdep #cabecalho .col-icons .menu-dropdown.lbm-aberto>.card-menu{transform-origin:top right!important;animation:lbm-surgir .22s cubic-bezier(.2,.9,.3,1.1) both!important}
+html.lbdep .main-menu-desktop .nivel-um>li.menu-dropdown>.card-menu,html.lbdep li.all-categories .lbd{transform-origin:top left!important}
+html.lbdep #cabecalho .col-icons .menu-dropdown>.card-menu{transform-origin:top right!important}
+html.lbdep .main-menu-desktop .nivel-um>li.menu-dropdown>.card-menu,html.lbdep #cabecalho .col-icons .menu-dropdown>.card-menu{transition:none!important}
+@media(prefers-reduced-motion:reduce){html.lbdep .lbm-aberto>.card-menu,html.lbdep .lbd-aberto .lbd{animation:none!important}}
+/* 8. mini sacola no estilo do site */
+html.lbdep #cabecalho .col-icons .carrinho-interno-ajax{width:370px!important;padding:0!important;border:1px solid var(--lb-line,#ECE5DA)!important;border-radius:0!important;background:#fff!important;box-shadow:0 14px 34px rgba(10,10,11,.12)!important}
+html.lbdep #cabecalho .col-icons .carrinho-interno-ajax .carrinho-interno{width:auto!important;padding:16px 16px 14px!important;border:0!important;text-align:left}
+html.lbdep #cabecalho .col-icons .carrinho-interno-ajax .carrinho-interno:before{content:"Sua sacola";display:block;margin:0 0 6px;font:500 10.5px/1 Jost,Arial,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:var(--lb-gold-text,#8F6E2E)}
+html.lbdep #cabecalho .col-icons .carrinho-interno-ajax .carrinho-interno ul{max-height:min(46vh,330px);overflow-y:auto;margin:0!important;padding:0!important}
+html.lbdep #cabecalho .col-icons .carrinho-interno-ajax .carrinho-interno ul li{display:grid!important;grid-template-columns:56px minmax(0,1fr) auto;grid-template-areas:"img nome preco";gap:12px;align-items:center;width:auto!important;height:auto!important;padding:10px 0!important;margin:0!important;border-bottom:1px solid var(--lb-line,#ECE5DA)!important}
+html.lbdep #cabecalho .col-icons .carrinho-interno-ajax .carrinho-interno ul li>*{float:none!important;position:static!important;margin:0!important;padding:0!important}
+html.lbdep #cabecalho .col-icons .carrinho-interno-ajax .carrinho-interno .imagem-produto{grid-area:img;display:block!important;width:56px!important;height:56px!important;border:0!important}
+html.lbdep #cabecalho .col-icons .carrinho-interno-ajax .carrinho-interno .imagem-produto img{position:static!important;top:auto!important;left:auto!important;transform:none!important;width:56px!important;height:56px!important;max-width:none!important;object-fit:contain}
+html.lbdep #cabecalho .col-icons .carrinho-interno-ajax .carrinho-interno .nome-produto{grid-area:nome;display:-webkit-box!important;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;width:auto!important;height:auto!important;white-space:normal!important;font:400 13px/1.35 Jost,Arial,sans-serif!important;color:var(--lb-text,#141414)!important;text-decoration:none!important}
+html.lbdep #cabecalho .col-icons .carrinho-interno-ajax .carrinho-interno .preco-produto small{display:block;margin-top:4px;font:500 11px/1.2 Jost,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--lb-muted,#776E64)}
+html.lbdep #cabecalho .col-icons .carrinho-interno-ajax .carrinho-interno .preco-produto{grid-area:preco;width:auto!important;text-align:right}
+html.lbdep #cabecalho .col-icons .carrinho-interno-ajax .carrinho-interno .preco-produto strong{font:500 13.5px/1.2 Jost,Arial,sans-serif!important;color:var(--lb-gold-text,#8F6E2E)!important;white-space:nowrap}
+html.lbdep #cabecalho .col-icons .carrinho-interno-ajax .carrinho-rodape{display:flex!important;flex-direction:column;gap:10px;width:auto!important;height:auto!important;padding:12px 0 0!important;margin:0!important;border:0!important}
+html.lbdep #cabecalho .col-icons .carrinho-interno-ajax .carrinho-info{display:flex!important;justify-content:space-between;align-items:baseline;float:none!important;font:400 12.5px/1.3 Jost,Arial,sans-serif!important;color:var(--lb-muted,#776E64)!important}
+html.lbdep #cabecalho .col-icons .carrinho-interno-ajax .carrinho-info i{font-style:normal!important}
+html.lbdep #cabecalho .col-icons .carrinho-interno-ajax .carrinho-info strong{font:500 16px/1 Jost,Arial,sans-serif!important;color:var(--lb-ink,#0A0A0B)!important}
+html.lbdep #cabecalho .col-icons .carrinho-interno-ajax .carrinho-rodape .botao{display:flex!important;justify-content:center;align-items:center;float:none!important;width:auto!important;height:auto!important;padding:13px 16px!important;border:0!important;border-radius:0!important;background:var(--lb-ink,#0A0A0B)!important;box-shadow:none!important;font:500 11.5px/1 Jost,Arial,sans-serif!important;letter-spacing:.16em;text-transform:uppercase;color:var(--lb-gold,#C9A55C)!important;text-shadow:none!important}
+html.lbdep #cabecalho .col-icons .carrinho-interno-ajax .carrinho-rodape .botao:hover{background:var(--lb-gold,#C9A55C)!important;color:var(--lb-ink,#0A0A0B)!important}
+html.lbdep #cabecalho .col-icons .carrinho-interno-ajax .carrinho-rodape .botao i{display:none!important}
+/* 9. sem o selo da NS Digital no fim da página (o da Loja Integrada fica) */
+html.lbdep a.dev-logo{display:none!important}
+</style>

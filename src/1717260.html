@@ -1,0 +1,317 @@
+<script type="text/javascript" charset="utf-8">
+      /*LB busca v1.3*/
+(function () {
+var PUBLICADO=true;
+var ROBO='https://script.google.com/macros/s/AKfycbz38mCpIBq9a1tlmwBAZG3LdmhTaKQRKDDAAbz5DCAU3Jw-7HpZZJkssxODPcK8zUBi/exec?arquivo=produtos';
+var COPIA='lbBuscaIdx', TESTE = 'lbBusca', VALE = 6 * 36e5, MAX = 4;
+if (window.__lbBusca || /checkout|carrinho/.test(location.pathname)) return;
+window.__lbBusca = 1;
+var ls=null;
+try { ls = window.localStorage; } catch (e) {}
+function lsGet(k) { try { return ls && ls.getItem(k); } catch (e) { return null; } }
+function lsSet(k, v) { try { ls && ls.setItem(k, v); } catch (e) {} }
+var qs=location.search;
+if (/[?&]lbbusca=1(&|$)/.test(qs)) lsSet(TESTE, '1');
+if (/[?&]lbbusca=0(&|$)/.test(qs)) { try { ls.removeItem(TESTE); } catch (e) {} }
+var teste=lsGet(TESTE) === '1';
+if (!PUBLICADO && !teste) return;
+var OPC=' de da do das dos d e a o the of for com para pra perfume perfumes ml original originais decant decants frasco parecido parecida similar inspirado inspirada tipo eua ';
+var NAO_CORRIGIR=' noturno noturna doce doces noite dia fresco floral amadeirado baunilha cafe oud masculino feminino presente barato ';
+var APELIDOS=[[/\bone (?=mil)/g, '1 '], [/\bcdni\b/g, 'club de nuit intense'], [/\bcdn\b/g, 'club de nuit'],
+[/\bedp\b/g, 'eau de parfum'], [/\bedt\b/g, 'eau de toilette'], [/\bysl\b/g, 'yves saint laurent'], [/\bjpg\b/g, 'jean paul gaultier'],
+[/\bmfk\b/g, 'maison francis kurkdjian'], [/\bpdm\b/g, 'parfums de marly'], [/\bafrica\b/g, 'afrique'],
+[/\bla(ffa|fae|dra)\b/g,'lattafa'],[/\bpadra\b/g,'prada'],[/\brpse\b/g,'rose'],[/\bintnese\b/g,'intense'],[/\bean\b/g,'jean'],[/\bvicotri\b/g,'victoria'],[/\bcloe\b/g,'chloe'],[/\basad preto\b/g,'asad'],[/\b(miniatura|mini|decanter)s?\b/g,'decant'],[/\b(sangria|sun ?gria\d*)\b/g,'sun gria'],[/\bvers(acd|en|em)\b/g,'versace'],[/\bmuit\b/g,'nuit'],[/\bmyself( le)?\b/g,'myslf'],[/\bcedar blanc\b/g,'cedrus blanc']];
+function norm(s) {
+return String(s).toLowerCase().replace(/['’´\x60]/g, ' ').normalize('NFD')
+.replace(/[^\x00-\x7f]/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
+}
+function sk(w) {
+return w.replace(/ph/g, 'f').replace(/qu/g, 'k').replace(/[cs]h/g, 'x').replace(/ct/g, 't')
+.replace(/c(?=[eiy])/g, 's').replace(/[cq]/g, 'k').replace(/ou/g, 'u').replace(/y/g, 'i')
+.replace(/w/g, 'v').replace(/z/g, 's').replace(/h/g, '').replace(/(.)\1+/g, '$1');
+}
+function dist(a, b, lim) {
+if (Math.abs(a.length - b.length) > lim) return lim + 1;
+var p=[], c, i, j;
+for (j = 0; j <= b.length; j++) p[j] = j;
+for (i = 1; i <= a.length; i++) {
+c = [i];
+var min=i;
+for (j = 1; j <= b.length; j++) {
+c[j] = Math.min(p[j] + 1, c[j - 1] + 1, p[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+if (c[j] < min) min = c[j];
+}
+if (min > lim) return lim + 1;
+p = c;
+}
+return p[b.length];
+}
+function limite(n) { return n >= 8 ? 2 : n >= 5 ? 1 : 0; }
+var TIPOS=[[/^Perfume Árabe /, 'Perfume árabe'], [/^Perfume de Nicho /, 'Perfume de nicho'], [/^Perfume Importado /, 'Perfume importado'],
+[/^Creme (Hidratante|Corporal) /, 'Hidratante', 1], [/^Body Splash /, 'Body splash', 1], [/^Kit (Perfume (Árabe|Importado|de Nicho) )?/, 'Kit', 1],
+[/^Relógio (Masculino |Feminino |Unissex )?/, 'Relógio']];
+var dados=null, itens = null, voc = {}, vocSk = {}, juntos = {}, carregando = null;
+function preparar(d) {
+dados = d; voc = {}; vocSk = {}; juntos = {};
+itens = d.p.map(function (x) {
+var nome=x[0], rot = '', sec = 0;
+for (var k=0; k < TIPOS.length; k++) if (TIPOS[k][0].test(nome)) { rot = TIPOS[k][1]; sec = TIPOS[k][2] || 0; nome = nome.replace(TIPOS[k][0], ''); break; }
+var t=norm(x[0]).split(' '), s = t.map(sk);
+t.forEach(function (w, i) {
+voc[w] = 1; vocSk[s[i]] = vocSk[s[i]] || w;
+if (i && !voc[t[i - 1] + w]) juntos[t[i - 1] + w] = t[i - 1] + ' ' + w;
+});
+return { x: x, nome: nome, rot: rot, sec: sec, t: t, s: s };
+});
+}
+function baixar() {
+if (!window.DecompressionStream) return fetch(ROBO).then(function (r) { return r.json(); });
+return fetch(ROBO + '&z=1').then(function (r) { return r.text(); }).then(function (b) {
+b = b.trim();
+if (b.charAt(0) === '{') return JSON.parse(b);
+var s=atob(b), u = new Uint8Array(s.length);
+for (var i=0; i < s.length; i++) u[i] = s.charCodeAt(i);
+return new Response(new Blob([u]).stream().pipeThrough(new DecompressionStream('gzip'))).json();
+});
+}
+function carregar() {
+if (carregando) return carregando;
+var c=null;
+try { c = JSON.parse(lsGet(COPIA)); } catch (e) {}
+if (c && c.p && !itens) preparar(c);
+if (c && c.p && Date.now() - (c.ok || 0) < VALE) return (carregando = Promise.resolve());
+carregando = baixar().then(function (d) {
+if (!d || !d.p || d.p.length < 50) return;
+d.ok = Date.now();
+lsSet(COPIA, JSON.stringify(d));
+preparar(d);
+if (atual) mostrar(atual);
+})['catch'](function () { setTimeout(function () { carregando = null; }, 6e4); });
+return carregando;
+}
+function termos(q) {
+var n=norm(q);
+APELIDOS.forEach(function (a) { n = n.replace(a[0], a[1]); });
+var t=n.split(' ').filter(Boolean), out = [];
+for (var i=0; i < t.length; i++) {
+var j=t[i] + (t[i + 1] || '');
+if (t[i + 1] && (voc[j] || vocSk[sk(j)]) && !(voc[t[i]] && voc[t[i + 1]])) { out.push(j); i++; } else out.push(t[i]);
+}
+return out;
+}
+function opcional(w) { return OPC.indexOf(' ' + w + ' ') !== -1 || /^\d+ml$/.test(w); }
+function nota(w, ws, it, ult) {
+var best=0, n = w.length, lim = limite(n), t = it.t, s = it.s, pre = ult ? (ult > 1 ? 1 : 2) : 3;
+for (var i=0; i < t.length && best < 10; i++) {
+var v=0;
+if (t[i] === w) v = 10;
+else if (n > 2 && s[i] === ws) v = 9;
+else if (t[i + 1] && (t[i] + t[i + 1] === w || s[i] + s[i + 1] === ws)) v = 8;
+else if (n >= pre && (t[i].indexOf(w) === 0 || (ws.length > 2 && s[i].indexOf(ws) === 0))) v = 7;
+else if (ult && t[i + 1] && n >= 4 && (t[i] + t[i + 1]).indexOf(w) === 0) v = 6;
+else if (lim && dist(ws, s[i], lim) <= lim) v = 5;
+else if (ult && n >= 6 && s[i].length > ws.length && dist(ws, s[i].slice(0, ws.length), 1) <= 1) v = 4;
+if (v > best) best = v;
+}
+return best;
+}
+function buscar(q) {
+var ts=termos(q), obrig = ts.filter(function (w) { return !opcional(w); });
+if (!obrig.length) obrig = ts;
+if (!obrig.length || !itens) return [];
+var querSec=/creme|hidrat|body|splash|kit|locao/.test(norm(q));
+var res=[];
+itens.forEach(function (it) {
+var soma=0;
+for (var k=0; k < obrig.length; k++) {
+var v=nota(obrig[k], sk(obrig[k]), it, k === obrig.length - 1 && !/\s$/.test(q) ? (obrig.length > 1 ? 2 : 1) : 0);
+if (!v) return;
+soma += v;
+}
+if (it.sec && !querSec) soma -= 3;
+res.push({ it: it, v: soma - it.nome.length / 60 });
+});
+res.sort(function (a, b) { return b.v - a.v; });
+var piso=res.length ? res[0].v - 4 * obrig.length : 0;
+return res.filter(function (r) { return r.v >= piso; }).slice(0, MAX).map(function (r) { return r.it; });
+}
+function corrigir(q) {
+if (!itens) return q;
+return termos(q).map(function (w) {
+if (w.length < 4 || voc[w] || opcional(w) || NAO_CORRIGIR.indexOf(' ' + w + ' ') !== -1) return w;
+if (juntos[w]) return juntos[w];
+if (/\d/.test(w)) return w;
+var s=sk(w);
+if (vocSk[s]) return vocSk[s];
+for (var p in voc) if (p.indexOf(w) === 0) return w;
+for (p in juntos) if (p.indexOf(w) === 0) return w;
+var lim=limite(w.length), achou = null;
+if (lim) for (var k in vocSk) if (dist(s, k, lim) <= lim) { if (achou) return w; achou = vocSk[k]; }
+return achou || w;
+}).join(' ');
+}
+function anotar(q, t) {
+var n=norm(q), k = 'lbAn' + t + n;
+if (/@|\d{6}/.test(q) || n.length < 3) return;
+try { if (sessionStorage.getItem(k)) return; sessionStorage.setItem(k, 1); } catch (e) {}
+try { fetch(ROBO.replace('produtos', 'registro') + '&t=' + t + '&q=' + encodeURIComponent(n), { mode: 'no-cors', keepalive: true }); } catch (e) {}
+}
+function semNada(q) { return itens && !buscar(q).length && !buscarCats(q).length; }
+var cats=null;
+function categorias() {
+if (cats) return cats;
+var vistos={};
+cats = [];
+[].forEach.call(document.querySelectorAll('#cabecalho a[href], .menu.superior a[href]'), function (a) {
+var h=a.getAttribute('href') || '', nome = (a.textContent || '').replace(/\s+/g, ' ').trim();
+if (!/^https:\/\/www\.lojabit\.com\/[a-z0-9-]+$/.test(h) || nome.length < 2 || nome.length > 40 || /conta|carrinho|login|pedido|favorito/.test(h)) return;
+var chave=norm(nome).replace(/!/g, '');
+if (vistos[h] || vistos[chave]) return;
+vistos[h] = vistos[chave] = 1;
+var t=norm(nome).split(' ').filter(function (w) { return !opcional(w) && w !== 'corre' && w !== 'aproveitar'; });
+if (!t.length) t = norm(nome).split(' ');
+cats.push({ nome: nome.replace(/!$/, ''), h: h, t: t, s: t.map(sk) });
+});
+return cats;
+}
+function buscarCats(q) {
+var ts=termos(q).filter(function (w) { return !opcional(w); });
+if (!ts.length) ts = termos(q);
+function ok(c, w, u) { return nota(w, sk(w), c, u) >= 5; }
+var r=categorias().filter(function (c) { return ts.every(function (w, k) { return ok(c, w, k === ts.length - 1 ? 2 : 0); }); });
+if (!r.length && ts.length > 1) r = categorias().filter(function (c) { return ts.some(function (w) { return ok(c, w, 0); }); });
+return r.sort(function (a, b) { return a.t.length - b.t.length; }).slice(0, 2);
+}
+var caixa=null, campo = null, atual = '', ativo = -1, links = [], nota2s = 0;
+function el() {
+if (caixa) return caixa;
+caixa = document.createElement('div');
+caixa.id = 'lbSug';
+caixa.setAttribute('role', 'listbox');
+caixa.addEventListener('mousedown', function (e) { e.preventDefault(); });
+document.body.appendChild(caixa);
+return caixa;
+}
+function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+function foto(x) {
+if (!x[2]) return '';
+return /^https?:/.test(x[2]) ? x[2] : dados.img.replace('{t}', '120x120') + x[2];
+}
+function fixo(n) {
+for (; n && n !== document.body; n = n.parentElement) if (/fixed|sticky/.test(getComputedStyle(n).position)) return true;
+return false;
+}
+function posicionar() {
+if (!caixa || !campo || caixa.style.display !== 'block') return;
+var r=campo.getBoundingClientRect(), vw = document.documentElement.clientWidth, f = fixo(campo);
+var w=Math.min(Math.max(r.width, 360), vw - 16), l = Math.min(Math.max(8, r.left), vw - w - 8);
+caixa.style.position = f ? 'fixed' : 'absolute';
+caixa.style.width = w + 'px';
+caixa.style.left = (l + (f ? 0 : window.pageXOffset)) + 'px';
+caixa.style.top = (r.bottom + (f ? 0 : window.pageYOffset) + 6) + 'px';
+}
+function fechar() {
+if (caixa) caixa.style.display = 'none';
+if (campo) campo.setAttribute('aria-expanded', 'false');
+ativo = -1; atual = '';
+}
+function mostrar(q) {
+atual = q;
+if (norm(q).length < 2) return fechar();
+if (!itens) { carregar(); return; }
+var ps=buscar(q), cs = buscarCats(q), h = '';
+clearTimeout(nota2s);
+if (!ps.length && !cs.length) nota2s = setTimeout(function () { anotar(q, 's'); }, 2000);
+if (cs.length) h += '<div class="lbC">' + cs.map(function (c) { return '<a href="' + c.h + '">' + esc(c.nome) + '</a>'; }).join('') + '</div>';
+h += ps.map(function (it) {
+var x=it.x, preco = x[3] ? (x[5] ? '<s>R$ ' + x[5] + '</s>' : '') + (x[4] ? 'a partir de ' : '') + '<b>R$ ' + x[3] + '</b>' : '';
+return '<a role="option" href="/' + esc(x[1]) + '"><img src="' + esc(foto(x)) + '" alt="" loading="lazy"><span><span class="lbN">' + esc(it.nome) +
+'</span><span class="lbR">' + esc(it.rot) + (it.rot && preco ? ' · ' : '') + preco + '</span></span></a>';
+}).join('');
+if (!ps.length && !cs.length) h += '<div class="lbV">Nenhuma sugestão para “' + esc(q.trim()) + '”.</div>';
+h += '<a class="lbT" href="#" data-todos="1">Ver todos os resultados para “' + esc(q.trim()) + '”</a>';
+el().innerHTML = h;
+links = [].slice.call(caixa.querySelectorAll('a'));
+ativo = -1;
+caixa.style.display = 'block';
+posicionar();
+campo.setAttribute('aria-expanded', 'true');
+}
+function marcar(i) {
+if (!links.length) return;
+ativo = (i + links.length) % links.length;
+links.forEach(function (a, k) { a.classList.toggle('lbA', k === ativo); });
+links[ativo].scrollIntoView({ block: 'nearest' });
+}
+function enviar(f) {
+var q=campo.value, c = corrigir(q);
+if (c && c !== norm(q)) campo.value = c;
+fechar();
+if (f.requestSubmit) f.requestSubmit(); else f.submit();
+}
+function ehBusca(t) { return t && t.tagName === 'INPUT' && t.name === 'q' && t.form && /\/buscar/.test(t.form.getAttribute('action') || ''); }
+var espera=0, corrigido = false;
+document.addEventListener('focusin', function (e) {
+if (!ehBusca(e.target)) return;
+campo = e.target;
+campo.setAttribute('autocomplete', 'off');
+campo.setAttribute('aria-autocomplete', 'list');
+carregar();
+if (campo.value) mostrar(campo.value);
+});
+document.addEventListener('input', function (e) {
+if (!ehBusca(e.target)) return;
+campo = e.target;
+clearTimeout(espera);
+espera = setTimeout(function () { mostrar(campo.value); }, 40);
+});
+document.addEventListener('keydown', function (e) {
+if (!ehBusca(e.target) || !caixa || caixa.style.display !== 'block') return;
+if (e.key === 'ArrowDown') { e.preventDefault(); marcar(ativo + 1); }
+else if (e.key === 'ArrowUp') { e.preventDefault(); marcar(ativo - 1); }
+else if (e.key === 'Escape') fechar();
+else if (e.key === 'Enter' && ativo >= 0 && !links[ativo].getAttribute('data-todos')) { e.preventDefault(); location.href = links[ativo].href; }
+});
+document.addEventListener('pointerdown', function (e) {
+if (caixa && caixa.style.display === 'block' && !caixa.contains(e.target) && !ehBusca(e.target)) fechar();
+});
+document.addEventListener('click', function (e) {
+var a=e.target.closest && e.target.closest('#lbSug a[data-todos]');
+if (a && campo && campo.form) { e.preventDefault(); enviar(campo.form); }
+});
+document.addEventListener('submit', function (e) {
+var f=e.target, c = f.querySelector && f.querySelector('input[name="q"]');
+if (!c || !ehBusca(c) || corrigido) return;
+campo = c;
+if (semNada(c.value)) anotar(c.value, 's');
+var novo=corrigir(c.value);
+if (novo && novo !== norm(c.value)) {
+e.preventDefault();
+corrigido = true;
+c.value = novo;
+fechar();
+setTimeout(function () { if (f.requestSubmit) f.requestSubmit(); else f.submit(); }, 0);
+}
+}, true);
+window.addEventListener('resize', posicionar);
+window.addEventListener('scroll', posicionar, { passive: true });
+var pq=/^\/buscar/.test(location.pathname) && (location.search.match(/[?&]q=([^&]*)/) || [])[1];
+if (pq) {
+var semRes=function () { try { if (!document.querySelector('.listagem-item')) anotar(decodeURIComponent(pq.replace(/\+/g, ' ')), 'r'); } catch (e) {} };
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', semRes); else semRes();
+}
+function depois() { setTimeout(function () { (window.requestIdleCallback || function (f) { f(); })(carregar, { timeout: 4000 }); }, 2500); }
+if (document.readyState === 'complete') depois(); else window.addEventListener('load', depois);
+if (teste && !PUBLICADO) {
+var selo=function () {
+var b=document.createElement('a');
+b.href = '?lbbusca=0';
+b.id = 'lbSelo';
+b.textContent = 'Busca nova (teste) · desligar';
+document.body.appendChild(b);
+};
+if (document.body) selo(); else document.addEventListener('DOMContentLoaded', selo);
+}
+window.__lbBuscaTeste = { buscar: buscar, corrigir: corrigir };
+})();
+    </script>

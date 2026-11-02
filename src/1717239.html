@@ -1,0 +1,59 @@
+<script>
+/* LOJABIT - VISUAL NOVO (versão 4): interruptor.
+   PUBLICADO = false -> só aparece no navegador que abriu www.lojabit.com/?lbteste=1 (desliga com ?lbteste=0).
+   PUBLICADO = true  -> aparece para todos os clientes. Para voltar ao visual antigo na hora, troque para false.
+   Os estilos ficam nos códigos "Visual novo 2 a 7" (desligados até este interruptor ligar). */
+(function () {
+  var PUBLICADO = true;
+  var on = PUBLICADO, teste = false;
+  try {
+    var q = location.search;
+    if (/[?&]lbteste=1(&|$)/.test(q)) localStorage.setItem('lbModoTeste', '1');
+    if (/[?&]lbteste=0(&|$)/.test(q)) localStorage.removeItem('lbModoTeste');
+    teste = localStorage.getItem('lbModoTeste') === '1';
+  } catch (e) {}
+  if (!on) on = teste;
+  window.__lbOn = on;
+  if (!on) return;
+  window.__lbModoTeste = true; /* o modo teste antigo (robô) não roda junto */
+  var r = document.documentElement;
+  r.className += ' lbv';
+  var h = document.head || r;
+  var p = document.createElement('link'); p.rel = 'preconnect'; p.href = 'https://fonts.gstatic.com'; p.crossOrigin = ''; h.appendChild(p);
+  var l = document.createElement('link'); l.rel = 'stylesheet'; l.href = 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Jost:wght@300;400;500;600&display=swap'; h.appendChild(l);
+  /* liga os estilos e deixa todos no fim do cabeçalho, na ordem 1, 2, 3... */
+  function ativar() {
+    var cab = document.head;
+    if (!cab) return;
+    var s = cab.querySelectorAll('style[data-lbv]');
+    var lista = [];
+    for (var i = 0; i < s.length; i++) lista.push(s[i]);
+    lista.sort(function (a, b) { return a.getAttribute('data-lbv') - b.getAttribute('data-lbv'); });
+    var n = lista.length, fim = cab.children, pronto = fim.length >= n;
+    for (var k = 0; pronto && k < n; k++) if (fim[fim.length - n + k] !== lista[k]) pronto = false;
+    for (var j = 0; j < n; j++) {
+      if (lista[j].media !== 'all') lista[j].media = 'all';
+      if (!pronto) cab.appendChild(lista[j]);
+    }
+  }
+  ativar();
+  var mo = window.MutationObserver ? new MutationObserver(function () {
+    ativar();
+    mo.takeRecords();
+    if (document.body) mo.disconnect();
+  }) : null;
+  if (mo) mo.observe(r, { childList: true, subtree: true });
+  document.addEventListener('DOMContentLoaded', function () { if (mo) mo.disconnect(); ativar(); });
+  if (!PUBLICADO) {
+    var selo = function () {
+      if (document.getElementById('lb-teste-selo')) return;
+      var d = document.createElement('div');
+      d.id = 'lb-teste-selo';
+      d.style.cssText = 'position:fixed;left:12px;bottom:12px;z-index:2147483000;display:flex;align-items:center;gap:8px;padding:7px 10px 7px 12px;background:#0E0E0F;color:#C9A55C;border:1px solid #C9A55C;border-radius:999px;font:500 11px/1.2 Jost,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;box-shadow:0 6px 18px rgba(0,0,0,.25)';
+      d.innerHTML = 'Visual novo (teste) <a href="?lbteste=0" style="color:#fff;text-decoration:underline;text-transform:none;letter-spacing:0">desligar</a>';
+      document.body.appendChild(d);
+    };
+    if (document.body) selo(); else document.addEventListener('DOMContentLoaded', selo);
+  }
+})();
+</script>

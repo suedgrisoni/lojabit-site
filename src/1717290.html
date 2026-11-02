@@ -1,0 +1,59 @@
+<style>
+/* LOJABIT - visual novo 20: estilos da história da casa (só valem com a classe lbhist, ligada pelo Visual novo 21) */
+html.lbhist .lbh-pts{display:flex;justify-content:center;gap:4px;margin-top:7px}
+html.lbhist .lbh-pts i{width:4px;height:4px;border-radius:50%;background:#C9A55C}
+html.lbhist .lbh-pts i:last-child{animation:lbh-brilho 2.6s ease-in-out infinite}
+@keyframes lbh-brilho{50%{background:#E9D3A0;box-shadow:0 0 0 2px rgba(201,165,92,.25)}}
+html.lbhist #cabecalho .lbl{position:relative}
+html.lbhist .lbh-tip{position:absolute;left:50%;top:calc(100% + 12px);z-index:1300;min-width:230px;padding:12px 16px;background:#0A0A0B;color:#E9DFCB;font:400 12px/1.6 Jost,Arial,sans-serif;letter-spacing:.02em;text-align:center;white-space:nowrap;box-shadow:0 12px 30px rgba(0,0,0,.25);opacity:0;visibility:hidden;transform:translate(-50%,-4px);transition:opacity .2s,transform .2s,visibility .2s;pointer-events:none}
+html.lbhist .lbh-tip:before{content:"";position:absolute;left:50%;top:-5px;width:10px;height:10px;background:#0A0A0B;transform:translateX(-50%) rotate(45deg)}
+html.lbhist .lbh-tip b{display:block;margin-bottom:2px;font:600 18px/1.2 "Cormorant Garamond",Georgia,serif;color:#C9A55C;letter-spacing:.02em}
+html.lbhist #cabecalho a:hover .lbh-tip{opacity:1;visibility:visible;transform:translate(-50%,0);transition-delay:.45s}
+html.lbhist .lbl-coroa{position:relative}
+html.lbhist .lbh-vela{position:absolute;left:50%;top:-11px;width:3px;height:8px;margin-left:-1.5px;background:#C9A55C;border-radius:1px}
+html.lbhist .lbh-vela:after{content:"";position:absolute;left:50%;top:-6px;width:5px;height:6px;margin-left:-2.5px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:#F2A33A;animation:lbh-chama 1s ease-in-out infinite alternate}
+@keyframes lbh-chama{to{transform:scale(.8,1.15)}}
+html.lbhist .lbh-ovo{position:fixed;inset:0;z-index:2147483200;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(10,10,11,.6);overflow:hidden;animation:lbh-in .25s ease-out}
+@keyframes lbh-in{from{opacity:0}}
+html.lbhist .lbh-cx{position:relative;z-index:2;width:min(420px,100%);padding:30px 26px 24px;background:#FAF7F2;border:1px solid #C9A55C;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,.35);animation:lbh-sobe .35s cubic-bezier(.2,.9,.3,1.1)}
+@keyframes lbh-sobe{from{transform:translateY(16px) scale(.97);opacity:0}}
+html.lbhist .lbh-cx svg.c{width:44px;height:22px;fill:none;stroke:#A88340;stroke-width:1.4}
+html.lbhist .lbh-k{display:block;margin:10px 0 4px;font:500 10.5px/1 Jost,Arial,sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#8F6E2E}
+html.lbhist .lbh-t{margin:0 0 12px;font:600 30px/1.1 "Cormorant Garamond",Georgia,serif;color:#0A0A0B}
+html.lbhist .lbh-t em{color:#A88340}
+html.lbhist .lbh-p{margin:0 0 16px;font:400 14px/1.55 Jost,Arial,sans-serif;color:#403A34}
+html.lbhist .lbh-cup{display:flex;align-items:stretch;justify-content:center;margin:0 auto 8px;max-width:280px;border:1px dashed #A88340}
+html.lbhist .lbh-cup b{flex:1;padding:12px;font:600 22px/1 "Cormorant Garamond",Georgia,serif;letter-spacing:.18em;color:#0A0A0B}
+html.lbhist .lbh-cup button{padding:0 16px;border:0;background:#0A0A0B;color:#C9A55C;font:500 11px/1 Jost,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
+html.lbhist .lbh-s{display:block;font:400 12px/1.4 Jost,Arial,sans-serif;color:#776E64}
+html.lbhist .lbh-x{position:absolute;right:8px;top:8px;width:34px;height:34px;border:0;background:none;font:300 26px/1 Jost,Arial,sans-serif;color:#403A34;cursor:pointer}
+html.lbhist .lbh-cai{position:absolute;top:-30px;z-index:1;width:18px;height:9px;fill:none;stroke:#C9A55C;stroke-width:2;animation:lbh-cai linear forwards}
+@keyframes lbh-cai{to{transform:translateY(110vh) rotate(260deg)}}
+html.lbhist .lbh-card{display:flex!important;align-items:center;gap:12px;padding:12px 14px!important;background:#0A0A0B!important;color:#E9DFCB!important;text-decoration:none!important;font:400 12.5px/1.4 Jost,Arial,sans-serif}
+html.lbhist .lbh-card svg{flex:none;width:30px;height:15px;fill:none;stroke:#C9A55C;stroke-width:1.6}
+html.lbhist .lbh-card b{display:block;font:600 16px/1.2 "Cormorant Garamond",Georgia,serif;color:#C9A55C}
+html.lbhist .lbh-lacre{display:flex;align-items:center;gap:10px;margin:0 0 4px;padding:8px 0 10px;border-bottom:1px dashed #DCD2C2;font:400 12px/1.35 Jost,Arial,sans-serif;color:#776E64;text-align:left}
+html.lbhist .lbh-lacre svg{flex:none;width:38px!important;height:38px!important}
+html.lbhist #cabecalho .lbh-lacre svg path{fill:#B8913F!important;stroke:none!important}
+html.lbhist #cabecalho .lbh-lacre svg circle{fill:none!important;stroke:#7A5A1F!important}
+html.lbhist #cabecalho .lbh-lacre svg text{fill:#3B2A0C!important;stroke:none!important}
+html.lbhist .lbh-lacre b{display:block;font-weight:500;color:#0A0A0B}
+html.lbhist .lbh-erro{margin:18px 0 8px;padding:22px 20px;background:#FAF7F2;border:1px solid rgba(201,165,92,.45);text-align:center}
+html.lbhist .lbh-erro h2{margin:0 0 8px;font:600 28px/1.15 "Cormorant Garamond",Georgia,serif;color:#0A0A0B}
+html.lbhist .lbh-erro p{margin:0 0 14px;font:400 14px/1.55 Jost,Arial,sans-serif;color:#403A34}
+html.lbhist .lbh-bts{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+html.lbhist .lbh-bts a{padding:10px 14px;border:1px solid #0A0A0B;font:500 11px/1 Jost,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#0A0A0B!important;text-decoration:none!important}
+html.lbhist .lbh-bts a:first-child{background:#0A0A0B;color:#C9A55C!important}
+html.lbhist #rodape .lbs{cursor:pointer}
+html.lbhist .lbh-linha[hidden]{display:none!important}
+html.lbhist .lbh-dica{display:block;margin:6px 0 0;font:500 10.5px/1 Jost,Arial,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#C9A55C;text-align:center}
+html.lbhist .lbh-linha{max-width:420px;margin:14px auto 0;padding:0;list-style:none;text-align:left}
+html.lbhist .lbh-linha li{position:relative;margin:0;padding:0 0 14px 26px;border-left:1px solid rgba(201,165,92,.4);font:400 13px/1.45 Jost,Arial,sans-serif;color:#A69E92}
+html.lbhist .lbh-linha li:before{content:"";position:absolute;left:-5px;top:3px;width:9px;height:9px;border-radius:50%;background:#C9A55C}
+html.lbhist .lbh-linha li b{display:block;font:600 16px/1.2 "Cormorant Garamond",Georgia,serif;color:#E9DFCB}
+html.lbhist .lbh-linha li.lbh-psiu{border-left-color:transparent;font-style:italic;color:#C9A55C}
+html.lbhist .lbh-linha li.lbh-psiu:before{display:none}
+html.lbhist .lbh-ass{margin:12px 0 0;padding-top:10px;border-top:1px solid rgba(201,165,92,.35);font:400 20px/1.3 Parisienne,"Cormorant Garamond",cursive;color:#8F6E2E;text-align:center}
+@media(max-width:767px){html.lbhist #cabecalho .col-mobile-menu.lbi-on{min-height:70px!important}html.lbhist .lbh-pts{gap:3px;margin-top:3px}html.lbhist .lbh-pts i{width:3px;height:3px}html.lbhist .lbh-tip{display:none}html.lbhist .lbh-t{font-size:26px}}
+@media(prefers-reduced-motion:reduce){html.lbhist .lbh-cai{display:none}html.lbhist .lbh-pts i:last-child,html.lbhist .lbh-vela:after{animation:none}}
+</style>

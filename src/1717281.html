@@ -1,0 +1,80 @@
+<script>/* LOJABIT - visual novo 18: (1) preços de todos os tamanhos nas sugestões da busca: na hora pela base (__lbS, código Busca - tamanhos na hora) ou lendo a página do produto (guarda 6 h); (2) cadastro de novidades. Só com a classe lbdep. */
+(function(){"use strict";
+var de=document.documentElement;
+if(!window.__lbOn||window.__lbExt||!/\blbdep\b/.test(de.className))return;
+window.__lbExt=1;
+/* ---------- 1. preços nas sugestões da busca ---------- */
+var CH="lbPrecos4",VALE=6*36e5,mem={},pend={},fila=[],rodando=0;
+try{mem=JSON.parse(localStorage.getItem(CH))||{}}catch(e){mem={}}
+function salva(){try{var k=Object.keys(mem);if(k.length>400){k.sort(function(a,b){return mem[a].t-mem[b].t});k.slice(0,k.length-300).forEach(function(x){delete mem[x]})}localStorage.setItem(CH,JSON.stringify(mem))}catch(e){}}
+function brl(n){return"R$ "+n.toFixed(2).replace(".",",").replace(/\B(?=(\d{3})+(?!\d))/g,".")}
+function ml(s){var m=String(s).match(/(\d+(?:[.,]\d+)?)\s*ml/i);return m?parseFloat(m[1].replace(",",".")):null}
+function rot(s){var m=ml(s);return m!=null?String(m).replace(".",",")+" ml":String(s).trim()}
+function ler(u){return fetch(u,{credentials:"omit"}).then(function(r){if(!r.ok)throw 0;if(!r.body||!r.body.getReader||!window.TextDecoder)return r.text();var rd=r.body.getReader(),dc=new TextDecoder(),t="",i=-1;return(function passo(){return rd.read().then(function(x){if(x.done)return t;t+=dc.decode(x.value,{stream:true});if(i<0)i=t.indexOf('class="acoes-produto');if(i>-1&&t.length>i+20000){try{rd.cancel()}catch(e){}return t}return passo()})})()})}
+function cid(c){var b=c&&c.querySelector('a[href*="/adicionar"]'),m=b&&b.getAttribute("href").match(/produto\/(\d+)\/adicionar/);return m?m[1]:""}
+function extrair(h){var d=new DOMParser().parseFromString(h,"text/html"),nomes={},out=[],vis={};
+[].forEach.call(d.querySelectorAll(".atributo-item[data-variacao-id]"),function(n){nomes[n.getAttribute("data-variacao-id")]=n.getAttribute("data-variacao-nome")||n.textContent});
+[].forEach.call(d.querySelectorAll(".acoes-produto[data-variacao-id]"),function(c){var id=c.getAttribute("data-variacao-id");if(!id||vis[id])return;vis[id]=1;var p=c.querySelector("[data-sell-price]"),v=p?parseFloat(p.getAttribute("data-sell-price")):NaN;if(!(v>0))return;var nm=nomes[id]||((c.className.match(/SKU-\S+/)||[""])[0].split("-").slice(2).join("-"));out.push([rot(nm),v,/\bdisponivel\b/.test(c.className)?1:0,ml(nm),cid(c)])});
+if(!out.length){var p0=d.querySelector(".acoes-produto.disponivel [data-sell-price]"),v0=p0?parseFloat(p0.getAttribute("data-sell-price")):NaN;if(v0>0)out.push(["",v0,1,null,cid(p0.closest(".acoes-produto"))])}
+out.sort(function(a,b){return(a[3]==null?1e9:a[3])-(b[3]==null?1e9:b[3])||a[1]-b[1]});return out.map(function(x){return[x[0],x[1],x[2],x[4]]})}
+function pintar(a,v){var r=a.querySelector(".lbR");if(!r||a.getAttribute("data-lbp"))return;var ok=v.filter(function(x){return x[2]});a.setAttribute("data-lbp","1");if(!ok.length)return;var tipo=r.textContent.split(" · ")[0];if(tipo===r.textContent&&/R\$/.test(tipo))tipo="";r.textContent=tipo;if(!tipo)r.style.display="none";r.insertAdjacentHTML("afterend",'<span class="lbP">'+ok.map(function(x){return(x[3]?'<i data-lbadd="'+x[3]+'" data-lbtam="'+x[0]+'" role="button" tabindex="0" title="Adicionar '+(x[0]?x[0]+" ":"")+'à sacola">':"<i>")+x[0]+" <b>"+brl(x[1])+"</b>"+(x[3]?'<s aria-hidden="true">+</s>':"")+"</i>"}).join("")+"</span>");dica(ok)}
+function dica(ok){var s=document.getElementById("lbSug");if(s&&!s.querySelector(".lbDica")&&ok.some(function(x){return x[3]}))s.insertAdjacentHTML("afterbegin",'<div class="lbDica"><s aria-hidden="true">+</s>Escolha o tamanho para pôr direto na sacola</div>')}
+function proximo(){if(rodando>=4||!fila.length)return;var u=fila.shift();rodando++;ler(u).then(function(t){window.__lbFP&&__lbFP(u,t);mem[u]={t:Date.now(),v:extrair(t)};salva()})["catch"](function(){}).then(function(){rodando--;delete pend[u];varrer();proximo()})}
+function varrer(){var s=document.getElementById("lbSug");if(!s||s.style.display!=="block")return;[].forEach.call(s.querySelectorAll("a[role=option]"),function(a){var u=a.getAttribute("href");if(!u||a.getAttribute("data-lbp"))return;var c=window.__lbS&&__lbS(u,a)||mem[u];if(c){pintar(a,c.v);if(Date.now()-c.t<VALE)return}if(!pend[u]){pend[u]=1;fila.push(u);proximo()}})}
+var tm=0;function olhar(s){new MutationObserver(function(){clearTimeout(tm);tm=setTimeout(varrer,160)}).observe(s,{childList:true,attributes:true,attributeFilter:["style"]})}
+(function espera(){var s=document.getElementById("lbSug");if(s)return olhar(s);if(!document.body)return setTimeout(espera,500);var mo=new MutationObserver(function(){var x=document.getElementById("lbSug");if(x){mo.disconnect();olhar(x);varrer()}});mo.observe(document.body,{childList:true})})();
+/* ---------- 2. cadastro de novidades ---------- */
+var COROA='<svg viewBox="0 0 40 20" aria-hidden="true"><path d="M5 16L3 5.5l8.5 5.8L20 2.5l8.5 8.8L37 5.5 35 16z"/><path d="M5.5 18.5h29"/><circle cx="20" cy="2.4" r="1.2"/><circle cx="3" cy="5.4" r="1"/><circle cx="37" cy="5.4" r="1"/></svg>';
+function novidades(){var c=document.querySelector(".componente.newsletter");if(!c||c.classList.contains("lbn-on"))return;var inp=c.querySelector("input[name=email]"),bt=c.querySelector(".newsletter-assinar"),cx=c.querySelector(".newsletter-cadastro.input-conteiner"),cf=c.querySelector(".newsletter-confirmacao"),interno=c.querySelector(".interno");if(!inp||!bt||!cx)return;
+c.classList.add("lbn-on");var faixa=c.closest(".posicao-rodape");if(faixa){faixa.classList.add("lbn-mostra","lbn-faixa")}
+var w=document.createElement("div");w.className="lbn";w.innerHTML='<div class="lbn-esq"><span class="lbn-coroa">'+COROA+'</span><span class="lbn-kick">Lista de novidades</span><p class="lbn-tit">As novidades da casa, <em>direto no seu e-mail</em></p><p class="lbn-txt">Cadastre seu e-mail e saiba primeiro quando chegam perfumes novos, quando voltam os esgotados e quando entram as promoções.</p><ul class="lbn-lista"><li>Lançamentos</li><li>Reposições</li><li>Promoções</li></ul></div><div class="lbn-dir"></div>';
+var dir=w.querySelector(".lbn-dir");dir.appendChild(cx);if(cf)dir.appendChild(cf);dir.insertAdjacentHTML("beforeend",'<p class="lbn-letra newsletter-cadastro">Ao se cadastrar, você concorda com a nossa <a href="/pagina/politica-de-privacidade.html">Política de Privacidade</a>.</p>');
+inp.setAttribute("placeholder","Seu e-mail");inp.setAttribute("type","email");inp.setAttribute("autocomplete","email");inp.setAttribute("aria-label","Seu e-mail");
+bt.textContent="Quero receber";bt.classList.remove("icon-chevron-right","fundo-principal");bt.setAttribute("type","button");
+inp.addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();bt.click()}});
+if(interno)interno.style.display="none";c.appendChild(w)}
+function tudo(){try{novidades()}catch(e){}}
+tudo();document.readyState==="loading"&&document.addEventListener("DOMContentLoaded",tudo);window.addEventListener("load",tudo);
+})();</script>
+<script>/* LOJABIT - setinhas e cartões dos ícones do topo: atendimento, entrar/minha conta, sacola (mini sacola no clique) e favoritos (lista quando logado). Só com a classe lbdep. */
+(function(){"use strict";var de=document.documentElement;if(!window.__lbOn||window.__lbTopoM||!/\blbdep\b/.test(de.className))return;window.__lbTopoM=1;
+function esc(t){return String(t).replace(/[&<>"']/g,function(a){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[a]})}
+var FAV="/conta/favorito/listar",carregou=0;
+function marca(){var col=document.querySelector("#cabecalho .col-icons");if(!col)return;
+[".help",".account-info",".carrinho"].forEach(function(s){var d=col.querySelector(s);d&&d.classList.add("lbm-tem")});
+var acc=col.querySelector(".account-info"),fav=col.querySelector(".favorite");
+if(fav&&acc&&acc.querySelector(".card-menu")&&!acc.querySelector(".card-menu-account-not-logged")&&!fav.querySelector(".lbf-card")){fav.classList.add("menu-dropdown","lbm-tem");fav.insertAdjacentHTML("beforeend",'<div class="card-menu lbf-card"><span class="lbf-kick">Seus favoritos</span><div class="lbf-lista"><p>Carregando…</p></div><a class="lbf-ver" href="'+FAV+'">Ver todos os favoritos</a></div>')}}
+function favoritos(card){if(carregou)return;carregou=1;var l=card.querySelector(".lbf-lista");fetch(FAV,{credentials:"same-origin"}).then(function(r){return r.text()}).then(function(h){var d=new DOMParser().parseFromString(h,"text/html"),its=d.querySelectorAll(".listagem-item"),out=[];
+for(var k=0;k<its.length&&out.length<4;k++){var e=its[k],a=e.querySelector("a.nome-produto")||e.querySelector('a[href]:not([href*="favorito"])');if(!a)continue;var im=e.querySelector("img"),src=im?(im.getAttribute("data-src")||im.getAttribute("src")||""):"",pr=e.querySelector(".preco-promocional,.preco-venda");
+out.push('<a class="lbf-it" href="'+esc(a.getAttribute("href"))+'">'+(src?'<img src="'+esc(src)+'" alt="" loading="lazy">':"<i></i>")+"<div><span>"+esc(a.textContent.replace(/\s+/g," ").trim())+"</span>"+(pr?"<em>"+esc(pr.textContent.replace(/\s+/g," ").trim())+"</em>":"")+"</div></a>")}
+l.innerHTML=out.length?out.join(""):(/nenhum|não possui|vazi/i.test(d.body?d.body.textContent:"")?"<p>Você ainda não guardou favoritos. Toque no coração de um produto para guardá-lo aqui.</p>":"")}).catch(function(){l.innerHTML=""})}
+function vazio(c){if(c.querySelector(".lbm-vazio"))return;var li=c.querySelectorAll("li");if(!li.length){c.innerHTML='<div class="lbm-vazio"><b>Sua sacola está vazia</b><span>Escolha seu próximo perfume ou relógio.</span><a href="/ofertas">Ver ofertas</a></div>';return}[].forEach.call(li,function(l){var n=l.querySelector(".preco-produto"),s=l.querySelector(".produto-sku");if(n&&s&&!n.querySelector("small")){var m=s.textContent.trim().match(/-(\d+(?:[.,]\d+)?)\s*ml$/i);if(m)n.insertAdjacentHTML("beforeend","<small>"+m[1]+" ml</small>")}});var b=c.querySelector(".carrinho-rodape .botao");if(b&&!b.getAttribute("data-lb")){b.setAttribute("data-lb","1");b.textContent="Ver sacola e finalizar"}}
+window.__lbmAoAbrir=function(it){if(!it||!it.topo)return;if(it.li.classList.contains("carrinho"))vazio(it.c);if(it.li.classList.contains("favorite"))favoritos(it.c)};
+marca();var n=0;(function r(){marca();++n<10&&setTimeout(r,700)})();window.addEventListener("load",marca);
+})();</script>
+<style>
+html.lbdep #lbSug .lbP i[data-lbadd]{cursor:pointer;transition:border-color .15s,background .15s}
+html.lbdep #lbSug .lbP i[data-lbadd]:hover,html.lbdep #lbSug .lbP i[data-lbadd]:focus{border-color:var(--lb-gold,#C9A55C)!important;background:var(--lb-ivory,#FAF7F2)!important;outline:0}
+html.lbdep #lbSug .lbP i s{display:inline-flex;align-items:center;justify-content:center;align-self:center;width:15px;height:15px;margin-left:1px;border-radius:50%;background:var(--lb-ink,#0A0A0B);color:var(--lb-gold,#C9A55C);font:600 12px/1 Jost,Arial,sans-serif;text-decoration:none}
+html.lbdep #lbSug .lbP i.lbAdd-ing{opacity:.5;pointer-events:none}
+html.lbdep #lbSug .lbP i.lbAdd-ok{border-color:#1F8A4C!important;background:#EEF7F0!important}
+html.lbdep #lbSug .lbP i.lbAdd-ok s{background:#1F8A4C;color:#fff;font-size:0}
+html.lbdep #lbSug .lbP i.lbAdd-ok s:after{content:"✓";font-size:10px}
+html.lbdep #lbSug .lbDica{display:flex;align-items:center;gap:6px;padding:8px 14px;border-bottom:1px solid var(--lb-line,#ECE5DA);background:var(--lb-ivory,#FAF7F2);font:400 12px/1.3 Jost,Arial,sans-serif;color:var(--lb-body,#403A34)}
+html.lbdep #lbSug .lbDica s{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;border-radius:50%;background:var(--lb-ink,#0A0A0B);color:var(--lb-gold,#C9A55C);font:600 12px/1 Jost,Arial,sans-serif;text-decoration:none}
+html.lbdep #lbToast{position:fixed;left:50%;bottom:24px;z-index:2147483000;display:flex;align-items:center;gap:14px;max-width:calc(100vw - 32px);padding:13px 16px;background:var(--lb-ink,#0A0A0B);color:#fff;font:400 13.5px/1.35 Jost,Arial,sans-serif;box-shadow:0 12px 30px rgba(0,0,0,.25);transform:translate(-50%,20px);opacity:0;visibility:hidden;transition:opacity .2s,transform .2s,visibility .2s}
+html.lbdep #lbToast.lbOn{opacity:1;visibility:visible;transform:translate(-50%,0)}
+html.lbdep #lbToast b{font-weight:500;color:var(--lb-gold,#C9A55C)}
+html.lbdep #lbToast a{flex:none;padding:8px 12px;border:1px solid var(--lb-gold,#C9A55C);font:500 11px/1 Jost,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--lb-gold,#C9A55C)!important;text-decoration:none!important}
+html.lbdep #lbToast a:hover{background:var(--lb-gold,#C9A55C);color:var(--lb-ink,#0A0A0B)!important}
+</style>
+<script>/* LOJABIT - busca: clicar no tamanho/preço da sugestão põe o produto direto na sacola (usa o mesmo link do botão Comprar da página do produto). Só com a classe lbdep. */
+(function(){"use strict";if(!window.__lbOn||window.__lbAdd||!/\blbdep\b/.test(document.documentElement.className))return;window.__lbAdd=1;
+var tt=0;function esc(t){return String(t).replace(/[&<>"']/g,function(a){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[a]})}
+function aviso(txt){var t=document.getElementById("lbToast");if(!t){t=document.createElement("div");t.id="lbToast";t.setAttribute("role","status");t.setAttribute("aria-live","polite");document.body.appendChild(t)}t.innerHTML="<span>"+txt+'</span><a href="/carrinho/index">Ver sacola</a>';t.classList.add("lbOn");clearTimeout(tt);tt=setTimeout(function(){t.classList.remove("lbOn")},4500)}
+function poe(el){var id=el.getAttribute("data-lbadd");if(el.classList.contains("lbAdd-ok")){location.href="/carrinho/index";return}if(el.classList.contains("lbAdd-ing"))return;el.classList.add("lbAdd-ing");
+var a=el.closest("a"),n=a&&a.querySelector(".lbN"),tam=el.getAttribute("data-lbtam")||"";
+fetch("/carrinho/produto/"+id+"/adicionar",{credentials:"same-origin",redirect:"manual"}).then(function(r){if(!r.ok&&r.type!=="opaqueredirect")throw 0;el.classList.remove("lbAdd-ing");el.classList.add("lbAdd-ok");el.setAttribute("title","Já está na sacola. Clique para ver a sacola");try{window.carregarMinicart&&window.carregarMinicart(true)}catch(e){}var X=window.__lbx,msg="<b>"+esc(n?n.textContent:"Produto")+(tam?" · "+esc(tam):"")+"</b> foi para a sacola";if(X&&X.aviso&&/\blbmob\b/.test(document.documentElement.className)){if(X.qtd)X.qtd(1);X.aviso(msg);if(X.sacola&&X.freteMsg)X.sacola().then(function(s){X.aviso(msg+"<small>"+esc(X.freteMsg(s.total))+"</small>")},function(){})}else aviso(msg)})["catch"](function(){location.href="/carrinho/produto/"+id+"/adicionar"})}
+document.addEventListener("click",function(e){var el=e.target.closest&&e.target.closest("#lbSug [data-lbadd]");if(!el)return;e.preventDefault();e.stopPropagation();poe(el)},true);
+document.addEventListener("keydown",function(e){var el=e.target.closest&&e.target.closest("#lbSug [data-lbadd]");if(el&&(e.key==="Enter"||e.key===" ")){e.preventDefault();e.stopPropagation();poe(el)}},true);
+})();</script>

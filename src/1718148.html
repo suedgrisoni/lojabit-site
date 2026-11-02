@@ -1,0 +1,99 @@
+<style data-lbv="29">/* LOJABIT - visual novo 29: galeria de fotos do produto no computador (miniaturas na lateral, fotos nítidas, zoom ao passar o mouse, setas e contador, tela cheia, foto ligada ao tamanho). Só tela de 980 px ou mais. PUBLICADO=false no script -> só com www.lojabit.com/?lbgal=1 (desliga com ?lbgal=0). */
+@media(min-width:980px){
+html.lbcomp.lbp .lbg-on>.conteiner-imagem,html.lbcomp.lbp .lbg-on>.produto-thumbs{display:none!important}
+html.lbcomp .lbg{display:flex;gap:14px;align-items:flex-start}
+html.lbcomp .lbg-rail{flex:0 0 76px;display:flex;flex-direction:column;gap:10px;max-height:min(680px,calc(100vh - var(--lbh,100px) - 110px));overflow-y:auto;scrollbar-width:none}
+html.lbcomp .lbg-rail::-webkit-scrollbar{display:none}
+html.lbcomp .lbg-um .lbg-rail{display:none}
+html.lbcomp .lbg-th{flex:none;display:block;width:76px;height:76px;margin:0;padding:4px;border:1px solid var(--lb-line);border-radius:0;background:#fff;cursor:pointer;opacity:.72;transition:opacity .15s,border-color .15s}
+html.lbcomp .lbg-th:hover{opacity:1;border-color:var(--lb-line2)}
+html.lbcomp .lbg-th.on{opacity:1;border-color:var(--lb-gold);box-shadow:inset 0 0 0 1px var(--lb-gold)}
+html.lbcomp .lbg-th img{display:block;width:100%;height:100%;object-fit:contain}
+html.lbcomp .lbg-st{position:relative;flex:1 1 auto;width:100%;max-width:min(680px,calc(100vh - var(--lbh,100px) - 110px));aspect-ratio:1/1;border:1px solid var(--lb-line);background:#fff;overflow:hidden;cursor:zoom-in}
+html.lbcomp .lbg-im{position:absolute;inset:0;width:100%!important;height:100%!important;max-width:none!important;object-fit:contain}
+html.lbcomp .lbg-zm{position:absolute;inset:0;background:#fff no-repeat;background-size:250%;opacity:0;pointer-events:none;transition:opacity .15s}
+html.lbcomp .lbg-zm.on{opacity:1}
+html.lbcomp .lbg-st .lbg-ar{opacity:0}
+html.lbcomp .lbg-st:hover .lbg-ar{opacity:1}
+html.lbcomp .lbg-st .lbg-p{left:12px}
+html.lbcomp .lbg-st .lbg-n{right:12px}
+html.lbcomp .lbg-um .lbg-ar,html.lbcomp .lbg-um .lbg-ct{display:none!important}
+html.lbcomp .lbg-ct,html.lbcomp .lbg-lp{position:absolute;bottom:12px;z-index:2;padding:6px 9px;border:1px solid var(--lb-line);background:rgba(255,255,255,.92);font:500 11.5px/1 var(--lb-sans);letter-spacing:.06em;color:var(--lb-ink)}
+html.lbcomp .lbg-ct{right:12px}
+html.lbcomp .lbg-lp{left:12px;font-weight:400;color:var(--lb-muted);transition:opacity .2s}
+html.lbcomp .lbg-st:hover .lbg-lp{opacity:0}
+}
+html.lbcomp .lbg-ar{position:absolute;top:50%;z-index:3;display:flex;align-items:center;justify-content:center;width:44px;height:44px;margin:-22px 0 0;padding:0 0 3px;border:1px solid var(--lb-line2);border-radius:50%;background:rgba(255,255,255,.94);color:var(--lb-ink);font:300 30px/1 var(--lb-sans);cursor:pointer;transition:opacity .2s,border-color .2s}
+html.lbcomp .lbg-ar:hover{border-color:var(--lb-gold)}
+html.lbcomp .lbg-lb{position:fixed;inset:0;z-index:2147483000;display:none;background:#FAF7F2;font-family:var(--lb-sans)}
+html.lbcomp .lbg-lb.on{display:block}
+html.lbcomp .lbg-lbs{position:absolute;left:90px;right:90px;top:28px;bottom:128px;display:flex;align-items:center;justify-content:center;overflow:hidden;cursor:zoom-in}
+html.lbcomp .lbg-lbs img{max-width:100%;max-height:100%;object-fit:contain;user-select:none;-webkit-user-drag:none;transition:transform .25s}
+html.lbcomp .lbg-lbs.z{cursor:zoom-out}
+html.lbcomp .lbg-lbs.z img{transform:scale(2.4)}
+html.lbcomp .lbg-lb .lbg-p{left:24px}
+html.lbcomp .lbg-lb .lbg-n{right:24px}
+html.lbcomp .lbg-x{position:absolute;top:18px;right:22px;z-index:3;width:44px;height:44px;padding:0 0 4px;border:1px solid var(--lb-line2);border-radius:50%;background:#fff;color:var(--lb-ink);font:300 30px/1 var(--lb-sans);cursor:pointer}
+html.lbcomp .lbg-x:hover{border-color:var(--lb-gold)}
+html.lbcomp .lbg-lbb{position:absolute;left:0;right:0;bottom:18px;display:flex;flex-direction:column;align-items:center;gap:10px}
+html.lbcomp .lbg-lbt{display:flex;gap:8px}
+html.lbcomp .lbg-lbt .lbg-th{width:64px;height:64px}
+html.lbcomp .lbg-ct2{font:500 12px/1 var(--lb-sans);letter-spacing:.16em;color:var(--lb-muted)}
+html.lbcomp .lbg-lbd{position:absolute;top:30px;left:28px;font:500 11px/1.3 var(--lb-sans);letter-spacing:.18em;text-transform:uppercase;color:var(--lb-gold-text)}
+</style>
+<script>(function(){"use strict";var de=document.documentElement,PUBLICADO=true,on=PUBLICADO;try{var q=location.search;if(/[?&]lbgal=1(&|$)/.test(q))localStorage.setItem("lbGal","1");if(/[?&]lbgal=0(&|$)/.test(q))localStorage.removeItem("lbGal");if(localStorage.getItem("lbGal")==="1")on=true}catch(e){}if(!on)return;
+function sz(u,s){return String(u||"").replace(/\/\d+x\d+\//,"/"+s+"/")}
+function arq(u){return String(u||"").split("?")[0].split("/").pop()}
+function liga(){if(window.__lbg||!/\blbcomp\b/.test(de.className)||!matchMedia("(min-width:980px)").matches||!document.body||!/pagina-produto/.test(document.body.className))return;var im=document.getElementById("imagemProduto"),box=im&&im.closest(".span6");if(!box)return;window.__lbg=1;try{monta(im,box)}catch(e){window.__lbg=0}}
+function monta(im,box){
+var F=[].slice.call(box.querySelectorAll(".produto-thumbs li a[data-imagem-grande]")).map(function(a){return{g:a.getAttribute("data-imagem-grande"),id:a.getAttribute("data-imagem-id")}});
+if(!F.length)F=[{g:sz(im.getAttribute("src"),"2500x2500"),id:null}];
+var V={};try{var pg=window.produto_grades_imagens||{};Object.keys(pg).forEach(function(v){(pg[v]||[]).forEach(function(i){V[String(i)]=v})})}catch(e){}
+var nome=im.getAttribute("alt")||"",um=F.length<2;
+function ths(){return F.map(function(f,i){return'<button type="button" class="lbg-th" data-i="'+i+'" aria-label="Ver foto '+(i+1)+'"><img src="'+sz(f.g,"160x160")+'" alt=""></button>'}).join("")}
+var G=document.createElement("div");G.className="lbg"+(um?" lbg-um":"");
+G.innerHTML='<div class="lbg-rail">'+ths()+'</div><div class="lbg-st" role="button" tabindex="0" aria-label="Abrir foto em tela cheia"><img class="lbg-im" alt=""><div class="lbg-zm"></div><button type="button" class="lbg-ar lbg-p" aria-label="Foto anterior">‹</button><button type="button" class="lbg-ar lbg-n" aria-label="Próxima foto">›</button><span class="lbg-ct"></span><span class="lbg-lp">Passe o mouse para ampliar · clique para tela cheia</span></div>';
+box.insertBefore(G,box.firstChild);box.classList.add("lbg-on");
+var L=document.createElement("div");L.className="lbg-lb"+(um?" lbg-um":"");L.setAttribute("role","dialog");L.setAttribute("aria-label","Fotos do produto");
+L.innerHTML='<span class="lbg-lbd"></span><button type="button" class="lbg-x" aria-label="Fechar">×</button><button type="button" class="lbg-ar lbg-p" aria-label="Foto anterior">‹</button><div class="lbg-lbs"><img alt=""></div><button type="button" class="lbg-ar lbg-n" aria-label="Próxima foto">›</button><div class="lbg-lbb"><span class="lbg-ct2"></span><div class="lbg-lbt">'+(um?"":ths())+"</div></div>";
+document.body.appendChild(L);L.querySelector(".lbg-lbd").textContent=nome;
+var st=G.querySelector(".lbg-st"),mi=G.querySelector(".lbg-im"),zm=G.querySelector(".lbg-zm"),ct=G.querySelector(".lbg-ct"),ls=L.querySelector(".lbg-lbs"),li=ls.querySelector("img"),ct2=L.querySelector(".lbg-ct2"),cur=-1,ok={};
+function carrega(u,cb){if(ok[u])return cb&&cb();var x=new Image();x.onload=function(){ok[u]=1;cb&&cb()};x.src=u}
+function marca(){[].forEach.call(document.querySelectorAll(".lbg-th"),function(t){t.classList.toggle("on",+t.getAttribute("data-i")===cur)})}
+function lbMostra(){var f=F[cur];ls.classList.remove("z");li.src=f.g;li.alt=nome+" - foto "+(cur+1);ct2.textContent=(cur+1)+" / "+F.length}
+function vai(i,usuario){i=(i+F.length)%F.length;if(i===cur)return;cur=i;var f=F[i];
+mi.srcset=sz(f.g,"600x600")+" 600w, "+sz(f.g,"900x900")+" 900w, "+sz(f.g,"1200x1200")+" 1200w";mi.sizes="(min-width:1500px) 680px, 560px";mi.src=sz(f.g,"1200x1200");mi.alt=nome+" - foto "+(i+1);
+ct.textContent=(i+1)+" / "+F.length;zm.classList.remove("on");zm.style.backgroundImage="";marca();
+if(F.length>1)carrega(sz(F[(i+1)%F.length].g,"1200x1200"));
+if(L.classList.contains("on"))lbMostra();
+if(usuario&&f.id&&V[f.id]){var at=document.querySelector('.atributo-item[data-variacao-id="'+V[f.id]+'"]');if(at&&!at.classList.contains("lbp-sel"))at.click()}}
+function pela(){var a=arq(im.getAttribute("src"));for(var i=0;i<F.length;i++)if(arq(F[i].g)===a){vai(i);return true}return false}
+if(!pela())vai(0);
+new MutationObserver(pela).observe(im,{attributes:true,attributeFilter:["src"]});
+function clTh(e){var b=e.target.closest(".lbg-th");if(b){e.stopPropagation();vai(+b.getAttribute("data-i"),true)}}
+G.querySelector(".lbg-rail").addEventListener("click",clTh);L.querySelector(".lbg-lbt").addEventListener("click",clTh);
+[st,L].forEach(function(c){c.querySelector(".lbg-p").addEventListener("click",function(e){e.stopPropagation();vai(cur-1)});c.querySelector(".lbg-n").addEventListener("click",function(e){e.stopPropagation();vai(cur+1)})});
+st.addEventListener("mousemove",function(e){if(e.target.closest(".lbg-ar")){zm.classList.remove("on");return}var r=st.getBoundingClientRect(),x=(e.clientX-r.left)/r.width*100,y=(e.clientY-r.top)/r.height*100,u=F[cur].g;zm.style.backgroundPosition=x+"% "+y+"%";carrega(u,function(){if(F[cur].g!==u)return;zm.style.backgroundImage='url("'+u+'")';zm.classList.add("on")})});
+st.addEventListener("mouseleave",function(){zm.classList.remove("on")});
+function abre(){lbMostra();L.classList.add("on");de.style.overflow="hidden"}
+function fecha(){L.classList.remove("on");ls.classList.remove("z");de.style.overflow=""}
+st.addEventListener("click",function(e){if(!e.target.closest(".lbg-ar"))abre()});
+st.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();abre()}});
+L.querySelector(".lbg-x").addEventListener("click",fecha);
+L.addEventListener("click",function(e){if(e.target===L)fecha()});
+function origem(e){var r=ls.getBoundingClientRect();li.style.transformOrigin=Math.max(0,Math.min(100,(e.clientX-r.left)/r.width*100))+"% "+Math.max(0,Math.min(100,(e.clientY-r.top)/r.height*100))+"%"}
+ls.addEventListener("click",function(e){if(e.target!==li){fecha();return}if(!ls.classList.contains("z"))origem(e);ls.classList.toggle("z")});
+ls.addEventListener("mousemove",function(e){if(ls.classList.contains("z"))origem(e)});
+document.addEventListener("keydown",function(e){var t=e.target;if(/INPUT|TEXTAREA|SELECT/.test(t.tagName)||t.isContentEditable)return;var k=e.key;
+if(L.classList.contains("on")){if(k==="Escape")fecha();else if(k==="ArrowLeft")vai(cur-1);else if(k==="ArrowRight")vai(cur+1);else return;e.preventDefault();return}
+var r=st.getBoundingClientRect();if(r.bottom<80||r.top>window.innerHeight-80)return;if(k==="ArrowLeft"){vai(cur-1);e.preventDefault()}else if(k==="ArrowRight"){vai(cur+1);e.preventDefault()}})}
+liga();document.readyState==="loading"&&document.addEventListener("DOMContentLoaded",liga);window.addEventListener("load",liga);
+})();</script>
+<style>/* 02/11/2026 (pedido do Nevander: no computador, a foto do produto que acompanha a rolagem pulava e crescia).
+   Causa: a posição e o tamanho da foto usavam a altura do topo (--lbh), que encolhe de 127 para 102 px ao rolar.
+   Agora usam sempre a altura do topo compacto (102 px): a foto não se mexe nem muda de tamanho. */
+@media (min-width:980px){
+html.lbcomp.lbp .produto .row-fluid:first-child>.span6:first-child{top:172px!important}
+html.lbcomp .lbg-st{max-width:min(680px,calc(100vh - 212px))!important}
+html.lbcomp .lbg-rail{max-height:min(680px,calc(100vh - 212px))!important}
+}</style>

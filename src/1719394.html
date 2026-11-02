@@ -1,0 +1,17 @@
+<script>/* LOJABIT - SEO: meta description das páginas de conteúdo (/pagina/...), que o painel não deixa preencher. Para incluir uma página nova, acrescente uma linha "endereco": "descrição" na lista abaixo. */(function(){"use strict";
+var D={
+"loja-de-perfumes-em-volta-redonda":"Loja física da @LOJABIT no Aterrado Center Shopping, em Volta Redonda (RJ): perfumes árabes, de nicho e importados originais. Endereço, horário e retirada.",
+"sobre-nos":"Conheça a @LOJABIT: perfumaria familiar e independente de Volta Redonda (RJ), criada em 2014 por Nevander e Carla. Nossa história e o que nos guia.",
+"e-seguro-comprar-na-lojabit":"É seguro comprar na @LOJABIT? Loja física em Volta Redonda desde 2015, nota 4,9 no Google, só produtos originais, pagamento protegido e troca garantida.",
+"fast-delivery":"Entrega da @LOJABIT: pago até 13h em dia útil, enviamos no mesmo dia. Correios, transportadoras, motoboy em Volta Redonda e região ou retirada na loja.",
+"trocas-devolucoes-e-garantia":"Trocas e garantia na @LOJABIT: até 30 dias para devolver sem custo, decant grátis para testar antes de abrir o lacre e garantia contra defeito.",
+"politica-de-privacidade":"Como a @LOJABIT usa e protege seus dados pessoais, em linguagem simples e conforme a LGPD: o que coletamos, para quê e como pedir acesso ou exclusão.",
+"politica-de-seguranca":"Compre com segurança na @LOJABIT: site com SSL, pagamento por intermediários especializados, nossos canais oficiais e como evitar golpes com Pix.",
+"perfumes-em-barra-mansa":"Perfumes árabes, de nicho e importados originais com entrega por motoboy em Barra Mansa em 1 dia útil: R$ 20, grátis acima de R$ 200. Ou retire na loja.",
+"perfumes-em-resende":"Perfumes originais com entrega por motoboy em Resende em 1 dia útil: R$ 30, grátis acima de R$ 200. Árabes, nicho e importados da @LOJABIT."
+};
+var m=location.pathname.match(/^\/pagina\/([\w-]+)\.html$/);if(!m||!D[m[1]])return;
+var t=document.querySelector('meta[name="description"]');
+if(!t){t=document.createElement("meta");t.setAttribute("name","description");(document.head||document.documentElement).appendChild(t)}
+t.setAttribute("content",D[m[1]]);
+})();</script>

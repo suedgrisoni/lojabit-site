@@ -1,0 +1,31 @@
+<style>/* LOJABIT - computador (980 px ou mais): sem "pulo" ao abrir a página. Os códigos do visual põem faixas acima do conteúdo
+   (barra de famílias, abertura da home, cabeçalho da categoria) depois que a página já apareceu, e tudo era empurrado
+   para baixo (CLS 0,56 no Google). Agora o que fica abaixo do topo e do menu só aparece quando essas faixas já estão no lugar.
+   Segurança: aparece sozinho em no máximo 4 s, mesmo se algum código falhar. Fonte: claude/site/computador/sem-pulo.html */
+@keyframes lbspV{to{visibility:visible}}
+@media (min-width:980px){html.lbsp .conteiner-principal>:not(#cabecalho):not(.banner-top):not(.main-menu){visibility:hidden;animation:lbspV 0s 4s forwards}}
+</style><script>
+(function () {
+  var d = document.documentElement, PUBLICADO = true;
+  try { var q = location.search.match(/[?&]lbsp=([01])/); if (q) localStorage.setItem('lbsp', q[1]); if (!PUBLICADO && localStorage.getItem('lbsp') !== '1') return; } catch (e) { if (!PUBLICADO) return; }
+  if (!window.matchMedia || !matchMedia('(min-width: 980px)').matches) return;
+  d.classList.add('lbsp');
+  var feito = 0, dcl = 0, ult = 0, mo = null;
+  function solta() { if (feito) return; feito = 1; d.classList.remove('lbsp'); if (mo) mo.disconnect(); }
+  /* espera: página lida + barra de famílias no lugar + 150 ms sem entrar nada novo acima do conteúdo (no máximo 1,5 s depois de lida) */
+  function checa() {
+    if (feito) return;
+    var agora = Date.now(), b = document.body, fam = document.getElementById('lb-familias');
+    /* home: espera também a abertura (section.lbq), que entra um pouco depois */
+    var home = !b || !b.classList.contains('pagina-inicial') || document.querySelector('section.lbq');
+    if ((fam && home && agora - ult >= 150) || agora - dcl > 1500) solta(); else setTimeout(checa, 50);
+  }
+  document.addEventListener('DOMContentLoaded', function () {
+    dcl = ult = Date.now();
+    var c = document.querySelector('.conteiner-principal');
+    if (c && window.MutationObserver) { mo = new MutationObserver(function () { ult = Date.now(); }); mo.observe(c, { childList: true }); }
+    setTimeout(checa, 0);
+  });
+  setTimeout(solta, 4000);
+})();
+</script>

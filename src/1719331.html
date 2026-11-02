@@ -1,0 +1,22 @@
+<script>/* LOJABIT - SEO: um único H1 por página. O logo deixa de ser H1 em todas as páginas; na home, a frase do topo ("Perfumaria de alto padrão...") vira o H1. */(function(){"use strict";
+if(window.__lbSeoH1)return;window.__lbSeoH1=1;
+function troca(el,tag){var n=document.createElement(tag);for(var i=0;i<el.attributes.length;i++)n.setAttribute(el.attributes[i].name,el.attributes[i].value);while(el.firstChild)n.appendChild(el.firstChild);el.parentNode.replaceChild(n,el);return n}
+function visivel(e){return!!(e&&e.getClientRects().length)}
+function logo(){var h=document.querySelector("h1.logo");if(h)troca(h,"div")}
+function home(){
+  var p=location.pathname;if(p!=="/"&&p!=="/index.html")return true;
+  if(document.querySelector("h1.lbq-h, .lbx-hero h1"))return true;
+  var d=document.querySelector("h2.lbq-h"),m=document.querySelector(".lbx-hero b");
+  var alvo=visivel(d)?"d":visivel(m)?"m":d?"d":m?"m":"";
+  if(!alvo)return false;
+  if(alvo==="d"){
+    var cs=getComputedStyle(d),k=["fontSize","fontWeight","fontFamily","lineHeight","letterSpacing","marginTop","marginRight","marginBottom","marginLeft"],v={};
+    k.forEach(function(x){v[x]=cs[x]});
+    var n=troca(d,"h1");k.forEach(function(x){n.style[x]=v[x]});
+  }else{
+    var w=document.createElement("h1");w.style.cssText="display:contents;font:inherit;margin:0";
+    m.parentNode.insertBefore(w,m);w.appendChild(m);
+  }
+  return true}
+var t=0;(function roda(){logo();if(home()||++t>40)return;setTimeout(roda,200)})();
+})();</script>

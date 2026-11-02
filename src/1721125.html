@@ -1,0 +1,72 @@
+<script>
+/* LOJABIT - Frete grátis: regra única do site (31/10/2026).
+   Sudeste (CEP 0xxxx a 3xxxx: SP, RJ, ES, MG) e Distrito Federal (70000-72799 e 73000-73699) acima de R$ 200;
+   demais regiões acima de R$ 400 (DF incluído em 31/10, só na regra; os textos do site falam do Sudeste).
+   Os códigos da sacola, compra rápida e produto leem daqui. Se a regra mudar: troque SE e BR aqui
+   E as regiões em Marketing > Frete grátis (painel). O CEP vem do cálculo de frete do site (lbCep) ou do cookie "cep" da Loja Integrada. */
+(function () {
+  'use strict';
+  var SE = 200, BR = 400, K = 'lbCep';
+  function brl(v) { return 'R$ ' + (Math.round(v * 100) / 100).toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.'); }
+  /* CEP: o do cálculo de frete do site (lbCep) ou, se não houver, o que a Loja Integrada guarda ao calcular (cookie "cep") */
+  function cep() {
+    var c = '';
+    try { c = (localStorage.getItem(K) || '').replace(/\D/g, ''); } catch (e) {}
+    if (c.length !== 8) { var m = document.cookie.match(/(?:^|; )cep=(\d{8})/); c = m ? m[1] : ''; }
+    return c.length === 8 ? c : '';
+  }
+  function regiao(c) {
+    c = c == null ? cep() : String(c).replace(/\D/g, '');
+    if (c.length !== 8) return '';
+    var n = +c;
+    return +c.charAt(0) <= 3 ? 'se' : ((n >= 70000000 && n <= 72799999) || (n >= 73000000 && n <= 73699999)) ? 'df' : 'br';
+  }
+  /* valor que falta atingir: com CEP conhecido, o da região; sem CEP, o próximo degrau (200, depois 400) */
+  function alvo(t) { var r = regiao(); return r === 'se' || r === 'df' ? SE : r === 'br' ? BR : (t < SE ? SE : BR); }
+  function ok(t) { return t > 0 && t >= alvo(t); }
+  function pct(t) { return Math.max(0, Math.min(100, t / alvo(t) * 100)); }
+  function lugar(a) { var r = regiao(); return r === 'df' || r === 'br' ? 'na sua região' : a === SE ? 'no Sudeste' : 'para todo o Brasil'; }
+  var GERAL = 'Frete grátis acima de ' + brl(SE).replace(',00', '') + ' no Sudeste e ' + brl(BR).replace(',00', '') + ' no resto do Brasil';
+  /* html: com <b>; texto: sem marcação */
+  function html(t) {
+    var r = regiao(), a = alvo(t), f = a - t;
+    if (!(t > 0)) return GERAL + '.';
+    if (f > 0) {
+      if (!r && a === BR) return '<b>Frete grátis</b> liberado no Sudeste. Faltam <b>' + brl(f) + '</b> para o resto do Brasil.';
+      return 'Faltam <b>' + brl(f) + '</b> para o <b>frete grátis</b> ' + lugar(a) + '.';
+    }
+    return '<b>Frete grátis</b> liberado ' + (r === 'se' ? 'para entregas no Sudeste' : r ? 'para o seu CEP' : 'para todo o Brasil') + '.';
+  }
+  function msg(t) {
+    var r = regiao(), a = alvo(t), f = a - t;
+    if (!(t > 0)) return GERAL;
+    if (f > 0) {
+      if (!r && a === BR) return 'Já tem frete grátis no Sudeste; faltam ' + brl(f) + ' para o resto do Brasil';
+      return 'Faltam ' + brl(f) + ' para o frete grátis ' + lugar(a);
+    }
+    return 'Seu pedido já tem frete grátis ' + (r === 'se' ? 'no Sudeste' : r ? 'para o seu CEP' : 'para todo o Brasil');
+  }
+  window.__lbFrete = { SE: SE, BR: BR, cep: cep, regiao: regiao, alvo: alvo, ok: ok, pct: pct, lugar: lugar, html: html, msg: msg, brl: brl, geral: GERAL };
+  /* guarda o CEP digitado em qualquer campo de CEP da loja (produto, sacola) para as mensagens saberem a região */
+  function guarda(e) {
+    var i = e.target;
+    if (!i || i.tagName !== 'INPUT') return;
+    var id = (i.name + ' ' + i.id + ' ' + (i.getAttribute('placeholder') || '') + ' ' + (i.getAttribute('aria-label') || '')).toLowerCase();
+    if (id.indexOf('cep') < 0) return;
+    var c = (i.value || '').replace(/\D/g, '');
+    if (c.length === 8) try { localStorage.setItem(K, c); } catch (x) {}
+  }
+  document.addEventListener('change', guarda, true);
+  document.addEventListener('input', guarda, true);
+  /* rede de segurança: produto novo cadastrado com o texto antigo do bloco "Por que comprar" mostra o texto novo */
+  var VELHO = 'Frete grátis em compras acima de R$ 300 para o Sudeste.',
+    NOVO = 'Frete grátis em compras acima de R$ ' + SE + ' para o Sudeste e acima de R$ ' + BR + ' para as demais regiões.';
+  function corrige() {
+    var d = document.getElementById('descricao');
+    if (!d || d.textContent.indexOf(VELHO) < 0) return;
+    var w = document.createTreeWalker(d, 4), n;
+    while ((n = w.nextNode())) if (n.nodeValue.indexOf(VELHO) >= 0) n.nodeValue = n.nodeValue.split(VELHO).join(NOVO);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', corrige); else corrige();
+})();
+</script>

@@ -1,0 +1,61 @@
+<script>
+/* LOJABIT - menu ☰ do celular: cabe na tela visível, rola até o último item e não deixa a página de trás andar.
+   Causa (30/10): o tema força height:100vh no menu (no celular 100vh é maior que a tela quando a barra do navegador aparece)
+   e a barra de baixo do celular (código 1717518, z-index 2147482000) ficava por cima do fim do menu.
+   Prévia: ?lbfam=1 (a mesma das famílias; desliga com ?lbfam=0). Publicar: PUBLICADO = true. */
+(function () {
+  'use strict';
+  var PUBLICADO = true;
+  if (window.__lbMenuFix) return;
+  window.__lbMenuFix = 1;
+  var on = PUBLICADO;
+  try {
+    if (/[?&]lbfam=1\b/.test(location.search)) localStorage.setItem('lbFam', '1');
+    if (/[?&]lbfam=0\b/.test(location.search)) localStorage.removeItem('lbFam');
+    if (localStorage.getItem('lbFam') === '1') on = true;
+  } catch (e) {}
+  if (!on) return;
+  var css = '@media (max-width:979px){' +
+    /* altura = tela visível de verdade (dvh); quem não entende dvh fica com o 100vh de antes */
+    'html body .main-menu-mobile{height:100vh!important;height:100dvh!important;max-height:100dvh!important;overflow-y:auto!important;' +
+    'overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y}' +
+    /* folga no fim para o último link nunca ficar colado na borda / atrás da barra do iPhone */
+    'html body .main-menu-mobile .menu-content{padding-bottom:calc(32px + env(safe-area-inset-bottom,0px))!important}' +
+    /* com o menu aberto: ele fica por cima de tudo, a barra de baixo some e o fundo não rola */
+    'html.lbx-menu body .main-menu-mobile{z-index:2147482700!important}' +
+    'html.lbx-menu #lbxBar,html.lbx-menu #lbxToast,html.lbx-menu #lbxSelo{visibility:hidden!important;opacity:0!important;pointer-events:none!important}' +
+    'html.lbx-menu,html.lbx-menu body{overflow:hidden!important}' +
+    '}';
+  function estilo() {
+    if (document.getElementById('lbmenufix-css') || !document.head) return;
+    var s = document.createElement('style');
+    s.id = 'lbmenufix-css';
+    s.textContent = css;
+    document.head.appendChild(s);
+  }
+  function estado() {
+    var m = document.querySelector('.main-menu-mobile');
+    var aberto = !!(m && m.classList.contains('opened') && window.innerWidth < 980);
+    var de = document.documentElement;
+    if (de && de.classList.contains('lbx-menu') !== aberto) de.classList.toggle('lbx-menu', aberto);
+  }
+  function liga() {
+    try {
+      estilo();
+      var m = document.querySelector('.main-menu-mobile');
+      if (!m || m.__lbmf) return !!m;
+      m.__lbmf = 1;
+      if (window.MutationObserver) new MutationObserver(estado).observe(m, { attributes: true, attributeFilter: ['class'] });
+      estado();
+      return true;
+    } catch (e) { return false; }
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', liga); else liga();
+  addEventListener('load', liga);
+  addEventListener('resize', estado);
+  addEventListener('pageshow', estado);
+  /* o tema pode montar o menu depois: tenta por alguns segundos */
+  var n = 0, t = setInterval(function () { if (liga() || ++n > 30) clearInterval(t); }, 500);
+})();
+
+</script>

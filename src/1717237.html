@@ -1,0 +1,50 @@
+<style>
+#lb-familias{background:#fff;border-top:1px solid rgba(0,0,0,.06);border-bottom:1px solid rgba(0,0,0,.08);font-family:Jost,"Helvetica Neue",Arial,sans-serif;position:relative;z-index:5}
+#lb-familias .lbf-in{max-width:1300px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:center;gap:4px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+#lb-familias .lbf-in::-webkit-scrollbar{display:none}
+#lb-familias .lbf-rot{flex:0 0 auto;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ns-primary-color,#EE7A2F);font-weight:600;margin-right:12px;white-space:nowrap}
+#lb-familias a{flex:0 0 auto;display:inline-block;padding:11px 10px 9px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#141414;text-decoration:none;white-space:nowrap;border-bottom:2px solid transparent;transition:color .2s,border-color .2s}
+#lb-familias a:hover,#lb-familias a.ativo{color:var(--ns-primary-color,#EE7A2F);border-bottom-color:var(--ns-primary-color,#EE7A2F)}
+@media (max-width:1100px){#lb-familias .lbf-in{justify-content:flex-start}}
+@media (max-width:767px){#lb-familias .lbf-in{padding:0 12px;gap:8px}#lb-familias .lbf-rot{display:none}#lb-familias a{padding:7px 12px;margin:8px 0;border:1px solid rgba(0,0,0,.14);border-radius:999px;font-size:11px}#lb-familias a.ativo{border-color:var(--ns-primary-color,#EE7A2F)}}
+</style>
+<script>
+/* LOJABIT - menu duplo: famílias olfativas e ocasiões, embaixo do menu principal */
+(function () {
+  var itens = [
+    ['Doces', '/perfumes-doces'],
+    ['Oud', '/perfumes-com-oud'],
+    ['Amadeirados', '/perfumes-amadeirados'],
+    ['Baunilha', '/perfumes-de-baunilha'],
+    ['Florais', '/perfumes-florais'],
+    ['Frescos e Cítricos', '/perfumes-frescos-e-citricos'],
+    ['Marcantes', '/perfumes-marcantes'],
+    ['Dia a Dia', '/perfumes-para-o-dia-a-dia'],
+    ['Noite', '/perfumes-para-a-noite'],
+    ['Versáteis', '/perfumes-versateis']
+  ];
+  var tentativas = 0;
+  function montar() {
+    if (document.getElementById('lb-familias')) return true;
+    var ref = document.querySelector('.main-menu.main-menu-desktop');
+    if (!ref && tentativas < 20) return false;
+    if (!ref) ref = document.getElementById('cabecalho');
+    if (!ref || !ref.parentNode) return false;
+    var atual = location.pathname.replace(/\/$/, '');
+    var h = '<div class="lbf-in"><span class="lbf-rot">Encontre seu perfume</span>';
+    for (var i = 0; i < itens.length; i++) {
+      var ativo = atual === itens[i][1];
+      h += '<a href="' + itens[i][1] + '"' + (ativo ? ' class="ativo" aria-current="page"' : '') + '>' + itens[i][0] + '</a>';
+    }
+    var nav = document.createElement('nav');
+    nav.id = 'lb-familias';
+    nav.setAttribute('aria-label', 'Encontre seu perfume');
+    nav.innerHTML = h + '</div>';
+    ref.parentNode.insertBefore(nav, ref.nextSibling);
+    return true;
+  }
+  if (!montar()) {
+    var t = setInterval(function () { tentativas++; if (montar() || tentativas > 40) clearInterval(t); }, 150);
+  }
+})();
+</script>

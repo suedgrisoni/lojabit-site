@@ -1,0 +1,5 @@
+<style>/* LOJABIT - faixa "Famílias / Ocasião e clima" (#lb-familias) só na página inicial (31/10/2026, pedido do Nevander). As famílias continuam nos menus: Departamentos, ☰ do celular e folhas Categorias/Busca. Para voltar a mostrar em todas as páginas: desativar este código. */
+body:not(.pagina-inicial) #lb-familias{display:none!important}
+/* 02/11/2026 (pulo do menu na home, computador): a faixa entra primeiro na versão simples (1 linha) e logo depois vira a de chips coloridos (2 linhas), empurrando a abertura. Reserva desde o começo a altura final (97 px até 1199 px, 69 px a partir de 1200 px) e esconde a versão simples até a final ficar pronta. */
+@media (min-width:980px){body.pagina-inicial #lb-familias:not(.lbf2){box-sizing:border-box;min-height:97px}body.pagina-inicial #lb-familias:not(.lbf2)>*{visibility:hidden}}
+@media (min-width:1200px){body.pagina-inicial #lb-familias:not(.lbf2){min-height:69px}}</style>

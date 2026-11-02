@@ -1,0 +1,109 @@
+<script>/* LOJABIT - visual novo 22: home mais compacta e página do produto nova (só computador, a partir de 980 px). PUBLICADO = true desde 19/10/2026 (pedido do Nevander); com false, só com www.lojabit.com/?lbcomp=1. O script fica no Visual novo 23. */
+(function(){var PUBLICADO=true,on=PUBLICADO;try{var q=location.search;if(/[?&]lbcomp=1(&|$)/.test(q))localStorage.setItem("lbComp","1");if(/[?&]lbcomp=0(&|$)/.test(q))localStorage.removeItem("lbComp");if(localStorage.getItem("lbComp")==="1")on=true}catch(e){}if(on)document.documentElement.className+=" lbcomp"})();</script>
+<style>
+@media(min-width:980px){
+/* 1. cartões de produto mais baixos (a foto continua do mesmo tamanho) */
+html.lbcomp .listagem .listagem-item{padding:6px 6px 8px!important}
+html.lbcomp .listagem .listagem-item .info-produto{padding:10px 4px 2px!important}
+html.lbcomp .listagem .listagem-item .nome-produto{display:-webkit-box!important;-webkit-line-clamp:2!important;-webkit-box-orient:vertical!important;overflow:hidden!important;height:2.7em!important;max-height:2.7em!important;min-height:2.7em!important;margin:0 0 6px!important;font-size:15.5px!important;line-height:1.35!important}
+html.lbcomp .listagem .listagem-item .preco-produto{margin:0!important;line-height:1.25!important}
+html.lbcomp .listagem .listagem-item .preco-produto .titulo{font-size:22px!important;line-height:1.15!important;margin:5px 0 3px!important}
+html.lbcomp .listagem .listagem-item .acoes-produto{padding:6px 0 2px!important}
+html.lbcomp .listagem .listagem-item .acoes-produto .botao{margin:0!important;padding:10px 12px!important}
+html.lbcomp .listagem .listagem-item .preco-parcela,html.lbcomp .listagem .listagem-item .desconto-a-vista{display:inline!important;font-size:11.5px!important;line-height:1.35!important}
+html.lbcomp .listagem .listagem-item .preco-produto>div+div{margin-top:2px}
+html.lbcomp .listagem .listagem-item .desconto-a-vista{display:block!important}
+/* 2. títulos e espaços entre as vitrines */
+html.lbcomp .titulo-categoria{margin:34px 0 0!important;padding:2px 0 10px!important;height:auto!important}
+html.lbcomp #corpo .listagem{margin-bottom:0!important}
+html.lbcomp #corpo{margin-bottom:8px!important}
+/* 3. seções da home com menos respiro */
+html.lbcomp .lbq-abre{padding:14px 22px!important}
+html.lbcomp .lbq-centro{padding:52px 24px 40px!important}
+html.lbcomp .lbq-qual{padding:52px 0 54px!important}
+html.lbcomp .lbh-section{padding-top:52px!important}
+html.lbcomp .lbh-decants{margin-top:44px!important;padding-top:52px!important;padding-bottom:52px!important}
+html.lbcomp .section-offer-countdown{margin-bottom:12px!important}
+html.lbcomp .lbmf{margin-top:44px!important;padding-top:52px!important;padding-bottom:56px!important}
+html.lbcomp .lbh-social{padding-top:52px!important;padding-bottom:44px!important}
+html.lbcomp .lbq-h{font-size:60px!important;line-height:1.04!important}
+html.lbcomp .lbq-num{margin-top:8px!important;padding-top:22px!important}
+html.lbcomp .lbh-social-block+.lbh-social-block{margin-top:36px!important}
+html.lbcomp .lbv-ig-grid{grid-template-columns:repeat(8,minmax(0,1fr))!important;gap:8px!important}
+html.lbcomp .lbv-ig-perfil{margin-bottom:14px!important}
+html.lbcomp .lbh-head,html.lbcomp .lbh-cab{margin-bottom:16px!important}
+/* 4. página do produto */
+html.lbcomp.lbp .acoes-flutuante,html.lbcomp.lbp .produto-compartilhar,html.lbcomp.lbp .principal .codigo-produto,html.lbcomp.lbp a.lista-favoritos,html.lbcomp.lbp .principal>.acoes-produto .comprar,html.lbcomp.lbp .principal>.parcelas-produto:not(.lbp-ab){display:none!important}
+html.lbcomp.lbp .produto .row-fluid:first-child>.span6:first-child{position:sticky;top:calc(var(--lbh,100px) + 70px);align-self:flex-start}
+html.lbcomp.lbp .produto>.row-fluid:first-child,html.lbcomp.lbp .produto .row-fluid:first-child{display:flex;align-items:flex-start}
+html.lbcomp.lbp .principal .breadcrumbs{margin:0 0 10px!important;font-size:12px}
+html.lbcomp.lbp .lbp-kick{display:flex;align-items:center;gap:10px;margin:0 0 6px;font:500 11px/1 Jost,Arial,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#8F6E2E}
+html.lbcomp.lbp .lbp-kick a{color:#8F6E2E!important;text-decoration:none!important}
+html.lbcomp.lbp .lbp-tit{display:flex;align-items:flex-start;gap:14px}
+html.lbcomp.lbp .principal h1.nome-produto{flex:1;margin:0!important;font-size:30px!important;line-height:1.15!important}
+html.lbcomp.lbp .lbp-fav{flex:none;display:flex;align-items:center;justify-content:center;width:44px;height:44px;margin-top:2px;border:1px solid #DCD2C2;border-radius:50%;background:#fff;color:#0A0A0B!important;text-decoration:none!important;transition:border-color .2s,color .2s}
+html.lbcomp.lbp .lbp-fav svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.6}
+html.lbcomp.lbp .lbp-fav:hover{border-color:#C9A55C;color:#A88340!important}
+html.lbcomp.lbp .lbp-fav.lbp-on svg{fill:#C9A55C;stroke:#A88340}
+html.lbcomp.lbp .principal .atributos{margin:18px 0 4px!important}
+html.lbcomp.lbp .atributo-comum>span{display:block;margin:0 0 8px;font:500 11px/1 Jost,Arial,sans-serif!important;letter-spacing:.16em;text-transform:uppercase;color:#403A34}
+html.lbcomp.lbp .atributo-comum>span b{color:#0A0A0B!important}
+html.lbcomp.lbp .atributo-comum ul{display:grid!important;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:8px;margin:0!important;padding:0!important}
+html.lbcomp.lbp .atributo-comum li{float:none!important;margin:0!important;width:auto!important}
+html.lbcomp.lbp .atributo-comum a.atributo-item{display:flex!important;flex-direction:column;align-items:flex-start;gap:3px;width:auto!important;height:auto!important;min-height:58px;padding:10px 12px!important;border:1px solid #DCD2C2!important;border-radius:4px!important;background:#fff!important;text-align:left;text-decoration:none!important;transition:border-color .15s,box-shadow .15s}
+html.lbcomp.lbp .atributo-comum a.atributo-item span{font:600 15px/1.1 Jost,Arial,sans-serif!important;color:#0A0A0B!important}
+html.lbcomp.lbp .atributo-comum a.atributo-item em{font:400 12.5px/1.2 Jost,Arial,sans-serif;font-style:normal;color:#8F6E2E}
+html.lbcomp.lbp .atributo-comum a.atributo-item:hover{border-color:#C9A55C!important}
+html.lbcomp.lbp .atributo-comum a.atributo-item.active,html.lbcomp.lbp .atributo-comum a.atributo-item.selecionado,html.lbcomp.lbp .atributo-comum a.atributo-item.lbp-sel{border-color:#0A0A0B!important;box-shadow:inset 0 0 0 1px #0A0A0B}
+html.lbcomp.lbp .atributo-comum a.atributo-item.lbp-esg{opacity:.5}
+html.lbcomp.lbp .atributo-comum a.atributo-item i{display:none!important}
+html.lbcomp.lbp .lbp-alerta .atributo-comum ul{animation:lbp-tremer .4s}
+html.lbcomp.lbp .lbp-aviso{display:none;margin:8px 0 0;font:500 12.5px/1.3 Jost,Arial,sans-serif;color:#B9541A}
+html.lbcomp.lbp .lbp-alerta .lbp-aviso{display:block}
+@keyframes lbp-tremer{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+html.lbcomp.lbp .principal>.acoes-produto{margin:14px 0 0!important}
+html.lbcomp.lbp .principal>.acoes-produto .preco-produto .titulo{font-size:34px!important;line-height:1.1!important}
+html.lbcomp.lbp .principal>.acoes-produto .preco-a-partir>span{font-size:13px}
+html.lbcomp.lbp .principal>.acoes-produto .desconto-a-vista{display:inline-block!important;margin-top:4px;padding:4px 8px;background:#EEF7F0;font-size:13px!important;color:#14843E!important}
+html.lbcomp.lbp .principal>.acoes-produto .desconto-a-vista strong{color:#14843E!important}
+html.lbcomp.lbp .lbp-bts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0 0}
+html.lbcomp.lbp .lbp-bts button{display:flex;align-items:center;justify-content:center;gap:8px;height:52px;border:1px solid #0A0A0B;border-radius:0;font:500 12.5px/1 Jost,Arial,sans-serif;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;transition:background .2s,color .2s}
+html.lbcomp.lbp .lbp-ja{background:#0A0A0B;color:#C9A55C}
+html.lbcomp.lbp .lbp-ja:hover{background:#C9A55C;border-color:#C9A55C!important;color:#0A0A0B}
+html.lbcomp.lbp .lbp-add{background:#fff;color:#0A0A0B}
+html.lbcomp.lbp .lbp-add:hover{background:#FAF7F2}
+html.lbcomp.lbp .lbp-bts button[disabled]{opacity:.45;cursor:not-allowed}
+html.lbcomp.lbp .lbp-bts .lbp-ok{border-color:#1F8A4C;color:#1F8A4C}
+html.lbcomp.lbp .lbp-pag{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;margin:12px 0 0;font:400 12.5px/1.4 Jost,Arial,sans-serif;color:#403A34}
+html.lbcomp.lbp .lbp-pag b{font-weight:500;color:#0A0A0B}
+html.lbcomp.lbp .lbp-pag a{margin-left:auto;color:#8F6E2E!important;text-decoration:underline!important;cursor:pointer}
+html.lbcomp.lbp .lbp-fr{margin:16px 0 0;padding:14px 16px;border:1px solid #ECE5DA;background:#FAF7F2}
+html.lbcomp.lbp .lbp-fr-cab{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin:0 0 10px;font:500 11px/1 Jost,Arial,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#403A34}
+html.lbcomp.lbp .lbp-fr-cab small{font:400 12px/1 Jost,Arial,sans-serif;letter-spacing:0;text-transform:none;color:#14843E}
+html.lbcomp.lbp .lbp-fr form{display:flex;gap:8px;margin:0}
+html.lbcomp.lbp .lbp-fr input{flex:1;height:44px!important;margin:0!important;padding:0 12px!important;border:1px solid #DCD2C2!important;border-radius:0!important;background:#fff!important;box-shadow:none!important;font:500 15px/1 Jost,Arial,sans-serif!important;letter-spacing:.06em}
+html.lbcomp.lbp .lbp-fr form button{height:44px;padding:0 18px;border:0;background:#0A0A0B;color:#C9A55C;font:500 11.5px/1 Jost,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
+html.lbcomp.lbp .lbp-fr-res{margin:10px 0 0;padding:0;list-style:none}
+html.lbcomp.lbp .lbp-fr-res li{display:grid;grid-template-columns:1fr auto auto;gap:12px;align-items:baseline;padding:7px 0;border-top:1px dashed #DCD2C2;font:400 13px/1.3 Jost,Arial,sans-serif;color:#403A34}
+html.lbcomp.lbp .lbp-fr-res li[hidden]{display:none!important}
+html.lbcomp.lbp .lbp-fr-res li b{font-weight:500;color:#0A0A0B;white-space:nowrap}
+html.lbcomp.lbp .lbp-fr-res li span{white-space:nowrap;color:#776E64}
+html.lbcomp.lbp .lbp-fr-res li.lbp-gr b{color:#14843E}
+html.lbcomp.lbp .lbp-fr-res li.lbp-tag em{display:inline-block;margin-left:6px;padding:2px 6px;background:#0A0A0B;color:#C9A55C;font:500 9.5px/1.2 Jost,Arial,sans-serif;font-style:normal;letter-spacing:.12em;text-transform:uppercase;vertical-align:1px}
+html.lbcomp.lbp .lbp-fr-msg{margin:8px 0 0;font:400 12.5px/1.4 Jost,Arial,sans-serif;color:#776E64}
+html.lbcomp.lbp .lbp-fr-mais{margin:6px 0 0;border:0;background:none;padding:0;font:400 12.5px/1 Jost,Arial,sans-serif;color:#8F6E2E;text-decoration:underline;cursor:pointer}
+html.lbcomp.lbp .principal .cep,html.lbcomp.lbp .principal>.cep{display:none!important}
+html.lbcomp.lbp .principal .lbs-prod{margin-top:16px!important}
+html.lbcomp.lbp .produto>.row-fluid+.row-fluid .abas-custom,html.lbcomp.lbp #descricao{max-width:880px;margin-left:auto!important;margin-right:auto!important}
+html.lbcomp.lbp .lbp-barra{position:fixed;left:0;right:0;bottom:0;z-index:1150;display:flex;align-items:center;gap:16px;padding:10px 110px 10px 24px;background:#fff;border-top:1px solid #ECE5DA;box-shadow:0 -8px 24px rgba(10,10,11,.08);transform:translateY(105%);transition:transform .25s}
+html.lbcomp.lbp .lbp-barra.lbp-vis{transform:none}
+html.lbcomp.lbp .lbp-barra img{width:48px;height:48px;object-fit:contain}
+html.lbcomp.lbp .lbp-barra .lbp-bn{flex:1;min-width:0;font:400 14px/1.3 Jost,Arial,sans-serif;color:#0A0A0B;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+html.lbcomp.lbp .lbp-barra .lbp-bn small{display:block;color:#8F6E2E;font-size:12px}
+html.lbcomp.lbp .lbp-barra .lbp-bp{font:600 20px/1 Jost,Arial,sans-serif;color:#0A0A0B;white-space:nowrap}
+html.lbcomp.lbp .lbp-barra button{height:46px;padding:0 26px;border:0;background:#0A0A0B;color:#C9A55C;font:500 12px/1 Jost,Arial,sans-serif;letter-spacing:.16em;text-transform:uppercase;cursor:pointer}
+html.lbcomp.lbp .lbp-barra button:hover{background:#C9A55C;color:#0A0A0B}
+}
+/* 19/10/2026: o Nevander pediu tirar "Ofertas por tempo limitado" também do computador (o contador recomeçava todo dia, sem preço de/por). Para voltar, apagar a linha abaixo. */
+.section-offer-countdown{display:none!important}
+</style>

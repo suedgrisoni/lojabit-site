@@ -1,0 +1,80 @@
+<style data-lbv="31b">/* LOJABIT - visual novo 31: prazo em data no frete (produto e sacola), perfumes parecidos e vistos recentemente. Computador e celular. */
+.lbdt{display:block;margin-top:2px;font:500 11.5px/1.3 var(--lb-sans,Jost,Arial,sans-serif)!important;letter-spacing:0!important;text-transform:none!important;color:var(--lb-gold-text,#8F6E2E)!important;white-space:normal}
+.lbsm{clear:both;margin:48px auto 0;max-width:1260px;font-family:var(--lb-sans,Jost,Arial,sans-serif)}
+.lbsm-c{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin:0 0 16px}
+.lbsm-c small{display:block;margin:0 0 6px;font:500 11px/1 var(--lb-sans,Jost,Arial,sans-serif);letter-spacing:.22em;text-transform:uppercase;color:var(--lb-gold-text,#8F6E2E)}
+.lbsm-c h2{margin:0!important;padding:0!important;border:0!important;font:500 34px/1.1 var(--lb-serif,"Cormorant Garamond",Georgia,serif)!important;color:var(--lb-ink,#0A0A0B)!important;text-transform:none!important;letter-spacing:0!important;text-align:left!important}
+.lbsm-c p{margin:6px 0 0!important;font-size:14px;color:var(--lb-muted,#776E64)}
+.lbsm-c button{flex:none;padding:0;border:0;background:none;font:400 13px/1 var(--lb-sans,Jost,Arial,sans-serif);color:var(--lb-muted,#776E64);text-decoration:underline;cursor:pointer}
+.lbsm-pc .lbsm-lst{margin:0!important;padding:0!important;border:0!important}
+.lbsm-pc .lbsm-l{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 60px)/4);gap:20px;margin:0!important;padding:0 0 14px!important;list-style:none;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:thin}
+.lbsm-pc .lbsm-l>li{scroll-snap-align:start;min-width:0;width:auto!important;margin:0!important;float:none!important;list-style:none}
+.lbsm-pc .listagem-item{height:100%;margin:0!important}
+.lbsm-pc .imagem-produto{aspect-ratio:1/1;height:auto!important}
+.lbsm-c .lbsm-nav{display:flex;gap:8px}
+.lbsm-c .lbsm-nav button{width:42px;height:42px;border:1px solid var(--lb-line2,#DCD2C2);border-radius:50%;background:#fff;font:400 24px/1 var(--lb-sans,Jost,Arial,sans-serif);color:var(--lb-ink,#0A0A0B);text-decoration:none}
+.lbsm-c .lbsm-nav button:hover{border-color:var(--lb-ink,#0A0A0B)}
+.lbsm-c .lbsm-nav button:disabled{opacity:.3;cursor:default;border-color:var(--lb-line2,#DCD2C2)}
+.lbsm-mob{margin:26px 0 0}
+.lbsm-mob .lbsm-c{padding:0 2px}
+.lbsm-mob .lbsm-c h2{font-size:26px!important}
+@media(max-width:1100px){.lbsm-pc .lbsm-l{grid-auto-columns:calc((100% - 40px)/3)}}@media(max-width:760px){.lbsm-pc .lbsm-l{grid-auto-columns:calc((100% - 20px)/2)}}
+</style>
+<script>(function(){"use strict";if(window.__lbsm)return;window.__lbsm=1;var de=document.documentElement,B=function(){return document.body?document.body.className:""};
+function esc(t){return String(t==null?"":t).replace(/[&<>"']/g,function(a){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[a]})}
+function brl(v){var p=(+v||0).toFixed(2).split(".");return"R$ "+p[0].replace(/\B(?=(\d{3})+(?!\d))/g,".")+","+p[1]}
+function num(t){var m=String(t||"").replace(/\s/g,"").match(/(\d{1,3}(?:\.\d{3})+|\d+),(\d{2})/);return m?parseFloat(m[1].replace(/\./g,"")+"."+m[2]):0}
+function cel(){return de.classList.contains("lbmob")||window.innerWidth<980}
+/* ---------- 1. prazo em data ---------- */
+var FER=["2026-11-02","2026-11-15","2026-11-20","2026-12-25","2027-01-01","2027-02-08","2027-02-09","2027-03-26","2027-04-21","2027-05-01","2027-05-27","2027-09-07","2027-10-12","2027-11-02","2027-11-15","2027-11-20","2027-12-25"],DS=["dom","seg","ter","qua","qui","sex","sáb"];
+function util(d){var w=d.getUTCDay();return w&&w<6&&FER.indexOf(d.toISOString().slice(0,10))<0}
+function prox(d){return new Date(d.getTime()+864e5)}
+function data(n){var a=new Date(Date.now()-108e5),s=new Date(Date.UTC(a.getUTCFullYear(),a.getUTCMonth(),a.getUTCDate()));if(!util(s)||a.getUTCHours()>=13){do s=prox(s);while(!util(s))}for(var i=0;i<n;i++){do s=prox(s);while(!util(s))}return DS[s.getUTCDay()]+"., "+("0"+s.getUTCDate()).slice(-2)+"/"+("0"+(s.getUTCMonth()+1)).slice(-2)}
+function prazos(){[].forEach.call(document.querySelectorAll(".prazo, .lbp-fr-res li>span:nth-of-type(2)"),function(e){if(e.querySelector(".lbdt"))return;var m=e.textContent.match(/(\d+)\s*dias?\s*[úu]te?is?/i);if(!m)return;var li=e.closest("li,label")||e.parentNode,ret=/retir/i.test(li.textContent);e.insertAdjacentHTML("beforeend",'<small class="lbdt">'+(ret?"Retire a partir de ":"Chega até ")+data(+m[1])+"</small>")})}
+/* ---------- 2. dados guardados ---------- */
+function le(k){try{var v=JSON.parse(localStorage.getItem(k));return Array.isArray(v)?v:[]}catch(e){return[]}}
+var TIPOS=[[/^Perfume Árabe /i,"Perfume árabe"],[/^Perfume de Nicho /i,"Perfume de nicho"],[/^Perfume Importado /i,"Perfume importado"],[/^Creme (Hidratante|Corporal) /i,"Hidratante"],[/^Body Splash /i,"Body splash"],[/^Kit /i,"Kit"],[/^Relógio (Masculino |Feminino |Unissex )?/i,"Relógio"],[/^Perfume /i,"Perfume"]];
+function tipoNome(n){for(var k=0;k<TIPOS.length;k++)if(TIPOS[k][0].test(n))return[TIPOS[k][1],n.replace(TIPOS[k][0],"")];return["",n]}
+function atual(){var h=document.querySelector(".produto h1.nome-produto"),im=document.getElementById("imagemProduto");if(!h)return null;var tn=tipoNome(h.textContent.replace(/\s+/g," ").trim()),pv=0,n=0;[].forEach.call(document.querySelectorAll(".produto .acoes-produto [data-sell-price]"),function(e){var v=parseFloat(e.getAttribute("data-sell-price"));if(v>0){n++;if(!pv||v<pv)pv=v}});return{u:location.pathname,nome:tn[1],tipo:tn[0],src:im?im.getAttribute("src")||"":"",pv:pv,ap:n>1}}
+function guardaVisto(d){var l=le("lbxVis").filter(function(x){return x&&x.u!==d.u});l.unshift(d);try{localStorage.setItem("lbxVis",JSON.stringify(l.slice(0,12)))}catch(e){}}
+function foto(s,t){return/cdn\.awsli\.com\.br/.test(s)?s.replace(/\/\d{2,4}x\d{2,4}\//,"/"+t+"/"):s}
+/* cartão no mesmo formato da listagem da loja: o código 8 põe as linhas de tamanho (decants e frasco) com preço e botão de sacola.
+   Nome, foto e preço vêm da base dos filtros quando ela está no navegador (sempre atualizados); sem ela, do que foi guardado. */
+var IMG="https://cdn.awsli.com.br/300x300/278/278816/produto/",BS=null,PRE={"Perfume árabe":"Perfume Árabe ","Perfume de nicho":"Perfume de Nicho ","Perfume importado":"Perfume Importado ","Body splash":"Body Splash ","Kit":"Kit ","Relógio":"Relógio ","Perfume":"Perfume "};
+function bas(){if(BS)return BS;BS={};try{JSON.parse(localStorage.getItem("lbFil1")).p.forEach(function(r){BS[r[1]]=r})}catch(e){}return BS}
+function cartao(d){var r=bas()[d.u],n=r?r[2]:d.n||(PRE[d.tipo]||"")+d.nome,src=r?IMG+r[0]+"/"+r[3]:foto(d.src,"300x300"),pv=d.pv,ap=d.ap,po=0;
+if(r){var ok=(r[7]||[]).filter(function(v){return v[3]&&v[1]>0});pv=ok.length?Math.min.apply(null,ok.map(function(v){return v[1]})):r[8];ap=ok.length>1;po=!ap&&r[9]>pv?r[9]:0}
+var u=esc(d.u),nm=esc(n),pr=!pv?'<strong class="preco-venda cor-principal titulo">Ver tamanhos</strong>':po?'<s class="preco-venda">'+brl(po)+'</s> <strong class="preco-promocional cor-principal titulo">'+brl(pv)+"</strong>":ap?'<span class="preco-a-partir"><span>A partir de</span> <strong class="preco-venda cor-principal titulo">'+brl(pv)+"</strong></span>":'<strong class="preco-promocional cor-principal titulo">'+brl(pv)+"</strong>";
+return'<li><div class="listagem-item'+(r?" prod-id-"+r[0]:"")+'"><a href="'+u+'" class="produto-sobrepor" title="'+nm+'"></a><div class="imagem-produto">'+(src?'<img loading="lazy" src="'+esc(src)+'" alt="'+nm+'" class="imagem-principal">':"")+'</div><div class="info-produto"><a href="'+u+'" class="nome-produto cor-secundaria">'+nm+'</a><div><div class="preco-produto destaque-preco"><div>'+pr+"</div>"+(pv?'<span class="desconto-a-vista">ou <strong class="cor-secundaria">'+brl(pv*.9)+"</strong> via Pix</span>":"")+'</div></div></div><div class="bandeiras-produto"></div></div></li>'}
+function faixa(id,k,t,s,l,ref,antes,limpar){if(document.getElementById(id)||!l.length||!ref)return;var M=window.__lbx,mob=cel()&&M&&M.lista,sec=document.createElement("section");sec.id=id;sec.className="lbsm"+(mob?" lbsm-mob":"");sec.innerHTML='<div class="lbsm-c"><div><small>'+k+"</small><h2>"+t+"</h2>"+(s?"<p>"+esc(s)+"</p>":"")+"</div>"+(limpar?'<button type="button">Limpar</button>':"")+"</div>";
+if(mob){var w=M.lista(l.slice(0,10),0);w.classList.add("lbx-hs");sec.appendChild(w)}else{sec.className+=" lbsm-pc";var w=document.createElement("div");w.className="listagem lbsm-lst";w.innerHTML='<ul class="lbsm-l">'+l.slice(0,12).map(cartao).join("")+"</ul>";sec.appendChild(w);
+/* setas para passar os cartões (4 por vez) */
+if(l.length>4){var nv=document.createElement("div"),ul=w.firstChild;nv.className="lbsm-nav";nv.innerHTML='<button type="button" aria-label="Ver anteriores">&#8249;</button><button type="button" aria-label="Ver mais">&#8250;</button>';sec.firstChild.appendChild(nv);
+var bt=nv.children,at=function(){bt[0].disabled=ul.scrollLeft<5;bt[1].disabled=ul.scrollLeft+ul.clientWidth>ul.scrollWidth-5};bt[0].onclick=function(){ul.scrollBy({left:-ul.clientWidth,behavior:"smooth"})};bt[1].onclick=function(){ul.scrollBy({left:ul.clientWidth,behavior:"smooth"})};ul.addEventListener("scroll",at,{passive:true});setTimeout(at,60)}}
+if(limpar)sec.querySelector("button").addEventListener("click",function(){try{localStorage.removeItem("lbxVis")}catch(e){}sec.parentNode.removeChild(sec)});
+if(antes)ref.parentNode.insertBefore(sec,ref);else ref.parentNode.insertBefore(sec,ref.nextSibling);
+/* tamanhos na hora: a parte 4 dos filtros deixa as linhas prontas a partir da base */
+if(!mob&&window.__lbfSemeia)try{window.__lbfSemeia()}catch(e){}}
+/* ---------- 3. perfumes parecidos ---------- */
+var FAM=[["doces","doce",/\bdoces?\b|gourmand|caramel|chocolate|pralin/i],["com-oud","oud",/\boud\b/i],["amadeirados","amadeirado",/amadeirad|madeira|s[âa]ndalo|cedro|vetiver|patchouli/i],["de-baunilha","baunilha",/baunilha|fava tonka/i],["florais","floral",/floral|\brosas?\b|jasmim|flor de|tuberosa/i],["frescos-e-citricos","fresco e cítrico",/c[íi]tric|fresc|aqu[áa]tic|lim[ãa]o|bergamota|marinh/i]];
+function familias(){var ab=document.querySelector(".produto .abas-custom");if(!ab)return[];var lis=[].filter.call(ab.querySelectorAll("li"),function(li){return/acordes|fam[íi]lia olfativa|notas de/i.test(li.textContent)}),t=lis.map(function(li){return li.textContent}).join(" | ")||ab.textContent.slice(0,2500),r=[];
+FAM.forEach(function(f){var m=t.search(f[2]);if(m>-1)r.push([m,f])});r.sort(function(a,b){return a[0]-b[0]});return r.slice(0,2).map(function(x){return x[1]})}
+function itensDe(html){var i=html.indexOf('id="listagemProdutos"'),j=html.indexOf("ordenar-listagem rodape",i),d=new DOMParser().parseFromString("<div>"+html.slice(i>0?i-40:0,j>0?j:i+400000)+"</div>","text/html"),vis={},out=[];
+[].forEach.call(d.querySelectorAll(".listagem-item"),function(it){var a=it.querySelector("a.nome-produto")||it.querySelector("a[href]");if(!a)return;var u=a.getAttribute("href").replace(/^https?:\/\/[^\/]+/,"");if(vis[u])return;vis[u]=1;var tn=tipoNome((a.textContent||a.getAttribute("title")||"").replace(/\s+/g," ").trim()),im=it.querySelector(".imagem-produto img")||it.querySelector("img"),p=it.querySelector(".preco-promocional")||it.querySelector(".preco-venda");out.push({u:u,n:(a.textContent||a.getAttribute("title")||"").replace(/\s+/g," ").trim(),nome:tn[1],tipo:tn[0],src:im?im.getAttribute("data-src")||im.getAttribute("src")||"":"",pv:p?num(p.textContent):0,ap:!!it.querySelector(".preco-a-partir")})});return out}
+function lista(slug){var k="lbSim1:"+slug;try{var c=JSON.parse(localStorage.getItem(k));if(c&&Date.now()-c.t<864e5&&c.l&&c.l.length)return Promise.resolve(c.l)}catch(e){}
+return fetch("/perfumes-"+slug+"?sort=mais_vendidos",{credentials:"same-origin"}).then(function(r){if(!r.ok)throw 0;return r.text()}).then(function(t){var l=itensDe(t);try{localStorage.setItem(k,JSON.stringify({t:Date.now(),l:l}))}catch(e){}return l})}
+function parecidos(d){var fs=familias();if(!fs.length)return;Promise.all(fs.map(function(f){return lista(f[0])["catch"](function(){return[]})})).then(function(ls){var sc={},it={};ls.forEach(function(l,i){l.forEach(function(x,j){if(x.u===d.u||x.nome===d.nome)return;it[x.u]=x;sc[x.u]=(sc[x.u]||0)+(i?40:60)-j*.5})});
+var l=Object.keys(sc).sort(function(a,b){return sc[b]-sc[a]}).map(function(u){return it[u]});if(l.length<3)return;
+var ref=document.getElementById("lbxTiraP"),rel=document.querySelector(".produto .aproveite-tambem"),row=rel&&(rel.closest(".produto>.row-fluid")||rel.closest(".row-fluid"));
+var sub="Mais vendidos da casa com notas de "+fs.map(function(f){return f[1]}).join(" e ")+", como este.";
+if(ref)faixa("lbsmP","Escolha parecida","Perfumes parecidos",sub,l,ref,true);else if(row)faixa("lbsmP","Escolha parecida","Perfumes parecidos",sub,l,row,true);else{var c=document.querySelector(".produto");if(c)faixa("lbsmP","Escolha parecida","Perfumes parecidos",sub,l,c.lastElementChild,false)}})}
+/* ---------- 4. vistos recentemente (computador; o celular já tem) ---------- */
+function vistos(ref,antes){var u=location.pathname,l=le("lbxVis").filter(function(x){return x&&x.u!==u&&x.nome});if(l.length)faixa("lbsmV","Continue de onde parou","Vistos recentemente","",l,ref,antes,true)}
+/* ---------- liga ---------- */
+var feito=0,t0=0;function liga(){var b=B();if(!b)return;if(/pagina-(produto|carrinho)/.test(b)){prazos();if(!t0&&window.MutationObserver){t0=1;var tm;new MutationObserver(function(){clearTimeout(tm);tm=setTimeout(prazos,250)}).observe(document.body,{childList:true,subtree:true})}}
+if(feito)return;
+if(/pagina-produto/.test(b)){var d=atual();if(!d)return;feito=1;if(!cel()){var rel=document.querySelector(".produto .aproveite-tambem"),row=rel&&(rel.closest(".produto>.row-fluid")||rel.closest(".row-fluid"));var c=row||(document.querySelector(".produto")||{}).lastElementChild;if(c)vistos(c,false)}guardaVisto(d);try{parecidos(d)}catch(e){}}
+else if(/pagina-carrinho/.test(b)&&!cel()){var k=document.querySelector(".finalizar-compra")||document.querySelector("#corpo .caixa-destaque");if(k){feito=1;vistos(k,false)}}}
+function tenta(){try{liga()}catch(e){}}
+tenta();document.readyState==="loading"&&document.addEventListener("DOMContentLoaded",tenta);window.addEventListener("load",function(){tenta();setTimeout(tenta,1500)});
+})();</script>

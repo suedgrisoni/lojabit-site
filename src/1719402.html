@@ -1,0 +1,20 @@
+<style>
+.lbdc-fechada{max-height:300px;overflow:hidden;position:relative}
+.lbdc-fechada:after{content:"";position:absolute;left:0;right:0;bottom:0;height:70px;background:linear-gradient(rgba(255,255,255,0),#fff)}
+</style>
+<script>/* LOJABIT - SEO: (1) na home, os títulos das seções antigas escondidas do tema ("COMPRE POR CATEGORIA", "COMPRE POR MARCA") deixam de ser H2, porque repetem os títulos visíveis; (2) nas categorias, o texto da descrição aparece uma vez só (o tema repetia o começo num resumo) e o "Veja Mais" abre e fecha o mesmo texto; (3) a segunda foto dos produtos nas vitrines e os ícones de categoria ganham texto alternativo. */(function(){"use strict";
+if(window.__lbSeoDup)return;window.__lbSeoDup=1;
+function vis(e){return!!(e&&e.getClientRects().length)}
+function txt(e){return(e.textContent||"").replace(/\s+/g," ").trim().toLowerCase()}
+function titulosHome(){var p=location.pathname;if(p!=="/"&&p!=="/index.html")return;
+ var visiveis=[].slice.call(document.querySelectorAll("h2")).filter(vis).map(txt);
+ [].forEach.call(document.querySelectorAll("h2.titulo-sessao"),function(h){if(vis(h)||visiveis.indexOf(txt(h))===-1)return;var d=document.createElement("div");for(var i=0;i<h.attributes.length;i++)d.setAttribute(h.attributes[i].name,h.attributes[i].value);while(h.firstChild)d.appendChild(h.firstChild);h.parentNode.replaceChild(d,h)})}
+function descricao(){[].forEach.call(document.querySelectorAll(".descricao-container"),function(c){if(c.getAttribute("data-lbdc"))return;var r=c.querySelector(".descricao-resumida"),o=c.querySelector(".descricao-completa");if(!r||!o)return;c.setAttribute("data-lbdc","1");
+ r.parentNode.removeChild(r);o.style.display="";o.classList.add("lbdc-fechada");
+ var b=c.querySelector(".botao-veja-mais");if(!b)return;var n=b.cloneNode(true);n.style.display="";n.classList.remove("expandido");n.textContent="Veja Mais";n.setAttribute("aria-expanded","false");b.parentNode.replaceChild(n,b);
+ n.addEventListener("click",function(e){e.preventDefault();var fechado=o.classList.toggle("lbdc-fechada");n.textContent=fechado?"Veja Mais":"Recolher";n.setAttribute("aria-expanded",String(!fechado))})})}
+function alts(){[].forEach.call(document.querySelectorAll(".listagem-item img.imagem-zoom:not([alt])"),function(i){var it=i.closest(".listagem-item"),nm=it&&it.querySelector(".nome-produto");if(nm)i.setAttribute("alt",nm.textContent.replace(/\s+/g," ").trim()+" - outra foto")});
+ [].forEach.call(document.querySelectorAll(".category-icon img:not([alt])"),function(i){var a=i.closest("a");i.setAttribute("alt",a?a.textContent.replace(/\s+/g," ").trim():"")})}
+function tudo(){try{titulosHome()}catch(e){}try{descricao()}catch(e){}try{alts()}catch(e){}}
+var n=0;(function roda(){tudo();if(++n<10)setTimeout(roda,n<5?500:1500)})();
+})();</script>

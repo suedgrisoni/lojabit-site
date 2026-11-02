@@ -1,0 +1,7 @@
+<style>span.lbig{font-weight:600;letter-spacing:.04em}</style>
+<script>/* LOJABIT - SEO: "@LOJABIT" no meio do texto deixa de ser link para o Instagram (vira destaque sem link). O Instagram continua nos ícones de redes sociais. Pega os links criados pelos códigos visuais e os que estão salvos nos textos de categorias e marcas. */(function(){"use strict";
+if(window.__lbSeoIg)return;window.__lbSeoIg=1;
+function troca(){var a=document.querySelectorAll('a[href*="instagram.com/lojabit"]');for(var i=0;i<a.length;i++){var e=a[i];if(!/^\s*@?lojabit\s*$/i.test(e.textContent))continue;var s=document.createElement("span");s.className="lbig";s.textContent=e.textContent.trim();e.parentNode.replaceChild(s,e)}}
+var n=0;(function roda(){troca();if(++n<12)setTimeout(roda,n<6?400:1500)})();
+document.addEventListener("DOMContentLoaded",troca);
+})();</script>

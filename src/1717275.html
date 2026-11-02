@@ -1,0 +1,109 @@
+<script>
+/* LOJABIT - visual novo 15: Departamentos novo (painel em duas colunas + famílias e ocasiões).
+   PUBLICADO = false -> só aparece no navegador que abriu www.lojabit.com/?lbdep=1 (desliga com ?lbdep=0).
+   PUBLICADO = true  -> aparece para todos os clientes. O código "Visual novo 16" monta o painel. */
+(function () {
+  var PUBLICADO = true;
+  var on = PUBLICADO;
+  try {
+    var q = location.search;
+    if (/[?&]lbdep=1(&|$)/.test(q)) localStorage.setItem('lbDep', '1');
+    if (/[?&]lbdep=0(&|$)/.test(q)) localStorage.removeItem('lbDep');
+    if (localStorage.getItem('lbDep') === '1') on = true;
+  } catch (e) {}
+  if (on) document.documentElement.className += ' lbdep';
+})();
+</script>
+<style data-lbv="9" media="not all">
+html.lbdep .main-menu-desktop li.all-categories{position:relative}
+html.lbdep .main-menu-desktop li.all-categories.lbd-on>ul.card{display:none!important}
+html.lbdep .lbd{display:none;position:absolute;left:0;top:100%;z-index:1200;width:1130px;max-width:calc(100vw - 40px);margin-top:0;background:#fff;border:1px solid var(--lb-line,#ECE5DA);border-top:2px solid var(--lb-gold,#C9A55C);box-shadow:0 30px 60px rgba(20,20,20,.16);text-align:left;font-family:Jost,Arial,sans-serif;cursor:default}
+html.lbdep li.all-categories.lbd-aberto .lbd{display:block}
+html.lbdep .lbd *{box-sizing:border-box}
+html.lbdep .lbd-corpo{display:grid;grid-template-columns:285px 1fr;height:min(440px,calc(100vh - 300px));min-height:280px}
+html.lbdep .lbd .lbd-cats{display:block!important;flex-wrap:nowrap!important;width:auto!important;height:auto!important;max-height:none!important;margin:0!important;padding:10px 0!important;list-style:none;background:var(--lb-ivory,#FAF7F2)!important;border:0!important;border-right:1px solid var(--lb-line,#ECE5DA)!important;overflow-x:hidden;overflow-y:auto;box-shadow:none!important;position:static!important;transform:none!important}
+html.lbdep .lbd .lbd-cats li{display:block!important;float:none!important;width:100%!important;margin:0!important;padding:0!important;list-style:none;border:0!important;background:none!important}
+html.lbdep .lbd .lbd-cat{display:flex!important;align-items:center;justify-content:space-between;gap:10px;width:100%;padding:12px 20px 12px 22px!important;margin:0;border:0;background:none!important;font:500 14.5px/1.2 Jost,Arial,sans-serif!important;letter-spacing:.01em!important;text-transform:none!important;color:var(--lb-text,#141414)!important;text-decoration:none!important;cursor:pointer;transition:background .15s,color .15s}
+html.lbdep .lbd .lbd-cat span{white-space:nowrap}
+html.lbdep .lbd .lbd-cat small{margin-left:auto;font:400 11.5px/1 Jost,Arial,sans-serif;color:var(--lb-muted2,#9B9186);white-space:nowrap}
+html.lbdep .lbd .lbd-cat .lbd-seta{width:12px;height:12px;flex:none;fill:none;stroke:currentColor;stroke-width:1.6;opacity:.45}
+html.lbdep .lbd .lbd-cat.lbd-ativo{background:#fff!important;color:var(--lb-gold-text,#8F6E2E)!important;box-shadow:inset 3px 0 0 var(--lb-gold,#C9A55C)}
+html.lbdep .lbd .lbd-cat.lbd-ativo .lbd-seta{opacity:1}
+html.lbdep .lbd .lbd-cat.lbd-oferta{margin-top:6px;border-top:1px solid var(--lb-line,#ECE5DA);color:var(--lb-orange-text,#B9541A)!important}
+html.lbdep .lbd-painel{padding:24px 32px 22px;overflow-y:auto}
+html.lbdep .lbd-aba{display:none}
+html.lbdep .lbd-aba.lbd-ativo{display:block;animation:lbd-entra .18s ease-out}
+@keyframes lbd-entra{from{opacity:0;transform:translateX(6px)}to{opacity:1;transform:none}}
+html.lbdep .lbd-topo{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin:0 0 18px;padding:0 0 16px;border-bottom:1px solid var(--lb-line,#ECE5DA)}
+html.lbdep .lbd-kick{display:block;margin:0 0 6px;font:500 10.5px/1 Jost,Arial,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:var(--lb-gold-text,#8F6E2E)}
+html.lbdep .lbd-tit{display:block;margin:0;font:600 30px/1 "Cormorant Garamond",Georgia,serif;color:var(--lb-ink,#0A0A0B)}
+html.lbdep .lbd-acoes{display:flex;gap:10px;flex-wrap:wrap}
+html.lbdep .lbd .lbd-btn{display:inline-flex!important;align-items:center;gap:8px;padding:10px 16px!important;border:1px solid var(--lb-ink,#0A0A0B);background:var(--lb-ink,#0A0A0B)!important;font:500 11px/1 Jost,Arial,sans-serif!important;letter-spacing:.14em!important;text-transform:uppercase!important;color:var(--lb-gold,#C9A55C)!important;text-decoration:none!important;white-space:nowrap;transition:background .2s,color .2s}
+html.lbdep .lbd .lbd-btn:hover{background:var(--lb-gold,#C9A55C)!important;border-color:var(--lb-gold,#C9A55C);color:var(--lb-ink,#0A0A0B)!important}
+html.lbdep .lbd .lbd-btn.lbd-btn2{background:#fff!important;color:var(--lb-ink,#0A0A0B)!important}
+html.lbdep .lbd .lbd-btn.lbd-btn2:hover{background:var(--lb-ivory,#FAF7F2)!important;border-color:var(--lb-gold,#C9A55C)}
+html.lbdep .lbd-marcas{columns:5 140px;column-gap:24px}
+html.lbdep .lbd-grupo{break-inside:avoid;margin:0 0 14px}
+html.lbdep .lbd-grupo b{display:block;margin:0 0 4px;font:600 13px/1 "Cormorant Garamond",Georgia,serif;color:var(--lb-gold-deep,#A88340)}
+html.lbdep .lbd .lbd-marcas a{display:block!important;padding:5px 0!important;font:400 14px/1.3 Jost,Arial,sans-serif!important;letter-spacing:0!important;text-transform:none!important;color:var(--lb-body,#403A34)!important;text-decoration:none!important;background:none!important}
+html.lbdep .lbd .lbd-marcas a:hover{color:var(--lb-gold-text,#8F6E2E)!important;text-decoration:underline!important;text-underline-offset:3px}
+html.lbdep .lbd-vazio{margin:0;font:400 15px/1.6 Jost,Arial,sans-serif;color:var(--lb-body,#403A34)}
+html.lbdep .lbd-fam{display:flex;align-items:center;flex-wrap:wrap;gap:6px;padding:12px 22px;border-top:1px solid var(--lb-line,#ECE5DA);background:#fff}
+html.lbdep .lbd-fam>span{margin-right:8px;font:500 10.5px/1 Jost,Arial,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:var(--lb-gold-text,#8F6E2E)}
+html.lbdep .lbd .lbd-fam a{display:inline-block!important;padding:7px 10px!important;border:1px solid var(--lb-line2,#DCD2C2);border-radius:999px;background:#fff!important;font:500 10.5px/1 Jost,Arial,sans-serif!important;letter-spacing:.08em!important;text-transform:uppercase!important;color:var(--lb-text,#141414)!important;text-decoration:none!important;transition:border-color .15s,color .15s,background .15s}
+html.lbdep .main-menu-desktop li.all-categories .lbd .lbd-fam a,html.lbdep .main-menu-desktop li.all-categories .lbd .lbd-btn{width:auto!important;flex:none!important;float:none!important}
+html.lbdep .main-menu-desktop li.all-categories .lbd .lbd-fam a{display:inline-block!important}
+html.lbdep .main-menu-desktop li.all-categories .lbd .lbd-btn{display:inline-flex!important}
+html.lbdep .lbd .lbd-fam a:hover{border-color:var(--lb-gold,#C9A55C);background:var(--lb-ivory,#FAF7F2)!important;color:var(--lb-gold-text,#8F6E2E)!important}
+@media(max-width:1199px){html.lbdep .lbd-corpo{grid-template-columns:220px 1fr}html.lbdep .lbd-painel{padding:20px 22px}html.lbdep .lbd-marcas{columns:3 150px}}
+/* celular: menu lateral */
+html.lbdep .main-menu-mobile .lbm-todos>a{font-weight:600!important;color:var(--lb-gold-text,#8F6E2E)!important}
+html.lbdep .main-menu-mobile .lbm-extra{margin:18px 0 8px;padding:18px 0 0;border-top:1px solid var(--lb-line,#ECE5DA)}
+html.lbdep .main-menu-mobile .lbm-extra h4{margin:0 0 12px;font:600 15px/1.2 Jost,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--lb-gold-text,#8F6E2E)}
+html.lbdep .main-menu-mobile .lbm-chips{display:flex;flex-wrap:wrap;gap:8px}
+html.lbdep .main-menu-mobile .lbm-chips a{display:inline-block;padding:9px 13px;border:1px solid var(--lb-line2,#DCD2C2);border-radius:999px;font:500 12px/1 Jost,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--lb-text,#141414)!important;text-decoration:none}
+html.lbdep .main-menu-mobile .lbm-oferta{display:block;margin-top:14px;font:600 15px/1.2 Jost,Arial,sans-serif;color:var(--lb-orange-text,#B9541A)!important;text-decoration:none}
+
+/* 1. Departamentos abre só no clique */
+html.lbdep .fullscreen-menu-overlay{display:none!important}
+html.lbdep #lbd-fundo{position:fixed;top:0;right:0;bottom:0;left:0;z-index:990;background:rgba(14,14,15,.32);opacity:0;visibility:hidden;transition:opacity .2s,visibility .2s}
+html.lbdep #lbd-fundo.lbd-on{opacity:1;visibility:visible}
+html.lbdep .main-menu-desktop li.all-categories.lbd-on>a{position:relative;cursor:pointer;transition:background .2s,color .2s}
+html.lbdep .main-menu-desktop li.all-categories.lbd-on>a i{display:inline-block;transition:transform .25s}
+html.lbdep .main-menu-desktop li.all-categories.lbd-on:not(.lbd-aberto)>a:hover i{animation:lbd-dica .9s ease-in-out infinite}
+@keyframes lbd-dica{50%{transform:translateY(3px)}}
+html.lbdep .main-menu-desktop li.all-categories.lbd-aberto>a{background:var(--lb-gold,#C9A55C)!important}
+html.lbdep .main-menu-desktop li.all-categories.lbd-aberto>a,html.lbdep .main-menu-desktop li.all-categories.lbd-aberto>a *{color:var(--lb-ink,#0A0A0B)!important}
+html.lbdep .main-menu-desktop li.all-categories.lbd-aberto>a svg,html.lbdep .main-menu-desktop li.all-categories.lbd-aberto>a svg *{fill:var(--lb-ink,#0A0A0B)!important}
+html.lbdep .main-menu-desktop li.all-categories.lbd-aberto>a i{transform:rotate(180deg)}
+html.lbdep .main-menu-desktop li.all-categories.lbd-on:not(.lbd-aberto)>a::after{content:"Clique para ver todos";position:absolute;left:50%;top:calc(100% + 8px);z-index:5;padding:6px 10px;border-radius:3px;background:var(--lb-ink,#0A0A0B);font:500 10.5px/1 Jost,Arial,sans-serif;letter-spacing:.06em;text-transform:none;color:#fff;white-space:nowrap;opacity:0;transform:translate(-50%,-4px);transition:opacity .15s .35s,transform .15s .35s;pointer-events:none}
+html.lbdep .main-menu-desktop li.all-categories.lbd-on:not(.lbd-aberto)>a:hover::after{opacity:1;transform:translate(-50%,0)}
+/* 2. topo e menu acompanham a rolagem (computador) */
+@media(min-width:768px){
+html.lbdep #cabecalho{position:sticky!important;top:0!important;transform:none!important;margin-top:0!important;z-index:1002!important;background:#fff!important}
+html.lbdep .main-menu-desktop{position:sticky!important;top:var(--lbh,111px)!important;z-index:1001!important;background:#fff!important;transition:box-shadow .2s}
+html.lbdep body.is-scrolling{padding-top:0!important}
+html.lbdep.lbh-rolou .main-menu-desktop{box-shadow:0 12px 24px rgba(20,20,20,.07)}
+}
+
+/* 5. todos os menus abrem só no clique (barra de categorias e ícones do topo) */
+html.lbdep .main-menu-desktop .nivel-um>li.menu-dropdown:not(.all-categories):not(.lbm-aberto)>.card-menu,html.lbdep #cabecalho .col-icons .menu-dropdown:not(.lbm-aberto)>.card-menu,html.lbdep #cabecalho .col-icons .menu-dropdown:not(.lbm-aberto)>.carrinho-interno-ajax{visibility:hidden!important;opacity:0!important;pointer-events:none!important}
+html.lbdep .main-menu-desktop .nivel-um>li.menu-dropdown.lbm-aberto>.card-menu,html.lbdep #cabecalho .col-icons .menu-dropdown.lbm-aberto>.card-menu{visibility:visible!important;opacity:1!important;pointer-events:auto!important;transform:none!important}
+html.lbdep .main-menu-desktop .nivel-um>li.menu-dropdown:not(.all-categories){position:relative}
+html.lbdep .main-menu-desktop .nivel-um>li.menu-dropdown:not(.all-categories)>a{cursor:pointer}
+html.lbdep .main-menu-desktop .nivel-um>li.com-filho:not(.all-categories)>a,html.lbdep .main-menu-desktop .nivel-um>li.menu-dropdown:not(.all-categories)>a{display:inline-flex!important;align-items:center;gap:6px}
+html.lbdep .main-menu-desktop .nivel-um>li.com-filho:not(.all-categories)>a i,html.lbdep .main-menu-desktop .nivel-um>li.menu-dropdown:not(.all-categories)>a i{display:inline-block!important;width:auto!important;height:auto!important;margin:0!important;padding:0!important;background:none!important;font-size:8.5px!important;line-height:1!important;color:var(--lb-gold-deep,#A88340)!important;opacity:.9;transition:transform .25s}
+html.lbdep .main-menu-desktop .nivel-um>li.menu-dropdown:not(.all-categories):not(.lbm-aberto)>a:hover i{animation:lbd-dica .9s ease-in-out infinite}
+html.lbdep .main-menu-desktop .nivel-um>li.menu-dropdown.lbm-aberto>a{color:var(--lb-gold-text,#8F6E2E)!important;box-shadow:inset 0 -2px 0 var(--lb-gold,#C9A55C)}
+html.lbdep .main-menu-desktop .nivel-um>li.menu-dropdown.lbm-aberto>a *{color:var(--lb-gold-text,#8F6E2E)!important}
+html.lbdep .main-menu-desktop .nivel-um>li.menu-dropdown.lbm-aberto>a i{transform:rotate(180deg)}
+html.lbdep .main-menu-desktop .nivel-um>li.menu-dropdown.lbm-aberto>.card-menu{display:grid!important;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:0 18px;left:0;width:min(720px,calc(100vw - 32px))!important;min-width:0!important;max-height:min(60vh,520px);overflow-y:auto;padding:16px 22px 18px!important;z-index:1200}
+html.lbdep .main-menu-desktop .nivel-um>li.menu-dropdown.lbm-aberto>.card-menu>li{width:auto!important;float:none!important}
+html.lbdep .main-menu-desktop .nivel-um>li.menu-dropdown.lbm-aberto>.card-menu>li.lbm-ver{grid-column:1/-1;margin:0 0 8px!important;padding:0 0 10px!important;border-bottom:1px solid var(--lb-line,#ECE5DA)!important}
+html.lbdep .main-menu-desktop .nivel-um>li.lbm-aberto .lbm-ver>a{display:inline-flex!important;width:auto!important;padding:9px 14px!important;background:var(--lb-ink,#0A0A0B)!important;font:500 11px/1 Jost,Arial,sans-serif!important;letter-spacing:.14em!important;text-transform:uppercase!important;color:var(--lb-gold,#C9A55C)!important}
+html.lbdep .main-menu-desktop .nivel-um>li.lbm-aberto .lbm-ver>a:hover{background:var(--lb-gold,#C9A55C)!important;color:var(--lb-ink,#0A0A0B)!important}
+html.lbdep #cabecalho .col-icons .menu-dropdown:not(.carrinho)>a,html.lbdep #cabecalho .col-icons .account-info>span{cursor:pointer}
+html.lbdep #cabecalho .col-icons .menu-dropdown.lbm-aberto>a,html.lbdep #cabecalho .col-icons .account-info.lbm-aberto>span,html.lbdep #cabecalho .col-icons .menu-dropdown.lbm-aberto small.lbi-l{color:var(--lb-gold-text,#8F6E2E)!important}
+
+@media(min-width:768px){html.lbdep .main-menu-desktop .nivel-um>li.com-filho:not(.all-categories)>a,html.lbdep .main-menu-desktop .nivel-um>li.menu-dropdown:not(.all-categories)>a{gap:4px}html.lbdep .main-menu-desktop .nivel-um>li:not(.all-categories)>a{padding-left:7px!important;padding-right:7px!important}html.lbdep .main-menu-desktop .nivel-um>li>a strong{letter-spacing:0!important}}
+</style>

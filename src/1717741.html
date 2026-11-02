@@ -1,0 +1,36 @@
+<script>
+/* LOJABIT - celular/tablet (até 979 px): as primeiras fotos de produto da página carregam primeiro (velocidade).
+   O tema marca todas as fotos como "carregar depois" (loading=lazy); as 4 primeiras do conteúdo (as que aparecem
+   logo ao abrir) passam a carregar na hora e com prioridade alta. Depois que o aplicativo monta a vitrine do topo
+   (#lbxTopo, código 4), as 4 primeiras fotos dela também. Fonte: claude/site/celular/primeiras-fotos.html */
+(function () {
+  if (!window.matchMedia || !matchMedia('(max-width: 979px)').matches) return;
+  var n = 0, mo = null;
+  function prio(img) {
+    if (!img || img.__lbpr) return;
+    img.__lbpr = 1;
+    img.setAttribute('loading', 'eager');
+    img.setAttribute('fetchpriority', 'high');
+  }
+  if (window.MutationObserver) {
+    mo = new MutationObserver(function (ms) {
+      for (var i = 0; i < ms.length && n < 4; i++) {
+        var ad = ms[i].addedNodes;
+        for (var j = 0; j < ad.length && n < 4; j++) {
+          var im = ad[j]; /* o navegador acrescenta cada elemento sozinho enquanto lê a página: basta olhar as próprias imagens */
+          if (im.nodeName === 'IMG' && (' ' + im.className + ' ').indexOf(' imagem-principal ') > -1 && im.closest && im.closest('#corpo')) { prio(im); n++; }
+        }
+      }
+      if (n >= 4) mo.disconnect();
+    });
+    mo.observe(document.documentElement, { childList: true, subtree: true });
+  }
+  document.addEventListener('DOMContentLoaded', function () {
+    if (mo) mo.disconnect();
+    setTimeout(function () {
+      var t = document.querySelectorAll('#lbxTopo .lbx-img img');
+      for (var i = 0; i < t.length && i < 4; i++) prio(t[i]);
+    }, 0);
+  });
+})();
+</script>
