@@ -1,0 +1,12 @@
+<style>/* LOJABIT - celular e tablet (até 979 px): sem "pulo" no topo e na lista (02/11/2026, melhoria 3).
+   O tema monta a faixa do topo (.banner-top, 32 px) e o cabeçalho com ícones (71 px) só depois que a página aparece,
+   e os filtros põem a barra "Filtrar/Ordenar" (#lbfTopo, 69 px + 10 px de margem) acima da lista quando a base chega
+   (na busca, 8 a 13 s depois): tudo era empurrado para baixo. Aqui o lugar final já fica reservado desde o começo;
+   quando a peça entra, a reserva sai sozinha (os seletores deixam de valer). Medido no celular: produto 0,05 -> 0,02;
+   sacola navegando 0,59 -> 0,04; busca 0,07 -> 0; home 0,04 -> 0,01. */
+@media (max-width:979px){
+.conteiner-principal:not(:has(>.banner-top)){padding-top:32px!important}
+#cabecalho:not(.header-with-icons){height:71px!important;overflow:hidden!important}
+html.lbmob #lbxFerr+.lbx-lista{margin-top:89px!important}
+}
+</style>

@@ -38,11 +38,20 @@ def js(arquivo, marca):
             f'<script>window.{marca}||document.write(\'<script src="{url(RESERVA, arquivo)}" crossorigin><\\/script>\')</script>')
 
 
+# Foto principal do produto no celular (é o "maior bloco" da página, LCP): a Loja Integrada põe loading="lazy" nela,
+# então o navegador só começa a baixar depois de montar a página. Aqui ela começa a baixar já no cabeçalho, com prioridade alta.
+# O endereço vem do og:image (800x800) trocado por 600x700, o mesmo arquivo da foto principal (conferido em 60 produtos).
+# Só em telas até 979 px (no computador a galeria usa outra foto) e só em página de produto (og:image com /produto/).
+FOTO = ('<script>!function(d){try{if(screen.width>979)return;var m=d.querySelector(\'meta[property="og:image"]\'),u=m&&m.content||"";'
+        'if(u.indexOf("/produto/")<0)return;u=u.replace(/\\/\\d+x\\d+\\//,"/600x700/");var l=d.createElement("link");l.rel="preload";l.as="image";'
+        'l.href=u;l.setAttribute("fetchpriority","high");d.head.appendChild(l)}catch(e){}}(document)</script>')
+
+
 def main():
     aviso = '<!-- LOJABIT Etapa 3: códigos de todas as páginas em arquivos com cache. Fonte e instruções: github.com/' + REPO + ' -->'
-    # sem preload/preconnect: o HTML ficou pequeno e o navegador já acha o rod.js cedo sozinho
+    # sem preload/preconnect dos arquivos: o HTML ficou pequeno e o navegador já acha o rod.js cedo sozinho
     # (assim, mudar só o rodapé não obriga a mexer no carregador do cabeçalho)
-    cab = '\n'.join([css('cab.css'), js('cab.js', 'lbE3c'), aviso])
+    cab = '\n'.join([FOTO, css('cab.css'), js('cab.js', 'lbE3c'), aviso])
     rod = '\n'.join([css('rod.css'), js('rod.js', 'lbE3r'), aviso])
     os.makedirs(os.path.join(RAIZ, 'painel'), exist_ok=True)
     for nome, txt in (('cabecalho.html', cab), ('rodape.html', rod)):

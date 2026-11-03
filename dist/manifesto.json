@@ -1,8 +1,8 @@
 {
  "arquivos": {
   "cab.css": {
-   "bytes": 91250,
-   "sha256": "acd6ca8266289cff24ccf05a045d47dd1609a78808b85abff50ddb4d59fdf52c",
+   "bytes": 91999,
+   "sha256": "5a6e5b6d9c3aeb8b7b31b9464a0a36e5ce08973c5a640f6fbaa8ba0a6fbf3e47",
    "minificado": true
   },
   "cab.js": {
@@ -205,6 +205,11 @@
   {
    "id": 979194,
    "nome": "Configuração JS do tema NDellas",
+   "grupo": "cab"
+  },
+  {
+   "id": "e3-sem-pulo-celular",
+   "nome": "Sem pulo no celular (topo e filtros)",
    "grupo": "cab"
   },
   {
