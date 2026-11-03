@@ -69,10 +69,13 @@ def terser(js):
     """Minifica com terser (se existir). Mantém nomes de funções; não mexe em nomes globais."""
     try:
         r = subprocess.run(['node', '-e', '''
-const {minify}=require("terser");let s="";process.stdin.on("data",d=>s+=d).on("end",async()=>{
+const {minify}=require("terser");let s="";process.stdin.setEncoding("utf8");process.stdin.on("data",d=>s+=d).on("end",async()=>{
  const o=await minify(s,{ecma:5,compress:{keep_fnames:true,passes:1},mangle:{keep_fnames:true},format:{comments:false}});
  process.stdout.write(o.code);});'''], input=js, capture_output=True, text=True, cwd=AQUI, timeout=300)
         if r.returncode == 0 and r.stdout.strip():
+            # proteção: um acento quebrado (\ufffd) que não existia no original = erro de leitura, não publica
+            if r.stdout.count('\ufffd') > js.count('\ufffd'):
+                sys.exit('terser quebrou um acento (\\ufffd) — não publique, confira o build')
             return r.stdout, True
         print('terser não rodou:', r.stderr[:300])
     except Exception as e:

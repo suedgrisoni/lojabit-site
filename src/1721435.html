@@ -9,9 +9,10 @@
   'use strict';
   if (window.__lbS) return;
   var M = null;
+  var MT = 0;
   function base() {
-    if (M !== null) return M;
-    M = false;
+    if (M || (M === false && Date.now() - MT < 1500)) return M;
+    M = false; MT = Date.now();
     try {
       var t = +localStorage.getItem('lbFil1t') || 0, j = localStorage.getItem('lbFil1');
       if (!j || Date.now() - t > 864e5) return M;
@@ -26,7 +27,7 @@
     return m ? +(m[1].replace(/\./g, '') + '.' + m[2]) : 0;
   }
   /* devolve {t, v} no formato do Visual novo 18: v = [[ "5 ml", preço, disponível 1/0, id do tamanho p/ sacola ], ...] */
-  window.__lbS = function (u, a) {
+  window.__lbS = function (u, a, preco) {
     var m = base(), r, p;
     if (!m) return null;
     try { p = new URL(u, location.href).pathname.replace(/\/+$/, ''); } catch (e) { return null; }
@@ -38,7 +39,8 @@
     var ok = v.filter(function (x) { return x[3]; });
     if (!ok.length) return null;
     var min = Math.min.apply(null, ok.map(function (x) { return x[1]; }));
-    var el = a && a.querySelector('.lbR'), mostrado = el ? reais(el.textContent) : 0;
+    /* a = sugestão da busca (preço em .lbR); sem ela, preco = preço mostrado no cartão (catálogo do celular) */
+    var el = a && a.querySelector('.lbR'), mostrado = el ? reais(el.textContent) : (+preco || 0);
     if (!mostrado || Math.abs(mostrado - min) > 0.005) return null;
     return {
       t: Date.now(),
@@ -46,5 +48,6 @@
         .map(function (x) { return [String(x[0]).replace('.', ',') + ' ml', x[1], x[3] ? 1 : 0, String(x[5])]; })
     };
   };
+  window.__lbS.novo = function () { M = null; };
 })();
 </script>
