@@ -58,3 +58,13 @@ um conteúdo novo sempre tem um endereço novo.
 - Se o `cdn.jsdelivr.net` falhar, os carregadores tentam `fastly.jsdelivr.net` sozinhos.
 - Cada código continua isolado (`try/catch`): o erro de um não derruba os outros (aparece no console como `lojabit codigo <id>`).
 - Os conteúdos antigos de cada código estão guardados no projeto (backup antes de cada mudança).
+
+## Carrosséis da página do produto (04/11/2026)
+
+- Código `src/1799001.html` (só no repositório, não existe no painel): "Parecidos com o X" e "Com a mesma proposta".
+- Dados: `carrossel/base.json` (listas feitas pelo Claude a partir da base de perfumes) + `carrossel/p/<id>.json`
+  (um arquivo pequeno por produto, com link, foto e preço atual lidos da listagem pública da loja).
+- O site lê `carrossel/v.json` pelo raw.githubusercontent (cache de ~5 min) e os dados pelo jsDelivr preso ao commit indicado nele;
+  por isso atualizar preços NÃO precisa mexer no painel nem nos carregadores.
+- Atualizar preços: `python3 ferramentas/carrossel.py atualizar` → commit + push de `carrossel/p` → `python3 ferramentas/carrossel.py versao`
+  → commit + push de `carrossel/v.json`.
