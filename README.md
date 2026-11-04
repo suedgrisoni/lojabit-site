@@ -72,3 +72,6 @@ um conteúdo novo sempre tem um endereço novo.
   por isso atualizar preços NÃO precisa mexer no painel nem nos carregadores.
 - Atualizar preços: `python3 ferramentas/carrossel.py atualizar` → commit + push de `carrossel/p` → `python3 ferramentas/carrossel.py versao`
   → commit + push de `carrossel/v.json`.
+- Listas (quem aparece em cada carrossel): `python3 ferramentas/carrossel_listas.py` refaz `carrossel/base.json` a partir de
+  `carrossel/acordes.json` (acordes de cada perfume), `carrossel/paginas.json` (páginas "Parecidos com…") e da listagem da loja.
+  Perfume novo entra pelo passo 11 da rotina diária do dossiê (`carrossel_exportar.py` acrescenta em acordes.json).
