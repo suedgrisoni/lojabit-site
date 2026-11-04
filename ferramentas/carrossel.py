@@ -20,7 +20,7 @@ import json, os, re, sys, subprocess, time, html, urllib.request
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 D = os.path.join(RAIZ, 'carrossel')
 LOJA = 'https://www.lojabit.com'
-ITEM = re.compile(r'<div class="listagem-item[^"]*"\s+data-id="(\d+)">(.*?)(?=<div class="listagem-item|<div class="pagination|</section|<footer)', re.S)
+ITEM = re.compile(r'<div class="listagem-item([^"]*)"\s+data-id="(\d+)">(.*?)(?=<div class="listagem-item|<div class="pagination|</section|<footer)', re.S)
 
 
 def baixa(url):
@@ -43,7 +43,7 @@ def listagem():
     for pg in range(1, 60):
         h = baixa(f'{LOJA}/encontre-seu-perfume' + (f'?pagina={pg}' if pg > 1 else ''))
         achou = 0
-        for pid, bloco in ITEM.findall(h):
+        for classes, pid, bloco in ITEM.findall(h):
             achou += 1
             url = re.search(r'<a href="([^"]+)" class="produto-sobrepor"(?: title="([^"]*)")?', bloco)
             img = re.search(r'<img[^>]+src="([^"]+)"', bloco)
@@ -55,7 +55,7 @@ def listagem():
                 continue
             cards[pid] = {'u': url.group(1).replace(LOJA, ''), 'i': img.group(1) if img else '', 'p': preco, 't': html.unescape(url.group(2) or ''),
                           'd': reais(venda.group(1)) if promo and venda else None, 'x': reais(pix.group(1)) if pix else None,
-                          'a': 'preco-a-partir' in bloco}
+                          'a': 'preco-a-partir' in bloco, 'cats': sorted(set(re.findall(r'prod-cat-(\d+)', classes)))}
         if not achou:
             break
         time.sleep(1.5)
