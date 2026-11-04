@@ -3,6 +3,7 @@
 
 - carrossel/base.json  (feito pelo Claude a partir da base de perfumes): para cada produto, as listas p (parecidos) e m (mesma
   proposta), o nome curto (n), a página "Parecidos com..." (g) e o estilo (t); e, para cada produto citado, [nome curto, "Marca · tipo"].
+- Cartão: [nome curto, link, foto, preço, Pix, "Marca · tipo", preço antigo (promoção) ou null, 1 se "a partir de", nome completo].
 - Este script lê a listagem pública da loja (/encontre-seu-perfume, ~17 páginas de 40) para pegar link, foto e PREÇO ATUAL
   (preço "a partir de", promoção e Pix) e grava carrossel/p/<id>.json, um arquivo pequeno por produto.
   Produto que não aparece na listagem (fora do ar ou sem estoque) sai dos carrosséis sozinho.
@@ -44,7 +45,7 @@ def listagem():
         achou = 0
         for pid, bloco in ITEM.findall(h):
             achou += 1
-            url = re.search(r'<a href="([^"]+)" class="produto-sobrepor"', bloco)
+            url = re.search(r'<a href="([^"]+)" class="produto-sobrepor"(?: title="([^"]*)")?', bloco)
             img = re.search(r'<img[^>]+src="([^"]+)"', bloco)
             promo = re.search(r'class="preco-promocional[^"]*"[^>]*>([^<]+)<', bloco)
             venda = re.search(r'class="preco-venda[^"]*"[^>]*>([^<]+)<', bloco)
@@ -52,7 +53,7 @@ def listagem():
             preco = reais(promo.group(1)) if promo else reais(venda.group(1) if venda else '')
             if not (url and preco):
                 continue
-            cards[pid] = {'u': url.group(1).replace(LOJA, ''), 'i': img.group(1) if img else '', 'p': preco,
+            cards[pid] = {'u': url.group(1).replace(LOJA, ''), 'i': img.group(1) if img else '', 'p': preco, 't': html.unescape(url.group(2) or ''),
                           'd': reais(venda.group(1)) if promo and venda else None, 'x': reais(pix.group(1)) if pix else None,
                           'a': 'preco-a-partir' in bloco}
         if not achou:
@@ -74,7 +75,7 @@ def atualizar():
             for x in ids:
                 c, b = cards.get(x), base['c'].get(x)
                 if c and b:
-                    out.append([b[0], c['u'], c['i'], c['p'], c['x'], b[1], c['d'], 1 if c['a'] else 0])
+                    out.append([b[0], c['u'], c['i'], c['p'], c['x'], b[1], c['d'], 1 if c['a'] else 0, c['t']])
             return out
         p, m = cartoes(v['p']), cartoes(v['m'])
         if k not in cards or (not p and not m):
