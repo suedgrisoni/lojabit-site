@@ -1,90 +1,39 @@
 <script>
-/* LOJABIT - CARROSSÉIS DA PÁGINA DO PRODUTO (04/11/2026, só no repositório, não existe no painel).
-   "Parecidos com o X": os perfumes da página "Parecidos com..." e os de acordes mais próximos.
-   "Com a mesma proposta": outras marcas com as mesmas famílias, hora do dia e estação.
+/* LOJABIT - DADOS DOS CARROSSÉIS DA PÁGINA DO PRODUTO (04/11/2026; só no repositório, não existe no painel).
+   Entrega para o "Visual novo 31" (1718168) as listas "Parecidos com o X" e "Com a mesma proposta" deste perfume;
+   o 1718168 desenha com os MESMOS cartões do site (tamanhos e preços dos decants, selos das famílias, sacola no celular).
    Dados: carrossel/p/<id>.json (preço atual da listagem da loja, atualizado por tarefa agendada — ferramentas/carrossel.py).
-   O endereço dos dados vem de carrossel/v.json (raw.githubusercontent, ~5 min de cache) preso a um commit no jsDelivr.
-   Só roda na página de produto que tem dados; carrega depois da página pronta (não pesa no carregamento). */
+   O endereço vem de carrossel/v.json (raw.githubusercontent, ~5 min de cache), preso a um commit no jsDelivr.
+   Busca só depois que a página carregou (não disputa a internet com a foto do produto).
+   window.__lbCarrGet(cb) -> cb({n, g, t, p:[cartões], m:[cartões]}) ou cb(null) se o perfume não tem dados. */
 (function () {
-  if (window.__lbCarrOn) return; window.__lbCarrOn = 1;
-  var REPO = 'suedgrisoni/lojabit-site';
+  if (window.__lbCarrGet) return;
+  var REPO = 'suedgrisoni/lojabit-site', fila = null, feito = false, res = null;
   function idDoProduto() {
     var a = document.querySelector('a[href*="/conta/favorito/"][href$="/adicionar"]');
     return a && (a.getAttribute('href').match(/favorito\/(\d+)\//) || [])[1];
   }
-  function get(urls, cb) {
-    var u = urls.shift(); if (!u) return;
+  function get(urls, ok, falha) {
+    var u = urls.shift(); if (!u) { falha(); return; }
     var x = new XMLHttpRequest(); x.open('GET', u, true); x.timeout = 8000;
-    x.onload = function () { if (x.status === 200) { try { cb(JSON.parse(x.responseText)); return; } catch (e) {} } get(urls, cb); };
-    x.onerror = x.ontimeout = function () { get(urls, cb); };
+    x.onload = function () { if (x.status === 200) { try { ok(JSON.parse(x.responseText)); return; } catch (e) {} } get(urls, ok, falha); };
+    x.onerror = x.ontimeout = function () { get(urls, ok, falha); };
     x.send();
   }
-  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
-  function brl(v) { return 'R$ ' + Number(v).toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.'); }
-  var CSS = '#lb-carr{margin:56px 0 24px;font-family:Jost,"Helvetica Neue",Arial,sans-serif;color:#141414;clear:both}' +
-    '#lb-carr .lbc-b{margin:0 0 40px}' +
-    '#lb-carr .lbc-h{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin:0 0 6px}' +
-    '#lb-carr h3{font-family:"Cormorant Garamond",Georgia,serif!important;font-weight:500!important;font-size:34px!important;line-height:1.1!important;margin:0!important;color:#0a0a0b!important;letter-spacing:0!important;text-transform:none!important}' +
-    '#lb-carr .lbc-s{font-size:13.5px;color:#776e64;margin:0 0 16px}' +
-    '#lb-carr .lbc-v{font-size:13px;font-weight:600;color:#0a0a0b;text-decoration:none;border-bottom:1px solid #ee7a2f;white-space:nowrap;padding-bottom:2px}' +
-    '#lb-carr .lbc-w{position:relative}' +
-    '#lb-carr .lbc-t{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:2px 2px 8px}' +
-    '#lb-carr .lbc-t::-webkit-scrollbar{display:none}' +
-    '#lb-carr .lbc-c{flex:0 0 206px;width:206px;max-width:206px;min-width:0;box-sizing:border-box;overflow:hidden;scroll-snap-align:start;border:1px solid #ece5da;border-radius:2px;background:#fff;padding:8px 8px 12px;text-decoration:none!important;color:inherit;display:flex;flex-direction:column;transition:border-color .2s}' +
-    '#lb-carr .lbc-c:hover{border-color:#c9b99f}' +
-    '#lb-carr .lbc-i{aspect-ratio:1/1;background:#faf8f5;display:flex;align-items:center;justify-content:center;overflow:hidden;margin:0 0 10px}' +
-    '#lb-carr .lbc-i img{width:100%;height:100%;object-fit:contain}' +
-    '#lb-carr .lbc-k{font:400 10.5px/1.3 Jost,"Helvetica Neue",Arial,sans-serif!important;letter-spacing:.08em!important;text-transform:uppercase!important;color:#776e64!important;margin:0 0 4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}' +
-    '#lb-carr .lbc-n{font:600 15px/1.3 Jost,"Helvetica Neue",Arial,sans-serif!important;letter-spacing:0!important;text-transform:none!important;color:#141414!important;margin:0 0 10px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.6em}' +
-    '#lb-carr .lbc-a,#lb-carr .lbc-p,#lb-carr .lbc-x{font-family:Jost,"Helvetica Neue",Arial,sans-serif!important;letter-spacing:0!important}' +
-    '#lb-carr .lbc-a{font-size:11.5px;color:#776e64;margin-top:auto}#lb-carr .lbc-a s{color:#a59c90}' +
-    '#lb-carr .lbc-p{font-size:19px;font-weight:600;line-height:1.2;color:#141414}' +
-    '#lb-carr .lbc-x{font-size:11.5px;color:#776e64}#lb-carr .lbc-x b{color:#141414;font-weight:600}' +
-    '#lb-carr .lbc-z{position:absolute;top:38%;width:40px;height:40px;border-radius:50%;border:1px solid #ece5da;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.08);cursor:pointer;font-size:20px;line-height:38px;text-align:center;color:#0a0a0b;padding:0;z-index:2}' +
-    '#lb-carr .lbc-z.e{left:-18px}#lb-carr .lbc-z.d{right:-18px}#lb-carr .lbc-z[hidden]{display:none}' +
-    '@media (max-width:979px){#lb-carr{margin:40px 0 16px}#lb-carr h3{font-size:26px!important}#lb-carr .lbc-c{flex-basis:44vw;width:44vw;max-width:44vw}#lb-carr .lbc-z{display:none}#lb-carr .lbc-h{flex-direction:column;align-items:flex-start;gap:6px}}';
-  function card(c) {
-    var preco = c[6] ? '<s>' + brl(c[6]) + '</s> por' : (c[7] ? 'A partir de' : '&nbsp;');
-    return '<a class="lbc-c" href="' + esc(c[1]) + '"><div class="lbc-i"><img loading="lazy" src="' + esc(c[2]) + '" alt="' + esc(c[0]) + '"></div>' +
-      '<div class="lbc-k">' + esc(c[5]) + '</div><div class="lbc-n">' + esc(c[0]) + '</div>' +
-      '<div class="lbc-a">' + preco + '</div><div class="lbc-p">' + brl(c[3]) + '</div>' +
-      (c[4] ? '<div class="lbc-x">ou <b>' + brl(c[4]) + '</b> no Pix</div>' : '') + '</a>';
-  }
-  function bloco(tit, sub, cs, link) {
-    if (!cs || !cs.length) return '';
-    return '<div class="lbc-b"><div class="lbc-h"><h3>' + esc(tit) + '</h3>' + (link ? '<a class="lbc-v" href="' + esc(link) + '">Ver a comparação completa</a>' : '') + '</div>' +
-      (sub ? '<p class="lbc-s">' + esc(sub) + '</p>' : '') +
-      '<div class="lbc-w"><button class="lbc-z e" type="button" aria-label="Anteriores" hidden>&#8249;</button><div class="lbc-t">' + cs.map(card).join('') + '</div>' +
-      '<button class="lbc-z d" type="button" aria-label="Próximos">&#8250;</button></div></div>';
-  }
-  function mostra(L) {
-    if (document.getElementById('lb-carr')) return;
-    var h = bloco('Parecidos com o ' + L.n, 'Os perfumes mais comparados a ele e os de acordes mais próximos.', L.p, L.g) +
-            bloco('Com a mesma proposta', L.t ? 'Mesmo estilo: ' + L.t + '.' : '', L.m, null);
-    if (!h) return;
-    var nat = document.querySelector('.aproveite-tambem'), row = nat && nat.closest('.row-fluid');
-    var ref = row || document.querySelector('.abas-custom.lbz-ok') || document.querySelector('#descricao');
-    if (!ref) return;
-    var st = document.createElement('style'); st.textContent = CSS; document.head.appendChild(st);
-    var sec = document.createElement('section'); sec.id = 'lb-carr'; sec.innerHTML = h;
-    if (row) row.parentNode.insertBefore(sec, row); else ref.parentNode.insertBefore(sec, ref.nextSibling);
-    Array.prototype.forEach.call(sec.querySelectorAll('.lbc-w'), function (w) {
-      var t = w.querySelector('.lbc-t'), e = w.querySelector('.e'), d = w.querySelector('.d');
-      function upd() { e.hidden = t.scrollLeft < 10; d.hidden = t.scrollLeft + t.clientWidth >= t.scrollWidth - 10; }
-      e.onclick = function () { t.scrollBy({ left: -t.clientWidth * 0.9, behavior: 'smooth' }); };
-      d.onclick = function () { t.scrollBy({ left: t.clientWidth * 0.9, behavior: 'smooth' }); };
-      t.addEventListener('scroll', upd, { passive: true }); upd();
-    });
-  }
-  function inicia() {
-    var id = idDoProduto(); if (!id) return;
+  function fim(D) { feito = true; res = D; var f = fila || []; fila = []; f.forEach(function (c) { try { c(D); } catch (e) {} }); }
+  function busca() {
+    var id = idDoProduto(); if (!id) { fim(null); return; }
     get(['https://raw.githubusercontent.com/' + REPO + '/main/carrossel/v.json?t=' + Math.floor(Date.now() / 3e5)], function (v) {
-      if (!v || !/^[0-9a-f]{40}$/.test(v.h)) return;
+      if (!v || !/^[0-9a-f]{40}$/.test(v.h)) { fim(null); return; }
       var cam = '/gh/' + REPO + '@' + v.h + '/carrossel/p/' + id + '.json';
-      get(['https://cdn.jsdelivr.net' + cam, 'https://fastly.jsdelivr.net' + cam], mostra);
-    });
+      get(['https://cdn.jsdelivr.net' + cam, 'https://fastly.jsdelivr.net' + cam], fim, function () { fim(null); });
+    }, function () { fim(null); });
   }
-  function depois() { setTimeout(inicia, 800); }
-  if (document.readyState === 'complete') depois(); else window.addEventListener('load', depois);
+  window.__lbCarrGet = function (cb) {
+    if (feito) { cb(res); return; }
+    if (fila) { fila.push(cb); return; }
+    fila = [cb];
+    if (document.readyState === 'complete') setTimeout(busca, 300); else window.addEventListener('load', function () { setTimeout(busca, 300); });
+  };
 })();
 </script>

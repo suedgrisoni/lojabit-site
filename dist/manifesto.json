@@ -11,13 +11,13 @@
    "minificado": true
   },
   "rod.css": {
-   "bytes": 46249,
-   "sha256": "3375f38656dc826e5a01ce93c8cf6c93af2015150aa73ed18aa75e3c16b3209c",
+   "bytes": 46536,
+   "sha256": "1a653790849b410badf570753f4bd2c012b0be1fb1af943939065a14e3152d72",
    "minificado": true
   },
   "rod.js": {
-   "bytes": 352200,
-   "sha256": "dbe7a157dd73c822ccc349530d73de9700d6dd48161240a53d74eb5234098b56",
+   "bytes": 348412,
+   "sha256": "e985f5cf73e82d6e614aa1447938de79406551851170b021e88ab1cb74b5965c",
    "minificado": true
   }
  },
