@@ -16,8 +16,8 @@
    "minificado": true
   },
   "rod.js": {
-   "bytes": 345812,
-   "sha256": "6c0e96c168b847d74e0aad107540e350151c434c0de7e1291f50e1e3136112a6",
+   "bytes": 352200,
+   "sha256": "dbe7a157dd73c822ccc349530d73de9700d6dd48161240a53d74eb5234098b56",
    "minificado": true
   }
  },
@@ -425,6 +425,11 @@
   {
    "id": 1718455,
    "nome": "Filtros 1 - estilo",
+   "grupo": "rod"
+  },
+  {
+   "id": 1799001,
+   "nome": "Carrossel parecidos e mesma proposta (só no repositório)",
    "grupo": "rod"
   }
  ],
