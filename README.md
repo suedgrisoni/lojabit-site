@@ -61,7 +61,11 @@ um conteúdo novo sempre tem um endereço novo.
 
 ## Carrosséis da página do produto (04/11/2026)
 
-- Código `src/1799001.html` (só no repositório, não existe no painel): "Parecidos com o X" e "Com a mesma proposta".
+- Código `src/1799001.html` (só no repositório, não existe no painel) busca os dados; quem desenha é o `src/1718168.html`
+  (Visual novo 31), com os mesmos cartões do site (tamanhos e preços dos decants, selos das famílias, sacola no celular):
+  "Parecidos com o X" (+ link "Ver a comparação completa") e "Com a mesma proposta". Perfume sem dados continua com o
+  "Perfumes parecidos" antigo (mais vendidos com as mesmas notas).
+- Preços: tarefa agendada "Carrossel: preços atualizados" (7h17, 10h17, 15h17, 19h17 e 22h17).
 - Dados: `carrossel/base.json` (listas feitas pelo Claude a partir da base de perfumes) + `carrossel/p/<id>.json`
   (um arquivo pequeno por produto, com link, foto e preço atual lidos da listagem pública da loja).
 - O site lê `carrossel/v.json` pelo raw.githubusercontent (cache de ~5 min) e os dados pelo jsDelivr preso ao commit indicado nele;
