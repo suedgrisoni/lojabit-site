@@ -1,5 +1,5 @@
 <script>
-/* LOJABIT - links antigos que deixaram de existir (anúncios agrupados de hidratantes e body splash inativados e páginas institucionais renomeadas, 18/10/2026).
+/* LOJABIT - links antigos que deixaram de existir (anúncios agrupados de hidratantes e body splash inativados e páginas institucionais renomeadas, 18/10/2026; produtos fora do ar, 04/11/2026).
    Quem chega por eles vai para a página nova. Para acrescentar: '/link-antigo': '/link-novo'. */
 (function () {
   var M = {
@@ -17,5 +17,22 @@
   var p = location.pathname.replace(/\/+$/, '');
   var d = M[p];
   if (d && d !== p) location.replace(d + location.search + location.hash);
+  /* 04/11/2026: páginas de produto que o Google ainda mostra e hoje dão "Página não encontrada" (Search Console).
+     Só redireciona se a página continuar não encontrada; se o produto voltar a ficar ativo, a página dele aparece normal. */
+  var N = {
+    '/perfume_importado_coco_mademoiselle_chanel_100ml': '/perfume-importado-chanel-coco-mademoiselle-eau-de-parfum',
+    '/perfume-erba-gold-100ml-xerjoff-eau-de-parfum': '/perfumes-parecidos-com-erba-gold',
+    '/perfume-arabe-maison-alhambra-alpine-homme-sport-eau-de-parfum-100ml': '/maison-alhambra',
+    '/perfume-gris-charnel-extrait-100ml-bdk-parfums-paris-extrait-de-parfum': '/bdk-parfums-paris',
+    '/creme_angel_importado_hidratante_200ml': '/hidratantes'
+  };
+  var n = N[p];
+  if (n) {
+    var vai = function () {
+      var b = document.querySelector('.breadcrumbs') || document.body;
+      if (b && /P[aá]gina n[aã]o encontrada/i.test(b.textContent || '')) location.replace(n);
+    };
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', vai); else vai();
+  }
 })();
 </script>

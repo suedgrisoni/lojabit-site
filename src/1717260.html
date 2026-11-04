@@ -1,5 +1,5 @@
 <script type="text/javascript" charset="utf-8">
-      /*LB busca v1.3*/
+      /*LB busca v1.4*/
 (function () {
 var PUBLICADO=true;
 var ROBO='https://script.google.com/macros/s/AKfycbz38mCpIBq9a1tlmwBAZG3LdmhTaKQRKDDAAbz5DCAU3Jw-7HpZZJkssxODPcK8zUBi/exec?arquivo=produtos';
@@ -17,6 +17,42 @@ var teste=lsGet(TESTE) === '1';
 if (!PUBLICADO && !teste) return;
 var OPC=' de da do das dos d e a o the of for com para pra perfume perfumes ml original originais decant decants frasco parecido parecida similar inspirado inspirada tipo eua ';
 var NAO_CORRIGIR=' noturno noturna doce doces noite dia fresco floral amadeirado baunilha cafe oud masculino feminino presente barato ';
+/* Apelidos e formatos de frasco (04/11/2026; fonte: Radar de Apelidos, pesquisa e Search Console). O mais específico primeiro. */
+var APELIDOS_EXTRA=[[/\b(de|com) cafe\b|\bqahwa\b/g, 'khamrah qahwa'],
+  [/\b(que tem|que parece|tem|com) (um|uma)\b/g, ' '], [/\b(em formato de|em forma de|formato de|forma de)\b/g, ' '], [/\b(na tampa|no frasco)\b/g, ' '],
+  [/\b(tambor( de revolver)?|revolver|bala de revolver|arma)\b/g, 'wanted'],
+  [/\b(copa( do mundo)?|trofeu de futebol|taca)\b/g, 'world cup'],
+  [/\btrofeu\b/g, 'invictus'],
+  [/\b(perninhas?|pernas?)( (pra|para) cima)?\b/g, 'scandal'],
+  [/\b(corpo de mulher|corpinho|corpo feminino)\b/g, 'classique'],
+  [/\b(corpo de homem|marinheiro|torso)\b/g, 'le male'],
+  [/\babelh(a|inha)s?\b/g, 'atheeri'],
+  [/\bsereia(zinha)?\b/g, 'fakhar rose'],
+  [/\bpava(o|ozinho)( de ouro)?\b/g, 'afeef'],
+  [/\b(cobra|cobrinha|serpente)\b/g, 'musamam'],
+  [/\b(cabeca de )?(cervo|alce|veado)\b/g, 'al noble'],
+  [/\b(cabeca de )?cavalo\b/g, 'maahir'],
+  [/\b(falcao|gaviao|aguia)\b/g, 'shaheen'],
+  [/\b(sapatinho|sapato|salto alto|salto)( (azul|rosa|preto|vermelho|branco))?\b/g, 'good girl'],
+  [/\b(robozinho|robo) (feminino|feminina|mulher|dourado)\b/g, 'fame'],
+  [/\b(robozinho|robo)\b/g, 'phantom'],
+  [/\b(raio|raiozinho)\b/g, 'bad boy'],
+  [/\b(barra|barrinha|lingote) de ouro\b|\blingote\b/g, 'million'],
+  [/\bprincesa( (da|das|de))?( (arabia|arabias|arabe))?\b/g, 'ameerat'],
+  [/\btiktok\b/g, 'khamrah'],
+  [/\b(sorvete|milkshake)\b/g, 'yum yum'],
+  [/\b(felicidade|lacinho)\b/g, 'la vie est belle'],
+  [/\belefante\b/g, 'jungle'],
+  [/\bcantil\b/g, 'hugo man'],
+  [/\bestrela\b/g, 'angel'],
+  [/\b(ursinho|urso)\b/g, 'toy boy'],
+  [/\b(moletom|capuz)\b/g, 'we are tribe'],
+  [/\bgranada\b/g, 'arsenal'],
+  [/\b(torre de pisa|torre)\b/g, 'pisa'],
+  [/\b(adaga|punhal)\b/g, 'khanjar'],
+  [/\bleao\b/g, 'asad'],
+  [/\byara (rosa|rosinha)\b/g, 'yara'],
+  [/\basad (preto|black)\b/g, 'asad']];
 var APELIDOS=[[/\bone (?=mil)/g, '1 '], [/\bcdni\b/g, 'club de nuit intense'], [/\bcdn\b/g, 'club de nuit'],
 [/\bedp\b/g, 'eau de parfum'], [/\bedt\b/g, 'eau de toilette'], [/\bysl\b/g, 'yves saint laurent'], [/\bjpg\b/g, 'jean paul gaultier'],
 [/\bmfk\b/g, 'maison francis kurkdjian'], [/\bpdm\b/g, 'parfums de marly'], [/\bafrica\b/g, 'afrique'],
@@ -91,7 +127,7 @@ return carregando;
 }
 function termos(q) {
 var n=norm(q);
-APELIDOS.forEach(function (a) { n = n.replace(a[0], a[1]); });
+APELIDOS_EXTRA.concat(APELIDOS).forEach(function (a) { n = n.replace(a[0], a[1]); });
 var t=n.split(' ').filter(Boolean), out = [];
 for (var i=0; i < t.length; i++) {
 var j=t[i] + (t[i + 1] || '');

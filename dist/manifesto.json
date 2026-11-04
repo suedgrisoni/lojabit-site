@@ -6,8 +6,8 @@
    "minificado": true
   },
   "cab.js": {
-   "bytes": 202927,
-   "sha256": "231438c702db49014daf1279a9045a11f7f72499c1935872d2e2fdb56b53e192",
+   "bytes": 204411,
+   "sha256": "fb60bc2200de5ab6f46935e94d2ac4e7d5f83ca2304778b5e56d569c372afb0a",
    "minificado": true
   },
   "rod.css": {
@@ -16,8 +16,8 @@
    "minificado": true
   },
   "rod.js": {
-   "bytes": 344146,
-   "sha256": "b7575c422409a5b804d4e050b14353c7354b7dace77bc9a27fb1afad8ab5c390",
+   "bytes": 349210,
+   "sha256": "a5eb77583ebadedf9606dfdab25e6080db67a0fad8a9692c72aab72f6d045000",
    "minificado": true
   }
  },
