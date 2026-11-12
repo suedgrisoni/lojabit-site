@@ -1,6 +1,6 @@
 <!-- LOJABIT - Promoção de decants (3 = 5%, 6 = 10%, 9 = 15%) + faixa de confiança de volta (12/11/2026).
-     Só no repositório. PRÉVIA: só aparece para quem abre o site com ?lbpromo=1 (e some com ?lbpromo=0).
-     Para publicar: trocar PUBLICADO=false por true (depois de ligar a promoção no painel e testar a sacola).
+     Só no repositório. PUBLICADO desde 12/11/2026 (promoção DECANTS_3_6_9 ligada no painel). Com PUBLICADO=false
+     volta a ser prévia: só aparece para quem abre o site com ?lbpromo=1 (e some com ?lbpromo=0).
      Peças: (1) faixa de confiança nas páginas internas (no celular vira fileira de selos que desliza);
             (2) faixa da promoção na home (computador: entre a abertura e "A casa"; celular: logo abaixo do cartão preto);
             (3) cartão da promoção no topo de /decants; (4) quadro "Leve mais, pague menos" no produto, abaixo do "Quanto rende";
@@ -117,7 +117,7 @@ small.lbpd-av{display:block;margin-top:3px;color:var(--lb-gold,#C9A55C)!importan
 <script>
 (function () {
   'use strict';
-  var PUBLICADO = false;
+  var PUBLICADO = true;
   var K = 'lbpromo';
   try {
     if (/[?&]lbpromo=1/.test(location.search)) sessionStorage.setItem(K, '1');
