@@ -30,7 +30,7 @@
   var MAPA = 'https://maps.app.goo.gl/39qh4fCFyPqTUp539?g_st=ac';
   var TROCAS = '/pagina/trocas-devolucoes-e-garantia.html';
   var SEGURO = '/pagina/e-seguro-comprar-na-lojabit.html';
-  var NOTA = '4,9', AVAL = '472';
+  var NOTA = '4,9', AVAL = '474';
   var ANOS = new Date().getFullYear() - 2014 - (new Date() < new Date(new Date().getFullYear(), 11, 14) ? 1 : 0);
 
   function el(html) { var d = document.createElement('div'); d.innerHTML = html; return d.firstChild; }
@@ -78,7 +78,7 @@
   /* Sacola: linha de garantia logo abaixo do selo 4,9 */
   function sacola() {
     if (!/carrinho/.test(location.pathname) || document.querySelector('.lbpq-sac')) return true;
-    var s = [].filter.call(document.querySelectorAll('a[href*="maps.app.goo.gl"]'), function (a) { return /4,9/.test(a.textContent); })[0];
+    var s = [].filter.call(document.querySelectorAll('a[href*="maps.app.goo.gl"]'), function (a) { return /4,9/.test(a.textContent) && !(a.closest && a.closest('.lbtc')); })[0];
     if (!s) return false;
     s.insertAdjacentElement('afterend', el('<p class="lbpq-sac">Devolução em até 30 dias, sem custo · <a href="' + TROCAS + '">como funciona</a></p>'));
     return true;

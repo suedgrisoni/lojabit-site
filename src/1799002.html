@@ -1,0 +1,367 @@
+<!-- LOJABIT - Promoção de decants (3 = 5%, 6 = 10%, 9 = 15%) + faixa de confiança de volta (12/11/2026).
+     Só no repositório. PRÉVIA: só aparece para quem abre o site com ?lbpromo=1 (e some com ?lbpromo=0).
+     Para publicar: trocar PUBLICADO=false por true (depois de ligar a promoção no painel e testar a sacola).
+     Peças: (1) faixa de confiança nas páginas internas (no celular vira fileira de selos que desliza);
+            (2) faixa da promoção na home (computador: entre a abertura e "A casa"; celular: logo abaixo do cartão preto);
+            (3) cartão da promoção no topo de /decants; (4) quadro "Leve mais, pague menos" no produto, abaixo do "Quanto rende";
+            (5) barra de progresso na sacola; (6) duas frases novas na faixa preta do topo; (7) linha extra no aviso "foi para a sacola".
+     A contagem lê a sacola (/carrinho/minicart): soma a quantidade dos decants (SKU terminado em -3ml/-5ml/-10ml/-30ml)
+     que estão na categoria escondida da promoção (24495076, filha da inativa 977544). Quem fica fora: EXCL (7 perfumes cujo
+     frasco daria prejuízo com 15% + Pix). Perfume novo com decant precisa entrar na categoria 24495076 para valer a promoção. -->
+<style>
+/* (1) faixa de confiança */
+.lbtc{background:#fff;border-bottom:1px solid var(--lb-line,#ECE5DA);font-family:var(--lb-sans,Jost,"Helvetica Neue",Arial,sans-serif)}
+.lbtc-in{display:flex;max-width:1300px;margin:0 auto;padding:0 20px}
+.lbtc-i{flex:1 1 0;display:flex;align-items:center;gap:11px;min-width:0;padding:11px 16px;border-left:1px solid var(--lb-line,#ECE5DA);color:var(--lb-body,#403A34)!important;text-decoration:none!important}
+.lbtc-i:first-child{border-left:0;padding-left:0}
+.lbtc-i svg{flex:none;width:21px;height:21px;color:var(--lb-gold,#C9A55C)}
+.lbtc-i span{min-width:0}
+.lbtc-i b{display:block;font-weight:600;font-size:13px;line-height:1.25;color:var(--lb-ink,#0A0A0B);white-space:nowrap}
+.lbtc-i small{display:block;margin-top:1px;font-size:11.5px;line-height:1.3;color:var(--lb-muted,#776E64);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+a.lbtc-i:hover b{text-decoration:underline;text-underline-offset:3px}
+.lbtc-i.lbtc-p{flex:1.1 1 0;margin:7px 0 7px 8px;padding:8px 16px;border:0;border-radius:8px;background:var(--lb-ink,#0A0A0B)}
+.lbtc-i.lbtc-p b{color:var(--lb-gold,#C9A55C)}
+.lbtc-i.lbtc-p small{color:#CFC6B8}
+.lbtc-i.lbtc-p svg{color:var(--lb-gold,#C9A55C)}
+html.lbpd-on .lbcf{display:none!important}
+html.lbmob .lbtc{border-bottom:0;background:transparent}
+html.lbmob .lbtc-in{gap:7px;padding:8px 14px 0;overflow-x:auto;scroll-snap-type:x proximity;scroll-padding:0 14px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+html.lbmob .lbtc-in::-webkit-scrollbar{display:none}
+html.lbmob .lbtc-i{flex:none;gap:6px;margin:0;padding:6px 11px;border:1px solid var(--lb-line,#ECE5DA);border-radius:999px;background:var(--lb-ivory,#FAF7F2);scroll-snap-align:start}
+html.lbmob .lbtc-i:first-child{padding-left:11px}
+html.lbmob .lbtc-i svg{width:14px;height:14px}
+html.lbmob .lbtc-i b{font-size:12px;font-weight:500}
+html.lbmob .lbtc-i small{display:none}
+html.lbmob .lbtc-i.lbtc-p{border-color:var(--lb-ink,#0A0A0B);background:var(--lb-ink,#0A0A0B)}
+@media (max-width:1180px){html:not(.lbmob) .lbtc-i small{display:none}html:not(.lbmob) .lbtc-i{padding:13px 12px}}
+
+/* faixas de desconto (usadas na home, em /decants e no produto) */
+.lbpd-tiers{display:flex;gap:10px;margin:0;padding:0;list-style:none;font-family:var(--lb-sans,Jost,"Helvetica Neue",Arial,sans-serif)}
+.lbpd-tiers li{flex:1 1 0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-width:0;margin:0;padding:12px 8px 11px;border:1px solid rgba(201,165,92,.55);border-radius:10px;background:#fff;text-align:center;list-style:none}
+.lbpd-tiers li span{font-size:11.5px;line-height:1.2;letter-spacing:.06em;text-transform:uppercase;color:var(--lb-muted,#776E64)}
+.lbpd-tiers li strong{font:600 26px/1 var(--lb-serif,"Cormorant Garamond",Georgia,serif);color:var(--lb-ink,#0A0A0B)}
+.lbpd-tiers li strong small{font:500 12px/1 var(--lb-sans,Jost,Arial,sans-serif);letter-spacing:.08em;margin-left:3px;color:var(--lb-gold-text,#8F6E2E)}
+.lbpd-tiers li.lbpd-ok{border-color:var(--lb-ink,#0A0A0B);background:var(--lb-ink,#0A0A0B)}
+.lbpd-tiers li.lbpd-ok span{color:#CFC6B8}
+.lbpd-tiers li.lbpd-ok strong{color:#fff}
+.lbpd-tiers li.lbpd-ok strong small{color:var(--lb-gold,#C9A55C)}
+.lbpd-k{display:block;font:500 10.5px/1.3 var(--lb-sans,Jost,Arial,sans-serif);letter-spacing:.22em;text-transform:uppercase;color:var(--lb-gold-text,#8F6E2E)}
+
+/* (2) home — computador */
+.lbpd-home{background:var(--lb-ivory,#FAF7F2);border-top:1px solid var(--lb-line,#ECE5DA);border-bottom:1px solid var(--lb-line,#ECE5DA);font-family:var(--lb-sans,Jost,"Helvetica Neue",Arial,sans-serif)}
+.lbpd-home-in{display:grid;grid-template-columns:1.05fr 1.25fr auto;align-items:center;gap:40px;max-width:1220px;margin:0 auto;padding:40px 24px}
+.lbpd-home h2{margin:8px 0 8px;font:500 34px/1.08 var(--lb-serif,"Cormorant Garamond",Georgia,serif);color:var(--lb-ink,#0A0A0B);letter-spacing:0}
+.lbpd-home h2 em{font-style:italic;color:var(--lb-gold-deep,#A88340)}
+.lbpd-home p{margin:0;font-size:14px;line-height:1.55;color:var(--lb-body,#403A34)}
+.lbpd-cta{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:17px 30px;background:var(--lb-ink,#0A0A0B);color:var(--lb-gold,#C9A55C)!important;font:500 12.5px/1 var(--lb-sans,Jost,Arial,sans-serif);letter-spacing:.24em;text-transform:uppercase;text-decoration:none!important;white-space:nowrap;transition:background .2s}
+.lbpd-cta:hover{background:#26231f}
+.lbpd-fine{margin:10px 0 0!important;font-size:11.5px!important;color:var(--lb-muted,#776E64)!important}
+@media (max-width:1100px){html:not(.lbmob) .lbpd-home-in{grid-template-columns:1fr 1fr;gap:22px 32px}html:not(.lbmob) .lbpd-home-in>div:last-child{grid-column:1/-1;display:flex;align-items:center;justify-content:center;gap:20px}html:not(.lbmob) .lbpd-home-in>div:last-child .lbpd-fine{margin:0!important}}
+
+/* (2) home — celular: cartão logo abaixo do cartão preto */
+a.lbpd-mh{display:block;margin:14px 0 4px;padding:15px 16px 14px;border:1px solid rgba(201,165,92,.6);border-radius:18px;background:var(--lb-ivory,#FAF7F2);color:var(--lb-body,#403A34)!important;text-decoration:none!important;font-family:var(--lb-sans,Jost,"Helvetica Neue",Arial,sans-serif)}
+.lbpd-mh-t{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:0 0 4px}
+.lbpd-mh-t i{font-style:normal;font-size:13px;font-weight:500;color:var(--lb-gold-text,#8F6E2E);white-space:nowrap}
+.lbpd-mh h3{margin:0 0 10px;font:500 24px/1.1 var(--lb-serif,"Cormorant Garamond",Georgia,serif);color:var(--lb-ink,#0A0A0B)}
+.lbpd-mh h3 em{font-style:italic;color:var(--lb-gold-deep,#A88340)}
+.lbpd-mh .lbpd-tiers{gap:7px}
+.lbpd-mh .lbpd-tiers li{padding:9px 4px 8px;border-radius:10px}
+.lbpd-mh .lbpd-tiers li span{font-size:10.5px;letter-spacing:.04em}
+.lbpd-mh .lbpd-tiers li strong{font-size:22px}
+.lbpd-mh p{margin:9px 0 0;font-size:12px;line-height:1.4;color:var(--lb-muted,#776E64)}
+
+/* (3) /decants */
+.lbpd-dc{display:grid;grid-template-columns:1fr 1.15fr;align-items:center;gap:28px;margin:16px 0 8px;padding:22px 24px;border:1px solid rgba(201,165,92,.55);border-radius:12px;background:var(--lb-ivory,#FAF7F2);font-family:var(--lb-sans,Jost,"Helvetica Neue",Arial,sans-serif)}
+.lbpd-dc h2{margin:6px 0 6px!important;font:500 27px/1.12 var(--lb-serif,"Cormorant Garamond",Georgia,serif)!important;color:var(--lb-ink,#0A0A0B)!important;text-transform:none!important;letter-spacing:0!important}
+.lbpd-dc h2 em{font-style:italic;color:var(--lb-gold-deep,#A88340)}
+.lbpd-dc p{margin:0;font-size:13.5px;line-height:1.5;color:var(--lb-body,#403A34)}
+html.lbmob .lbpd-dc{grid-template-columns:1fr;gap:12px;margin:4px 0 14px;padding:16px}
+html.lbmob .lbpd-dc h2{font-size:23px!important}
+html.lbmob .lbpd-dc .lbpd-tiers{gap:7px}
+html.lbmob .lbpd-dc .lbpd-tiers li{padding:9px 4px 8px}
+html.lbmob .lbpd-dc .lbpd-tiers li span{font-size:10.5px}
+html.lbmob .lbpd-dc .lbpd-tiers li strong{font-size:22px}
+
+/* (4) produto: abaixo do "Quanto rende" */
+.lbpd-box{margin:10px 0 6px;padding:12px 16px 12px!important;background:var(--lb-ivory,#FAF7F2);border:1px solid var(--lb-line,#ECE5DA);border-left:2px solid var(--lb-gold,#C9A55C);font-family:var(--lb-sans,Jost,"Helvetica Neue",Arial,sans-serif);color:var(--lb-body,#403A34)}
+.lbpd-box-h{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0 0 9px}
+.lbpd-box-h span{font:500 10.5px/1 var(--lb-sans,Jost,Arial,sans-serif);letter-spacing:.22em;text-transform:uppercase;color:var(--lb-gold-text,#8F6E2E)}
+.lbpd-box-h a{font-size:12.5px;line-height:1;color:var(--lb-gold-text,#8F6E2E)!important;text-decoration:underline!important;text-underline-offset:3px;white-space:nowrap}
+.lbpd-box .lbpd-tiers{gap:8px}
+.lbpd-box .lbpd-tiers li{padding:8px 4px 7px;border-radius:8px}
+.lbpd-box .lbpd-tiers li span{font-size:10.5px;letter-spacing:.04em}
+.lbpd-box .lbpd-tiers li strong{font-size:21px}
+.lbpd-msg{margin:9px 0 0!important;font-size:13px!important;line-height:1.4!important;color:var(--lb-body,#403A34)!important}
+.lbpd-msg b{color:var(--lb-ink,#0A0A0B);font-weight:600}
+
+/* (5) sacola */
+.lbpd-sac{margin:10px 0 12px;padding:13px 18px 12px;border:1px solid var(--lb-line,#ECE5DA);border-radius:14px;background:#fff;font-family:var(--lb-sans,Jost,"Helvetica Neue",Arial,sans-serif)}
+.lbk .lbpd-sac{border-radius:0;margin:6px 0 4px;padding:12px 18px}
+.lbpd-sac p{margin:0 0 9px!important;font-size:14px!important;line-height:1.4!important;color:var(--lb-body,#403A34)!important}
+.lbpd-sac p b{font-weight:600;color:var(--lb-ink,#0A0A0B)}
+.lbpd-bar{position:relative;height:5px;margin:0 6px 19px 0;border-radius:3px;background:var(--lb-line,#ECE5DA)}
+.lbpd-bar i{position:absolute;left:0;top:0;bottom:0;border-radius:3px;background:var(--lb-gold,#C9A55C);transition:width .4s}
+.lbpd-bar s{position:absolute;top:-3px;width:11px;height:11px;margin-left:-6px;border-radius:50%;border:2px solid #fff;background:var(--lb-line,#ECE5DA);text-decoration:none}
+.lbpd-bar s.lbpd-ok{background:var(--lb-ink,#0A0A0B)}
+.lbpd-bar s em{position:absolute;top:13px;left:50%;transform:translateX(-50%);font:500 10.5px/1 var(--lb-sans,Jost,Arial,sans-serif);font-style:normal;color:var(--lb-muted,#776E64);white-space:nowrap}
+.lbpd-bar s:last-child em{left:auto;right:-5px;transform:none}
+.lbpd-sac a{font-size:12.5px;color:var(--lb-gold-text,#8F6E2E)!important;text-decoration:underline!important;text-underline-offset:3px}
+.lbpd-sac small{display:block;margin-top:6px;font-size:11.5px;color:var(--lb-muted,#776E64)}
+
+.lbpd-fora{margin:8px 0 4px!important;font:400 12px/1.4 var(--lb-sans,Jost,Arial,sans-serif)!important;color:var(--lb-muted,#776E64)!important}
+/* (7) aviso "foi para a sacola" */
+small.lbpd-av{display:block;margin-top:3px;color:var(--lb-gold,#C9A55C)!important;font-weight:500}
+</style>
+<script>
+(function () {
+  'use strict';
+  var PUBLICADO = false;
+  var K = 'lbpromo';
+  try {
+    if (/[?&]lbpromo=1/.test(location.search)) sessionStorage.setItem(K, '1');
+    if (/[?&]lbpromo=0/.test(location.search)) sessionStorage.removeItem(K);
+  } catch (e) {}
+  var ligado = PUBLICADO;
+  try { ligado = ligado || sessionStorage.getItem(K) === '1'; } catch (e) {}
+  if (!ligado || window.__lbpd) return;
+  window.__lbpd = 1;
+
+  var FAIXAS = [[3, 5], [6, 10], [9, 15]];
+  var CAT = '24495076';                 /* categoria escondida "Promoção Decants (uso interno, não apagar)" */
+  /* fora da promoção (o frasco daria prejuízo com 15% + Pix): Chanel Chance Eau Tendre, Bvlgari Man In Black,
+     Chanel Chance Eau Fraîche, French Avenue Spectre Ghost, Polo Black, Chanel Chance EDP, CH Cedar Chic */
+  var EXCL = { '35021295': 1, '19254482': 1, '351474067': 1, '334121425': 1, '8623615': 1, '15746440': 1, '403336099': 1 };
+  var DEC = /-(3|5|10|30)ml$/i;
+  var MAPA = 'https://maps.app.goo.gl/39qh4fCFyPqTUp539?g_st=ac';
+  var NOTA = '4,9', AVAL = '474';
+  var SOMA_PIX = false;                 /* virar true depois de conferir na sacola que o Pix soma com a promoção */
+
+  var H = document.documentElement, B = document.body;
+  H.classList.add('lbpd-on');
+  var mob = function () { return H.classList.contains('lbmob'); };
+  var pg = (B && B.className) || '';
+  var HOME = /\bpagina-inicial\b/.test(pg), PROD = /\bpagina-produto\b/.test(pg), SAC = /\bpagina-carrinho\b/.test(pg);
+  var LISTA = /\bpagina-(categoria|busca|marca)\b/.test(pg);
+  var DECANTS = /\bcategoria-22896349\b/.test(pg) || /^\/decants\/?$/.test(location.pathname);
+  var pidM = pg.match(/\bproduto-(\d+)\b/), PID = pidM ? pidM[1] : '';
+
+  function el(html) { var d = document.createElement('div'); d.innerHTML = html.trim(); return d.firstChild; }
+  function plural(n, s, p) { return n + ' ' + (n === 1 ? s : p); }
+  function faixa(n) { var f = null; for (var i = 0; i < FAIXAS.length; i++) if (n >= FAIXAS[i][0]) f = FAIXAS[i]; return f; }
+  function prox(n) { for (var i = 0; i < FAIXAS.length; i++) if (n < FAIXAS[i][0]) return FAIXAS[i]; return null; }
+  function tiersHtml(cls, n) {
+    return '<ol class="lbpd-tiers' + (cls ? ' ' + cls : '') + '">' + FAIXAS.map(function (f) {
+      return '<li data-n="' + f[0] + '"' + (n != null && n >= f[0] ? ' class="lbpd-ok"' : '') + '><span>' + f[0] + ' decants</span><strong>' + f[1] + '%<small>OFF</small></strong></li>';
+    }).join('') + '</ol>';
+  }
+
+  /* sacola: quantos decants da promoção já tem */
+  var cache = null, cacheT = 0, mexeu = false;   /* mexeu: a sacola mudou nesta página (o .vazio do topo não se atualiza sozinho) */
+  function conta(forca) {
+    /* sacola vazia (o topo do site marca .carrinho.vazio): nem consulta, para não gastar uma chamada à toa */
+    var cab = document.querySelector('#cabecalho .carrinho');
+    if (!forca && !mexeu && cab && cab.classList.contains('vazio')) return Promise.resolve({ n: 0, fora: 0 });
+    if (!forca && cache && Date.now() - cacheT < 1500) return cache;
+    cacheT = Date.now();
+    cache = fetch('/carrinho/minicart', { credentials: 'same-origin', headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+      .then(function (r) { if (!r.ok) throw 0; return r.json(); })
+      .then(function (j) {
+        var it = (j && j.carrinho && j.carrinho.items) || [], n = 0, fora = 0;
+        it.forEach(function (x) {
+          var q = +x.quantity || 1;
+          if (!DEC.test(String(x.sku || ''))) return;
+          if (EXCL[String(x.parentId || '')] || EXCL[String(x.id || '')] || (x.categoriesId || []).map(String).indexOf(CAT) < 0) { fora += q; return; }
+          n += q;
+        });
+        return { n: n, fora: fora };
+      })
+      .catch(function () { cache = null; return null; });
+    return cache;
+  }
+
+  var ICO = {
+    google: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.8l2.75 5.86 6.4.7-4.78 4.33 1.33 6.31L12 16.8l-5.7 3.2 1.33-6.31L2.85 9.36l6.4-.7z"/></svg>',
+    casa: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 10.2 12 4l8.5 6.2V20h-17z"/><path d="M9.6 20v-5.6h4.8V20"/></svg>',
+    caixa: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 7.6 12 3.5l8.5 4.1v8.8L12 20.5l-8.5-4.1z"/><path d="M3.5 7.6 12 11.8l8.5-4.2M12 11.8v8.7"/></svg>',
+    selo: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.1 1.5 2.6-.1.8 2.5 2.1 1.5-.8 2.5.8 2.5-2.1 1.5-.8 2.5-2.6-.1L12 21l-2.1-1.5-2.6.1-.8-2.5-2.1-1.5.8-2.5-.8-2.5 2.1-1.5.8-2.5 2.6.1z"/><path d="m8.8 12.1 2.2 2.2 4.3-4.4" stroke-linecap="round"/></svg>',
+    promo: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M20.3 13.3l-7 7a1.8 1.8 0 0 1-2.6 0L3.5 13.1V3.5h9.6l7.2 7.2a1.8 1.8 0 0 1 0 2.6z"/><circle cx="8" cy="8" r="1.4"/></svg>'
+  };
+
+  /* (1) faixa de confiança nas páginas internas */
+  function faixaConfianca() {
+    if (HOME || (mob() && (SAC || DECANTS)) || document.querySelector('.lbtc')) return true;
+    var corpo = document.getElementById('corpo');
+    if (!corpo || !corpo.parentNode) return false;
+    var itens = [
+      '<a class="lbtc-i" href="' + MAPA + '" target="_blank" rel="noopener">' + ICO.google + '<span><b>' + NOTA + ' no Google</b><small>' + AVAL + ' avaliações</small></span></a>',
+      '<div class="lbtc-i">' + ICO.casa + '<span><b>Desde 2014</b><small>Família, mesmo endereço</small></span></div>',
+      '<div class="lbtc-i">' + ICO.caixa + '<span><b>Pronta entrega</b><small>Produtos já no Brasil</small></span></div>',
+      '<div class="lbtc-i">' + ICO.selo + '<span><b>100% originais</b><small>Distribuidores oficiais</small></span></div>'
+    ];
+    var promo = '<a class="lbtc-i lbtc-p" href="/decants">' + ICO.promo + '<span><b>Decants até 15% off</b><small>Leve 3, 6 ou 9 · ver ›</small></span></a>';
+    if (mob() && LISTA && !DECANTS) itens.unshift(promo); else if (!(mob() && DECANTS)) itens.push(promo);
+    corpo.parentNode.insertBefore(el('<section class="lbtc" aria-label="Por que comprar na @LOJABIT"><div class="lbtc-in">' + itens.join('') + '</div></section>'), corpo);
+    return true;
+  }
+
+  /* (2) home */
+  var TIT = 'Quanto mais decants, <em>maior o desconto</em>';
+  var SUB = 'Misture árabes, nichos e importados, em 5, 10 ou 30 ml. O desconto aparece sozinho na sacola.';
+  function fine() { return (SOMA_PIX ? 'Soma com os 10% do Pix. ' : '') + 'Quase todos os decants participam; os poucos que ficam fora avisam na página do perfume.'; }
+  function home() {
+    if (!HOME || document.querySelector('.lbpd-home,.lbpd-mh')) return true;
+    if (mob()) {
+      var hero = document.querySelector('#lbxTopo .lbx-hero');
+      if (!hero) return false;
+      hero.parentNode.insertBefore(el('<a class="lbpd-mh" href="/decants"><div class="lbpd-mh-t"><span class="lbpd-k">Promoção de decants</span><i>Ver decants ›</i></div><h3>Leve mais, <em>pague menos</em></h3>' + tiersHtml('') + '<p>Misture perfumes e tamanhos. O desconto aparece sozinho na sacola.</p></a>'), hero.nextSibling);
+      return true;
+    }
+    var abre = document.querySelector('section.lbq .lbq-abre');
+    if (!abre) return false;
+    abre.parentNode.insertBefore(el('<div class="lbpd-home"><div class="lbpd-home-in"><div><span class="lbpd-k">Decants · leve mais, pague menos</span><h2>' + TIT + '</h2><p>' + SUB + '</p></div>' + tiersHtml('') + '<div><a class="lbpd-cta" href="/decants">Escolher decants</a><p class="lbpd-fine">' + fine() + '</p></div></div></div>'), abre.nextSibling);
+    return true;
+  }
+
+  /* (3) topo de /decants */
+  function decants() {
+    if (!DECANTS || document.querySelector('.lbpd-dc')) return true;
+    var alvo = document.querySelector('.conteudo .lbpq-faixa') || document.querySelector('.conteudo section.lbdi') || document.querySelector('section.lbdi');
+    if (!alvo) return false;
+    alvo.parentNode.insertBefore(el('<section class="lbpd-dc"><div><span class="lbpd-k">Leve mais, pague menos</span><h2>' + TIT + '</h2><p>' + SUB + '</p><p class="lbpd-fine">' + fine() + '</p></div>' + tiersHtml('') + '</section>'), alvo);
+    return true;
+  }
+
+  /* (4) produto */
+  function msgProduto(st) {
+    if (!st || !st.n) return 'Misture perfumes e tamanhos. O desconto aparece sozinho na sacola.';
+    var f = faixa(st.n), p = prox(st.n);
+    var tem = 'Você já tem <b>' + plural(st.n, 'decant', 'decants') + '</b> na sacola';
+    if (!f) return tem + '. Mais <b>' + (p[0] - st.n) + '</b> e você ganha <b>' + p[1] + '% off</b>.';
+    if (!p) return tem + ': <b>' + f[1] + '% off</b> garantido.';
+    return tem + ': <b>' + f[1] + '% off</b> garantido. Mais ' + (p[0] - st.n) + ' para <b>' + p[1] + '%</b>.';
+  }
+  function produto() {
+    if (!PROD) return true;
+    if (document.querySelector('.lbpd-box,.lbpd-fora')) return true;
+    var mini = document.querySelector('.lbdc-mini');
+    if (!mini) return false;
+    if (EXCL[PID]) { mini.parentNode.insertBefore(el('<p class="lbpd-fora">Este perfume não entra na promoção de decants por quantidade.</p>'), mini.nextSibling); return true; }
+    var box = el('<div class="lbpd-box"><div class="lbpd-box-h"><span>Leve mais, pague menos</span><a href="/decants">Ver decants ›</a></div>' + tiersHtml('') + '<p class="lbpd-msg">' + msgProduto(null) + '</p></div>');
+    mini.parentNode.insertBefore(box, mini.nextSibling);
+    atualizaProduto(false);
+    return true;
+  }
+  function atualizaProduto(forca, pronto) {
+    var box = document.querySelector('.lbpd-box');
+    if (!box) return;
+    (pronto ? Promise.resolve(pronto) : conta(forca)).then(function (st) {
+      if (!st) return;
+      [].forEach.call(box.querySelectorAll('.lbpd-tiers li'), function (li) { li.classList.toggle('lbpd-ok', st.n >= +li.getAttribute('data-n')); });
+      var m = box.querySelector('.lbpd-msg'), h = msgProduto(st);
+      if (m && m.innerHTML !== h) m.innerHTML = h;
+    });
+  }
+
+  /* (5) sacola */
+  function htmlSacola(st) {
+    if (!st || (!st.n && !st.fora)) return '';
+    var n = st.n, f = faixa(n), p = prox(n), t;
+    if (!n) t = (st.fora === 1 ? 'O decant da sua sacola não entra' : 'Os decants da sua sacola não entram') + ' na promoção por quantidade.';
+    else if (!f) t = (p[0] - n === 1 ? 'Falta' : 'Faltam') + ' <b>' + plural(p[0] - n, 'decant', 'decants') + '</b> para <b>' + p[1] + '% off</b> nos decants.';
+    else if (!p) t = '<b>' + f[1] + '% off</b> nos seus ' + n + ' decants. Desconto máximo garantido!';
+    else t = '<b>' + f[1] + '% off</b> nos seus ' + n + ' decants. Mais ' + plural(p[0] - n, 'decant', 'decants') + ' para <b>' + p[1] + '%</b>.';
+    var max = FAIXAS[FAIXAS.length - 1][0], w = Math.min(n, max) / max * 100;
+    var marcas = FAIXAS.map(function (x) { return '<s style="left:' + (x[0] / max * 100).toFixed(2) + '%"' + (n >= x[0] ? ' class="lbpd-ok"' : '') + '><em>' + x[0] + ' · ' + x[1] + '%</em></s>'; }).join('');
+    return '<p>' + t + '</p>' + (n ? '<div class="lbpd-bar"><i style="width:' + w.toFixed(1) + '%"></i>' + marcas + '</div>' : '') +
+      (p ? '<a href="/decants">Escolher mais decants ›</a>' : '') + (n && st.fora ? '<small>' + (st.fora === 1 ? '1 decant da sacola não entra' : st.fora + ' decants da sacola não entram') + ' na promoção.</small>' : '');
+  }
+  var ultimoSac = null;
+  function sacola(forca) {
+    if (!SAC) return true;
+    var fg = document.querySelector('#lbxSacola .lbx-fg') || document.querySelector('.lbk .lbk-fg');
+    if (!fg) return false;
+    conta(forca).then(function (st) {
+      var h = htmlSacola(st), cx = document.querySelector('.lbpd-sac');
+      var fg2 = document.querySelector('#lbxSacola .lbx-fg') || document.querySelector('.lbk .lbk-fg');
+      if (!h) { if (cx) cx.parentNode.removeChild(cx); ultimoSac = h; return; }
+      if (!cx && fg2) { cx = el('<div class="lbpd-sac" aria-live="polite"></div>'); fg2.parentNode.insertBefore(cx, fg2.nextSibling); }
+      if (cx && cx.innerHTML !== h) cx.innerHTML = h;
+      ultimoSac = h;
+    });
+    return true;
+  }
+  function assinatura() {
+    var q = function (s) { var e = document.querySelector(s); return e ? e.textContent.replace(/\s+/g, ' ') : ''; };
+    return q('#lbxSacola .lbx-sc-cab') + '|' + q('#lbxSacola .lbx-sc-rs') + '|' + q('.lbk .lbk-topo') + '|' + q('.lbk .lbk-sub') + '|' + q('.lbk .lbk-itens');
+  }
+  function vigiaSacola() {
+    if (!SAC || !window.MutationObserver) return;
+    var t = 0, ult = assinatura();
+    new MutationObserver(function () {
+      clearTimeout(t);
+      t = setTimeout(function () { var a = assinatura(); if (a !== ult) { ult = a; sacola(true); } }, 600);
+    }).observe(document.getElementById('corpo') || B, { childList: true, subtree: true, characterData: true });
+  }
+
+  /* (6) duas frases novas na faixa preta do topo */
+  function topo() {
+    var tr = document.querySelector('.banner-top .lbt-trilho');
+    if (!tr) return false;
+    if (tr.getAttribute('data-lbpd')) return true;
+    var it = tr.querySelectorAll('.lbt-item'), n = it.length / 4;
+    if (!n || n !== Math.floor(n)) return true;
+    var tx = [].slice.call(it, 0, n).map(function (s) { return s.textContent; });
+    var novos = ['Decants: leve 3, 6 ou 9 e ganhe até 15% off', NOTA + ' no Google · ' + AVAL + ' avaliações'];
+    tx.splice(1, 0, novos[0]); tx.splice(3, 0, novos[1]);
+    var h = tx.map(function (t) { var s = document.createElement('span'); s.className = 'lbt-item'; s.textContent = t; return s.outerHTML; }).join('');
+    tr.innerHTML = h + h + h + h;
+    tr.style.animationDuration = Math.round(48 * tx.length / n) + 's';
+    tr.setAttribute('data-lbpd', '1');
+    var lb = tr.parentNode; if (lb && lb.setAttribute) lb.setAttribute('aria-label', tx.join(' · '));
+    return true;
+  }
+
+  /* (7) aviso "foi para a sacola": acrescenta quantos decants faltam */
+  function aviso() {
+    var x = window.__lbx;
+    if (!x || typeof x.aviso !== 'function') return false;
+    if (x.aviso.__lbpd) return true;
+    var orig = x.aviso;
+    var novo = function (t) {
+      orig.apply(this, arguments);
+      if (!/foi para a sacola/.test(String(t))) return;
+      mexeu = true;
+      conta(true).then(function (st) {
+        atualizaProduto(false, st);
+        if (!st || !st.n) return;
+        var f = faixa(st.n), p = prox(st.n), m;
+        if (!f) m = 'Mais ' + plural(p[0] - st.n, 'decant', 'decants') + ' e você ganha ' + p[1] + '% off';
+        else if (p) m = f[1] + '% off nos decants · mais ' + (p[0] - st.n) + ' para ' + p[1] + '%';
+        else m = f[1] + '% off nos seus decants';
+        var lnk = [].filter.call(document.querySelectorAll('a[href="/carrinho/index"]'), function (a) { return /Ver sacola/.test(a.textContent) && a.previousElementSibling; })[0];
+        var sp = lnk && lnk.previousElementSibling;
+        if (sp && !sp.querySelector('.lbpd-av')) sp.insertAdjacentHTML('beforeend', '<small class="lbpd-av">' + m + '</small>');
+      });
+    };
+    novo.__lbpd = 1;
+    x.aviso = novo;
+    return true;
+  }
+
+  var tarefas = [topo, faixaConfianca, home, decants, produto, sacola, aviso], feitas = {}, voltas = 0, relogio = 0;
+  function roda() {
+    clearTimeout(relogio);
+    var falta = 0;
+    tarefas.forEach(function (f, i) {
+      if (feitas[i]) return;
+      try { if (f()) feitas[i] = 1; else falta++; } catch (e) { feitas[i] = 1; }
+    });
+    if (falta && ++voltas < 30) relogio = setTimeout(roda, 350);
+  }
+  /* roda já (o rod.js fica no fim da página, então #corpo e o topo já existem): a faixa entra antes da 1ª pintura e a página não "pula" */
+  roda();
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { voltas = 0; roda(); });
+  vigiaSacola();
+  window.addEventListener('pageshow', function (e) { if (e.persisted) { atualizaProduto(true); sacola(true); } });
+})();
+</script>

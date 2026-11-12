@@ -11,13 +11,13 @@
    "minificado": true
   },
   "rod.css": {
-   "bytes": 46536,
-   "sha256": "1a653790849b410badf570753f4bd2c012b0be1fb1af943939065a14e3152d72",
+   "bytes": 55991,
+   "sha256": "0543329424187f987f4b3752cd7b0273cabb31857cde002d114d0e48c1992833",
    "minificado": true
   },
   "rod.js": {
-   "bytes": 348412,
-   "sha256": "e985f5cf73e82d6e614aa1447938de79406551851170b021e88ab1cb74b5965c",
+   "bytes": 366748,
+   "sha256": "8aa64aacccfdc5088125a2d69b5a2e3a58efb6fcaea2ad1f1951aad2862633c5",
    "minificado": true
   }
  },
@@ -430,6 +430,11 @@
   {
    "id": 1799001,
    "nome": "Carrossel parecidos e mesma proposta (só no repositório)",
+   "grupo": "rod"
+  },
+  {
+   "id": 1799002,
+   "nome": "Promo decants + faixa de confiança (só no repositório)",
    "grupo": "rod"
   }
  ],
