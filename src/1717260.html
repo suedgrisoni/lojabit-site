@@ -151,7 +151,12 @@ if (v > best) best = v;
 }
 return best;
 }
+/* 12/11/2026: busca só por "decant" (com ou sem "de perfume", "5ml"...) mostra os decants mais vendidos da loja
+   (a base do robô vem na ordem de relevância da loja; produto com "a partir de" = tem decants) */
+function soDecant(q) { var t=termos(q); return t.length > 0 && t.some(function (w) { return /^decants?$/.test(w); }) && t.every(function (w) { return opcional(w) || /^(5|10|30|3)$/.test(w); }); }
+function decantsTop() { return itens ? itens.filter(function (it) { return !it.sec && /^Perfume/.test(it.x[0]) && it.x[4]; }).slice(0, MAX) : []; }
 function buscar(q) {
+if (soDecant(q)) return decantsTop();
 var ts=termos(q), obrig = ts.filter(function (w) { return !opcional(w); });
 if (!obrig.length) obrig = ts;
 if (!obrig.length || !itens) return [];
@@ -259,13 +264,15 @@ var ps=buscar(q), cs = buscarCats(q), h = '';
 clearTimeout(nota2s);
 if (!ps.length && !cs.length) nota2s = setTimeout(function () { anotar(q, 's'); }, 2000);
 if (cs.length) h += '<div class="lbC">' + cs.map(function (c) { return '<a href="' + c.h + '">' + esc(c.nome) + '</a>'; }).join('') + '</div>';
+var dec=soDecant(q) && ps.length;
+if (dec) h += '<div class="lbHd" style="padding:9px 12px 3px;font:600 10.5px/1.2 Jost,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8F6E2E">Decants mais vendidos</div>';
 h += ps.map(function (it) {
 var x=it.x, preco = x[3] ? (x[5] ? '<s>R$ ' + x[5] + '</s>' : '') + (x[4] ? 'a partir de ' : '') + '<b>R$ ' + x[3] + '</b>' : '';
 return '<a role="option" href="/' + esc(x[1]) + '"><img src="' + esc(foto(x)) + '" alt="" loading="lazy"><span><span class="lbN">' + esc(it.nome) +
 '</span><span class="lbR">' + esc(it.rot) + (it.rot && preco ? ' · ' : '') + preco + '</span></span></a>';
 }).join('');
 if (!ps.length && !cs.length) h += '<div class="lbV">Nenhuma sugestão para “' + esc(q.trim()) + '”.</div>';
-h += '<a class="lbT" href="#" data-todos="1">Ver todos os resultados para “' + esc(q.trim()) + '”</a>';
+h += dec ? '<a class="lbT" href="/decants">Ver todos os decants</a>' : '<a class="lbT" href="#" data-todos="1">Ver todos os resultados para “' + esc(q.trim()) + '”</a>';
 el().innerHTML = h;
 links = [].slice.call(caixa.querySelectorAll('a'));
 ativo = -1;

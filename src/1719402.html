@@ -16,5 +16,6 @@ function descricao(){[].forEach.call(document.querySelectorAll(".descricao-conta
 function alts(){[].forEach.call(document.querySelectorAll(".listagem-item img.imagem-zoom:not([alt])"),function(i){var it=i.closest(".listagem-item"),nm=it&&it.querySelector(".nome-produto");if(nm)i.setAttribute("alt",nm.textContent.replace(/\s+/g," ").trim()+" - outra foto")});
  [].forEach.call(document.querySelectorAll(".category-icon img:not([alt])"),function(i){var a=i.closest("a");i.setAttribute("alt",a?a.textContent.replace(/\s+/g," ").trim():"")})}
 function tudo(){try{titulosHome()}catch(e){}try{descricao()}catch(e){}try{alts()}catch(e){}}
-var n=0;(function roda(){tudo();if(++n<10)setTimeout(roda,n<5?500:1500)})();
+/* 12/11/2026: 4 conferências (0; 0,8; 2,5; 6 s) em vez de 10 — cada uma mede a página e pesa no celular */
+var n=0,T=[800,1700,3500];(function roda(){tudo();if(n<T.length)setTimeout(roda,T[n++])})();
 })();</script>

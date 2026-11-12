@@ -1,0 +1,83 @@
+<style>
+/* LOJABIT - ajustes de 12/11/2026 (só no repositório). Bloco "Como garantimos que é original" (código do painel
+   "SEO - originais nas categorias") em UMA linha no celular: abre ao tocar; o texto continua na página para o Google. */
+@media (max-width:979px){
+html.lbor-js .lbor{margin:0 0 10px!important;padding:0!important}
+html.lbor-js .lbor .lbor-cab{flex-direction:row!important;align-items:center!important;gap:10px!important;margin:0!important;padding:11px 14px!important;cursor:pointer;-webkit-tap-highlight-color:transparent}
+html.lbor-js .lbor h2{font-size:16px!important;display:flex;align-items:center;gap:8px;flex:1;min-width:0}
+html.lbor-js .lbor h2:before{content:"";flex:none;width:15px;height:15px;background:no-repeat center/contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238F6E2E' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'/%3E%3Cpath d='m9 12 2 2 4-4'/%3E%3C/svg%3E")}
+html.lbor-js .lbor-cab:after{content:"";flex:none;width:8px;height:8px;border-right:1.5px solid #8F6E2E;border-bottom:1.5px solid #8F6E2E;transform:rotate(45deg);margin:-4px 2px 0 0;transition:transform .2s}
+html.lbor-js .lbor.lbor-ab .lbor-cab:after{transform:rotate(-135deg);margin-top:4px}
+html.lbor-js .lbor:not(.lbor-ab) ul,html.lbor-js .lbor:not(.lbor-ab) .lbor-mais{display:none!important}
+html.lbor-js .lbor>.lbor-mais{display:inline-block;margin:0 14px 12px!important}
+html.lbor-js .lbor ul{padding:0 14px 12px!important}
+}
+</style>
+<script>
+/* LOJABIT - ajustes de 12/11/2026 (só no repositório; não existe no painel)
+   1) Celular: bloco "Como garantimos que é original" em uma linha, que abre e fecha ao tocar.
+   2) Filtro "Estação": perfume cujo texto não diz a estação usa as páginas de estilo em que está
+      ("Perfumes para o Calor" = Calor, "Perfumes para o Frio" = Frio, as duas = Ano todo). Vale sozinho para perfume novo. */
+(function () {
+  'use strict';
+  if (window.__lbAj1211) return;
+  window.__lbAj1211 = 1;
+  var de = document.documentElement;
+
+  /* ---------- 1. originais em uma linha (celular) ---------- */
+  de.classList.add('lbor-js');
+  function originais() {
+    var s = document.querySelector('.lbor');
+    if (!s || s.__lbor) return !!s;
+    s.__lbor = 1;
+    var cab = s.querySelector('.lbor-cab'), h = s.querySelector('h2'), mais = s.querySelector('.lbor-mais');
+    if (!cab || !h || !matchMedia('(max-width:979px)').matches) return true;
+    h.setAttribute('role', 'button');
+    h.setAttribute('tabindex', '0');
+    h.setAttribute('aria-expanded', 'false');
+    if (mais) s.appendChild(mais); /* "Saiba mais" vai para depois da lista (aparece quando abre) */
+    function alterna(e) {
+      if (!matchMedia('(max-width:979px)').matches) return;
+      if (e && e.target && e.target.closest && e.target.closest('.lbor-mais')) return;
+      var ab = s.classList.toggle('lbor-ab');
+      h.setAttribute('aria-expanded', ab ? 'true' : 'false');
+    }
+    cab.addEventListener('click', alterna);
+    h.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); alterna(); } });
+    return true;
+  }
+  var n = 0;
+  (function roda() { if (originais() || ++n > 25) return; setTimeout(roda, 300); })();
+
+  /* ---------- 2. estação pelas páginas de calor/frio ---------- */
+  var CALOR = 24484495, FRIO = 24484496;
+  function completa(P) {
+    (P || []).forEach(function (p) {
+      if (!p || p.es || !/[ani]/.test(p.t || '') || !p.c) return;
+      var c = p.c.indexOf(CALOR) > -1, f = p.c.indexOf(FRIO) > -1;
+      if (c || f) p.es = (f ? 'f' : '') + (c ? 'c' : '');
+    });
+    return P;
+  }
+  function liga() {
+    var M = window.__lbfM;
+    if (!M || !M.prep || M.__lbEs) return !!(M && M.__lbEs);
+    M.__lbEs = 1;
+    var prep = M.prep;
+    M.prep = function () { return completa(prep.apply(this, arguments)); };
+    if (M.st && M.st.P) completa(M.st.P);
+    /* quando a base é renovada em segundo plano, o motor chama aoAtualizar: completa antes */
+    var cur = M.aoAtualizar;
+    try {
+      Object.defineProperty(M, 'aoAtualizar', {
+        configurable: true,
+        get: function () { return function () { try { completa(M.st && M.st.P); } catch (e) {} return cur && cur.apply(this, arguments); }; },
+        set: function (f) { cur = f; }
+      });
+    } catch (e) {}
+    return true;
+  }
+  var k = 0;
+  (function roda2() { if (liga() || ++k > 40) return; setTimeout(roda2, 250); })();
+})();
+</script>

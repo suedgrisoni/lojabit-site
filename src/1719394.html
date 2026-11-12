@@ -10,6 +10,18 @@ var D={
 "perfumes-em-barra-mansa":"Perfumes árabes, de nicho e importados originais com entrega por motoboy em Barra Mansa em 1 dia útil: R$ 20, grátis acima de R$ 200. Ou retire na loja.",
 "perfumes-em-resende":"Perfumes originais com entrega por motoboy em Resende em 1 dia útil: R$ 30, grátis acima de R$ 200. Árabes, nicho e importados da @LOJABIT."
 };
+/* 12/11/2026: páginas de marca (/marca/...) sem descrição no painel e páginas de busca ganham descrição automática.
+   O texto depende do que a página mostra: perfumes (decants e frascos), relógios ou outros produtos. */
+function meta(txt){var t=document.querySelector('meta[name="description"]');if(t&&t.getAttribute("content"))return;if(!t){t=document.createElement("meta");t.setAttribute("name","description");(document.head||document.documentElement).appendChild(t)}t.setAttribute("content",txt)}
+function auto(){var p=location.pathname,mm=p.match(/^\/marca\/[\w-]+\.html$/),bb=/^\/buscar/.test(p);if(!mm&&!bb)return;
+var nomes=[].map.call(document.querySelectorAll(".listagem-item .nome-produto"),function(e){return e.textContent.trim()}),perf=nomes.filter(function(n){return/^(Perfume|Decant|Kit Perfume)/i.test(n)}).length,rel=nomes.filter(function(n){return/^Rel[óo]gio/i.test(n)}).length;
+if(mm){var marca=(document.title||"").split(" - ")[0].trim();if(!marca||/@LOJABIT/i.test(marca))return;
+meta(perf>=rel&&perf?marca+" original na @LOJABIT: perfumes em decants de 5, 10 e 30 ml e frascos lacrados, 10% off no Pix e envio para todo o Brasil. Loja familiar em Volta Redonda (RJ) desde 2014."
+:rel?"Relógios "+marca+" originais na @LOJABIT, com envio para todo o Brasil e retirada na loja em Volta Redonda (RJ). Loja familiar no mesmo endereço desde 2014."
+:marca+" original na @LOJABIT, à pronta entrega, com envio para todo o Brasil e retirada na loja em Volta Redonda (RJ). Loja familiar desde 2014.");return}
+var q=(new URLSearchParams(location.search).get("q")||"").trim().slice(0,60);
+meta((q?"Resultados para “"+q+"” na @LOJABIT: ":"Busca na @LOJABIT: ")+"perfumes árabes, de nicho e importados originais, decants de 5, 10 e 30 ml e frascos lacrados, com 10% off no Pix.")}
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",auto);else auto();
 var m=location.pathname.match(/^\/pagina\/([\w-]+)\.html$/);if(!m||!D[m[1]])return;
 var t=document.querySelector('meta[name="description"]');
 if(!t){t=document.createElement("meta");t.setAttribute("name","description");(document.head||document.documentElement).appendChild(t)}

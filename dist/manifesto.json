@@ -6,18 +6,18 @@
    "minificado": true
   },
   "cab.js": {
-   "bytes": 203634,
-   "sha256": "b246ff89a332ff1a1cbe9550ecb55fa000673b1b492283a1e4b0ab2c40cb54f4",
+   "bytes": 205686,
+   "sha256": "67df8141ba454bd6d6e83d5b818e485b6d079bb341b4b310cc9f335a2edda65e",
    "minificado": true
   },
   "rod.css": {
-   "bytes": 56422,
-   "sha256": "1252a63b0c17d8fe86b518b247b275e8d4146e7c2e63e0549619564156075e1d",
+   "bytes": 57840,
+   "sha256": "de1d44b19097587c2ff05ec9be8cfa4c49ed3d2fef4c5073c508c1a5ee58dcd2",
    "minificado": true
   },
   "rod.js": {
-   "bytes": 369427,
-   "sha256": "2f66a2179ca81ca432c5349b727487f0acf799323acacf60c06367ea7e5cfe7b",
+   "bytes": 372266,
+   "sha256": "251377606f96ccd0e8826963be826bec7544dc7bf12dea7416cc89afbc1505d0",
    "minificado": true
   }
  },
@@ -435,6 +435,11 @@
   {
    "id": 1799002,
    "nome": "Promo decants + faixa de confiança (só no repositório)",
+   "grupo": "rod"
+  },
+  {
+   "id": 1799003,
+   "nome": "Ajustes 12/11: originais no celular e estação no filtro (só no repositório)",
    "grupo": "rod"
   }
  ],

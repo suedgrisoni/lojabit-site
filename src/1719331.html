@@ -14,7 +14,7 @@ function home(){
     k.forEach(function(x){v[x]=cs[x]});
     var n=troca(d,"h1");k.forEach(function(x){n.style[x]=v[x]});
   }else{
-    var w=document.createElement("h1");w.style.cssText="display:contents;font:inherit;margin:0";
+    var w=document.createElement("h1");w.className="lbx-h1";w.style.cssText="display:block;font:inherit;margin:0;padding:0;letter-spacing:inherit;color:inherit;text-transform:inherit;border:0";
     m.parentNode.insertBefore(w,m);w.appendChild(m);
   }
   return true}

@@ -16,13 +16,19 @@
   function get(urls, ok, falha) {
     var u = urls.shift(); if (!u) { falha(); return; }
     var x = new XMLHttpRequest(); x.open('GET', u, true); x.timeout = 8000;
-    x.onload = function () { if (x.status === 200) { try { ok(JSON.parse(x.responseText)); return; } catch (e) {} } get(urls, ok, falha); };
+    /* 404 = este perfume ainda não tem carrossel: não adianta tentar o outro endereço (12/11/2026) */
+    x.onload = function () { if (x.status === 200) { try { ok(JSON.parse(x.responseText)); return; } catch (e) {} } if (x.status === 404) { falha(); return; } get(urls, ok, falha); };
     x.onerror = x.ontimeout = function () { get(urls, ok, falha); };
     x.send();
   }
   function fim(D) { feito = true; res = D; var f = fila || []; fila = []; f.forEach(function (c) { try { c(D); } catch (e) {} }); }
+  function ehPerfume() {
+    var h = document.querySelector('h1.nome-produto, .produto h1'), t = h ? h.textContent : document.title;
+    return /^\s*(Perfume|Decant)/i.test(t || '');
+  }
   function busca() {
-    var id = idDoProduto(); if (!id) { fim(null); return; }
+    /* só perfumes têm carrossel (relógio, creme, body splash e kit ficam com o "Perfumes parecidos" antigo) */
+    var id = idDoProduto(); if (!id || !ehPerfume()) { fim(null); return; }
     get(['https://raw.githubusercontent.com/' + REPO + '/main/carrossel/v.json?t=' + Math.floor(Date.now() / 3e5)], function (v) {
       if (!v || !/^[0-9a-f]{40}$/.test(v.h)) { fim(null); return; }
       var cam = '/gh/' + REPO + '@' + v.h + '/carrossel/p/' + id + '.json';
