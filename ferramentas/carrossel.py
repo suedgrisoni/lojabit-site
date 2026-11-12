@@ -39,6 +39,23 @@ def reais(s):
 
 
 def listagem():
+    # a mesma leitura serve para carrossel_novos, carrossel_listas e atualizar na mesma rodada (guardada por 20 min)
+    import tempfile
+    cache = os.path.join(tempfile.gettempdir(), 'lojabit_listagem.json')
+    try:
+        if time.time() - os.path.getmtime(cache) < 1200:
+            c = json.load(open(cache, encoding='utf-8'))
+            if len(c) >= 200:
+                return c
+    except Exception:
+        pass
+    c = _listagem()
+    if len(c) >= 200:
+        json.dump(c, open(cache, 'w', encoding='utf-8'), ensure_ascii=False)
+    return c
+
+
+def _listagem():
     cards = {}
     for pg in range(1, 60):
         h = baixa(f'{LOJA}/encontre-seu-perfume' + (f'?pagina={pg}' if pg > 1 else ''))

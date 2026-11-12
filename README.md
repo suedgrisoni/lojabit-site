@@ -75,3 +75,14 @@ um conteúdo novo sempre tem um endereço novo.
 - Listas (quem aparece em cada carrossel): `python3 ferramentas/carrossel_listas.py` refaz `carrossel/base.json` a partir de
   `carrossel/acordes.json` (acordes de cada perfume), `carrossel/paginas.json` (páginas "Parecidos com…") e da listagem da loja.
   Perfume novo entra pelo passo 11 da rotina diária do dossiê (`carrossel_exportar.py` acrescenta em acordes.json).
+- **Desde 12/11/2026 o perfume novo entra sozinho**: a tarefa "Carrossel: preços atualizados" (5x por dia) roda antes
+  `python3 ferramentas/carrossel_novos.py` (perfume no ar sem acordes ganha acordes lidos da própria página pública:
+  "Estilo olfativo" + "Acordes principais") e `python3 ferramentas/carrossel_listas.py` (refaz quem aparece em cada carrossel).
+  Não precisa de chave nem do computador. A listagem da loja é lida uma vez e guardada por 20 min para os três passos.
+
+## Verificador diário de todos os sistemas (12/11/2026)
+
+`python3 ferramentas/verificador.py [--corrigir]` confere, para cada perfume no ar (base pública do robô dos filtros):
+família olfativa, dia/noite, estação, ocasião, carrossel, decant na promoção (categoria escondida 24495076, menos a lista FORA)
+e decant na página Decants. Com `--corrigir` e o token da API em `~/.lb/li_token`, acrescenta as categorias que faltam
+(nunca tira). Roda na tarefa diária do dossiê; o resultado vai no resumo para o Nevander.
