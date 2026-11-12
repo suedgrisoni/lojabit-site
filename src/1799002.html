@@ -9,31 +9,33 @@
      que estão na categoria escondida da promoção (24495076, filha da inativa 977544). Quem fica fora: EXCL (7 perfumes cujo
      frasco daria prejuízo com 15% + Pix). Perfume novo com decant precisa entrar na categoria 24495076 para valer a promoção. -->
 <style>
-/* (1) faixa de confiança */
-.lbtc{background:#fff;border-bottom:1px solid var(--lb-line,#ECE5DA);font-family:var(--lb-sans,Jost,"Helvetica Neue",Arial,sans-serif)}
-.lbtc-in{display:flex;max-width:1300px;margin:0 auto;padding:0 20px}
-.lbtc-i{flex:1 1 0;display:flex;align-items:center;gap:11px;min-width:0;padding:11px 16px;border-left:1px solid var(--lb-line,#ECE5DA);color:var(--lb-body,#403A34)!important;text-decoration:none!important}
+/* (1) faixa de confiança: uma linha fina que acompanha a página (fica presa logo abaixo do menu / do topo do celular) */
+.lbtc{position:-webkit-sticky;position:sticky;top:var(--lbtc-top,0px);z-index:60;background:#fff;border-bottom:1px solid var(--lb-line,#ECE5DA);font-family:var(--lb-sans,Jost,"Helvetica Neue",Arial,sans-serif)}
+.lbtc-in{display:flex;align-items:center;justify-content:space-between;height:42px;max-width:1300px;margin:0 auto;padding:0 20px}
+.lbtc-i{display:flex;align-items:center;gap:8px;min-width:0;padding:0 14px;border-left:1px solid var(--lb-line,#ECE5DA);color:var(--lb-body,#403A34)!important;text-decoration:none!important;white-space:nowrap;line-height:20px}
 .lbtc-i:first-child{border-left:0;padding-left:0}
-.lbtc-i svg{flex:none;width:21px;height:21px;color:var(--lb-gold,#C9A55C)}
-.lbtc-i span{min-width:0}
-.lbtc-i b{display:block;font-weight:600;font-size:13px;line-height:1.25;color:var(--lb-ink,#0A0A0B);white-space:nowrap}
-.lbtc-i small{display:block;margin-top:1px;font-size:11.5px;line-height:1.3;color:var(--lb-muted,#776E64);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lbtc-i svg{flex:none;width:17px;height:17px;color:var(--lb-gold,#C9A55C)}
+.lbtc-i b{font-weight:600;font-size:12.5px;color:var(--lb-ink,#0A0A0B)}
+.lbtc-i small{font-size:12px;color:var(--lb-muted,#776E64)}
 a.lbtc-i:hover b{text-decoration:underline;text-underline-offset:3px}
-.lbtc-i.lbtc-p{flex:1.1 1 0;margin:7px 0 7px 8px;padding:8px 16px;border:0;border-radius:8px;background:var(--lb-ink,#0A0A0B)}
+.lbtc-i.lbtc-p{height:30px;margin-left:6px;padding:0 15px;border:0;border-radius:999px;background:var(--lb-ink,#0A0A0B)}
 .lbtc-i.lbtc-p b{color:var(--lb-gold,#C9A55C)}
 .lbtc-i.lbtc-p small{color:#CFC6B8}
-.lbtc-i.lbtc-p svg{color:var(--lb-gold,#C9A55C)}
 html.lbpd-on .lbcf{display:none!important}
-html.lbmob .lbtc{border-bottom:0;background:transparent}
-html.lbmob .lbtc-in{gap:7px;padding:8px 14px 0;overflow-x:auto;scroll-snap-type:x proximity;scroll-padding:0 14px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+@media (max-width:1300px){html:not(.lbmob) .lbtc-i[data-k="pr"] small,html:not(.lbmob) .lbtc-i.lbtc-p small{display:none}}
+@media (max-width:1150px){html:not(.lbmob) .lbtc-i small{display:none}}
+html.lbmob .lbtc-in{gap:7px;height:42px;padding:0 14px;overflow-x:auto;scroll-snap-type:x proximity;scroll-padding:0 14px;scrollbar-width:none;-webkit-overflow-scrolling:touch;justify-content:flex-start}
 html.lbmob .lbtc-in::-webkit-scrollbar{display:none}
-html.lbmob .lbtc-i{flex:none;gap:6px;margin:0;padding:6px 11px;border:1px solid var(--lb-line,#ECE5DA);border-radius:999px;background:var(--lb-ivory,#FAF7F2);scroll-snap-align:start}
-html.lbmob .lbtc-i:first-child{padding-left:11px}
+html.lbmob .lbtc-i{flex:none;gap:6px;height:28px;margin:0;padding:0 11px;border:1px solid var(--lb-line,#ECE5DA);border-radius:999px;background:var(--lb-ivory,#FAF7F2);scroll-snap-align:start}
 html.lbmob .lbtc-i svg{width:14px;height:14px}
 html.lbmob .lbtc-i b{font-size:12px;font-weight:500}
 html.lbmob .lbtc-i small{display:none}
 html.lbmob .lbtc-i.lbtc-p{border-color:var(--lb-ink,#0A0A0B);background:var(--lb-ink,#0A0A0B)}
-@media (max-width:1180px){html:not(.lbmob) .lbtc-i small{display:none}html:not(.lbmob) .lbtc-i{padding:13px 12px}}
+/* o que já ficava preso abaixo do topo desce a altura da faixa (--lbtc-h só existe nas páginas que têm a faixa) */
+html.lbpd-on.lbcomp body:is(.pagina-categoria,.pagina-busca) #corpo .coluna.span3{top:calc(var(--lbh,100px) + 66px + var(--lbtc-h,0px));max-height:calc(100vh - var(--lbh,100px) - 90px - var(--lbtc-h,0px))}
+html.lbpd-on.lbcomp.lbp .produto .row-fluid:first-child>.span6:first-child{top:calc(172px + var(--lbtc-h,0px))!important}
+html.lbpd-on.lbcomp .lbz-nav{top:calc(var(--lbh,100px) + 72px + var(--lbtc-h,0px))}
+html.lbmob.lbpd-on #lbxFerr{top:calc(var(--lbx-topo,0px) + var(--lbtc-h,0px))}
 
 /* faixas de desconto (usadas na home, em /decants e no produto) */
 .lbpd-tiers{display:flex;gap:10px;margin:0;padding:0;list-style:none;font-family:var(--lb-sans,Jost,"Helvetica Neue",Arial,sans-serif)}
@@ -189,18 +191,62 @@ small.lbpd-av{display:block;margin-top:3px;color:var(--lb-gold,#C9A55C)!importan
 
   /* (1) faixa de confiança nas páginas internas */
   function faixaConfianca() {
-    if (HOME || (mob() && (SAC || DECANTS)) || document.querySelector('.lbtc')) return true;
+    if (HOME || (mob() && SAC) || document.querySelector('.lbtc')) return true;
     var corpo = document.getElementById('corpo');
     if (!corpo || !corpo.parentNode) return false;
     var itens = [
-      '<a class="lbtc-i" href="' + MAPA + '" target="_blank" rel="noopener">' + ICO.google + '<span><b>' + NOTA + ' no Google</b><small>' + AVAL + ' avaliações</small></span></a>',
-      '<div class="lbtc-i">' + ICO.casa + '<span><b>Desde 2014</b><small>Família, mesmo endereço</small></span></div>',
-      '<div class="lbtc-i">' + ICO.caixa + '<span><b>Pronta entrega</b><small>Produtos já no Brasil</small></span></div>',
-      '<div class="lbtc-i">' + ICO.selo + '<span><b>100% originais</b><small>Distribuidores oficiais</small></span></div>'
+      '<a class="lbtc-i" href="' + MAPA + '" target="_blank" rel="noopener">' + ICO.google + '<span><b><data data-lbnota>' + NOTA + '</data> no Google</b><small> · <data data-lbav>' + AVAL + '</data> avaliações</small></span></a>',
+      '<div class="lbtc-i">' + ICO.casa + '<span><b>Família desde 2014</b><small> · mesmo endereço</small></span></div>',
+      '<div class="lbtc-i" data-k="pr">' + ICO.caixa + '<span><b>Pronta entrega</b><small> · produtos já no Brasil</small></span></div>',
+      '<div class="lbtc-i">' + ICO.selo + '<span><b>100% originais</b></span></div>'
     ];
-    var promo = '<a class="lbtc-i lbtc-p" href="/decants">' + ICO.promo + '<span><b>Decants até 15% off</b><small>Leve 3, 6 ou 9 · ver ›</small></span></a>';
-    if (mob() && LISTA && !DECANTS) itens.unshift(promo); else if (!(mob() && DECANTS)) itens.push(promo);
-    corpo.parentNode.insertBefore(el('<section class="lbtc" aria-label="Por que comprar na @LOJABIT"><div class="lbtc-in">' + itens.join('') + '</div></section>'), corpo);
+    var promo = '<a class="lbtc-i lbtc-p" href="/decants">' + ICO.promo + '<span><b>Decants até 15% off ›</b></span></a>';
+    if (mob() && LISTA && !DECANTS) itens.unshift(promo); else itens.push(promo);
+    var tc = el('<section class="lbtc" aria-label="Por que comprar na @LOJABIT"><div class="lbtc-in">' + itens.join('') + '</div></section>');
+    corpo.parentNode.insertBefore(tc, corpo);
+    prende(tc);
+    return true;
+  }
+
+  /* a faixa fica presa logo abaixo do que já fica preso no topo: o menu (computador) ou o topo do celular,
+     que sobe e desce ao rolar. Só lê uma posição por quadro (requestAnimationFrame). */
+  function prende(tc) {
+    var cab = document.getElementById('cabecalho'), menu = document.querySelector('.main-menu-desktop');
+    var ultT = -1, ultH = -1, pend = 0, fim = 0;
+    function base(e) {
+      if (!e || !e.offsetHeight) return 0;
+      var p = getComputedStyle(e).position;
+      return p === 'fixed' || p === 'sticky' ? Math.round(e.getBoundingClientRect().bottom) : 0;
+    }
+    function calc() {
+      pend = 0;
+      /* o menu do computador é refeito por outro código depois que a página abre: busca de novo se o guardado saiu da página */
+      if (!cab || !cab.isConnected) cab = document.getElementById('cabecalho');
+      if (!menu || !menu.isConnected) menu = document.querySelector('.main-menu-desktop');
+      var t = Math.max(0, base(cab), mob() ? 0 : base(menu));
+      if (t !== ultT) { ultT = t; tc.style.setProperty('--lbtc-top', t + 'px'); }
+      var h = tc.offsetHeight;
+      if (h !== ultH) { ultH = h; H.style.setProperty('--lbtc-h', h + 'px'); }
+    }
+    function pede() { if (!pend) pend = requestAnimationFrame(calc); }
+    /* o topo encolhe/aparece com animação depois da rolagem: confere de novo quando a rolagem para */
+    function rolou() { pede(); clearTimeout(fim); fim = setTimeout(function () { pede(); setTimeout(pede, 350); }, 160); }
+    calc();
+    window.addEventListener('scroll', rolou, { passive: true });
+    window.addEventListener('resize', rolou, { passive: true });
+    document.addEventListener('transitionend', function (e) { var x = e.target; if (x && (x.id === 'cabecalho' || (x.classList && x.classList.contains('main-menu-desktop')))) pede(); }, true);
+    setTimeout(pede, 800); setTimeout(pede, 2500);
+  }
+
+  /* nota e número de avaliações do Google: vêm sozinhos do robô (mesma fonte da home); o número escrito é só reserva */
+  function notaGoogle() {
+    if (window.__lbAval) return window.__lbAval();
+    var g = window.__lbx && window.__lbx.avG;
+    if (!g) { try { var t = JSON.parse(localStorage.getItem('lbVitrine1') || 'null'); g = t && t.d && t.d.google; } catch (e) {} }
+    if (!g || !g.total) return false;
+    var tot = String(g.total).replace(/\B(?=(\d{3})+(?!\d))/g, '.'), nota = Number(g.nota || 4.9).toFixed(1).replace('.', ',');
+    [].forEach.call(document.querySelectorAll('[data-lbav]'), function (e) { if (e.textContent !== tot) e.textContent = tot; });
+    [].forEach.call(document.querySelectorAll('[data-lbnota]'), function (e) { if (e.textContent !== nota) e.textContent = nota; });
     return true;
   }
 
@@ -311,13 +357,15 @@ small.lbpd-av{display:block;margin-top:3px;color:var(--lb-gold,#C9A55C)!importan
     var it = tr.querySelectorAll('.lbt-item'), n = it.length / 4;
     if (!n || n !== Math.floor(n)) return true;
     var tx = [].slice.call(it, 0, n).map(function (s) { return s.textContent; });
-    var novos = ['Decants: leve 3, 6 ou 9 e ganhe até 15% off', NOTA + ' no Google · ' + AVAL + ' avaliações'];
+    var novos = ['Decants: leve 3, 6 ou 9 e ganhe até 15% off', '\u0001'];
     tx.splice(1, 0, novos[0]); tx.splice(3, 0, novos[1]);
-    var h = tx.map(function (t) { var s = document.createElement('span'); s.className = 'lbt-item'; s.textContent = t; return s.outerHTML; }).join('');
+    var h = tx.map(function (t) { var s = document.createElement('span'); s.className = 'lbt-item'; s.textContent = t; return s.outerHTML; }).join('')
+      .replace('\u0001', '<data data-lbnota>' + NOTA + '</data> no Google · <data data-lbav>' + AVAL + '</data> avaliações');
+    h = h.split('\u0001').join('<data data-lbnota>' + NOTA + '</data> no Google · <data data-lbav>' + AVAL + '</data> avaliações');
     tr.innerHTML = h + h + h + h;
     tr.style.animationDuration = Math.round(48 * tx.length / n) + 's';
     tr.setAttribute('data-lbpd', '1');
-    var lb = tr.parentNode; if (lb && lb.setAttribute) lb.setAttribute('aria-label', tx.join(' · '));
+    var lb = tr.parentNode; if (lb && lb.setAttribute) lb.setAttribute('aria-label', tx.join(' · ').replace('\u0001', NOTA + ' no Google'));
     return true;
   }
 
@@ -348,7 +396,7 @@ small.lbpd-av{display:block;margin-top:3px;color:var(--lb-gold,#C9A55C)!importan
     return true;
   }
 
-  var tarefas = [topo, faixaConfianca, home, decants, produto, sacola, aviso], feitas = {}, voltas = 0, relogio = 0;
+  var tarefas = [topo, faixaConfianca, home, decants, produto, sacola, aviso, notaGoogle], feitas = {}, voltas = 0, relogio = 0;
   function roda() {
     clearTimeout(relogio);
     var falta = 0;

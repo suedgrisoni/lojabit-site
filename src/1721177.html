@@ -37,6 +37,21 @@
   function link(u, t) { var ext = /^https?:/.test(u); return ' <a class="lbpq-ver" href="' + u + '"' + (ext ? ' target="_blank" rel="noopener"' : '') + '>' + t + ' ›</a>'; }
   function li(b, t, u, lt) { return '<li data-lbpq="1"><b>' + b + '</b> ' + t + (u ? link(u, lt) : '') + '</li>'; }
   function avaliacoes() { var a = document.getElementById('lbxPgD'); var m = a && a.textContent.match(/(\d[\d.]*)\s*avalia/); return m ? m[1] : AVAL; }
+  /* nota e total de avaliações do Google vêm sozinhos do robô (lbVitrine1 / __lbx.avG, a mesma fonte da home).
+     Atualiza todo elemento com data-lbav (total) e data-lbnota (nota) da página; o número escrito acima é só reserva. */
+  function dadosGoogle() {
+    var g = window.__lbx && window.__lbx.avG;
+    if (!g || !g.total) { try { var t = JSON.parse(localStorage.getItem('lbVitrine1') || 'null'); g = t && t.d && t.d.google; } catch (e) {} }
+    return g && g.total ? g : null;
+  }
+  window.__lbAval = function () {
+    var g = dadosGoogle(); if (!g) return false;
+    var tot = String(g.total).replace(/\B(?=(\d{3})+(?!\d))/g, '.'), nota = Number(g.nota || 4.9).toFixed(1).replace('.', ',');
+    [].forEach.call(document.querySelectorAll('[data-lbav]'), function (e) { if (e.textContent !== tot) e.textContent = tot; });
+    [].forEach.call(document.querySelectorAll('[data-lbnota]'), function (e) { if (e.textContent !== nota) e.textContent = nota; });
+    return true;
+  };
+  function aval() { return window.__lbAval() || n > 30; }
 
   /* Página do produto: a caixa "Separado, conferido e embalado pelos próprios donos" vira "Por que comprar na @LOJABIT" */
   function produto() {
@@ -65,7 +80,7 @@
     var cab = document.querySelector('.lbw-cab'), guia = document.querySelector('section.lbdi');
     if (!cab && !guia) return false;
     var f = el('<div class="lbpq-faixa" role="list">' +
-      '<a role="listitem" href="' + MAPA + '" target="_blank" rel="noopener"><b><em>★★★★★</em>' + NOTA + ' no Google</b><span>' + AVAL + ' avaliações da loja física · <i>ver</i></span></a>' +
+      '<a role="listitem" href="' + MAPA + '" target="_blank" rel="noopener"><b><em>★★★★★</em><data data-lbnota>' + NOTA + '</data> no Google</b><span><data data-lbav>' + AVAL + '</data> avaliações da loja física · <i>ver</i></span></a>' +
       '<a role="listitem" href="' + SEGURO + '"><b>Do mesmo frasco original</b><span>que vendemos lacrado, em frasco de vidro novo · <i>como garantimos</i></span></a>' +
       '<a role="listitem" href="' + TROCAS + '"><b>Devolução em até 30 dias</b><span>sem custo, etiqueta dos Correios por nossa conta · <i>como funciona</i></span></a>' +
       '<a role="listitem" href="' + MAPA + '" target="_blank" rel="noopener"><b>Loja física desde 2014</b><span>Aterrado, Volta Redonda · <i>como chegar</i></span></a>' +
@@ -93,7 +108,7 @@
     if (r.querySelector('[data-lbpq-nota]')) return !!badge || n > 12;
     var lista = [].filter.call(r.querySelectorAll('ul.lbf-lista'), function (u) { return /Safe Browsing/.test(u.textContent); })[0];
     if (!lista) return false;
-    lista.appendChild(el('<li data-lbpq-nota="1"><a href="' + MAPA + '" target="_blank" rel="noopener"><b>' + NOTA + ' no Google ★★★★★</b><span>' + avaliacoes() + ' avaliações da nossa loja física</span></a></li>'));
+    lista.appendChild(el('<li data-lbpq-nota="1"><a href="' + MAPA + '" target="_blank" rel="noopener"><b><data data-lbnota>' + NOTA + '</data> no Google ★★★★★</b><span><data data-lbav>' + avaliacoes() + '</data> avaliações da nossa loja física</span></a></li>'));
     return !!badge || n > 12;
   }
 
@@ -114,7 +129,7 @@
 
   var n = 0;
   (function tick() {
-    var ok = [produto(), decants(), sacola(), rodape(), avaliar()].every(Boolean);
+    var ok = [produto(), decants(), sacola(), rodape(), avaliar(), aval()].every(Boolean);
     if (!ok && ++n < 40) setTimeout(tick, 500);
   })();
 })();
