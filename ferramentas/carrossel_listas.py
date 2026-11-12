@@ -11,7 +11,8 @@ Regras (as mesmas de 04/11/2026):
 - p "Parecidos com o X" (até 8): colegas da página de parecidos (o original primeiro) + semelhança de acordes (cosseno) >= 0,80;
   sem o mesmo perfume em outra concentração.
 - m "Com a mesma proposta" (até 8): outras marcas, 2 das 3 famílias principais iguais, mesma hora do dia e mesma estação
-  (quando o perfume tem essas ocasiões), pela semelhança.
+  (quando o perfume tem essas ocasiões), pela semelhança. Se ninguém passar (estilo raro), vale 1 família principal igual,
+  a mesma hora do dia e semelhança de acordes >= 0,6 (12/11/2026: todo perfume fica com carrossel).
 - t estilo: as 3 famílias pela força do acorde + dia/noite/calor/frio; g: a página de parecidos dele (se tiver).
 
 Uso: python3 ferramentas/carrossel_listas.py   (depois: carrossel.py atualizar, commit/push, carrossel.py versao, commit/push)
@@ -94,7 +95,15 @@ def main():
                and (not ck or set(ck) & set(liga(x, '24484495', '24484496'))):
                 m.append(x)
             if len(m) == 8: break
-        if not pp and not m: continue
+        if not m:
+            # perfume de estilo raro (ex.: Kouros): sem ninguém na regra completa, vale 1 família principal igual e a mesma hora do dia
+            for s, x in sims:
+                if x in vist or sa(AC[x]['m']) == sa(AC[k]['m']) or base_nome(x) == base_nome(k) or s < 0.6: continue
+                if fk & set(fams(x)) and (not hk or set(hk) & set(liga(x, '24474625', '24474626'))):
+                    m.append(x)
+                if len(m) == 8: break
+        # menos de 3 cartões no total: fica sem dados e a página mostra o "Perfumes parecidos" antigo (mais vendidos com as mesmas notas)
+        if len(pp) + len(m) < 3: continue
         f = sorted([c for c in FAM if c in cats[k]], key=lambda c: -forca(k, c))
         if '24484480' in f and '24474623' in f: f.remove('24474623')
         f = f[:3]
