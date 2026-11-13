@@ -1,0 +1,532 @@
+<style>
+/* LOJABIT - Relógios: "O relógio em números" (ficha em movimento). Só nas páginas de relógio. Lê a ficha técnica da descrição. */
+.lbrn{--i:#0A0A0B;--t:#403A34;--m:#776E64;--o:#8F6E2E;--o2:#C9A55C;--c:#FAF7F2;--l:#ECE5DA;margin:8px 0 26px;font-family:Jost,Arial,sans-serif;color:var(--t)}
+.lbrn *{box-sizing:border-box}
+.lbrn-cab{text-align:center;padding:0 16px;margin-bottom:14px}
+.lbrn-k{font:600 10.5px/1.2 Jost,Arial,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--o)}
+.lbrn-h{font:500 30px/1.1 "Cormorant Garamond",Georgia,serif;color:var(--i);margin:6px 0 4px}
+.lbrn-h em{color:var(--o)}
+.lbrn-s{font-size:13px;color:var(--m);margin:0}
+.lbrn-chips{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;padding:0 12px;margin:0 0 16px}
+.lbrn-chips span{font:500 12px/1 Jost,Arial,sans-serif;padding:7px 11px;border:1px solid var(--l);border-radius:99px;background:#fff;color:var(--t);white-space:nowrap}
+.lbrn-chips span b{color:var(--o);font-weight:600}
+.lbrn-tiles{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;padding:0 2px}
+.lbrn-tiles .lbrn-t{flex:0 0 calc((100% - (var(--cols,5) - 1) * 12px) / var(--cols,5))}
+@media (max-width:767px){.lbrn-tiles{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;padding:2px 16px 8px;margin:0 -16px;scrollbar-width:none;-webkit-overflow-scrolling:touch}.lbrn-tiles::-webkit-scrollbar{display:none}.lbrn-tiles .lbrn-t{flex:0 0 66%;scroll-snap-align:center}}
+.lbrn-t{position:relative;background:var(--c);border:1px solid var(--l);border-radius:16px;padding:14px 14px 16px;text-align:center;cursor:default;overflow:hidden}
+.lbrn-t[data-toque]{cursor:pointer}
+.lbrn-t svg{display:block;width:118px;height:118px;margin:0 auto 6px;overflow:visible}
+.lbrn-n{font:500 34px/1 "Cormorant Garamond",Georgia,serif;color:var(--i);letter-spacing:.01em;white-space:nowrap}
+.lbrn-n small{font:500 12px/1 Jost,Arial,sans-serif;color:var(--o);margin-left:4px;letter-spacing:.06em;text-transform:uppercase}
+.lbrn-l{font:600 10.5px/1.3 Jost,Arial,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--i);margin:7px 0 6px}
+.lbrn-x{font-size:12.5px;line-height:1.45;color:var(--m);min-height:36px}
+.lbrn-x b{color:var(--t);font-weight:600}
+.lbrn-dica{display:inline-block;margin-top:8px;font:600 10px/1 Jost,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--o);border-bottom:1px solid var(--o2);padding-bottom:2px}
+.lbrn-ic{display:flex;justify-content:center;gap:5px;margin-top:9px}
+.lbrn-ic i{display:flex;flex-direction:column;align-items:center;gap:3px;font:500 9px/1.1 Jost,Arial,sans-serif;font-style:normal;color:#b8afa3;width:44px;transition:color .4s}
+.lbrn-ic i svg{width:22px;height:22px;margin:0;stroke:#cfc6b8;transition:stroke .4s}
+.lbrn-on .lbrn-ic i.ok{color:var(--t)}
+.lbrn-on .lbrn-ic i.ok svg{stroke:var(--o)}
+/* traços comuns */
+.lbrn svg .s{fill:none;stroke:var(--i);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.lbrn svg .so{fill:none;stroke:var(--o);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.lbrn svg .fo{fill:var(--o)}
+.lbrn svg .fi{fill:var(--i)}
+.lbrn svg .fc{fill:#fff}
+.lbrn svg .tx{font:600 7.5px Jost,Arial,sans-serif;fill:var(--m);letter-spacing:.06em}
+/* 1. diâmetro */
+.lbrn .dm-caixa{stroke-dasharray:214;stroke-dashoffset:214}
+.lbrn .dm-ge,.lbrn .dm-gd{transition:transform 1.1s cubic-bezier(.2,.8,.2,1) .5s}
+.lbrn .dm-ge{transform:translateX(-16px)}.lbrn .dm-gd{transform:translateX(16px)}
+.lbrn .dm-cota{transform-origin:60px 106px;transform:scaleX(0);transition:transform .9s ease 1.2s}
+.lbrn-on .dm-caixa{animation:lbrnDraw 1.2s ease forwards}
+.lbrn-on .dm-ge,.lbrn-on .dm-gd{transform:none}
+.lbrn-on .dm-cota{transform:none}
+@keyframes lbrnDraw{to{stroke-dashoffset:0}}
+.lbrn-esc{position:relative;height:4px;border-radius:4px;background:linear-gradient(90deg,#e7dfd2,#c9a55c,#8F6E2E);margin:10px 4px 4px}
+.lbrn-esc u{position:absolute;top:50%;left:0;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:#fff;border:2px solid var(--i);transition:left 1.4s cubic-bezier(.2,.8,.2,1) .6s}
+.lbrn-esc-l{display:flex;justify-content:space-between;font:500 9px/1 Jost,Arial,sans-serif;color:var(--m);letter-spacing:.04em;margin:0 0 2px}
+/* 2. espessura */
+.lbrn .es-caixa{transform-origin:60px 78px;transform:scaleY(.15);transition:transform 1.1s cubic-bezier(.2,.8,.2,1) .3s}
+.lbrn .es-punho{transform:translateX(-70px);opacity:0;transition:transform 1.2s ease 1.3s,opacity .6s ease 1.3s}
+.lbrn-on .es-caixa{transform:none}
+.lbrn-on .es-punho{transform:none;opacity:1}
+/* 3. batidas */
+.lbrn .bt-bal{transform-origin:46px 56px}
+.lbrn-on .bt-bal{animation:lbrnBal var(--bt,.1667s) ease-in-out infinite alternate}
+@keyframes lbrnBal{from{transform:rotate(-125deg)}to{transform:rotate(125deg)}}
+.lbrn .bt-ps{transform-origin:94px 90px}
+.lbrn-on .bt-ps{animation:lbrnSeg 60s steps(var(--st,360)) infinite}
+@keyframes lbrnSeg{to{transform:rotate(360deg)}}
+.lbrn .qz-d{transform-origin:46px 70px}
+.lbrn-on .qz-d1{animation:lbrnVib .09s linear infinite alternate}
+.lbrn-on .qz-d2{animation:lbrnVib .09s linear infinite alternate-reverse}
+@keyframes lbrnVib{from{transform:translateX(-.9px)}to{transform:translateX(.9px)}}
+.lbrn .sl-raios{transform-origin:40px 40px}
+.lbrn-on .sl-raios{animation:lbrnGira 14s linear infinite}
+@keyframes lbrnGira{to{transform:rotate(360deg)}}
+.lbrn .sl-c{opacity:.15}
+.lbrn-on .sl-c{animation:lbrnCarga 3.2s ease-in-out infinite}
+.lbrn-on .sl-c2{animation-delay:.4s}.lbrn-on .sl-c3{animation-delay:.8s}.lbrn-on .sl-c4{animation-delay:1.2s}
+@keyframes lbrnCarga{0%,15%{opacity:.15}40%,85%{opacity:1}100%{opacity:.15}}
+/* 4. reserva */
+.lbrn .rm-arco{stroke-dasharray:251;stroke-dashoffset:251;transition:stroke-dashoffset 1.8s cubic-bezier(.3,.7,.2,1) .4s}
+.lbrn-dias{display:flex;justify-content:center;gap:3px;margin:8px 0 2px}
+.lbrn-dias i{font:600 8.5px/1 Jost,Arial,sans-serif;font-style:normal;width:21px;padding:5px 0;border-radius:5px;background:#efe9df;color:#a39a8e;transition:background .3s,color .3s}
+.lbrn-dias i.ok{background:var(--i);color:#fff}
+.lbrn-dias i.meio{background:linear-gradient(90deg,var(--i) 50%,#efe9df 50%);color:#fff}
+/* 5. água */
+.lbrn .ag-nivel{transform:translateY(102px);transition:transform 2s cubic-bezier(.3,.7,.2,1) .3s}
+.lbrn .ag-onda{animation:lbrnOnda 3s linear infinite;animation-play-state:paused}
+.lbrn-on .ag-onda{animation-play-state:running}
+@keyframes lbrnOnda{to{transform:translateX(-40px)}}
+.lbrn .ag-b{opacity:0}
+.lbrn-on .ag-b{animation:lbrnBolha 2.6s ease-in infinite}
+.lbrn-on .ag-b2{animation-delay:.9s}.lbrn-on .ag-b3{animation-delay:1.7s}
+@keyframes lbrnBolha{0%{opacity:0;transform:translateY(0)}20%{opacity:.9}100%{opacity:0;transform:translateY(-34px)}}
+/* 6. vidro */
+.lbrn .vd-ponta{transform:translate(18px,30px);opacity:0}
+.lbrn-on .vd-ponta{animation:lbrnRisca 2.6s ease-in-out .6s infinite}
+@keyframes lbrnRisca{0%{transform:translate(18px,30px);opacity:0}10%{opacity:1}55%{transform:translate(100px,88px);opacity:1}65%,100%{transform:translate(100px,88px);opacity:0}}
+.lbrn .vd-br{opacity:0;transform-origin:center;transform-box:fill-box}
+.lbrn-on .vd-br{animation:lbrnBrilho 2.6s ease .6s infinite}
+.lbrn-on .vd-br2{animation-delay:1s}.lbrn-on .vd-br3{animation-delay:1.4s}
+@keyframes lbrnBrilho{0%,20%{opacity:0;transform:scale(.3)}35%{opacity:1;transform:scale(1)}55%,100%{opacity:0;transform:scale(.3)}}
+.lbrn .vd-risco{stroke-dasharray:110;stroke-dashoffset:110}
+.lbrn-on .vd-risco{animation:lbrnRiscoM 2.6s ease-in-out .6s infinite}
+@keyframes lbrnRiscoM{0%{stroke-dashoffset:110;opacity:.9}55%{stroke-dashoffset:0;opacity:.9}100%{stroke-dashoffset:0;opacity:.35}}
+.lbrn-mohs{display:flex;gap:2px;margin:9px 6px 2px}
+.lbrn-mohs i{flex:1;height:6px;border-radius:2px;background:#eae3d7;transition:background .25s}
+.lbrn-mohs i.ok{background:var(--o)}
+.lbrn-mohs i.dia{background:repeating-linear-gradient(45deg,#d9d1c4 0 2px,#eae3d7 2px 4px)}
+/* 7. peso */
+.lbrn .ps-pt{transform-origin:60px 74px;transform:rotate(-80deg);transition:transform 1.6s cubic-bezier(.3,1.4,.4,1) .5s}
+/* 8. luz */
+.lbrn-lz{transition:background .6s}
+.lbrn .lz-fundo{fill:#fff;transition:fill .7s}
+.lbrn .lz-lu{fill:#e9e2d6;stroke:var(--i);stroke-width:.8;transition:fill .7s,stroke .7s,filter .7s}
+.lbrn .lz-aro{fill:none;stroke:var(--i);stroke-width:2;transition:stroke .7s}
+.lbrn-lz.noite{background:#0d1014;border-color:#0d1014}
+.lbrn-lz.noite .lbrn-n,.lbrn-lz.noite .lbrn-l{color:#e8f7ee}
+.lbrn-lz.noite .lbrn-x{color:#9fb3a8}
+.lbrn-lz.noite .lz-fundo{fill:#0d1014}
+.lbrn-lz.noite .lz-aro{stroke:#2a3138}
+.lbrn-lz.noite .lz-lu{fill:#b9ffd4;stroke:#b9ffd4;filter:drop-shadow(0 0 3px #6dffa8)}
+/* 9. movimento à mostra */
+.lbrn .mv-rotor{transform-origin:60px 60px}
+.lbrn-on .mv-rotor{animation:lbrnRotor 4.5s cubic-bezier(.45,0,.3,1) infinite}
+@keyframes lbrnRotor{0%{transform:rotate(-40deg)}35%{transform:rotate(250deg)}55%{transform:rotate(190deg)}100%{transform:rotate(320deg)}}
+.lbrn .mv-bal{transform-origin:78px 44px}
+.lbrn-on .mv-bal{animation:lbrnBal var(--bt,.1667s) ease-in-out infinite alternate}
+/* 10. cronógrafo e GMT */
+.lbrn .cr-pt{transform-origin:60px 62px;transition:transform .15s}
+.lbrn-cr-v{font-variant-numeric:tabular-nums;display:inline-block;min-width:2.2em}
+.lbrn .gm-24{transform-origin:60px 60px}
+.lbrn-on .gm-24{animation:lbrnGira 12s linear infinite}
+.lbrn .gm-h{transform-origin:60px 60px}
+.lbrn-on .gm-h{animation:lbrnGira 6s linear infinite}
+/* pulso */
+.lbrn-pul{margin:16px 0 0;background:#fff;border:1px solid var(--l);border-radius:16px;padding:16px;display:grid;grid-template-columns:1fr;gap:6px;text-align:center}
+@media (min-width:768px){.lbrn-pul{grid-template-columns:300px 1fr;text-align:left;align-items:center;gap:22px;padding:18px 24px}}
+.lbrn-pul h3{font:500 22px/1.15 "Cormorant Garamond",Georgia,serif;color:var(--i);margin:0 0 4px}
+.lbrn-pul p{font-size:12.5px;color:var(--m);margin:0}
+.lbrn-pul svg{width:100%;max-width:300px;height:auto;display:block;margin:0 auto}
+.lbrn-pul input[type=range]{width:100%;accent-color:#8F6E2E;margin:12px 0 4px}
+.lbrn-pv{font:600 13px/1.35 Jost,Arial,sans-serif;color:var(--i);margin-top:6px}
+.lbrn-pv span{display:block;font-weight:400;color:var(--m);font-size:12px;margin-top:3px}
+.lbrn-pm{font:500 26px/1 "Cormorant Garamond",Georgia,serif;color:var(--o)}
+.lbrn-nota{font-size:10.5px;color:#a39a8e;text-align:center;margin:10px 0 0}
+@media (prefers-reduced-motion:reduce){.lbrn *,.lbrn *:before,.lbrn *:after{animation:none!important;transition:none!important}}
+</style>
+<script>
+/* LOJABIT - Relógios: "O relógio em números" (ficha em movimento) — 13/11/2026.
+   Só em página de relógio. Os números vêm da "Ficha técnica" da descrição (Movimento, Reserva de marcha, Caixa,
+   Vidro, Resistência à água, Peso, Funções, Fundo, Luminescência, Frequência...). Relógio novo cadastrado com a mesma
+   ficha ganha o painel sozinho. Cada cartão só aparece se o dado existir; nada é inventado.
+   Este arquivo (dist/rel.js) só é carregado nas páginas de relógio, pelo código 1799005 (que também decide a prévia). */
+(function () {
+  'use strict';
+  if (window.__lbRel) return;
+  if (!/\bpagina-produto\b/.test(document.body.className)) return;
+  window.__lbRel = 1;
+
+  var NS = 'http://www.w3.org/2000/svg';
+  function num(s) { return parseFloat(String(s).replace(/\.(?=\d{3}\b)/g, '').replace(',', '.')); }
+  function br(n, d) { return (d ? n.toFixed(d) : String(Math.round(n))).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.'); }
+  function sa(s) { return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); }
+
+  /* ---------- lê a ficha técnica ---------- */
+  function ficha() {
+    var d = document.getElementById('descricao'), o = {};
+    if (!d) return o;
+    [].forEach.call(d.querySelectorAll('li'), function (li) {
+      var s = li.querySelector('strong');
+      if (!s || li.firstElementChild !== s) return;
+      var k = sa(s.textContent.replace(/[:\s]+$/, '')).trim(), v = li.textContent.slice(li.textContent.indexOf(s.textContent) + s.textContent.length).replace(/^[\s:]+/, '').trim();
+      if (k && v && !(k in o)) o[k] = v;
+    });
+    return o;
+  }
+  var FREQ = [[/powermatic 80|calibre 80\b|c07\.\d/, 21600], [/nh3[5-9]/, 21600], [/4r3\d|7s2\d|7s3\d/, 21600], [/\b82[01]\d\b/, 21600],
+    [/sw ?200|eta 2824|a05\.h31|valjoux 7750/, 28800]];
+  function dados() {
+    var f = ficha(), r = {};
+    var mov = sa(f.movimento), cx = sa(f.caixa), ag = sa(f['resistencia a agua']), fu = sa(f.funcoes), vd = sa(f.vidro), nome = sa((document.querySelector('h1.nome-produto') || {}).textContent);
+    if (!mov && !cx) return null;
+    r.tipo = /solar|eco-drive|movido a luz/.test(mov) ? 'solar' : /quartzo|pilha|bateria/.test(mov) ? 'quartzo' : /automatico/.test(mov) ? 'auto' : /manual|corda/.test(mov) ? 'manual' : '';
+    var m = /calibre ([\w.\-]+(?: [\w.]+)?)/i.exec(f.movimento || '') || /\b(nh3\d\w?|sw ?200-?\d?|powermatic 80[.\d]*)/i.exec(f.movimento || '');
+    r.calibre = m ? m[1].replace(/[,;]$/, '') : '';
+    m = /(\d{2}(?:[.,]\d+)?)\s*(?:x\s*\d{2}(?:[.,]\d+)?\s*)?mm(?: de di[âa]metro)?/i.exec(f.caixa || '');
+    if (m && num(m[1]) >= 24 && num(m[1]) <= 60) r.diam = num(m[1]);
+    m = /(\d{1,2}(?:[.,]\d+)?)\s*mm de espessura/i.exec(f.caixa || '');
+    if (m) r.esp = num(m[1]);
+    m = /(\d{2}(?:[.,]\d+)?)\s*mm (?:de ponta a ponta|entre (?:as )?al[çc]as)/i.exec(f.caixa || '') || /(\d{2}(?:[.,]\d+)?)/.exec(f['distancia entre as alcas (lug-to-lug)'] || '');
+    if (m && num(m[1]) > 34) r.l2l = num(m[1]);
+    r.mat = /titanio|titanium/.test(cx) ? 'titânio' : /bronze/.test(cx) ? 'bronze' : /ceramica/.test(cx) ? 'cerâmica' : /latao/.test(cx) ? 'latão' : /aco/.test(cx) ? 'aço' : '';
+    m = /(\d+)\s*bar/.exec(ag) || /(\d+)\s*atm/.exec(ag);
+    if (m) r.agua = +m[1] * 10; else if ((m = /(\d+)\s*(?:metros|m\b)/.exec(ag))) r.agua = +m[1];
+    m = /(\d{1,2}\.\d{3}|\d{5})\s*(?:alternancias|vph|a\/h)/.exec(sa(f.frequencia || '') + ' ' + mov);
+    if (m) r.freq = num(m[1]);
+    else if (r.tipo === 'auto' || r.tipo === 'manual') FREQ.some(function (x) { if (x[0].test(mov)) { r.freq = x[1]; return true; } return false; });
+    m = /(\d+)\s*horas/.exec(sa(f['reserva de marcha'] || ''));
+    if (m) r.reserva = +m[1];
+    m = /(\d+)\s*mes/.exec(sa((f['reserva de carga'] || '') + ' ' + (f.autonomia || '')));
+    if (m) r.meses = +m[1];
+    r.vidro = /safira/.test(vd) ? 'safira' : /hardlex/.test(vd) ? 'hardlex' : /acrilic/.test(vd) ? 'acrilico' : /mineral/.test(vd) ? 'mineral' : '';
+    r.ar = /antirreflex/.test(vd);
+    m = /(\d{2,3})\s*g\b/.exec(sa(f.peso || ''));
+    if (m) r.peso = +m[1];
+    r.lume = !!f.luminescencia || /lumibrite|luminova|luminesc/.test(sa(JSON.stringify(f)));
+    r.lumeNome = /lumibrite/i.test(f.luminescencia || '') ? 'LumiBrite' : /luminova/i.test(f.luminescencia || '') ? 'Super-LumiNova' : '';
+    r.indiglo = /indiglo/.test(fu + ' ' + sa(f.luminescencia || ''));
+    r.fundo = /transparente|safira|exib/.test(sa(f.fundo || ''));
+    r.crono = /cronografo/.test(fu + ' ' + nome);
+    r.gmt = /gmt|segundo fuso/.test(fu + ' ' + nome);
+    r.prec = (/precis[ãa]o de ([^,;]+)/i.exec(f.movimento || '') || /([±+\-][^,;]*segundos[^,;]*)/.exec(f.precisao || '') || [])[1] || '';
+    var mk = f.marca || '';
+    r.origem = /suica/.test(sa(mk)) || /suico/.test(mov) ? 'suíço' : /japao/.test(sa(mk)) || /japones/.test(mov) ? 'japonês' : '';
+    r.cosc = /cosc|cronometro/.test(mov);
+    r.hack = /parada dos segundos|hacking/.test(mov) || /segundos com parada/.test(fu);
+    r.cordaManual = /corda manual|carga automatica e manual/.test(mov);
+    return r;
+  }
+
+  /* ---------- peças ---------- */
+  function svg(html) { return '<svg viewBox="0 0 120 120" aria-hidden="true" focusable="false">' + html + '</svg>'; }
+  function tile(k, sv, n, un, rot, x, extra, toque) {
+    return '<div class="lbrn-t lbrn-' + k + '"' + (toque ? ' data-toque="' + toque + '" role="button" tabindex="0"' : '') + '>' + sv +
+      '<div class="lbrn-n">' + n + (un ? '<small>' + un + '</small>' : '') + '</div><div class="lbrn-l">' + rot + '</div><div class="lbrn-x">' + x + '</div>' + (extra || '') + '</div>';
+  }
+  function conta(v, d) { return '<b data-v="' + v + '" data-d="' + (d || 0) + '">' + br(v, d) + '</b>'; }
+  function decimais(v) { return v % 1 ? 1 : 0; }
+  function mostrador(cx, cy, r) {
+    var s = '';
+    for (var i = 0; i < 12; i++) {
+      var a = i * Math.PI / 6, r1 = r - (i % 3 ? 4 : 7), r2 = r - 1.5;
+      s += '<line class="s" style="stroke-width:' + (i % 3 ? 1 : 1.8) + '" x1="' + (cx + r1 * Math.sin(a)).toFixed(1) + '" y1="' + (cy - r1 * Math.cos(a)).toFixed(1) + '" x2="' + (cx + r2 * Math.sin(a)).toFixed(1) + '" y2="' + (cy - r2 * Math.cos(a)).toFixed(1) + '"/>';
+    }
+    return s;
+  }
+  var ICON = {
+    chuva: '<path d="M7 14a5 5 0 0 1 1-9.9A6 6 0 0 1 19 7a4 4 0 0 1-1 7.9H7z"/><path d="M9 18l-1 3M13 18l-1 3M17 18l-1 3"/>',
+    maos: '<path d="M12 3s-5 6-5 9.5a5 5 0 0 0 10 0C17 9 12 3 12 3z"/>',
+    nado: '<circle cx="16" cy="6" r="2"/><path d="M3 19c2 0 2-1.5 4.5-1.5S10 19 12 19s2-1.5 4.5-1.5S19 19 21 19M6 15l4-4 3 2 3-4"/>',
+    snorkel: '<path d="M3 18c2 0 2-1.5 4.5-1.5S10 18 12 18s2-1.5 4.5-1.5S19 18 21 18"/><rect x="5" y="7" width="10" height="5" rx="2.5"/><path d="M18 3v8a3 3 0 0 1-3 3"/>',
+    mergulho: '<path d="M3 9c2 0 2-1.5 4.5-1.5S10 9 12 9s2-1.5 4.5-1.5S19 9 21 9"/><circle cx="9" cy="15" r="2.5"/><path d="M11.5 15h6l2 3M14 17.5l-1.5 3"/><circle cx="18" cy="12" r=".8"/><circle cx="20" cy="10" r=".6"/>'
+  };
+  function ic(k, rot, ok) { return '<i class="' + (ok ? 'ok' : '') + '"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">' + ICON[k] + '</svg>' + rot + '</i>'; }
+
+  function montar(r) {
+    var t = [], chips = [];
+    var tipoNome = { auto: 'Automático', manual: 'Corda manual', quartzo: 'Quartzo', solar: r.tipo === 'solar' && /eco-drive/i.test(JSON.stringify(ficha())) ? 'Eco-Drive (luz)' : 'Solar' }[r.tipo];
+    if (tipoNome) chips.push('<b>' + tipoNome + '</b>' + (r.origem ? ' ' + r.origem : ''));
+    if (r.diam) chips.push(br(r.diam, decimais(r.diam)) + ' mm');
+    if (r.agua) chips.push(r.agua + ' m');
+    if (r.vidro === 'safira') chips.push('Safira');
+    if (r.reserva) chips.push('Reserva ' + r.reserva + ' h');
+    if (r.cosc) chips.push('<b>Cronômetro COSC</b>');
+    if (r.crono) chips.push('Cronógrafo');
+    if (r.gmt) chips.push('GMT');
+    if (r.mat === 'titânio') chips.push('Titânio');
+
+    /* 1. diâmetro */
+    if (r.diam) {
+      var cls = r.diam < 38 ? 'clássico e discreto' : r.diam < 42 ? 'médio, o mais versátil' : r.diam < 45 ? 'grande e marcante' : 'bem grande, de presença';
+      var pos = Math.max(0, Math.min(100, (r.diam - 34) / (46 - 34) * 100));
+      t.push(tile('dm', svg(
+        '<rect class="s" x="47" y="12" width="26" height="14" rx="3"/><rect class="s" x="47" y="94" width="26" height="14" rx="3"/>' +
+        '<circle class="s dm-caixa" cx="60" cy="60" r="34" style="stroke-width:2.2"/><circle class="s" cx="60" cy="60" r="28" style="stroke:#cfc6b8"/>' + mostrador(60, 60, 28) +
+        '<path class="s" d="M60 60l0-17M60 60l11 6" style="stroke-width:2"/><circle class="fo" cx="60" cy="60" r="2"/>' +
+        '<g class="dm-ge"><path class="so" d="M26 34v52M26 34h-6M26 86h-6"/></g><g class="dm-gd"><path class="so" d="M94 34v52M94 34h6M94 86h6"/></g>' +
+        '<g class="dm-cota"><path class="so" d="M27 106h66M31 103l-4 3 4 3M89 103l4 3-4 3"/></g>'),
+        conta(r.diam, decimais(r.diam)), 'mm', 'Diâmetro', 'Tamanho <b>' + cls + '</b>' + (r.l2l ? '. De ponta a ponta: ' + br(r.l2l, decimais(r.l2l)) + ' mm' : ''),
+        '<div class="lbrn-esc"><u data-pos="' + pos.toFixed(0) + '"></u></div><div class="lbrn-esc-l"><span>34</span><span>40</span><span>46 mm</span></div>'));
+    }
+    /* 2. espessura */
+    if (r.esp) {
+      var h = Math.max(14, Math.min(44, r.esp * 2.7)), y0 = 78 - h;
+      var txt = r.esp <= 11.5 ? 'Fino: <b>passa por baixo do punho da camisa</b>' : r.esp <= 13 ? 'Na medida: confortável o dia todo' : 'Robusto, com <b>presença no pulso</b>';
+      t.push(tile('es', svg(
+        '<path class="s" d="M8 88h104" style="stroke:#cfc6b8"/><path class="s" d="M14 78h92" style="stroke:#e3dbcf;stroke-width:6"/>' +
+        '<g class="es-caixa"><path class="s" d="M30 78V' + (y0 + 6) + 'q0-4 4-4h52q4 0 4 4V78z" style="fill:#fff;stroke-width:2"/>' +
+        '<path class="s" d="M34 ' + (y0 + 2) + 'q26-' + (r.vidro === 'acrilico' || /box|abaulad|curv/.test(sa(ficha().vidro)) ? 7 : 3) + ' 52 0" style="stroke:#8F6E2E"/>' +
+        '<rect class="s" x="90" y="' + (y0 + h / 2 - 4) + '" width="7" height="8" rx="1.5" style="fill:#fff"/></g>' +
+        '<path class="so" d="M110 ' + (y0 + 2) + 'v' + (h - 2) + 'M106 ' + (y0 + 2) + 'h8M106 78h8"/>' +
+        (r.esp <= 11.5 ? '<g class="es-punho"><path class="s" d="M0 ' + (y0 - 6) + 'q40-10 70-2 l8 4" style="stroke:#776E64;stroke-width:2"/><path class="s" d="M2 ' + (y0 - 1) + 'h20" style="stroke:#cfc6b8"/></g>' : '')),
+        conta(r.esp, decimais(r.esp)), 'mm', 'Espessura', txt));
+    }
+    /* 3. batidas / quartzo / solar */
+    if ((r.tipo === 'auto' || r.tipo === 'manual') && r.freq) {
+      var hz = r.freq / 7200, passos = Math.round(r.freq / 3600);
+      /* volante (balanço) com 3 braços e parafusos, e a espiral por cima */
+      var esp = '', braco = '', paraf = '';
+      for (var a1 = 0; a1 <= 4.5 * Math.PI; a1 += .25) { var rr = 1.6 + a1 * .72; esp += (esp ? 'L' : 'M') + (46 + rr * Math.cos(a1)).toFixed(1) + ' ' + (56 + rr * Math.sin(a1)).toFixed(1); }
+      for (var a2 = 0; a2 < 3; a2++) { var an = -Math.PI / 2 + a2 * 2 * Math.PI / 3; braco += 'M46 56L' + (46 + 25 * Math.cos(an)).toFixed(1) + ' ' + (56 + 25 * Math.sin(an)).toFixed(1); }
+      for (var a3 = 0; a3 < 8; a3++) { var ap = a3 * Math.PI / 4 + Math.PI / 8; paraf += '<circle class="fo" cx="' + (46 + 29.5 * Math.cos(ap)).toFixed(1) + '" cy="' + (56 + 29.5 * Math.sin(ap)).toFixed(1) + '" r="1.8"/>'; }
+      var bal = '<g class="bt-bal"><circle class="s" cx="46" cy="56" r="26" style="stroke-width:4"/><path class="s" d="' + braco + '" style="stroke-width:2.4"/>' + paraf + '</g>' +
+        '<path d="' + esp + '" style="fill:none;stroke:#8F6E2E;stroke-width:1.1"/><circle class="fi" cx="46" cy="56" r="2.6"/>';
+      var mini = '<circle class="s" cx="94" cy="90" r="18" style="fill:#fff"/>' + mostrador(94, 90, 18).replace(/stroke-width:1\.8/g, 'stroke-width:1.2') + '<g class="bt-ps"><path d="M94 90V75" style="stroke:#8F6E2E;stroke-width:1.4;stroke-linecap:round"/></g><circle class="fi" cx="94" cy="90" r="1.6"/>';
+      t.push(tile('bt', svg(bal + mini).replace('<svg ', '<svg style="--bt:' + (1 / (2 * hz)).toFixed(4) + 's;--st:' + (passos * 60) + '" '),
+        conta(r.freq), 'a/h', 'Batidas por hora', '<b>' + br(hz, hz % 1 ? 1 : 0) + ' Hz</b>: o ponteiro dá ' + passos + ' passinhos por segundo e parece <b>deslizar</b>' + (r.calibre ? '. Calibre ' + r.calibre : '')));
+    } else if (r.tipo === 'quartzo') {
+      t.push(tile('qz', svg('<rect class="s" x="22" y="18" width="48" height="84" rx="10" style="stroke:#cfc6b8"/>' +
+        '<g class="qz-d qz-d1"><path class="s" d="M38 30v34q0 8 8 8" style="stroke-width:5;stroke:#8F6E2E"/></g><g class="qz-d qz-d2"><path class="s" d="M54 30v34q0 8-8 8" style="stroke-width:5;stroke:#8F6E2E"/></g>' +
+        '<path class="s" d="M46 72v18" style="stroke-width:4"/><circle class="s" cx="94" cy="90" r="18" style="fill:#fff"/>' + mostrador(94, 90, 18) +
+        '<g class="bt-ps"><path d="M94 90V75" style="stroke:#8F6E2E;stroke-width:1.4;stroke-linecap:round"/></g><circle class="fi" cx="94" cy="90" r="1.6"/>').replace('<svg ', '<svg style="--st:60" '),
+        conta(32768), 'Hz', 'Cristal de quartzo', 'Vibra <b>32.768 vezes por segundo</b>: o ponteiro anda 1 passo por segundo' + (r.prec ? ', precisão de ' + r.prec : ', com a precisão do quartzo') + (r.calibre ? '. Calibre ' + r.calibre : '')));
+    } else if (r.tipo === 'solar') {
+      var raios = '';
+      for (var i = 0; i < 12; i++) { var a = i * Math.PI / 6; raios += '<line class="so" x1="' + (40 + 17 * Math.cos(a)).toFixed(1) + '" y1="' + (40 + 17 * Math.sin(a)).toFixed(1) + '" x2="' + (40 + 25 * Math.cos(a)).toFixed(1) + '" y2="' + (40 + 25 * Math.sin(a)).toFixed(1) + '"/>'; }
+      t.push(tile('sl', svg('<circle class="fo" cx="40" cy="40" r="12"/><g class="sl-raios">' + raios + '</g>' +
+        '<rect class="s" x="66" y="60" width="40" height="52" rx="5"/><rect class="s" x="78" y="55" width="16" height="5" rx="1.5"/>' +
+        '<rect class="fo sl-c sl-c1" x="71" y="99" width="30" height="8" rx="1.5"/><rect class="fo sl-c sl-c2" x="71" y="88" width="30" height="8" rx="1.5"/><rect class="fo sl-c sl-c3" x="71" y="77" width="30" height="8" rx="1.5"/><rect class="fo sl-c sl-c4" x="71" y="66" width="30" height="8" rx="1.5"/>' +
+        '<path class="so" d="M52 52l12 12" style="stroke-dasharray:3 3"/>'),
+        r.meses ? conta(r.meses) : 'Solar', r.meses ? 'meses' : '', 'Movido a luz', 'Carrega com <b>qualquer luz</b>, do sol à lâmpada: <b>dispensa a troca de pilha comum</b>' + (r.prec ? '. Precisão de ' + r.prec : '') + (r.calibre ? '. Calibre ' + r.calibre : '')));
+    }
+    /* 4. reserva de marcha */
+    if (r.reserva) {
+      var dias = Math.floor(r.reserva / 24), horas = r.reserva % 24, frac = Math.min(1, r.reserva / 96);
+      var dur = (dias ? dias + (dias > 1 ? ' dias' : ' dia') : '') + (horas ? (dias ? ' e ' : '') + horas + ' h' : '');
+      var ds = '';
+      for (var d = 0; d < 4; d++) ds += '<i data-f="' + Math.max(0, Math.min(1, r.reserva / 24 - d)).toFixed(2) + '">' + ['1º', '2º', '3º', '4º'][d] + '</i>';
+      t.push(tile('rm', svg('<circle class="s" cx="60" cy="60" r="40" style="stroke:#ece5da;stroke-width:9"/>' +
+        '<circle class="rm-arco" cx="60" cy="60" r="40" transform="rotate(-90 60 60)" data-frac="' + frac.toFixed(3) + '" style="fill:none;stroke:#8F6E2E;stroke-width:9;stroke-linecap:round"/>' +
+        '<path class="s" d="M60 60l0-22M60 60l13 7" style="stroke-width:2.2"/><circle class="fi" cx="60" cy="60" r="3"/>' +
+        '<text class="tx" x="60" y="90" text-anchor="middle">DIAS</text>'),
+        conta(r.reserva), 'h', 'Reserva de marcha', 'Fora do pulso, continua andando por <b>' + dur + '</b>' + (r.cordaManual ? '. Também aceita corda pela coroa' : ''),
+        '<div class="lbrn-dias">' + ds + '</div>'));
+    }
+    /* 5. água */
+    if (r.agua) {
+      var lv = Math.max(.32, Math.min(.92, Math.log(r.agua) / Math.log(1000))), mar = r.agua >= 200 && /diver|mergulh|sky ?diver|prospex|500m/.test(sa(document.title + ' ' + JSON.stringify(ficha())));
+      var usos = r.agua >= 200 ? (mar ? 'Pronto para <b>mergulho recreativo</b>' : 'Natação e <b>mergulho livre</b>') : r.agua >= 100 ? 'Pode <b>nadar</b> com ele' : r.agua >= 50 ? '<b>Chuva e lavar as mãos</b> sem preocupação' : '<b>Respingos e chuva</b>';
+      var bar = r.agua / 10;
+      t.push(tile('ag', svg('<defs><clipPath id="lbrnAgC"><circle cx="60" cy="60" r="42"/></clipPath></defs>' +
+        '<g clip-path="url(#lbrnAgC)"><rect x="18" y="18" width="84" height="84" fill="#f4efe7"/>' +
+        '<g class="ag-nivel" data-lv="' + lv.toFixed(3) + '"><g class="ag-onda"><path d="M0 0q10-6 20 0t20 0 20 0 20 0 20 0 20 0 20 0 20 0 20 0v120H0z" fill="#d9c49a" opacity=".55"/><path d="M-10 4q10-6 20 0t20 0 20 0 20 0 20 0 20 0 20 0 20 0 20 0v120h-180z" fill="#8F6E2E" opacity=".8"/></g></g>' +
+        '<circle class="fc ag-b" cx="46" cy="96" r="2"/><circle class="fc ag-b ag-b2" cx="66" cy="100" r="1.6"/><circle class="fc ag-b ag-b3" cx="76" cy="94" r="1.3"/></g>' +
+        '<circle class="s" cx="60" cy="60" r="42" style="stroke-width:2"/>'),
+        conta(r.agua), 'm', 'Resistência à água', usos + ' · ' + br(bar) + ' bar',
+        '<div class="lbrn-ic">' + ic('chuva', 'chuva', r.agua >= 30) + ic('maos', 'mãos', r.agua >= 50) + ic('nado', 'natação', r.agua >= 100) + ic('snorkel', 'snorkel', r.agua >= 200) + ic('mergulho', 'mergulho', mar) + '</div>'));
+    }
+    /* 6. vidro */
+    if (r.vidro) {
+      var saf = r.vidro === 'safira';
+      var vtx = saf ? '<b>9 de 10</b> na escala de dureza: <b>só o diamante risca</b>' + (r.ar ? '. Com antirreflexo' : '') :
+        r.vidro === 'hardlex' ? 'Hardlex: o <b>vidro mineral reforçado</b> da Seiko, resistente a impactos' :
+        r.vidro === 'acrilico' ? 'Acrílico abaulado: <b>charme vintage</b> e fácil de polir' : 'Vidro mineral: <b>resistente a impactos</b> e fácil de polir';
+      var mohs = '';
+      for (var k = 1; k <= 10; k++) mohs += '<i data-m="' + k + '"></i>';
+      t.push(tile('vd', svg('<circle cx="60" cy="60" r="40" fill="#f6f2ea"/><circle class="s" cx="60" cy="60" r="40" style="stroke-width:2"/>' +
+        '<path d="M34 40q14-14 32-14" style="fill:none;stroke:#fff;stroke-width:5;stroke-linecap:round;opacity:.9"/>' +
+        (saf ? '' : '<path class="vd-risco" d="M22 34L96 84" style="fill:none;stroke:#cfc6b8;stroke-width:1.2"/>') +
+        '<g class="vd-ponta"><path d="M-3-14l3 14 3-14z" fill="#403A34"/><rect x="-3" y="-26" width="6" height="13" rx="1.5" fill="#776E64"/></g>' +
+        (saf ? '<path class="fo vd-br" d="M40 44l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z"/><path class="fo vd-br vd-br2" d="M62 58l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z"/><path class="fo vd-br vd-br3" d="M84 74l1.2 3 3 1.2-3 1.2-1.2 3-1.2-3-3-1.2 3-1.2z"/>' : '')),
+        saf ? 'Safira' : { hardlex: 'Hardlex', acrilico: 'Acrílico', mineral: 'Mineral' }[r.vidro], '', 'Vidro', vtx,
+        saf ? '<div class="lbrn-mohs" data-ate="9">' + mohs + '</div><div class="lbrn-esc-l"><span>vidro comum</span><span>safira</span><span>diamante</span></div>' : ''));
+    }
+    /* 7. peso */
+    if (r.peso) {
+      var ang = Math.max(-80, Math.min(80, (r.peso - 125) / 125 * 80));
+      var ptx = r.peso <= 100 ? 'Leve: <b>some no pulso</b>' : r.peso <= 150 ? 'Peso <b>na medida</b>: sólido sem cansar' : '<b>Presença</b>: você sente a qualidade do metal';
+      t.push(tile('ps', svg('<path class="s" d="M14 74a46 46 0 0 1 92 0" style="stroke:#ece5da;stroke-width:8"/>' +
+        '<path class="s" d="M14 74a46 46 0 0 1 92 0" style="stroke:#c9a55c;stroke-width:8;stroke-dasharray:4 9"/>' +
+        '<g class="ps-pt" data-a="' + ang.toFixed(0) + '"><path d="M60 74L60 34" style="stroke:#0A0A0B;stroke-width:2.4;stroke-linecap:round"/></g><circle class="fi" cx="60" cy="74" r="4"/>' +
+        '<rect class="s" x="24" y="86" width="72" height="18" rx="5"/><text class="tx" x="60" y="98" text-anchor="middle">GRAMAS</text>'),
+        conta(r.peso), 'g', 'Peso', ptx + (r.mat === 'titânio' ? '. Titânio: cerca de <b>40% mais leve</b> que o aço' : '')));
+    } else if (r.mat === 'titânio') {
+      t.push(tile('ps', svg('<path class="s" d="M14 74a46 46 0 0 1 92 0" style="stroke:#ece5da;stroke-width:8"/><g class="ps-pt" data-a="-45"><path d="M60 74L60 34" style="stroke:#0A0A0B;stroke-width:2.4;stroke-linecap:round"/></g><circle class="fi" cx="60" cy="74" r="4"/>'),
+        '−40', '%', 'Titânio', 'Caixa e pulseira de titânio: cerca de <b>40% mais leve</b> que o aço e agradável na pele'));
+    }
+    /* 8. luz no escuro */
+    if (r.lume || r.indiglo) {
+      var lu = '';
+      for (var j = 0; j < 12; j++) { var b2 = j * Math.PI / 6; lu += '<rect class="lz-lu" x="58" y="' + (j % 3 ? 25 : 23) + '" width="4" height="' + (j % 3 ? 7 : 10) + '" rx="1.5" transform="rotate(' + (j * 30) + ' 60 60)"/>'; }
+      t.push(tile('lz', svg('<circle class="lz-fundo" cx="60" cy="60" r="40"/><circle class="lz-aro" cx="60" cy="60" r="40"/>' + lu +
+        '<path class="lz-lu" d="M57.5 61L60 30l2.5 31z"/><path class="lz-lu" d="M58 61l16-14 2 2.5L60 63z"/><circle cx="60" cy="61" r="3" fill="#8F6E2E"/>'),
+        'Brilha', '', 'No escuro', (r.indiglo ? 'Botão <b>Indiglo</b> ilumina o mostrador inteiro' : '<b>' + (r.lumeNome || 'Material luminoso') + '</b> nos ponteiros: dá para ler as horas no escuro'),
+        '<span class="lbrn-dica">Toque para apagar a luz</span>', 'luz').replace('class="lbrn-t lbrn-lz"', 'class="lbrn-t lbrn-lz lbrn-lzw"'));
+    }
+    /* 9. movimento à mostra */
+    if (r.fundo && (r.tipo === 'auto' || r.tipo === 'manual')) {
+      var dentes = '';
+      for (var q = 0; q < 14; q++) dentes += '<path class="s" d="M40 82l0-5" style="stroke-width:1.2" transform="rotate(' + (q * 25.7) + ' 40 82)"/>';
+      t.push(tile('mv', svg('<circle class="s" cx="60" cy="60" r="44" style="stroke-width:2.2"/><circle cx="60" cy="60" r="40" fill="#f6f2ea"/>' +
+        '<circle class="s" cx="40" cy="82" r="7"/>' + dentes + '<circle class="s" cx="78" cy="44" r="9"/><g class="mv-bal"><path class="s" d="M78 35v18M69 44h18"/></g>' +
+        '<circle class="fo" cx="52" cy="50" r="1.6"/><circle class="fo" cx="70" cy="74" r="1.6"/><circle class="fo" cx="86" cy="62" r="1.6"/>' +
+        '<g class="mv-rotor"><path d="M60 60L22 60A38 38 0 0 1 98 60z" fill="#C9A55C" opacity=".85"/><path d="M60 60L22 60A38 38 0 0 1 98 60z" fill="none" stroke="#8F6E2E" stroke-width="1"/><text class="tx" x="60" y="44" text-anchor="middle" style="fill:#fff">' + (r.calibre ? r.calibre.toUpperCase().slice(0, 16) : 'AUTOMATIC') + '</text></g><circle class="fi" cx="60" cy="60" r="3.2"/>').replace('<svg ', '<svg style="--bt:' + (r.freq ? (3600 / r.freq).toFixed(4) : '.1667') + 's" '),
+        'Fundo', '', 'Movimento à mostra', 'Pelo fundo transparente dá para ver o <b>rotor girando</b> com o movimento do seu pulso'));
+    }
+    /* 10. cronógrafo / GMT */
+    if (r.crono) {
+      t.push(tile('cr', svg('<circle class="s" cx="60" cy="62" r="40" style="fill:#fff;stroke-width:2"/>' + mostrador(60, 62, 40) +
+        '<rect class="s" x="54" y="10" width="12" height="9" rx="2"/><rect class="s" x="94" y="22" width="9" height="7" rx="2" transform="rotate(45 98 25)"/>' +
+        '<g class="cr-pt"><path d="M60 72V27" style="stroke:#8F6E2E;stroke-width:1.6;stroke-linecap:round"/><circle cx="60" cy="27" r="2" fill="#8F6E2E"/></g><circle class="fi" cx="60" cy="62" r="3"/>'),
+        '<span class="lbrn-cr-v">0,0</span>', 's', 'Cronógrafo', 'Cronômetro de verdade no pulso. <b>Experimente</b>',
+        '<span class="lbrn-dica">Toque para iniciar e parar</span>', 'crono'));
+    }
+    if (r.gmt) {
+      var h24 = '';
+      for (var z = 0; z < 24; z++) h24 += '<line class="s" style="stroke-width:' + (z % 6 ? .8 : 1.6) + '" x1="60" y1="' + (z % 6 ? 20 : 18) + '" x2="60" y2="24" transform="rotate(' + (z * 15) + ' 60 60)"/>';
+      t.push(tile('gm', svg('<circle class="s" cx="60" cy="60" r="44" style="stroke-width:2"/>' + h24 +
+        '<text class="tx" x="60" y="33" text-anchor="middle">24</text><text class="tx" x="60" y="93" text-anchor="middle">12</text>' +
+        '<g class="gm-h"><path d="M60 60V38" style="stroke:#0A0A0B;stroke-width:2.6;stroke-linecap:round"/></g>' +
+        '<g class="gm-24"><path d="M60 60V22" style="stroke:#8F6E2E;stroke-width:1.6;stroke-linecap:round"/><path d="M56 26l4-7 4 7z" fill="#8F6E2E"/></g><circle class="fi" cx="60" cy="60" r="3"/>'),
+        '2', 'fusos', 'GMT', 'Ponteiro de <b>24 horas</b> para acompanhar outro fuso: ótimo para viagens'));
+    }
+    if (!t.length) return null;
+
+    var sec = document.createElement('section');
+    sec.className = 'lbrn';
+    sec.setAttribute('aria-label', 'O relógio em números');
+    sec.innerHTML = '<div class="lbrn-cab"><div class="lbrn-k">Ficha em movimento</div><h2 class="lbrn-h">O relógio <em>em números</em></h2>' +
+      '<p class="lbrn-s">' + (matchMedia('(max-width:767px)').matches ? 'Deslize para o lado e toque nos cartões' : 'Cada número explicado em ação') + '</p></div>' +
+      (chips.length ? '<div class="lbrn-chips">' + chips.map(function (c) { return '<span>' + c + '</span>'; }).join('') + '</div>' : '') +
+      '<div class="lbrn-tiles" style="--cols:' + (t.length <= 5 ? t.length : t.length <= 8 ? Math.ceil(t.length / 2) : 5) + '">' + t.join('') + '</div>' + (r.diam ? pulso(r) : '') +
+      '<p class="lbrn-nota">Dados da ficha técnica do fabricante. Animações ilustrativas.</p>';
+    return sec;
+  }
+
+  /* ---------- simulador de pulso ---------- */
+  function pulso(r) {
+    return '<div class="lbrn-pul"><div><svg viewBox="0 0 300 150" aria-hidden="true"><defs><linearGradient id="lbrnPele" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e9d3bd"/><stop offset=".5" stop-color="#f3e2d1"/><stop offset="1" stop-color="#e2c8ae"/></linearGradient></defs>' +
+      '<rect class="lbrn-braco" x="-80" y="45" width="460" height="60" rx="30" fill="url(#lbrnPele)"/>' +
+      '<g class="lbrn-rel"><rect class="lbrn-pul-p" x="135" y="0" width="30" height="150" rx="6" fill="#403A34" opacity=".9"/><circle class="lbrn-pul-c" cx="150" cy="75" r="20" fill="#fff" stroke="#0A0A0B" stroke-width="2.5"/>' +
+      '<circle cx="150" cy="75" r="15" fill="#f6f2ea"/><path d="M150 75V64M150 75l7 4" stroke="#0A0A0B" stroke-width="1.8" stroke-linecap="round"/></g></svg></div>' +
+      '<div><div class="lbrn-k">Simulador</div><h3>Vai ficar bom no seu pulso?</h3><p>Arraste até a medida do seu pulso (passe uma fita ou barbante em volta).</p>' +
+      '<input type="range" min="14" max="22" step=".5" value="17" aria-label="Medida do pulso em centímetros">' +
+      '<div><span class="lbrn-pm">17 cm</span></div><div class="lbrn-pv"></div></div></div>';
+  }
+  function ligaPulso(sec, r) {
+    var inp = sec.querySelector('.lbrn-pul input');
+    if (!inp) return;
+    var braco = sec.querySelector('.lbrn-braco'), c = sec.querySelector('.lbrn-pul-c'), p = sec.querySelector('.lbrn-pul-p'), pm = sec.querySelector('.lbrn-pm'), pv = sec.querySelector('.lbrn-pv');
+    var l2l = r.l2l || r.diam * 1.2;
+    function atual() {
+      var cm = +inp.value, larg = cm * 10 * .32, esc = 2.1; /* largura do dorso do pulso ≈ 32% da circunferência; 2,1 px por mm */
+      var hb = larg * esc;
+      braco.setAttribute('y', (75 - hb / 2).toFixed(1));
+      braco.setAttribute('height', hb.toFixed(1));
+      braco.setAttribute('rx', (hb / 2).toFixed(1));
+      c.setAttribute('r', (r.diam / 2 * esc).toFixed(1));
+      var pw = Math.min(r.diam * .52, 24) * esc;
+      p.setAttribute('x', (150 - pw / 2).toFixed(1));
+      p.setAttribute('width', pw.toFixed(1));
+      p.setAttribute('y', (75 - l2l / 2 * esc - 40).toFixed(1));
+      p.setAttribute('height', (l2l * esc + 80).toFixed(1));
+      pm.textContent = String(cm).replace('.', ',') + ' cm';
+      var q = l2l / larg, v, s;
+      if (q <= .78) { v = 'Fica discreto e elegante'; s = 'Bem dentro do pulso, estilo clássico.'; }
+      else if (q <= .95) { v = 'Proporção ideal'; s = 'O relógio ocupa o pulso na medida certa.'; }
+      else if (q <= 1.03) { v = 'Fica marcante'; s = 'Presença forte, ainda dentro da largura do pulso.'; }
+      else { v = 'Fica grande'; s = 'As alças passam um pouco da largura do pulso: visual esportivo e ousado.'; }
+      pv.innerHTML = v + '<span>' + s + ' Simulação aproximada pelo diâmetro' + (r.l2l ? ' e pela medida de ponta a ponta.' : '.') + '</span>';
+    }
+    inp.addEventListener('input', atual);
+    atual();
+  }
+
+  /* ---------- animação ao aparecer (cada cartão na 1ª vez que entra na tela) ---------- */
+  function acende(t) {
+    var red = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    [].forEach.call(t.querySelectorAll('[data-v]'), function (b) {
+      var v = +b.getAttribute('data-v'), d = +b.getAttribute('data-d'), t0 = 0, D = v > 1000 ? 1800 : 1300;
+      if (red) return;
+      function q(x) { if (!t0) t0 = x; var p = Math.min(1, (x - t0) / D), e = 1 - Math.pow(1 - p, 3); b.textContent = br(v * e, d); if (p < 1) requestAnimationFrame(q); }
+      b.textContent = br(0, d);
+      requestAnimationFrame(q);
+    });
+    var u = t.querySelector('.lbrn-esc u');
+    if (u) u.style.left = u.getAttribute('data-pos') + '%';
+    var arco = t.querySelector('.rm-arco');
+    if (arco) arco.style.strokeDashoffset = (251 * (1 - +arco.getAttribute('data-frac'))).toFixed(1);
+    [].forEach.call(t.querySelectorAll('.lbrn-dias i'), function (i, k) {
+      var f = +i.getAttribute('data-f');
+      setTimeout(function () { i.className = f >= .99 ? 'ok' : f >= .3 ? 'meio' : ''; }, red ? 0 : 500 + k * 380);
+    });
+    var nv = t.querySelector('.ag-nivel');
+    if (nv) nv.style.transform = 'translateY(' + (102 - 84 * +nv.getAttribute('data-lv')).toFixed(1) + 'px)';
+    var pt = t.querySelector('.ps-pt');
+    if (pt) pt.style.transform = 'rotate(' + pt.getAttribute('data-a') + 'deg)';
+    var mh = t.querySelector('.lbrn-mohs');
+    if (mh) [].forEach.call(mh.querySelectorAll('i'), function (i, k) {
+      setTimeout(function () { i.className = k < 9 ? 'ok' : 'dia'; }, red ? 0 : 400 + k * 110);
+    });
+    if (t.classList.contains('lbrn-lzw') && !red) setTimeout(function () { t.classList.add('noite'); setTimeout(function () { t.classList.remove('noite'); }, 2600); }, 1400);
+  }
+  function toques(sec) {
+    var cr = { on: false, t0: 0, acc: 0, raf: 0 };
+    function pinta(seg) {
+      var v = sec.querySelector('.lbrn-cr-v'), p = sec.querySelector('.cr-pt');
+      if (v) v.textContent = br(seg, 1);
+      if (p) p.style.transform = 'rotate(' + (seg % 60 * 6).toFixed(1) + 'deg)';
+    }
+    function roda(t) { if (!cr.on) return; pinta(cr.acc + (t - cr.t0) / 1000); cr.raf = requestAnimationFrame(roda); }
+    function age(el) {
+      var k = el.getAttribute('data-toque');
+      if (k === 'luz') el.classList.toggle('noite');
+      if (k === 'crono') {
+        var dica = el.querySelector('.lbrn-dica');
+        if (!cr.on && cr.acc && dica && dica.getAttribute('data-z')) { cr.acc = 0; pinta(0); dica.textContent = 'Toque para iniciar e parar'; dica.removeAttribute('data-z'); return; }
+        cr.on = !cr.on;
+        if (cr.on) { cr.t0 = performance.now(); cr.raf = requestAnimationFrame(roda); if (dica) dica.textContent = 'Toque para parar'; }
+        else { cr.acc += (performance.now() - cr.t0) / 1000; cancelAnimationFrame(cr.raf); if (dica) { dica.textContent = 'Toque para zerar'; dica.setAttribute('data-z', '1'); } }
+      }
+    }
+    sec.addEventListener('click', function (e) { var el = e.target.closest && e.target.closest('[data-toque]'); if (el) age(el); });
+    sec.addEventListener('keydown', function (e) { if ((e.key === 'Enter' || e.key === ' ') && e.target.hasAttribute && e.target.hasAttribute('data-toque')) { e.preventDefault(); age(e.target); } });
+  }
+
+  function lugar() {
+    var d = document.getElementById('descricao');
+    if (!d) return null;
+    var row = d.closest('.row-fluid');
+    return row && row.parentElement ? row : null;
+  }
+  var n = 0;
+  (function roda() {
+    var nome = (document.querySelector('h1.nome-produto') || {}).textContent || '';
+    if (!/^\s*Rel[óo]gio/i.test(nome)) { if (++n < 20 && !nome) setTimeout(roda, 300); return; }
+    var alvo = lugar(), d = document.getElementById('descricao');
+    if (!alvo || !d || !d.querySelector('li strong')) { if (++n < 30) setTimeout(roda, 300); return; }
+    if (document.querySelector('.lbrn')) return;
+    var r = dados();
+    if (!r) return;
+    var sec = montar(r);
+    if (!sec) return;
+    alvo.parentElement.insertBefore(sec, alvo);
+    ligaPulso(sec, r);
+    toques(sec);
+    var tiles = [].slice.call(sec.querySelectorAll('.lbrn-t'));
+    if (!('IntersectionObserver' in window)) { tiles.forEach(function (t) { t.classList.add('lbrn-on'); acende(t); }); return; }
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        /* animações contínuas só enquanto o cartão está na tela (economiza bateria); números e medidores na 1ª vez */
+        e.target.classList.toggle('lbrn-on', e.isIntersecting);
+        if (e.isIntersecting && !e.target.__lbrnF) { e.target.__lbrnF = 1; acende(e.target); }
+      });
+    }, { threshold: .35 });
+    tiles.forEach(function (t) { io.observe(t); });
+  })();
+})();
+</script>

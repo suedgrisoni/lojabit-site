@@ -16,8 +16,18 @@
    "minificado": true
   },
   "rod.js": {
-   "bytes": 372155,
-   "sha256": "b73f8f079e966779a3c74d280975be7de81550e9e09cbe5db8db9ec3de890dd1",
+   "bytes": 373385,
+   "sha256": "d97ae3466f333b82248298033e14ed5be97b4401ac81b5fb11d873a6755a7783",
+   "minificado": true
+  },
+  "rel.css": {
+   "bytes": 10347,
+   "sha256": "ea500838688a8c329c3872fefb7563c7c2a70fa529edca58727191ea1f9678de",
+   "minificado": true
+  },
+  "rel.js": {
+   "bytes": 26376,
+   "sha256": "02cceffc95665c4203df594ddda1f8eb13264ea302266f9fdda0bc4b04a035bb",
    "minificado": true
   }
  },
@@ -440,6 +450,16 @@
   {
    "id": 1799003,
    "nome": "Ajustes 12/11: originais no celular e estação no filtro (só no repositório)",
+   "grupo": "rod"
+  },
+  {
+   "id": 1799004,
+   "nome": "Relógios: o relógio em números (ficha em movimento) — vai para dist/rel.* (só páginas de relógio)",
+   "grupo": "rel"
+  },
+  {
+   "id": 1799005,
+   "nome": "Relógios: carrega dist/rel.* só em página de relógio — prévia ?lbrel=1 (só no repositório)",
    "grupo": "rod"
   }
  ],

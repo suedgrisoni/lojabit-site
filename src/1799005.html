@@ -1,0 +1,33 @@
+<script>
+/* LOJABIT - Relógios: carrega a "ficha em movimento" (dist/rel.css e dist/rel.js, código 1799004) SÓ nas páginas de relógio,
+   do mesmo commit do rod.js. As outras páginas não baixam nada a mais. (13/11/2026)
+   Prévia: ?lbrel=1 liga só neste navegador (?lbrel=0 desliga). Para ligar para todos: PUBLICADO = true. */
+(function () {
+  'use strict';
+  var PUBLICADO = false;
+  var on = PUBLICADO;
+  try {
+    if (/[?&]lbrel=1(&|$)/.test(location.search)) localStorage.setItem('lbRel', '1');
+    if (/[?&]lbrel=0(&|$)/.test(location.search)) localStorage.removeItem('lbRel');
+    if (localStorage.getItem('lbRel') === '1') on = true;
+  } catch (e) {}
+  if (!on) return;
+  var me = (document.currentScript && document.currentScript.src) || '';
+  var base = /\/dist\/rod\.js/.test(me) ? me.replace(/rod\.js.*$/, '') : '';
+  function vai() {
+    if (!base || window.__lbRelC || !/\bpagina-produto\b/.test(document.body.className)) return;
+    var h = document.querySelector('h1.nome-produto');
+    if (!h || !/^\s*Rel[óo]gio/i.test(h.textContent)) return;
+    window.__lbRelC = 1;
+    var l = document.createElement('link');
+    l.rel = 'stylesheet'; l.href = base + 'rel.css'; l.crossOrigin = 'anonymous';
+    l.onerror = function () { this.onerror = null; this.href = this.href.replace('//cdn.', '//fastly.'); };
+    document.head.appendChild(l);
+    var s = document.createElement('script');
+    s.src = base + 'rel.js'; s.crossOrigin = 'anonymous';
+    s.onerror = function () { var t = document.createElement('script'); t.src = s.src.replace('//cdn.', '//fastly.'); document.head.appendChild(t); };
+    document.head.appendChild(s);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', vai); else vai();
+})();
+</script>

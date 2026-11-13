@@ -418,5 +418,15 @@
   "id": 1799003,
   "nome": "Ajustes 12/11: originais no celular e estação no filtro (só no repositório)",
   "grupo": "rod"
+ },
+ {
+  "id": 1799004,
+  "nome": "Relógios: o relógio em números (ficha em movimento) — vai para dist/rel.* (só páginas de relógio)",
+  "grupo": "rel"
+ },
+ {
+  "id": 1799005,
+  "nome": "Relógios: carrega dist/rel.* só em página de relógio — prévia ?lbrel=1 (só no repositório)",
+  "grupo": "rod"
  }
 ]

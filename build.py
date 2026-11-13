@@ -83,6 +83,8 @@ const {minify}=require("terser");let s="";process.stdin.setEncoding("utf8");proc
     return js, False
 
 
+# rel = arquivos dos relógios (dist/rel.css e dist/rel.js), carregados sob demanda pelo código 1799005 só em página de relógio
+NOMES = {'cab': 'cabeçalho', 'rod': 'rodapé', 'rel': 'relógios (só nas páginas de relógio)'}
 INJETA = ('window.__lbE3s=function(t,a){var s=document.createElement("style");for(var k in a)s.setAttribute(k,a[k]);'
           's.textContent=t;(document.head||document.documentElement).appendChild(s)};')
 
@@ -91,7 +93,7 @@ def main():
     ordem = json.load(open(os.path.join(AQUI, 'ordem.json'), encoding='utf-8'))
     tablet = 'var c=!0,d="lbMob"' in open(os.path.join(AQUI, 'src', '1717518.html'), encoding='utf-8').read()
     print('troca 767/768 -> 979/980 (celular app 1 ligado):', tablet)
-    blocos = {('cab', 'css'): [], ('cab', 'js'): [INJETA], ('rod', 'css'): [], ('rod', 'js'): []}
+    blocos = {('cab', 'css'): [], ('cab', 'js'): [INJETA], ('rod', 'css'): [], ('rod', 'js'): [], ('rel', 'css'): [], ('rel', 'js'): []}
     for c in ordem:
         seg = open(os.path.join(AQUI, 'src', f"{c['id']}.html"), encoding='utf-8').read()
         cab = f"/* {c['id']} {c['nome']} */"
@@ -122,17 +124,17 @@ def main():
         if t == 'js':
             texto, minif = terser(texto)
             # marca de "arquivo rodou até o fim": se faltar, o carregador do painel tenta o endereço reserva
-            texto = ('/* LOJABIT - códigos do ' + ('cabeçalho' if g == 'cab' else 'rodapé') + ' (fonte: github.com/suedgrisoni/lojabit-site, src/) */\n'
-                     + texto.rstrip().rstrip(';') + ';\nwindow.lbE3' + g[0] + '=1;\n')
+            texto = ('/* LOJABIT - códigos do ' + NOMES[g] + ' (fonte: github.com/suedgrisoni/lojabit-site, src/) */\n'
+                     + texto.rstrip().rstrip(';') + ';\nwindow.lbE3' + {'cab': 'c', 'rod': 'r', 'rel': 'l'}[g] + '=1;\n')
         else:
-            texto = '/* LOJABIT - estilos do ' + ('cabeçalho' if g == 'cab' else 'rodapé') + ' (fonte: github.com/suedgrisoni/lojabit-site, src/) */\n' + texto + '\n'
+            texto = '/* LOJABIT - estilos do ' + NOMES[g] + ' (fonte: github.com/suedgrisoni/lojabit-site, src/) */\n' + texto + '\n'
         nome = f'{g}.{t}'
         open(os.path.join(AQUI, 'dist', nome), 'w', encoding='utf-8').write(texto)
         man['arquivos'][nome] = {'bytes': len(texto.encode()), 'sha256': hashlib.sha256(texto.encode()).hexdigest(), 'minificado': minif or t == 'css'}
         print(f"dist/{nome}: {len(texto.encode())/1024:.0f} KB{' (minificado)' if minif else ''}")
     json.dump(man, open(os.path.join(AQUI, 'dist', 'manifesto.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     # confere a sintaxe dos JS
-    for g in ('cab', 'rod'):
+    for g in ('cab', 'rod', 'rel'):
         r = subprocess.run(['node', '--check', os.path.join(AQUI, 'dist', f'{g}.js')], capture_output=True, text=True)
         if r.returncode != 0: sys.exit(f'ERRO de sintaxe em dist/{g}.js: {r.stderr[:300]}')
     print('ok')
