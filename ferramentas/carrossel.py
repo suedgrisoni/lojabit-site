@@ -110,12 +110,15 @@ def atualizar():
 
 
 def versao():
-    sha = subprocess.run(['git', 'log', '-1', '--format=%H', '--', 'carrossel/p'], cwd=RAIZ, capture_output=True, text=True).stdout.strip()
+    # o commit mais novo que mexeu nos dados que o site lê pelo v.json: carrosséis (carrossel/p) e base dos relógios
+    # (carrossel/relogios.json, usada pelo dist/rel.js desde 13/11/2026)
+    DADOS = ['carrossel/p', 'carrossel/relogios.json']
+    sha = subprocess.run(['git', 'log', '-1', '--format=%H', '--'] + DADOS, cwd=RAIZ, capture_output=True, text=True).stdout.strip()
     if not sha:
         sys.exit('carrossel/p ainda não tem commit')
-    pend = subprocess.run(['git', 'status', '--porcelain', '--', 'carrossel/p'], cwd=RAIZ, capture_output=True, text=True).stdout.strip()
+    pend = subprocess.run(['git', 'status', '--porcelain', '--'] + DADOS, cwd=RAIZ, capture_output=True, text=True).stdout.strip()
     if pend:
-        sys.exit('carrossel/p tem mudanças fora do commit — faça o commit e o push antes')
+        sys.exit('carrossel/p ou carrossel/relogios.json tem mudanças fora do commit — faça o commit e o push antes')
     json.dump({'h': sha, 'em': time.strftime('%Y-%m-%d %H:%M')}, open(os.path.join(D, 'v.json'), 'w'))
     print('v.json ->', sha)
 

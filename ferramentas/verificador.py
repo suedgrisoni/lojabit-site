@@ -13,6 +13,9 @@ Confere, para cada perfume (árabe, nicho, importado):
   5. carrossel         — tem "Parecidos com"/"Mesma proposta" (ou é estilo raro e usa o carrossel antigo) [tarefa dos carrosséis]
   6. promoção decants  — produto com decant (3/5/10 ml) à venda está na categoria escondida 24495076 [corrige com chave]
   7. listagem decants  — perfume com decant à venda está em Decants (/decants) e na subcategoria do tipo [corrige com chave]
+  8. relógio no padrão — ficha técnica com os campos que o site usa (movimento, caixa com diâmetro e espessura, água,
+                         vidro, fundo, funções, pulseira; reserva e frequência nos mecânicos) e o diâmetro no título
+                         (ex.: "... Automático 40mm Mostrador Azul ...")                               [título: corrige com chave]
 
 Com --corrigir e o token da API em ~/.lb/li_token, corrige 2, 3, 6 e 7 (SÓ ACRESCENTA categoria, nunca tira):
   - 6: todo produto com decant à venda entra na promoção, menos os da lista FORA (frasco daria prejuízo com 15% + Pix;
@@ -21,6 +24,8 @@ Com --corrigir e o token da API em ~/.lb/li_token, corrige 2, 3, 6 e 7 (SÓ ACRE
   - 2: pela etiqueta dia/noite do robô (d -> Dia a Dia, n -> Noite, v -> Versáteis).
   - 3: sem estação no texto nem página de calor/frio: pela linha "Melhores estações" da página, com a regra do dossiê
        (verão entre as melhores -> Para o Calor; inverno -> Para o Frio).
+  - 8: põe o diâmetro da ficha no título do relógio (único caso em que mexe no nome; confere antes que o nome não mudou).
+       Campo que falta na ficha só é avisado (o dado tem de vir do fabricante).
 Uso: python3 ferramentas/verificador.py [--corrigir] [--json saida.json]
 Saída 0 = tudo certo (ou corrigido); 1 = sobrou aviso (vai no resumo para o Nevander).
 """
@@ -119,6 +124,17 @@ class Api:
                                                      [f'/api/v1/categoria/{x}' for x in falta]})
         return f'ok +{falta}' if st == 200 else f'ERRO {st} {t[:120]}'
 
+    def renomeia(self, pid, antigo, novo):
+        """Troca o nome só se ainda for o esperado; confere depois."""
+        st, t = self.req('GET', f'/produto/{pid}')
+        if st != 200:
+            return f'ERRO leitura {st}'
+        if json.loads(t).get('nome') != antigo:
+            return 'pulado (o nome mudou no painel)'
+        st, t = self.req('PUT', f'/produto/{pid}', {'nome': novo})
+        st2, t2 = self.req('GET', f'/produto/{pid}')
+        return 'ok' if st2 == 200 and json.loads(t2).get('nome') == novo else f'ERRO {st} {t[:120]}'
+
 
 def main():
     corrigir = '--corrigir' in sys.argv
@@ -177,9 +193,33 @@ def main():
                 if not r.startswith('ok'): av['listagem_decants'].append(p['nome'])
             else:
                 av['listagem_decants'].append(p['nome'])
+    # 8. relógios no padrão: lê a página de cada relógio (ficha técnica + título), como a base carrossel/relogios.json
+    av['relogio'] = []
+    try:
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        import relogios as RL
+        for p in [p for p in P if p['tipo'] == 'r']:
+            try:
+                x = RL.le(p['id'], p['u'])
+            except Exception:
+                x = None
+            time.sleep(1)
+            if not x:
+                continue
+            falta = list(x['falta'])
+            if 'diâmetro no título' in falta:
+                novo = RL.titulo_com_diametro(x['n'], x.get('diam'))
+                if api and novo:
+                    r = api.renomeia(p['id'], x['n'], novo); feito.append(f"{x['n']}: título -> \"{novo}\" ({r})")
+                    if r == 'ok':
+                        falta.remove('diâmetro no título')
+            if falta:
+                av['relogio'].append(f"{x['n'][:60]}: {', '.join(falta)}")
+    except Exception as e:
+        av['relogio'].append(f'não conferi os relógios ({e})')
     nomes = {'familia': 'sem família olfativa (dossiê)', 'dia_noite': 'sem dia/noite', 'estacao': 'sem estação',
              'ocasiao': 'sem ocasião no filtro (texto)', 'carrossel': 'sem carrossel', 'promo': 'decant fora da promoção',
-             'listagem_decants': 'decant à venda fora da página Decants'}
+             'listagem_decants': 'decant à venda fora da página Decants', 'relogio': 'relógio fora do padrão'}
     print(f'base do robô: {len(P)} produtos, {len(perf)} perfumes')
     for f in feito:
         print('  corrigido:', f)
@@ -187,7 +227,7 @@ def main():
         print(f'{nomes[k]}: {len(l)}' + (' — ' + '; '.join(x[:60] for x in l[:12]) + (' ...' if len(l) > 12 else '') if l else ''))
     if saida:
         json.dump({'perfumes': len(perf), 'corrigido': feito, 'avisos': av}, open(saida, 'w'), ensure_ascii=False, indent=1)
-    sys.exit(1 if any(av[k] for k in ('familia', 'dia_noite', 'estacao', 'carrossel', 'promo')) else 0)
+    sys.exit(1 if any(av[k] for k in ('familia', 'dia_noite', 'estacao', 'carrossel', 'promo', 'relogio')) else 0)
 
 
 if __name__ == '__main__':

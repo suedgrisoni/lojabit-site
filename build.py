@@ -118,8 +118,14 @@ def main():
                 sys.exit(f"código {c['id']} {c['nome']}: tem {tipo} — não pode ir para o arquivo (deixe no painel)")
     os.makedirs(os.path.join(AQUI, 'dist'), exist_ok=True)
     man = {'arquivos': {}, 'codigos': ordem, 'troca_tablet': tablet}
-    for (g, t), bl in blocos.items():
+    # rel antes de rod: a "versão" dos arquivos dos relógios vai dentro do rod.js (__REL_V__ no código 1799005), assim toda
+    # mudança em rel.* também muda o rod.js e entra no mesmo commit que o carregador do painel aponta
+    relv = ''
+    for (g, t) in [('cab', 'css'), ('cab', 'js'), ('rel', 'css'), ('rel', 'js'), ('rod', 'css'), ('rod', 'js')]:
+        bl = blocos[(g, t)]
         texto = '\n'.join(bl) + '\n'
+        if (g, t) == ('rod', 'js'):
+            texto = texto.replace('__REL_V__', relv)
         minif = False
         if t == 'js':
             texto, minif = terser(texto)
@@ -131,6 +137,8 @@ def main():
         nome = f'{g}.{t}'
         open(os.path.join(AQUI, 'dist', nome), 'w', encoding='utf-8').write(texto)
         man['arquivos'][nome] = {'bytes': len(texto.encode()), 'sha256': hashlib.sha256(texto.encode()).hexdigest(), 'minificado': minif or t == 'css'}
+        if g == 'rel':
+            relv = hashlib.sha256((relv + texto).encode()).hexdigest()[:10]
         print(f"dist/{nome}: {len(texto.encode())/1024:.0f} KB{' (minificado)' if minif else ''}")
     json.dump(man, open(os.path.join(AQUI, 'dist', 'manifesto.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     # confere a sintaxe dos JS

@@ -7,9 +7,6 @@
 .lbrn-h{font:500 30px/1.1 "Cormorant Garamond",Georgia,serif;color:var(--i);margin:6px 0 4px}
 .lbrn-h em{color:var(--o)}
 .lbrn-s{font-size:13px;color:var(--m);margin:0}
-.lbrn-chips{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;padding:0 12px;margin:0 0 16px}
-.lbrn-chips span{font:500 12px/1 Jost,Arial,sans-serif;padding:7px 11px;border:1px solid var(--l);border-radius:99px;background:#fff;color:var(--t);white-space:nowrap}
-.lbrn-chips span b{color:var(--o);font-weight:600}
 .lbrn-tiles{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;padding:0 2px}
 .lbrn-tiles .lbrn-t{flex:0 0 calc((100% - (var(--cols,5) - 1) * 12px) / var(--cols,5))}
 @media (max-width:767px){.lbrn-tiles{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;padding:2px 16px 8px;margin:0 -16px;scrollbar-width:none;-webkit-overflow-scrolling:touch}.lbrn-tiles::-webkit-scrollbar{display:none}.lbrn-tiles .lbrn-t{flex:0 0 66%;scroll-snap-align:center}}
@@ -136,24 +133,135 @@
 .lbrn-pv span{display:block;font-weight:400;color:var(--m);font-size:12px;margin-top:3px}
 .lbrn-pm{font:500 26px/1 "Cormorant Garamond",Georgia,serif;color:var(--o)}
 .lbrn-nota{font-size:10.5px;color:#a39a8e;text-align:center;margin:10px 0 0}
-@media (prefers-reduced-motion:reduce){.lbrn *,.lbrn *:before,.lbrn *:after{animation:none!important;transition:none!important}}
+/* pulseira ajustada (simulador) */
+.lbrn-aj{display:flex;align-items:center;gap:10px;margin-top:12px;padding:10px 12px;border-radius:12px;background:var(--c);border:1px dashed var(--o2);text-align:left;font-size:12.5px;line-height:1.4;color:var(--t)}
+.lbrn-aj span{flex:1;min-width:0}
+.lbrn-aj a{flex:none;font:600 11px/1 Jost,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;background:var(--i);color:#fff!important;text-decoration:none!important;border-radius:99px;padding:10px 12px}
+/* guia rápido */
+.lbrg{margin:14px 0 0;display:grid;gap:8px;text-align:left}
+.lbrg details{background:#fff;border:1px solid var(--l);border-radius:14px;padding:0 16px}
+.lbrg summary{list-style:none;cursor:pointer;padding:14px 0;font:600 14px/1.3 Jost,Arial,sans-serif;color:var(--i);display:flex;align-items:center;gap:10px;-webkit-tap-highlight-color:transparent}
+.lbrg summary::-webkit-details-marker{display:none}
+.lbrg summary:after{content:"";flex:none;margin:-4px 2px 0 auto;width:8px;height:8px;border-right:1.5px solid var(--o);border-bottom:1.5px solid var(--o);transform:rotate(45deg);transition:transform .2s}
+.lbrg details[open] summary:after{transform:rotate(-135deg);margin-top:4px}
+.lbrg ul{margin:0 0 14px!important;padding:0 0 0 18px!important;font-size:13px;line-height:1.5;color:var(--t)}
+.lbrg li{margin:0 0 6px!important;list-style:disc!important}
+.lbrg table{width:100%;border-collapse:collapse;font-size:12.5px;margin:0 0 12px}
+.lbrg td{padding:7px 6px;border-top:1px solid #f0ebe2;vertical-align:top;color:var(--t)}
+.lbrg td:first-child{font-weight:600;white-space:nowrap;color:var(--i)}
+.lbrg tr.eu td{background:var(--c)}
+.lbrg tr.eu td:first-child{color:var(--o)}
+.lbrg tr.eu td:last-child:after{content:" ← este relógio";color:var(--o);font-weight:600;font-size:11px}
+/* chips perto do preço */
+.lbr-top{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 6px;font-family:Jost,Arial,sans-serif}
+.lbr-top span,.lbr-top a{font:500 12px/1 Jost,Arial,sans-serif;padding:7px 10px;border:1px solid #ECE5DA;border-radius:99px;background:#FAF7F2;color:#403A34;white-space:nowrap;text-decoration:none!important}
+.lbr-top span b{color:#8F6E2E;font-weight:600}
+.lbr-top a{background:#fff;border-color:#C9A55C;color:#8F6E2E!important;font-weight:600}
+/* na sua compra */
+.lbr-vem{margin:14px 0 6px;border:1px solid #ECE5DA;border-radius:14px;background:#FAF7F2;padding:14px 14px 13px;font-family:Jost,Arial,sans-serif;text-align:left}
+.lbr-vem .lbrn-k{margin:0 0 9px}
+.lbr-vem ul{list-style:none!important;margin:0!important;padding:0!important;display:grid;grid-template-columns:1fr 1fr;gap:9px 12px}
+.lbr-vem li{display:flex;align-items:center;gap:8px;font-size:12.5px;line-height:1.3;color:#403A34;margin:0!important;padding:0!important;list-style:none!important}
+.lbr-vem li:before{display:none!important}
+.lbr-vem svg{flex:none;width:20px;height:20px;stroke:#8F6E2E;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.lbr-vem .lbrn-k,.lbrc .lbrn-k{font:600 10.5px/1.2 Jost,Arial,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#8F6E2E}
+/* encomendar */
+.lbr-enc{display:block;margin:4px 0 14px;padding:14px;border-radius:12px;background:#0A0A0B;color:#fff!important;text-align:center;font:600 15px/1.2 Jost,Arial,sans-serif;text-decoration:none!important}
+.lbr-enc small{display:block;font:400 12px/1.35 Jost,Arial,sans-serif;color:#d9d1c4;margin-top:5px}
+/* etiqueta nos cartões */
+.lbrl{font:600 10px/1.3 Jost,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#8F6E2E;margin:0 0 4px}
+/* mesma proposta */
+.lbrc{margin:0 0 28px;font-family:Jost,Arial,sans-serif;color:#403A34}
+.lbrc-cab{display:flex;align-items:flex-end;gap:12px;margin:0 0 12px}
+.lbrc-cab>div{flex:1;min-width:0}
+.lbrc h2{font:500 26px/1.1 "Cormorant Garamond",Georgia,serif;color:#0A0A0B;margin:4px 0 2px}
+.lbrc h2 em{color:#8F6E2E}
+.lbrc-cab p{font-size:12.5px;color:#776E64;margin:0}
+.lbrc-cmp{flex:none;font:600 10.5px/1 Jost,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;background:#0A0A0B;color:#fff;border:0;border-radius:99px;padding:11px 14px;cursor:pointer}
+.lbrc-row{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:2px 2px 8px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.lbrc-row::-webkit-scrollbar{display:none}
+.lbrc-c{flex:0 0 200px;scroll-snap-align:start;background:#fff;border:1px solid #ECE5DA;border-radius:16px;padding:10px 12px 12px;display:flex;flex-direction:column}
+.lbrc-c img{width:100%;aspect-ratio:1/1;object-fit:contain;display:block}
+.lbrc-n{font:500 15px/1.25 "Cormorant Garamond",Georgia,serif;color:#0A0A0B!important;text-decoration:none!important;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.5em;margin:6px 0 4px}
+.lbrc-e{font:600 9.5px/1.3 Jost,Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#8F6E2E;margin-bottom:6px}
+.lbrc-p{font:600 15px/1.2 Jost,Arial,sans-serif;color:#0A0A0B;margin-top:auto}
+.lbrc-p small{display:block;font:500 11.5px/1.3 Jost,Arial,sans-serif;color:#2f7d4f}
+.lbrc-b{margin-top:8px;font:600 10px/1 Jost,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;background:none;border:1px solid #0A0A0B;border-radius:99px;padding:8px 0;color:#0A0A0B;cursor:pointer}
+@media (max-width:767px){.lbrc-cab{flex-direction:column;align-items:flex-start}.lbrc-row{margin:0 -16px;padding:2px 16px 8px;scroll-padding:0 16px}.lbrc-c{flex-basis:44%}}
+/* comparador */
+.lbrx{position:fixed;top:0;right:0;bottom:0;left:0;z-index:2147483000;background:rgba(10,10,11,.45);display:flex;align-items:flex-end;justify-content:center;font-family:Jost,Arial,sans-serif;opacity:0;transition:opacity .2s}
+.lbrx.on{opacity:1}
+.lbrx-p{background:#fff;width:100%;max-width:820px;max-height:92vh;overflow:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;border-radius:20px 20px 0 0;padding:0 0 22px;transform:translateY(30px);transition:transform .25s}
+.lbrx.on .lbrx-p{transform:none}
+@media (min-width:768px){.lbrx{align-items:center}.lbrx-p{border-radius:20px;max-height:88vh}}
+.lbrx-cab{position:sticky;top:0;background:#fff;display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid #ECE5DA;z-index:2}
+.lbrx-cab h3{font:500 22px/1.1 "Cormorant Garamond",Georgia,serif;margin:0;flex:1;color:#0A0A0B}
+.lbrx-x{width:38px;height:38px;border-radius:50%;border:1px solid #ECE5DA;background:#fff;font:400 22px/1 Jost,Arial,sans-serif;cursor:pointer;color:#0A0A0B;padding:0}
+.lbrx-g{display:grid;grid-template-columns:repeat(var(--n,2),minmax(0,1fr));gap:0 10px;padding:12px 14px 0}
+.lbrx-h{text-align:center;font-size:12px;display:flex;flex-direction:column;align-items:center}
+.lbrx-h img{width:100%;max-width:120px;aspect-ratio:1/1;object-fit:contain;display:block;margin:0 auto 4px}
+.lbrx-h a{color:#0A0A0B!important;text-decoration:none!important;font:500 14px/1.2 "Cormorant Garamond",Georgia,serif;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;min-height:3.6em}
+.lbrx-h b{display:block;font:600 13px/1.2 Jost,Arial,sans-serif;color:#0A0A0B;margin-top:4px}
+.lbrx-h i{font:600 9px/1.2 Jost,Arial,sans-serif;font-style:normal;letter-spacing:.14em;text-transform:uppercase;color:#8F6E2E;margin-bottom:4px;min-height:11px}
+.lbrx-l{grid-column:1/-1;font:600 9.5px/1.2 Jost,Arial,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#776E64;text-align:center;padding:11px 0 5px;border-top:1px solid #f0ebe2;margin-top:10px}
+.lbrx-v{text-align:center;font-size:13px;color:#403A34;line-height:1.3}
+.lbrx-v.top{color:#8F6E2E;font-weight:600}
+.lbrx-esc{padding:12px 14px 2px;border-bottom:1px solid #f0ebe2}
+.lbrx-esc p{font:600 10px/1.2 Jost,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8F6E2E;margin:0 0 8px}
+.lbrx-op{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:10px}
+.lbrx-op::-webkit-scrollbar{display:none}
+.lbrx-op button{flex:0 0 auto;display:flex;align-items:center;gap:6px;border:1px solid #ECE5DA;background:#fff;border-radius:99px;padding:4px 12px 4px 4px;font:500 12px/1.2 Jost,Arial,sans-serif;color:#403A34;cursor:pointer;max-width:230px}
+.lbrx-op button img{width:30px;height:30px;border-radius:50%;object-fit:contain;background:#FAF7F2;flex:none}
+.lbrx-op button span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lbrx-op button.on{border-color:#0A0A0B;background:#0A0A0B;color:#fff}
+html.lbrx-aberto,html.lbrx-aberto body{overflow:hidden!important}
+/* glossário */
+.lbgl{border-bottom:1px dotted #8F6E2E;cursor:help;-webkit-tap-highlight-color:transparent}
+.lbgl-p{position:absolute;z-index:2147482000;max-width:280px;background:#0A0A0B;color:#f3eee6;font:400 12.5px/1.45 Jost,Arial,sans-serif;padding:10px 12px;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.18);text-align:left}
+.lbgl-p b{color:#C9A55C;display:block;font-weight:600;margin-bottom:2px}
+@media (prefers-reduced-motion:reduce){.lbrn *,.lbrn *:before,.lbrn *:after,.lbrx,.lbrx-p{animation:none!important;transition:none!important}}
 </style>
 <script>
-/* LOJABIT - Relógios: "O relógio em números" (ficha em movimento) — 13/11/2026.
-   Só em página de relógio. Os números vêm da "Ficha técnica" da descrição (Movimento, Reserva de marcha, Caixa,
-   Vidro, Resistência à água, Peso, Funções, Fundo, Luminescência, Frequência...). Relógio novo cadastrado com a mesma
-   ficha ganha o painel sozinho. Cada cartão só aparece se o dado existir; nada é inventado.
-   Este arquivo (dist/rel.js) só é carregado nas páginas de relógio, pelo código 1799005 (que também decide a prévia). */
+/* LOJABIT - Relógios (13/11/2026). Este arquivo (dist/rel.js) só é carregado onde há relógio, pelo código 1799005:
+   - PÁGINA DO RELÓGIO: "O relógio em números" (ficha em movimento), resumo perto do preço, simulador de pulso com
+     pulseira ajustada pelo WhatsApp, "Na sua compra", "Encomendar pelo WhatsApp" quando esgota, guia de cuidados e de
+     água, termos da ficha explicados ao tocar, "Com a mesma proposta" + comparador lado a lado e dados estruturados.
+   - LISTAGENS (categoria, marca, busca) e cartões de relógio de qualquer página: etiqueta "Automático · 40 mm · 100 m"
+     e filtros de relógio (movimento, tamanho, água, vidro, funções, cor, pulseira, caixa).
+   Tudo sai da "Ficha técnica" da descrição (Movimento, Caixa, Vidro, Resistência à água, Peso, Funções, Fundo,
+   Luminescência, Frequência, Pulseira...). A base dos outros relógios (carrossel/relogios.json) é refeita 5x por dia pela
+   tarefa "Carrossel: preços atualizados" (ferramentas/relogios.py). Relógio novo com a ficha no padrão entra sozinho em
+   tudo. Cada cartão só aparece se o dado existir; nada é inventado. */
 (function () {
   'use strict';
   if (window.__lbRel) return;
-  if (!/\bpagina-produto\b/.test(document.body.className)) return;
+  var BC = document.body.className, PROD = /\bpagina-produto\b/.test(BC), LISTA = /\bpagina-(categoria|marca|busca)\b/.test(BC);
+  if (!PROD && !LISTA) return;
   window.__lbRel = 1;
 
-  var NS = 'http://www.w3.org/2000/svg';
+  var WA = 'https://wa.me/5524981226521?text=';
   function num(s) { return parseFloat(String(s).replace(/\.(?=\d{3}\b)/g, '').replace(',', '.')); }
   function br(n, d) { return (d ? n.toFixed(d) : String(Math.round(n))).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.'); }
   function sa(s) { return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); }
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function caminho(u) { try { return new URL(u, location.href).pathname; } catch (e) { return String(u || ''); } }
+  function dec(v) { return v % 1 ? (Math.abs(v * 10 - Math.round(v * 10)) < 1e-6 ? 1 : 2) : 0; }
+  function mm(v) { return br(v, dec(v)) + ' mm'; }
+  function rs(v) { return 'R$ ' + br(v, 2); }
+  var TN = { auto: 'Automático', manual: 'Corda manual', quartzo: 'Quartzo', solar: 'Solar' };
+  var VN = { safira: 'Safira', hardlex: 'Hardlex', mineral: 'Mineral', acrilico: 'Acrílico' };
+  var MN = { aco: 'Aço', 'aço': 'Aço', titanio: 'Titânio', 'titânio': 'Titânio', latao: 'Latão', 'latão': 'Latão', bronze: 'Bronze', 'cerâmica': 'Cerâmica' };
+  var PN = { metal: 'Metal', couro: 'Couro', borracha: 'Borracha', tecido: 'Tecido' };
+  var FN = { c: 'Cronógrafo', g: 'GMT', d: 'Dia da semana', t: 'Data', l: 'Brilha no escuro', f: 'Fundo transparente' };
+  /* "Automático · 40 mm · 100 m" (cartões) */
+  function etiqueta(x, longo) {
+    var a = [];
+    if (TN[x.tipo]) a.push(TN[x.tipo]);
+    if (x.diam) a.push(mm(x.diam));
+    if (longo && x.agua) a.push(x.agua + ' m');
+    return a.join(' · ');
+  }
+  function nomeCurto(n) { return String(n || '').replace(/^\s*Rel[óo]gio\s+(Masculino|Feminino|Unissex)?\s*/i, '').trim(); }
 
   /* ---------- lê a ficha técnica ---------- */
   function ficha() {
@@ -208,6 +316,13 @@
     r.cosc = /cosc|cronometro/.test(mov);
     r.hack = /parada dos segundos|hacking/.test(mov) || /segundos com parada/.test(fu);
     r.cordaManual = /corda manual|carga automatica e manual/.test(mov);
+    var pu = sa(f.pulseira || f.pulseiras || '');
+    r.pul = /aco|titanio|titanium|metal|elos|beads/.test(pu) && !/^(couro|borracha|nylon|tecido|silicone)/.test(pu) ? 'metal' :
+      /couro/.test(pu) ? 'couro' : /borracha|silicone|fkm|resina/.test(pu) ? 'borracha' : /nylon|tecido|nato|lona/.test(pu) ? 'tecido' : '';
+    r.data = /\bdata\b/.test(fu);
+    r.rosca = /rosquead|rosca/.test(sa(JSON.stringify(f)));
+    r.nome = (document.querySelector('h1.nome-produto') || {}).textContent || '';
+    r.nome = r.nome.replace(/\s+/g, ' ').trim();
     return r;
   }
 
@@ -218,7 +333,7 @@
       '<div class="lbrn-n">' + n + (un ? '<small>' + un + '</small>' : '') + '</div><div class="lbrn-l">' + rot + '</div><div class="lbrn-x">' + x + '</div>' + (extra || '') + '</div>';
   }
   function conta(v, d) { return '<b data-v="' + v + '" data-d="' + (d || 0) + '">' + br(v, d) + '</b>'; }
-  function decimais(v) { return v % 1 ? 1 : 0; }
+  function decimais(v) { return dec(v); }
   function mostrador(cx, cy, r) {
     var s = '';
     for (var i = 0; i < 12; i++) {
@@ -248,6 +363,7 @@
     if (r.crono) chips.push('Cronógrafo');
     if (r.gmt) chips.push('GMT');
     if (r.mat === 'titânio') chips.push('Titânio');
+    r.chips = chips;
 
     /* 1. diâmetro */
     if (r.diam) {
@@ -401,9 +517,8 @@
     sec.setAttribute('aria-label', 'O relógio em números');
     sec.innerHTML = '<div class="lbrn-cab"><div class="lbrn-k">Ficha em movimento</div><h2 class="lbrn-h">O relógio <em>em números</em></h2>' +
       '<p class="lbrn-s">' + (matchMedia('(max-width:767px)').matches ? 'Deslize para o lado e toque nos cartões' : 'Cada número explicado em ação') + '</p></div>' +
-      (chips.length ? '<div class="lbrn-chips">' + chips.map(function (c) { return '<span>' + c + '</span>'; }).join('') + '</div>' : '') +
       '<div class="lbrn-tiles" style="--cols:' + (t.length <= 5 ? t.length : t.length <= 8 ? Math.ceil(t.length / 2) : 5) + '">' + t.join('') + '</div>' + (r.diam ? pulso(r) : '') +
-      '<p class="lbrn-nota">Dados da ficha técnica do fabricante. Animações ilustrativas.</p>';
+      guia(r) + '<p class="lbrn-nota">Dados da ficha técnica do fabricante. Animações ilustrativas.</p>';
     return sec;
   }
 
@@ -415,7 +530,8 @@
       '<circle cx="150" cy="75" r="15" fill="#f6f2ea"/><path d="M150 75V64M150 75l7 4" stroke="#0A0A0B" stroke-width="1.8" stroke-linecap="round"/></g></svg></div>' +
       '<div><div class="lbrn-k">Simulador</div><h3>Vai ficar bom no seu pulso?</h3><p>Arraste até a medida do seu pulso (passe uma fita ou barbante em volta).</p>' +
       '<input type="range" min="14" max="22" step=".5" value="17" aria-label="Medida do pulso em centímetros">' +
-      '<div><span class="lbrn-pm">17 cm</span></div><div class="lbrn-pv"></div></div></div>';
+      '<div><span class="lbrn-pm">17 cm</span></div><div class="lbrn-pv"></div>' +
+      (r.pul === 'metal' ? '<div class="lbrn-aj"><span></span><a target="_blank" rel="noopener" href="#">Pedir ajuste</a></div>' : '') + '</div></div>';
   }
   function ligaPulso(sec, r) {
     var inp = sec.querySelector('.lbrn-pul input');
@@ -441,7 +557,13 @@
       else if (q <= 1.03) { v = 'Fica marcante'; s = 'Presença forte, ainda dentro da largura do pulso.'; }
       else { v = 'Fica grande'; s = 'As alças passam um pouco da largura do pulso: visual esportivo e ousado.'; }
       pv.innerHTML = v + '<span>' + s + ' Simulação aproximada pelo diâmetro' + (r.l2l ? ' e pela medida de ponta a ponta.' : '.') + '</span>';
+      if (aj) {
+        var cmt = String(cm).replace('.', ',') + ' cm';
+        aj.querySelector('span').innerHTML = 'Quer receber com a <b>pulseira já ajustada para ' + cmt + '</b>? Combine pelo WhatsApp.';
+        aj.querySelector('a').href = WA + encodeURIComponent('Olá! Tenho interesse no ' + (r.nome || 'relógio') + ' e quero receber com a pulseira ajustada para o meu pulso de ' + cmt + '. ' + location.origin + location.pathname);
+      }
     }
+    var aj = sec.querySelector('.lbrn-aj');
     inp.addEventListener('input', atual);
     atual();
   }
@@ -503,20 +625,437 @@
     var row = d.closest('.row-fluid');
     return row && row.parentElement ? row : null;
   }
-  var n = 0;
-  (function roda() {
-    var nome = (document.querySelector('h1.nome-produto') || {}).textContent || '';
-    if (!/^\s*Rel[óo]gio/i.test(nome)) { if (++n < 20 && !nome) setTimeout(roda, 300); return; }
-    var alvo = lugar(), d = document.getElementById('descricao');
-    if (!alvo || !d || !d.querySelector('li strong')) { if (++n < 30) setTimeout(roda, 300); return; }
-    if (document.querySelector('.lbrn')) return;
-    var r = dados();
-    if (!r) return;
-    var sec = montar(r);
-    if (!sec) return;
-    alvo.parentElement.insertBefore(sec, alvo);
-    ligaPulso(sec, r);
-    toques(sec);
+
+  /* ---------- guia rápido: cuidados por tipo de movimento + água na prática (fechados; abrem ao tocar) ---------- */
+  function guia(r) {
+    var C = [], t = r.tipo, tit;
+    if (t === 'auto' || t === 'manual') {
+      tit = t === 'auto' ? 'Como cuidar do seu automático' : 'Como cuidar do seu relógio de corda';
+      if (t === 'auto') {
+        C.push('Usado todos os dias, ele <b>se mantém com corda sozinho</b>, com o movimento do pulso.');
+        C.push('Ficou parado? ' + (r.cordaManual ? 'Dê de 20 a 30 voltas na coroa' : 'Movimente-o suavemente por alguns segundos') + ' e acerte a hora.');
+      } else C.push('Dê corda todo dia, de preferência no mesmo horário, até sentir uma leve resistência.');
+      if (r.data) C.push('Acerte a data <b>fora do intervalo das 21h às 3h</b>: é quando o mecanismo está trocando o dia.');
+      C.push('Guarde longe de ímãs fortes (caixas de som, fechos de bolsa): assim ele mantém a precisão.');
+      C.push('Uma revisão a cada 4 ou 5 anos mantém o movimento funcionando bem por muitos anos.');
+    } else if (t === 'quartzo') {
+      tit = 'Como cuidar do seu relógio a quartzo';
+      C.push('A pilha costuma durar <b>de 2 a 3 anos</b>. Em muitos modelos, o ponteiro dos segundos passa a pular de 4 em 4 segundos para avisar que ela está no fim.');
+      C.push('Troque a pilha em relojoaria de confiança, que confere também a vedação.');
+      C.push('Pilha no fim? Troque logo: assim o movimento fica sempre protegido.');
+    } else if (t === 'solar') {
+      tit = 'Como cuidar do seu relógio solar';
+      C.push('Deixe-o perto da luz sempre que puder: <b>a luz do dia carrega bem mais rápido</b> que a lâmpada.');
+      C.push('Com a carga completa, ele funciona <b>por meses</b> mesmo guardado.');
+      C.push('Em muitos modelos, o ponteiro dos segundos pulando de 2 em 2 segundos avisa que a carga está baixa: é só deixá-lo na luz.');
+      C.push('Evite calor forte, como o painel do carro ao sol: a luz faz bem, o calor não.');
+    } else tit = 'Como cuidar do seu relógio';
+    C.push(r.agua >= 100 ? 'Depois de mar ou piscina, enxágue em água doce e seque com pano macio.' : 'Limpe com pano macio e seco.');
+    var h = '<div class="lbrg"><details><summary>' + tit + '</summary><ul>' + C.map(function (c) { return '<li>' + c + '</li>'; }).join('') + '</ul></details>';
+    if (r.agua) {
+      var L = [[30, 'Respingos e chuva'], [50, 'Chuva e lavar as mãos'], [100, 'Natação, praia e piscina'], [200, 'Mergulho livre e snorkel; nos modelos de mergulho, mergulho recreativo']], eu = 0;
+      L.forEach(function (l, i) { if (r.agua >= l[0]) eu = i; });
+      h += '<details><summary>Água na prática: o que os ' + r.agua + ' m permitem</summary><table>' + L.map(function (l, i) {
+        return '<tr' + (i === eu ? ' class="eu"' : '') + '><td>' + (i === L.length - 1 ? '200 m ou mais' : l[0] + ' m') + '</td><td>' + l[1] + '</td></tr>';
+      }).join('') + '</table><ul>' +
+        '<li>Botões e coroa: use fora da água.</li>' + (r.rosca ? '<li>Antes de entrar na água, confira se a coroa está bem rosqueada.</li>' : '') +
+        '<li>Sauna e banho muito quente: deixe o relógio de fora (o calor e o vapor desgastam as vedações).</li><li>As vedações são conferidas a cada revisão.</li></ul></details>';
+    }
+    return h + '</div>';
+  }
+
+  /* ---------- glossário: termos da ficha explicados ao tocar ---------- */
+  var GL = [
+    [/\b(?:vidro|cristal) de safira\b|\bsafira\b/i, 'Vidro de safira', 'Dureza 9 de 10 na escala Mohs: só o diamante risca. O vidro continua limpo e transparente por muitos anos.'],
+    [/\bhardlex\b/i, 'Hardlex', 'Vidro mineral reforçado criado pela Seiko: mais resistente a impactos e riscos que o vidro mineral comum.'],
+    [/\bvidro mineral\b/i, 'Vidro mineral', 'Vidro temperado, resistente a impactos e fácil de polir ou trocar.'],
+    [/\bacr[íi]lico\b/i, 'Acrílico', 'O vidro dos relógios clássicos: abaulado, resistente a impactos, e pequenos riscos saem com polimento.'],
+    [/\bGMT\b/, 'GMT', 'Ponteiro extra que dá uma volta a cada 24 horas: mostra um segundo fuso horário, ótimo para viagens.'],
+    [/\bCOSC\b/, 'COSC', 'Instituto oficial suíço que testa cada movimento por 15 dias, em 5 posições e 3 temperaturas. Só os aprovados recebem o título de cronômetro.'],
+    [/\bhacking\b|\bparada dos segundos\b|\bsegundos com parada\b/i, 'Parada dos segundos', 'Ao puxar a coroa, o ponteiro dos segundos para: dá para acertar a hora no segundo exato.'],
+    [/\breserva de marcha\b/i, 'Reserva de marcha', 'Quanto tempo o relógio continua funcionando fora do pulso, sem receber corda.'],
+    [/\baltern[âa]ncias\b|\bvph\b/i, 'Alternâncias por hora', 'Quantas vezes por hora o volante do movimento oscila. Quanto mais, mais suave o deslizar do ponteiro dos segundos.'],
+    [/\b\d+\s*(?:rubis|j[óo]ias)\b/i, 'Rubis', 'Rubis sintéticos usados como mancais nos pontos de atrito do movimento: menos desgaste e mais precisão.'],
+    [/\bPowermatic 80\b/i, 'Powermatic 80', 'Movimento automático da Tissot com reserva de marcha de até 80 horas: pode passar o fim de semana fora do pulso e segue funcionando.'],
+    [/\bEco-Drive\b/i, 'Eco-Drive', 'Tecnologia da Citizen: carrega com qualquer luz e dispensa a troca de pilha comum.'],
+    [/\bLumiBrite\b/i, 'LumiBrite', 'Material luminoso da Seiko: carrega com a luz e deixa ponteiros e índices brilhando no escuro por horas.'],
+    [/\bSuper-?LumiNova\b|\bLumiNova\b/i, 'Super-LumiNova', 'Pigmento luminoso suíço: carrega com a luz e brilha no escuro.'],
+    [/\bIndiglo\b/i, 'Indiglo', 'Luz da Timex que ilumina o mostrador inteiro ao apertar o botão.'],
+    [/\bcoroa rosqueada\b|\brosqueada\b/i, 'Coroa rosqueada', 'A coroa se rosca na caixa e reforça a vedação contra a água.'],
+    [/\bluneta\b|\bbisel\b/i, 'Luneta (bisel)', 'O aro em volta do vidro. Nas giratórias, serve para marcar um tempo, como a duração de um mergulho.'],
+    [/\bfundo (?:transparente|de safira|exibicionista)\b/i, 'Fundo transparente', 'Fundo com vidro: dá para ver o movimento funcionando por trás do relógio.'],
+    [/\bcron[óo]grafo\b/i, 'Cronógrafo', 'Cronômetro embutido no relógio: os botões iniciam, param e zeram a contagem.'],
+    [/\bsil[íi]cio\b|\bsilicium\b/i, 'Espiral de silício', 'Peça do coração do movimento feita de silício: não sofre com campos magnéticos e mantém a precisão por mais tempo.'],
+    [/\bSuper Titanium\b|\btit[âa]nio\b/i, 'Titânio', 'Cerca de 40% mais leve que o aço e agradável na pele.'],
+    [/\bponta a ponta\b|\blug-to-lug\b/i, 'Ponta a ponta', 'Distância entre as pontas das alças: é a medida que mostra se o relógio fica bem no seu pulso.'],
+    [/\b\d+\s*(?:bar|ATM)\b/i, 'bar / ATM', 'Cada 1 bar (ou ATM) equivale a 10 metros na escala de resistência à água.'],
+    [/\bquartzo\b/i, 'Quartzo', 'Movimento a pilha regulado por um cristal que vibra 32.768 vezes por segundo: alta precisão e manutenção simples.'],
+    [/\bautom[áa]tico\b/i, 'Automático', 'Ganha corda sozinho com o movimento do pulso, sem pilha.']
+  ];
+  function glossario(d) {
+    var usado = {};
+    function trata(no) {
+      var v = no.nodeValue, mi = -1, mx = null;
+      for (var i = 0; i < GL.length; i++) {
+        if (usado[i]) continue;
+        var m = GL[i][0].exec(v);
+        if (m && (!mx || m.index < mx.index)) { mi = i; mx = m; }
+      }
+      if (!mx) return;
+      usado[mi] = 1;
+      var meio = no.splitText(mx.index), fim = meio.splitText(mx[0].length);
+      var s = document.createElement('span');
+      s.className = 'lbgl'; s.setAttribute('role', 'button'); s.setAttribute('tabindex', '0'); s.setAttribute('data-g', mi);
+      s.textContent = meio.nodeValue;
+      meio.parentNode.replaceChild(s, meio);
+      trata(fim);
+    }
+    /* uma vez por lista (Destaques, Ficha técnica...): cada bloco pode estar fechado no celular */
+    var lista = null;
+    [].forEach.call(d.querySelectorAll('li'), function (li) {
+      if (li.parentNode !== lista) { lista = li.parentNode; usado = {}; }
+      var w = document.createTreeWalker(li, NodeFilter.SHOW_TEXT, null), nos = [], t;
+      while ((t = w.nextNode())) nos.push(t);
+      nos.forEach(function (no) {
+        var p = no.parentNode;
+        if (!p || /^(STRONG|B|A|BUTTON|H\d)$/.test(p.nodeName) || (p.closest && p.closest('.lbgl,strong,a'))) return;
+        if (/grid|flex/.test(getComputedStyle(p).display)) return; /* texto solto num item de grade: não divide (quebraria as colunas) */
+        trata(no);
+      });
+    });
+    var pop = null;
+    function fecha() { if (pop) { pop.remove(); pop = null; } }
+    function abre(el) {
+      fecha();
+      var g = GL[+el.getAttribute('data-g')];
+      if (!g) return;
+      pop = document.createElement('div');
+      pop.className = 'lbgl-p'; pop.setAttribute('role', 'tooltip');
+      pop.innerHTML = '<b>' + esc(g[1]) + '</b>' + esc(g[2]);
+      document.body.appendChild(pop);
+      var b = el.getBoundingClientRect(), w = pop.offsetWidth, x = Math.max(10, Math.min(b.left + b.width / 2 - w / 2, document.documentElement.clientWidth - w - 10));
+      pop.style.left = (x + scrollX) + 'px';
+      pop.style.top = (b.bottom + scrollY + 8) + 'px';
+    }
+    document.addEventListener('click', function (e) {
+      var el = e.target.closest && e.target.closest('.lbgl');
+      if (el) { e.preventDefault(); if (pop && pop.__el === el) { fecha(); return; } abre(el); if (pop) pop.__el = el; return; }
+      fecha();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') fecha();
+      if ((e.key === 'Enter' || e.key === ' ') && e.target.classList && e.target.classList.contains('lbgl')) { e.preventDefault(); abre(e.target); }
+    });
+    window.addEventListener('scroll', function () { if (pop && Math.abs(pop.getBoundingClientRect().top) > innerHeight * 1.5) fecha(); }, { passive: true });
+  }
+
+  /* ---------- dados estruturados (Google): diâmetro, movimento, água... dentro do Product que a loja já tem ---------- */
+  function microdados(r) {
+    var P = document.querySelector('[itemscope][itemtype$="schema.org/Product"]');
+    if (!P || P.querySelector('.lbr-md')) return;
+    var L = [];
+    function add(n, v, u) {
+      if (v === '' || v == null || v === false) return;
+      L.push('<div itemprop="additionalProperty" itemscope itemtype="https://schema.org/PropertyValue"><meta itemprop="name" content="' + esc(n) + '"><meta itemprop="value" content="' + esc(v) + '">' + (u ? '<meta itemprop="unitCode" content="' + u + '">' : '') + '</div>');
+    }
+    add('Movimento', (TN[r.tipo] || '') + (r.origem ? ' ' + r.origem : ''));
+    add('Calibre', r.calibre);
+    add('Diâmetro da caixa', r.diam, 'MMT');
+    add('Espessura da caixa', r.esp, 'MMT');
+    add('Distância entre as alças (ponta a ponta)', r.l2l, 'MMT');
+    add('Resistência à água', r.agua, 'MTR');
+    add('Vidro', VN[r.vidro]);
+    add('Material da caixa', MN[r.mat]);
+    add('Pulseira', PN[r.pul]);
+    add('Reserva de marcha', r.reserva, 'HUR');
+    add('Alternâncias por hora', r.freq);
+    add('Peso', r.peso, 'GRM');
+    var fx = [];
+    if (r.crono) fx.push('Cronógrafo'); if (r.gmt) fx.push('GMT'); if (r.data) fx.push('Data'); if (r.lume || r.indiglo) fx.push('Luminescência'); if (r.fundo) fx.push('Fundo transparente');
+    add('Funções', fx.join(', '));
+    if (!L.length) return;
+    var d = document.createElement('div');
+    d.className = 'lbr-md'; d.hidden = true; d.innerHTML = L.join('');
+    P.appendChild(d);
+  }
+
+  /* ---------- perto do preço: resumo de 5 segundos ---------- */
+  function chipsTopo(h1, r) {
+    if (!h1 || !r.chips || !r.chips.length || document.querySelector('.lbr-top')) return;
+    var d = document.createElement('div');
+    d.className = 'lbr-top';
+    d.innerHTML = r.chips.map(function (c) { return '<span>' + c + '</span>'; }).join('') + (document.querySelector('.lbrn') ? '<a href="#lbrn">Ver em números ↓</a>' : '');
+    /* no computador o título fica numa linha com o coração (flex): os chips vão logo abaixo do bloco do título */
+    var pai = h1.parentNode, cs = getComputedStyle(pai), ref = /flex/.test(cs.display) && !/column/.test(cs.flexDirection) ? pai : h1;
+    ref.parentNode.insertBefore(d, ref.nextSibling);
+    var a = d.querySelector('a');
+    if (a) a.addEventListener('click', function (e) {
+      var s = document.querySelector('.lbrn');
+      if (!s) return;
+      e.preventDefault();
+      scrollTo({ top: s.getBoundingClientRect().top + scrollY - 90, behavior: 'smooth' });
+    });
+  }
+
+  /* ---------- "Na sua compra" e "Encomendar pelo WhatsApp" (valem para todo relógio, com ou sem ficha) ---------- */
+  var IC = {
+    cx: '<path d="M3 8l9-5 9 5v8l-9 5-9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/>',
+    gar: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/>',
+    foto: '<path d="M3 8a2 2 0 0 1 2-2h2l2-2h6l2 2h2a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><circle cx="12" cy="13" r="4"/>',
+    ras: '<path d="M12 22s7-6.5 7-12a7 7 0 0 0-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/>'
+  };
+  function naCompra(nome) {
+    var a = document.querySelector('.principal .acoes-produto');
+    if (!a) return;
+    if (/\bindisponivel\b/.test(a.className) && !a.querySelector('.lbr-enc')) {
+      var link = WA + encodeURIComponent('Olá! Quero encomendar o ' + (nome || 'relógio') + '. Qual o prazo? ' + location.origin + location.pathname);
+      a.insertAdjacentHTML('afterbegin', '<a class="lbr-enc" href="' + esc(link) + '" target="_blank" rel="noopener">Encomendar pelo WhatsApp<small>Esgotado no momento: fale com a gente para encomendar e saber o prazo</small></a>');
+    }
+    if (document.querySelector('.lbr-vem')) return;
+    var I = [['cx', 'Caixa, manual e certificado'], ['gar', 'Garantia de 90 dias'], ['foto', 'Foto ou vídeo antes do envio, se você pedir'], ['ras', 'Rastreio também pelo WhatsApp']];
+    var d = document.createElement('div');
+    d.className = 'lbr-vem';
+    d.innerHTML = '<div class="lbrn-k">Na sua compra</div><ul>' + I.map(function (i) { return '<li><svg viewBox="0 0 24 24" aria-hidden="true">' + IC[i[0]] + '</svg>' + i[1] + '</li>'; }).join('') + '</ul>';
+    /* depois dos botões de comprar (no computador eles ficam fora do bloco do preço) */
+    var bts = document.querySelector('.principal .lbp-bts'), ref = bts && bts.offsetParent ? bts : a;
+    ref.parentNode.insertBefore(d, ref.nextSibling);
+  }
+
+  /* ---------- base dos relógios (carrossel/relogios.json pelo jsDelivr, preso ao commit do carrossel/v.json) ---------- */
+  var REPO = 'suedgrisoni/lojabit-site', CH = 'lbRelB', BASE = null, fila = null;
+  function pega(urls, ok, falha) {
+    var u = urls.shift();
+    if (!u) { falha(); return; }
+    var x = new XMLHttpRequest();
+    x.open('GET', u, true); x.timeout = 8000;
+    x.onload = function () { if (x.status === 200) { try { ok(JSON.parse(x.responseText)); return; } catch (e) {} } pega(urls, ok, falha); };
+    x.onerror = x.ontimeout = function () { pega(urls, ok, falha); };
+    x.send();
+  }
+  function base(cb) {
+    if (BASE) { cb(BASE); return; }
+    if (fila) { fila.push(cb); return; }
+    fila = [cb];
+    var c = null;
+    try { c = JSON.parse(localStorage.getItem(CH)); } catch (e) {}
+    function fim(d) {
+      if (d && d.r && d.r.length) { BASE = { r: d.r, id: {}, u: {} }; d.r.forEach(function (x) { BASE.id[x.id] = x; BASE.u[x.u] = x; }); }
+      var f = fila; fila = null;
+      f.forEach(function (g) { try { g(BASE); } catch (e) {} });
+    }
+    if (c && c.d && Date.now() - c.t < 108e5) { fim(c.d); return; }
+    pega(['https://raw.githubusercontent.com/' + REPO + '/main/carrossel/v.json?t=' + Math.floor(Date.now() / 3e5)], function (v) {
+      if (!v || !/^[0-9a-f]{40}$/.test(v.h)) { fim(c && c.d); return; }
+      var cam = '/gh/' + REPO + '@' + v.h + '/carrossel/relogios.json';
+      pega(['https://cdn.jsdelivr.net' + cam, 'https://fastly.jsdelivr.net' + cam], function (d) {
+        try { localStorage.setItem(CH, JSON.stringify({ t: Date.now(), d: d })); } catch (e) {}
+        fim(d);
+      }, function () { fim(c && c.d); });
+    }, function () { fim(c && c.d); });
+  }
+
+  /* ---------- etiqueta nos cartões de relógio (listagens, "Você também pode gostar"...) ---------- */
+  function etiquetas(B) {
+    function pinta() {
+      [].forEach.call(document.querySelectorAll('.listagem-item[data-id]'), function (it) {
+        if (it.__lbrl) return;
+        it.__lbrl = 1;
+        var x = B.id[it.getAttribute('data-id')], nm = it.querySelector('.info-produto .nome-produto'), t = x && etiqueta(x, true);
+        if (!t || !nm || it.querySelector('.lbrl')) return;
+        var d = document.createElement('div');
+        d.className = 'lbrl'; d.textContent = t;
+        nm.parentNode.insertBefore(d, nm);
+      });
+      [].forEach.call(document.querySelectorAll('.lbx-card'), function (c) {
+        var tp = c.querySelector('.lbx-tipo');
+        if (!tp || tp.__lbrl === tp.textContent) return;
+        var u = (c.__d && c.__d.u) || (c.querySelector('a.lbx-nome') || {}).href, x = u && B.u[caminho(u)], t = x && etiqueta(x, false);
+        if (t) tp.textContent = t;
+        tp.__lbrl = tp.textContent;
+      });
+    }
+    pinta();
+    if (!window.MutationObserver) return;
+    var pend = 0;
+    new MutationObserver(function (rs) {
+      if (pend) return;
+      for (var i = 0; i < rs.length; i++) {
+        var t = rs[i].target;
+        if (!(t.closest && t.closest('.lbrn,.lbrx,.lbrc,.lbgl-p'))) { pend = 1; setTimeout(function () { pend = 0; pinta(); }, 200); return; }
+      }
+    }).observe(document.body, { childList: true, subtree: true });
+  }
+
+  /* ---------- filtros de relógio nas listagens (entram no mesmo filtro do site: computador e celular) ---------- */
+  function filtros(B) {
+    var CORN = { 'azul-gelo': 'Azul-gelo', prata: 'Prata', grafite: 'Grafite', bordô: 'Bordô', champanhe: 'Champanhe' }, cont = {};
+    B.r.forEach(function (x) { if (x.cor) cont[x.cor] = (cont[x.cor] || 0) + 1; });
+    var cores = Object.keys(cont).sort(function (a, b) { return cont[b] - cont[a]; }).map(function (c) { return [c, CORN[c] || c.charAt(0).toUpperCase() + c.slice(1)]; });
+    var GR = [
+      ['rm', 'Movimento', 0, [['auto', 'Automático'], ['manual', 'Corda manual'], ['quartzo', 'Quartzo'], ['solar', 'Solar (movido a luz)']], function (x, o) { return x.tipo === o; }],
+      ['rt', 'Tamanho da caixa', 0, [['p', 'Até 38,5 mm'], ['m', '39 a 41,5 mm'], ['g', '42 mm ou mais']], function (x, o) { var d = x.diam; return !!d && (o === 'p' ? d < 39 : o === 'm' ? d >= 39 && d < 42 : d >= 42); }],
+      ['ra', 'Resistência à água', 1, [['a', 'Até 50 m · chuva e mãos'], ['n', '100 m · natação'], ['m', '200 m ou mais · mergulho']], function (x, o) { var a = x.agua; return !!a && (o === 'a' ? a < 100 : o === 'n' ? a >= 100 && a < 200 : a >= 200); }],
+      ['rv', 'Vidro', 1, [['safira', 'Safira'], ['hardlex', 'Hardlex'], ['mineral', 'Mineral'], ['acrilico', 'Acrílico']], function (x, o) { return x.vidro === o; }],
+      ['rf', 'Funções', 1, [['c', 'Cronógrafo'], ['g', 'GMT (2º fuso)'], ['d', 'Dia da semana e data'], ['t', 'Data'], ['l', 'Brilha no escuro'], ['f', 'Fundo transparente']], function (x, o) { return (x.fn || '').indexOf(o) > -1; }],
+      ['rc', 'Cor do mostrador', 1, cores, function (x, o) { return x.cor === o; }],
+      ['rp', 'Pulseira', 1, [['metal', 'Metal'], ['couro', 'Couro'], ['borracha', 'Borracha'], ['tecido', 'Tecido']], function (x, o) { return x.pul === o; }],
+      ['rx', 'Material da caixa', 1, [['aco', 'Aço'], ['titanio', 'Titânio'], ['bronze', 'Bronze'], ['latao', 'Latão']], function (x, o) { return x.mat === o; }]
+    ].map(function (g) {
+      var ff = g[4];
+      return { k: g[0], t: g[1], fecha: g[2], o: g[3].slice(), base: g[3], ff: ff, f: function (p, o) { var x = B.id[p.id]; return !!x && ff(x, o); } };
+    });
+    var k = 0;
+    (function liga() {
+      var M = window.__lbfM;
+      if (!M || !M.G || !M.GK || !M.GK.pr || !M.contexto) { if (++k < 80) setTimeout(liga, 250); return; }
+      if (M.__lbRelF) return;
+      M.__lbRelF = 1;
+      var pos = M.G.indexOf(M.GK.ds || M.GK.pr) + 1;
+      GR.forEach(function (g, i) { M.G.splice(pos + i, 0, g); M.GK[g.k] = g; });
+      if (M.ATALHOS) M.ATALHOS.push(['Automáticos', { rm: ['auto'] }], ['Vidro de safira', { rv: ['safira'] }], ['Para nadar', { ra: ['n', 'm'] }], ['Cronógrafos', { rf: ['c'] }]);
+      /* em cada página só aparecem as opções que separam algo (nem 0, nem todos os relógios dela) */
+      function poda() {
+        var S = (M.st && M.st.S) || [], F = (M.st && M.st.F) || {};
+        GR.forEach(function (g) {
+          var on = F[g.k] || [];
+          g.o = g.base.filter(function (op) {
+            if (on.indexOf(op[0]) > -1) return true;
+            var n = 0;
+            S.forEach(function (p) { var x = B.id[p.id]; if (x && g.ff(x, op[0])) n++; });
+            return n > 0 && n < S.length;
+          });
+        });
+      }
+      var ctx = M.contexto;
+      M.contexto = function () { var v = ctx.apply(this, arguments); try { poda(); } catch (e) {} return v; };
+      if (M.st && M.st.pronto) {
+        if (/[#&]filtros=/.test(location.hash) && /(^|;|%3B)r[mtavfcpx]\./i.test(decodeURIComponent((/[#&]filtros=([^&]*)/.exec(location.hash) || [])[1] || ''))) { try { M.lerHash(); } catch (e) {} }
+        if (M.aoAtualizar) M.aoAtualizar();
+      }
+    })();
+  }
+
+  /* ---------- "Com a mesma proposta" + comparador lado a lado ---------- */
+  function daPagina(r) {
+    var a = document.querySelector('.principal .acoes-produto[data-produto-id]'), pr = document.querySelector('.principal [data-sell-price]'), og = document.querySelector('meta[property="og:image"]');
+    var fn = (r.crono ? 'c' : '') + (r.gmt ? 'g' : '') + (r.data ? 't' : '') + (r.lume || r.indiglo ? 'l' : '') + (r.fundo ? 'f' : '');
+    return { id: a ? +a.getAttribute('data-produto-id') : 0, n: r.nome, u: location.pathname, p: pr ? +pr.getAttribute('data-sell-price') : 0, disp: 1, f: og ? og.content : '',
+      tipo: r.tipo, diam: r.diam, esp: r.esp, l2l: r.l2l, agua: r.agua, freq: r.freq, res: r.reserva, peso: r.peso, vidro: r.vidro,
+      mat: { 'aço': 'aco', 'titânio': 'titanio', 'latão': 'latao' }[r.mat] || r.mat, pul: r.pul, fn: fn, orig: r.origem === 'suíço' ? 'suico' : r.origem === 'japonês' ? 'japones' : '' };
+  }
+  function sim(a, b) {
+    var s = 0, mec = function (x) { return x.tipo === 'auto' || x.tipo === 'manual'; };
+    if (a.tipo && a.tipo === b.tipo) s += 3; else if (mec(a) === mec(b)) s += 1;
+    if (a.diam && b.diam) { var dd = Math.abs(a.diam - b.diam); s += dd <= 1 ? 2 : dd <= 2 ? 1 : 0; }
+    if (a.p && b.p) { var q = b.p / a.p; s += q >= .65 && q <= 1.5 ? 2 : q >= .4 && q <= 2.5 ? 1 : 0; }
+    if (a.cor && a.cor === b.cor) s += 1;
+    ['c', 'g'].forEach(function (k) { if ((a.fn || '').indexOf(k) > -1 && (b.fn || '').indexOf(k) > -1) s += 1.5; });
+    if (a.pul && a.pul === b.pul) s += .5;
+    if (a.vidro === 'safira' && b.vidro === 'safira') s += .5;
+    if (!b.disp) s -= 4;
+    return s;
+  }
+  function foto(x, t) { return String(x.f || '').replace(/\/\d+x\d+\//, '/' + (t || '300x300') + '/'); }
+  function parecidos(B, r) {
+    if (document.querySelector('.lbrc')) return;
+    var eu = daPagina(r), b0 = B.id[eu.id];
+    if (b0) { eu.cor = b0.cor; if (!eu.f) eu.f = b0.f; }
+    var L = B.r.filter(function (x) { return x.id !== eu.id && x.u !== eu.u; }).map(function (x) { return [sim(eu, x), x]; })
+      .sort(function (a, b) { return b[0] - a[0]; }).map(function (a) { return a[1]; });
+    if (L.length < 2) return;
+    var top = L.filter(function (x) { return x.disp; }).slice(0, 8);
+    var sec = document.createElement('section');
+    sec.className = 'lbrc';
+    sec.setAttribute('aria-label', 'Relógios com a mesma proposta');
+    sec.innerHTML = '<div class="lbrc-cab"><div><div class="lbrn-k">Com a mesma proposta</div><h2>Relógios <em>parecidos</em></h2><p>Mesmo tipo de movimento, tamanho e faixa de preço próximos</p></div>' +
+      '<button type="button" class="lbrc-cmp">Comparar lado a lado</button></div><div class="lbrc-row">' + top.map(function (x) {
+        return '<div class="lbrc-c"><a href="' + esc(x.u) + '" tabindex="-1"><img loading="lazy" src="' + esc(foto(x)) + '" alt="' + esc(x.n) + '"></a><a class="lbrc-n" href="' + esc(x.u) + '">' + esc(nomeCurto(x.n)) + '</a>' +
+          '<div class="lbrc-e">' + esc(etiqueta(x, true)) + '</div><div class="lbrc-p">' + (x.p ? rs(x.p) + '<small>' + rs(x.p * .9) + ' no Pix</small>' : '') + '</div>' +
+          '<button type="button" class="lbrc-b" data-id="' + x.id + '">Comparar</button></div>';
+      }).join('') + '</div>';
+    var painel = document.querySelector('.lbrn'), ref = painel || lugar();
+    if (!ref || !ref.parentNode) return;
+    if (painel) painel.parentNode.insertBefore(sec, painel.nextSibling); else ref.parentNode.insertBefore(sec, ref);
+    sec.addEventListener('click', function (e) {
+      var b = e.target.closest && e.target.closest('.lbrc-cmp,.lbrc-b');
+      if (!b) return;
+      comparador(eu, L, b.getAttribute('data-id') ? [+b.getAttribute('data-id')] : null);
+    });
+  }
+  function comparador(eu, L, sel) {
+    var porId = {};
+    L.forEach(function (x) { porId[x.id] = x; });
+    sel = (sel || [L[0].id]).filter(function (i) { return porId[i]; });
+    var LIN = [
+      ['Movimento', function (x) { return (TN[x.tipo] || '') + (x.orig ? ' ' + (x.orig === 'suico' ? 'suíço' : 'japonês') : ''); }],
+      ['Diâmetro', function (x) { return x.diam ? mm(x.diam) : ''; }],
+      ['Espessura', function (x) { return x.esp ? mm(x.esp) : ''; }],
+      ['Ponta a ponta', function (x) { return x.l2l ? mm(x.l2l) : ''; }],
+      ['Resistência à água', function (x) { return x.agua ? x.agua + ' m' : ''; }, 'agua'],
+      ['Vidro', function (x) { return VN[x.vidro] || ''; }, null, function (x) { return x.vidro === 'safira'; }],
+      ['Reserva de marcha', function (x) { return x.res ? x.res + ' h' : x.tipo === 'quartzo' ? 'Pilha' : x.tipo === 'solar' ? 'Carga pela luz' : ''; }, 'res'],
+      ['Batidas por hora', function (x) { return x.freq ? br(x.freq) : ''; }, 'freq'],
+      ['Peso', function (x) { return x.peso ? x.peso + ' g' : ''; }],
+      ['Caixa', function (x) { return MN[x.mat] || ''; }],
+      ['Pulseira', function (x) { return PN[x.pul] || ''; }],
+      ['Funções', function (x) { return (x.fn || '').split('').map(function (c) { return FN[c]; }).filter(Boolean).join(', '); }]
+    ];
+    var ov = document.createElement('div');
+    ov.className = 'lbrx';
+    ov.setAttribute('role', 'dialog'); ov.setAttribute('aria-modal', 'true'); ov.setAttribute('aria-label', 'Comparar relógios');
+    ov.innerHTML = '<div class="lbrx-p"><div class="lbrx-cab"><h3>Comparar relógios</h3><button type="button" class="lbrx-x" aria-label="Fechar">×</button></div>' +
+      '<div class="lbrx-esc"><p>Compare com até 2 (toque para trocar)</p><div class="lbrx-op">' + L.map(function (x) {
+        return '<button type="button" data-id="' + x.id + '"><img loading="lazy" src="' + esc(foto(x, '100x100')) + '" alt=""><span>' + esc(nomeCurto(x.n)) + '</span></button>';
+      }).join('') + '</div></div><div class="lbrx-g"></div></div>';
+    function desenha() {
+      var C = [eu].concat(sel.map(function (i) { return porId[i]; })), g = ov.querySelector('.lbrx-g'), h = '';
+      g.style.setProperty('--n', C.length);
+      C.forEach(function (x, i) {
+        h += '<div class="lbrx-h"><i>' + (i ? '' : 'Este relógio') + '</i><img src="' + esc(foto(x)) + '" alt=""><a href="' + esc(x.u) + '">' + esc(nomeCurto(x.n)) + '</a><b>' + (x.p ? rs(x.p) : '') + '</b></div>';
+      });
+      LIN.forEach(function (l) {
+        var v = C.map(function (x) { return l[1](x); });
+        if (!v.some(Boolean)) return;
+        var num = l[2] ? C.map(function (x) { return +x[l[2]] || 0; }) : null, mx = num ? Math.max.apply(null, num) : 0, dif = num && num.some(function (n) { return n !== mx; });
+        h += '<div class="lbrx-l">' + l[0] + '</div>' + v.map(function (s, i) {
+          var top = (num && dif && num[i] === mx && mx > 0) || (l[3] && l[3](C[i]) && !C.every(l[3]));
+          return '<div class="lbrx-v' + (top ? ' top' : '') + '">' + (s ? esc(s) : '—') + '</div>';
+        }).join('');
+      });
+      g.innerHTML = h;
+      [].forEach.call(ov.querySelectorAll('.lbrx-op button'), function (b) {
+        var on = sel.indexOf(+b.getAttribute('data-id')) > -1;
+        b.classList.toggle('on', on); b.setAttribute('aria-pressed', on);
+      });
+    }
+    function fecha() {
+      document.documentElement.classList.remove('lbrx-aberto');
+      ov.classList.remove('on');
+      setTimeout(function () { ov.remove(); }, 220);
+      document.removeEventListener('keydown', tecla);
+    }
+    function tecla(e) { if (e.key === 'Escape') fecha(); }
+    ov.addEventListener('click', function (e) {
+      if (e.target === ov || (e.target.closest && e.target.closest('.lbrx-x'))) { fecha(); return; }
+      var b = e.target.closest && e.target.closest('.lbrx-op button');
+      if (!b) return;
+      var id = +b.getAttribute('data-id'), i = sel.indexOf(id);
+      if (i > -1) { if (sel.length > 1) sel.splice(i, 1); } else { sel.push(id); if (sel.length > 2) sel.shift(); }
+      desenha();
+    });
+    document.addEventListener('keydown', tecla);
+    desenha();
+    document.body.appendChild(ov);
+    document.documentElement.classList.add('lbrx-aberto');
+    requestAnimationFrame(function () { ov.classList.add('on'); });
+    var bo = ov.querySelector('.lbrx-op button.on');
+    if (bo) bo.parentNode.scrollLeft = Math.max(0, bo.offsetLeft - 14);
+    var x = ov.querySelector('.lbrx-x');
+    if (x) x.focus();
+  }
+
+  /* ---------- página do relógio ---------- */
+  function animaPainel(sec) {
     var tiles = [].slice.call(sec.querySelectorAll('.lbrn-t'));
     if (!('IntersectionObserver' in window)) { tiles.forEach(function (t) { t.classList.add('lbrn-on'); acende(t); }); return; }
     var io = new IntersectionObserver(function (es) {
@@ -527,6 +1066,45 @@
       });
     }, { threshold: .35 });
     tiles.forEach(function (t) { io.observe(t); });
-  })();
+  }
+  function depoisDoLoad(f) {
+    if (document.readyState === 'complete') setTimeout(f, 200); else window.addEventListener('load', function () { setTimeout(f, 200); });
+  }
+  function produto() {
+    var n = 0;
+    (function roda() {
+      var h1 = document.querySelector('h1.nome-produto'), nome = h1 ? h1.textContent.replace(/\s+/g, ' ').trim() : '';
+      if (!/^\s*Rel[óo]gio/i.test(nome)) { if (++n < 20 && !nome) setTimeout(roda, 300); return; }
+      var alvo = lugar(), d = document.getElementById('descricao'), temFicha = !!(alvo && d && d.querySelector('li strong'));
+      if (!temFicha && ++n < 30) { setTimeout(roda, 300); return; }
+      if (window.__lbRelP) return;
+      window.__lbRelP = 1;
+      naCompra(nome);
+      var r = temFicha ? dados() : null;
+      if (r) {
+        var sec = montar(r);
+        if (sec && !document.querySelector('.lbrn')) {
+          alvo.parentElement.insertBefore(sec, alvo);
+          sec.id = 'lbrn';
+          ligaPulso(sec, r);
+          toques(sec);
+          animaPainel(sec);
+        }
+        chipsTopo(h1, r);
+        try { glossario(d); } catch (e) {}
+        try { microdados(r); } catch (e) {}
+      }
+      depoisDoLoad(function () {
+        base(function (B) {
+          if (!B) return;
+          etiquetas(B);
+          if (r) parecidos(B, r);
+        });
+      });
+    })();
+  }
+
+  if (PROD) produto();
+  else base(function (B) { if (!B) return; etiquetas(B); filtros(B); });
 })();
 </script>

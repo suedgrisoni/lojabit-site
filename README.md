@@ -86,3 +86,21 @@ um conteúdo novo sempre tem um endereço novo.
 família olfativa, dia/noite, estação, ocasião, carrossel, decant na promoção (categoria escondida 24495076, menos a lista FORA)
 e decant na página Decants. Com `--corrigir` e o token da API em `~/.lb/li_token`, acrescenta as categorias que faltam
 (nunca tira). Roda na tarefa diária do dossiê; o resultado vai no resumo para o Nevander.
+
+## Relógios (13/11/2026)
+
+- `src/1799004.html` → `dist/rel.css` + `dist/rel.js` (grupo `rel` em `ordem.json`), carregados pelo `src/1799005.html`
+  (dentro do rod.js) **só** na página de um relógio e nas listagens (categoria, marca, busca) com cartão de relógio,
+  do mesmo commit do rod.js. O `build.py` põe a "versão" dos arquivos rel dentro do rod.js (`__REL_V__`): toda mudança
+  em rel.* muda o rod.js, então basta seguir o passo a passo acima (commit, carregador, colar o rodapé 1718611).
+- Página do relógio: "O relógio em números" (ficha em movimento), resumo perto do preço, simulador de pulso com
+  "pulseira ajustada" pelo WhatsApp, "Na sua compra", "Encomendar pelo WhatsApp" quando esgota, guia de cuidados e de água,
+  termos da ficha explicados ao tocar, "Com a mesma proposta" + comparador e dados estruturados (additionalProperty).
+- Listagens: etiqueta "Automático · 40 mm · 100 m" nos cartões e filtros de relógio (movimento, tamanho, água, vidro,
+  funções, cor, pulseira, caixa) no mesmo filtro do site.
+- Tudo sai da "Ficha técnica" da descrição. A base dos outros relógios é `carrossel/relogios.json`
+  (`python3 ferramentas/relogios.py`, lê as páginas públicas), refeita 5x por dia pela tarefa "Carrossel: preços atualizados";
+  o site acha o arquivo pelo `carrossel/v.json` (o `carrossel.py versao` aponta para o commit mais novo de carrossel/p ou relogios.json).
+- Padrão do anúncio novo: título com o diâmetro ("... Automático 40mm Mostrador Azul REF") e ficha com Movimento, Caixa
+  (diâmetro e espessura), Resistência à água, Vidro, Fundo, Funções, Pulseira (+ Reserva de marcha e Frequência nos mecânicos;
+  Peso, ponta a ponta e Luminescência quando houver). O verificador diário (item 8) confere e põe o diâmetro no título sozinho.
