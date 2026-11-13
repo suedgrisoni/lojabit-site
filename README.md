@@ -104,3 +104,12 @@ e decant na página Decants. Com `--corrigir` e o token da API em `~/.lb/li_toke
 - Padrão do anúncio novo: título com o diâmetro ("... Automático 40mm Mostrador Azul REF") e ficha com Movimento, Caixa
   (diâmetro e espessura), Resistência à água, Vidro, Fundo, Funções, Pulseira (+ Reserva de marcha e Frequência nos mecânicos;
   Peso, ponta a ponta e Luminescência quando houver). O verificador diário (item 8) confere e põe o diâmetro no título sozinho.
+
+### Dossiê na descrição dos relógios (13/11/2026)
+
+- `ferramentas/relogios_dossie.py` grava 4 seções na descrição de cada relógio, pela API: "O dossiê do {modelo}",
+  "Feito para quê e onde usar", "A {marca} em N momentos" e "Você sabia?". Os dados, com fontes, ficam em
+  `ferramentas/relogios_dossie_marcas.json` e `ferramentas/relogios_dossie_modelos.json`.
+- O `dist/rel.js` desenha a linha do tempo, o mapa de ocasiões e os cartões; sem JavaScript continua texto normal.
+- Relógio novo: o verificador (item 9) grava sozinho as seções que saem da ficha; família ou marca nova segue
+  `ferramentas/relogios_dossie.md` (pesquisa com fonte), feito pela tarefa diária.
