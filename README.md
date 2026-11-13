@@ -113,3 +113,30 @@ e decant na página Decants. Com `--corrigir` e o token da API em `~/.lb/li_toke
 - O `dist/rel.js` desenha a linha do tempo, o mapa de ocasiões e os cartões; sem JavaScript continua texto normal.
 - Relógio novo: o verificador (item 9) grava sozinho as seções que saem da ficha; família ou marca nova segue
   `ferramentas/relogios_dossie.md` (pesquisa com fonte), feito pela tarefa diária.
+
+### Pulso, quiz, tamanho real, páginas-guia, página da marca, guia do proprietário e posts (13/11/2026)
+
+Tudo abaixo se atualiza sozinho quando entra um relógio novo (sai da ficha técnica, do preço e do dossiê):
+
+- **Meu pulso em todo o site** (`rel.js`): a medida fica guardada no aparelho (`localStorage lbPulso`); cada cartão de relógio ganha
+  o selo "Ideal / Discreto / Marcante / Grande no seu pulso", os filtros ganham o grupo "No meu pulso" e a página do relógio,
+  um chip. A barra "Encontre o seu" das listagens abre o quiz, guarda o pulso e liga as páginas-guia.
+- **Som do tique-taque** (`rel.js`): toque no cartão das batidas; o som é sintetizado na hora (sem arquivo de áudio), na
+  frequência real do movimento.
+- **Extras sob demanda** (`src/1799006.html` → `dist/rex.css` + `dist/rex.js`, grupo `rex`): o `rel.js` só baixa esses dois arquivos
+  quando o cliente pede. Têm o **quiz** de 4 perguntas (`#quiz` em qualquer listagem de relógio), o **tamanho real na tela**
+  (ajuste único com um cartão em pé; `localStorage lbPxMm`) e o **guia do proprietário** (`?guia=1` na página do relógio: ficha,
+  cuidados, usos e história, para imprimir ou salvar em PDF).
+- **Páginas-guia** (subcategorias de Relógios): regras em `ferramentas/relogios.py` (`GUIAS`), textos em
+  `ferramentas/relogios_guias.json`, criação e sincronização em `ferramentas/relogios_guias.py`. O verificador (item 10) põe e
+  tira cada relógio das guias todo dia. Guia nova: acrescentar a regra em `GUIAS` (id 0), o texto no JSON, rodar
+  `relogios_guias.py --criar`, pôr o id devolvido em `GUIAS` e acertar o endereço no painel (a API troca letra acentuada por "-").
+- **Página da marca**: `relogios_dossie.py --marcas` (e o verificador, item 11) põe no fim do texto da categoria da marca
+  "A história da {marca} em N momentos" e "Você sabia?", com todos os momentos de `relogios_dossie_marcas.json`.
+- **`carrossel/relogios.json`** leva, por relógio, `ct` (tipos), `oi`/`oc` (ocasiões ideais e em que também vai bem) e, no topo,
+  `g` (páginas-guia com 3 relógios ou mais à venda). O quiz e a barra leem daí.
+- **Posts "Você sabia?"** (`ferramentas/relogios_posts.py`): um relógio por post, com legenda para Instagram Reels, TikTok,
+  Threads, YouTube Shorts, WhatsApp Stories, BiliBili, X e Kwai. Segue as regras dos posts (produto sem o nome da marca, criador,
+  gancho de venda, limites e hashtags de cada rede, conferidos por código). `--novos ARQ.md` gera só os relógios que ainda não
+  tiveram post (`relogios_posts_feitos.json`). Os números de hashtags e limites ficam na tabela `REDES`, com a data da pesquisa;
+  depois de 60 dias o programa avisa para pesquisar de novo.

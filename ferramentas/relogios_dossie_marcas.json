@@ -1,5 +1,5 @@
 {
- "_sobre": "Dossiê das marcas de relógio da @LOJABIT (13/11/2026). Fatos conferidos nas fontes listadas em cada marca. Usado por ferramentas/relogios_dossie.py para montar, na descrição de cada relógio, a seção 'A história da marca em N momentos' (linha do tempo) e parte do 'Você sabia?'. Marca nova: acrescente aqui com fontes (veja ferramentas/relogios_dossie.md).",
+ "_sobre": "Dossiê das marcas de relógio da @LOJABIT (13/11/2026). Fatos conferidos nas fontes listadas em cada marca. Usado por ferramentas/relogios_dossie.py para montar, na descrição de cada relógio, a seção 'A história da marca em N momentos' (linha do tempo) e parte do 'Você sabia?'. Marca nova: acrescente aqui com fontes (veja ferramentas/relogios_dossie.md). | \"criador\" (para os posts das redes, ferramentas/relogios_posts.py): quem fundou a casa e as criações mais conhecidas, SEM o nome da marca (regra dos posts do Nevander: cita o produto, nunca a marca).",
  "Seiko": {
   "pais": "Japão",
   "intro": [
@@ -76,7 +76,16 @@
   ],
   "fontes": [
    "https://en.wikipedia.org/wiki/Seiko"
-  ]
+  ],
+  "criador": {
+   "quem": "a casa japonesa fundada por Kintaro Hattori em Tóquio, em 1881",
+   "curto": "a casa de Kintaro Hattori, de 1881",
+   "obras": [
+    "o Astron, primeiro relógio de quartzo do mundo",
+    "o Laurel, primeiro relógio de pulso feito no Japão",
+    "o Spring Drive, mecânico com precisão de quartzo"
+   ]
+  }
  },
  "Tissot": {
   "pais": "Suíça",
@@ -151,7 +160,16 @@
   "fontes": [
    "https://en.wikipedia.org/wiki/Tissot",
    "https://www.watchtime.com/wristwatch-industry-news/watches/tissots-luxury-automatics-offer-80-hour-power-reserve/"
-  ]
+  ],
+  "criador": {
+   "quem": "a casa suíça fundada em 1853 por Charles-Félicien e o filho, Charles-Émile, em Le Locle",
+   "curto": "a casa suíça de Le Locle, de 1853",
+   "obras": [
+    "o T-Touch, o relógio de tela tátil",
+    "o RockWatch, com caixa de granito dos Alpes",
+    "o Powermatic 80, automático com 80 horas de reserva"
+   ]
+  }
  },
  "Citizen": {
   "pais": "Japão",
@@ -227,7 +245,16 @@
    "https://en.wikipedia.org/wiki/Citizen_Watch",
    "https://www.citizenwatch-global.com/citizen_l/special/reason/technology/",
    "https://monochrome-watches.com/citizen-zenshin-60-automatic-small-seconds-super-titanium-nk5020-collection-introducing-price"
-  ]
+  ],
+  "criador": {
+   "quem": "a casa japonesa fundada por Kamekichi Yamazaki em Tóquio, em 1918",
+   "curto": "a casa de Kamekichi Yamazaki, de 1918",
+   "obras": [
+    "o Eco-Drive, movido a luz",
+    "o X-8 Chronometer, primeiro relógio de titânio do mundo",
+    "o primeiro relógio a acertar a hora por satélite"
+   ]
+  }
  },
  "Invicta": {
   "pais": "Suíça e Estados Unidos",
@@ -289,7 +316,15 @@
   ],
   "fontes": [
    "https://en.wikipedia.org/wiki/Invicta_Watch_Group"
-  ]
+  ],
+  "criador": {
+   "quem": "a casa fundada por Raphael Picard em La Chaux-de-Fonds, na Suíça, em 1837",
+   "curto": "a casa de Raphael Picard, de 1837",
+   "obras": [
+    "a linha Pro Diver, de mergulho",
+    "a linha Venom, que resiste a até 1.000 metros"
+   ]
+  }
  },
  "Timex": {
   "pais": "Estados Unidos",
@@ -364,7 +399,17 @@
   "fontes": [
    "https://en.wikipedia.org/wiki/Timex_Group_USA",
    "https://thegentlemanracer.com/2019/05/q-timex-reissue-sells-out-immediately.html"
-  ]
+  ],
+  "criador": {
+   "quem": "a casa americana nascida em 1854 como Waterbury Clock Company, em Connecticut",
+   "curto": "a casa americana de Waterbury, de 1854",
+   "obras": [
+    "o Yankee, o relógio de um dólar",
+    "o relógio do Mickey Mouse, de 1933",
+    "o Ironman, o esportivo mais vendido do mundo",
+    "a luz Indiglo"
+   ]
+  }
  },
  "Orient": {
   "pais": "Japão",
@@ -427,7 +472,16 @@
   "fontes": [
    "https://en.wikipedia.org/wiki/Orient_Watch",
    "https://orientwatchusa.com/blog/the-twenty-year-history-of-this-beloved-diver"
-  ]
+  ],
+  "criador": {
+   "quem": "a casa japonesa que começou com Shogoro Yoshida em Tóquio, em 1901",
+   "curto": "a casa de Shogoro Yoshida, de 1901",
+   "obras": [
+    "o Fineness, o automático com dia e data mais fino do mundo em 1967",
+    "o Mako, mergulhador batizado pelos fãs",
+    "os movimentos próprios, feitos em Akita"
+   ]
+  }
  },
  "Mathey-Tissot": {
   "pais": "Suíça",
@@ -481,7 +535,16 @@
   ],
   "fontes": [
    "https://en.wikipedia.org/wiki/Mathey-Tissot"
-  ]
+  ],
+  "criador": {
+   "quem": "a casa suíça fundada em 1886 pelo relojoeiro Edmond, em Les Ponts-de-Martel",
+   "curto": "a casa suíça de Les Ponts-de-Martel, de 1886",
+   "obras": [
+    "os relógios de repetição, que tocam as horas",
+    "os cronógrafos do Exército americano na Primeira Guerra",
+    "os automáticos que Elvis Presley encomendou em 1969"
+   ]
+  }
  },
  "Technos": {
   "pais": "Suíça e Brasil",
@@ -537,7 +600,14 @@
    "https://en.wikipedia.org/wiki/Technos_(watches)",
    "https://forbes.com.br/forbes-life/2025/05/infomercial-technos-tradicao-em-movimento/"
   ],
-  "_nota": "As fontes divergem no ano da chegada ao Brasil (1956 na Wikipédia, 1958 no material da marca) e no da compra dos direitos (1994/1995): por isso a linha do tempo usa décadas."
+  "_nota": "As fontes divergem no ano da chegada ao Brasil (1956 na Wikipédia, 1958 no material da marca) e no da compra dos direitos (1994/1995): por isso a linha do tempo usa décadas.",
+  "criador": {
+   "quem": "a casa de origem suíça fundada por Melchior Gunzinger no Jura, em 1900",
+   "curto": "a casa de Melchior Gunzinger, de 1900",
+   "obras": [
+    "o Skydiver, mergulhador nascido nos anos 60"
+   ]
+  }
  },
  "Mido": {
   "pais": "Suíça",
@@ -600,6 +670,15 @@
   "fontes": [
    "https://en.wikipedia.org/wiki/Mido_(watch)",
    "https://www.swatchgroup.com/en/services/archive/2023/mido-multifort-tv-big-date"
-  ]
+  ],
+  "criador": {
+   "quem": "a casa suíça fundada por Georges G. Schaeren em Biel/Bienne, em 1918",
+   "curto": "a casa de Georges G. Schaeren, de 1918",
+   "obras": [
+    "o Multifort, de 1934",
+    "o Commander, de caixa de peça única",
+    "a vedação Aquadura, com cortiça na coroa"
+   ]
+  }
  }
 }

@@ -54,7 +54,16 @@ Em `relogios_dossie_marcas.json`, acrescente:
 - `intro`: 2 versões de 1 frase sobre a origem;
 - `linha`: de 6 a 11 momentos `["ano", "fato"]`, com o primeiro sendo a fundação;
 - `vs`: 3 a 5 curiosidades;
+- `criador`: usado nos posts das redes, **sem o nome da marca** (nem como sobrenome do fundador):
+  - `quem`: quem fundou a casa, onde e quando, começando por "a casa…" (ex.: "a casa japonesa fundada por Kintaro Hattori em Tóquio, em 1881");
+  - `curto`: a versão curta (ex.: "a casa de Kintaro Hattori, de 1881");
+  - `obras`: de 1 a 4 criações mais conhecidas, cada uma começando por artigo (ex.: "o Astron, primeiro relógio de quartzo do mundo");
 - `fontes`.
+
+Use nomes sem mácron (Kintaro, não Kintarō): a fonte do site não tem essas letras.
+
+A marca nova também precisa de uma subcategoria com o nome dela dentro de Relógios (o verificador avisa se faltar). Com a
+categoria criada, a história completa entra sozinha na página da marca (`relogios_dossie.py --marcas` ou o verificador).
 
 Relógios da mesma marca mostram 7 momentos em rodízio, para os textos não ficarem iguais.
 
@@ -68,3 +77,9 @@ Relógios da mesma marca mostram 7 momentos em rodízio, para os textos não fic
   - para que serve;
   - o que tem de especial;
   - o que a pessoa vai sentir ou ganhar usando.
+
+## O que mais sai sozinho para o relógio novo
+
+- páginas-guia (mergulho, sociais, automáticos...): o verificador põe e tira pela regra de `ferramentas/relogios.py` (`GUIAS`);
+- quiz, selo "no seu pulso", tamanho real e guia do proprietário: leem a ficha e o `carrossel/relogios.json`;
+- posts "Você sabia?" para as redes: `python3 ferramentas/relogios_posts.py --novos ARQ.md` (precisa da família e do `criador` da marca).

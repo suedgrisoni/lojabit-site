@@ -18,8 +18,15 @@ Confere, para cada perfume (árabe, nicho, importado):
   8. relógio no padrão — ficha técnica com os campos que o site usa (movimento, caixa com diâmetro e espessura, água,
                          vidro, fundo, funções, pulseira; reserva e frequência nos mecânicos) e o diâmetro no título
                          (ex.: "... Automático 40mm Mostrador Azul ...")                               [título: corrige com chave]
+ 10. páginas-guia      — cada relógio está exatamente nas páginas-guia que a regra manda (Relógios de Mergulho, Sociais,
+                         Automáticos, Primeiro Automático, Cronógrafo, Para Presentear, Até R$ 2.000; regras em
+                         ferramentas/relogios.py, GUIAS)                                               [corrige com chave]
+ 11. página da marca   — a categoria de cada marca de relógio tem a história completa ("A história da <marca> em N
+                         momentos" + "Você sabia?", de relogios_dossie_marcas.json)                    [corrige com chave]
+                         Marca sem categoria em Relógios, sem dossiê ou sem "criador" (para os posts): só avisa.
 
-Com --corrigir e o token da API em ~/.lb/li_token, corrige 2, 3, 6 e 7 (SÓ ACRESCENTA categoria, nunca tira):
+Com --corrigir e o token da API em ~/.lb/li_token, corrige 2, 3, 6 e 7 (SÓ ACRESCENTA categoria, nunca tira; a única exceção
+são as páginas-guia de relógio do item 10, que seguem a regra nos dois sentidos: preço passou de R$ 2.000, sai da guia):
   - 6: todo produto com decant à venda entra na promoção, menos os da lista FORA (frasco daria prejuízo com 15% + Pix;
        a mesma lista do código src/1799002.html, que mostra o aviso na página do perfume).
   - 7: Decants + "Decants de Perfumes Árabes/de Nicho/Importados" (os da lista FORA só são avisados).
@@ -204,6 +211,7 @@ def main():
             import relogios_dossie as RD
         except Exception:
             RD = None
+        RX = []
         for p in [p for p in P if p['tipo'] == 'r']:
             try:
                 x = RL.le(p['id'], p['u'])
@@ -212,6 +220,7 @@ def main():
             time.sleep(1)
             if not x:
                 continue
+            RX.append(x)
             falta = list(x['falta'])
             if 'diâmetro no título' in falta:
                 novo = RL.titulo_com_diametro(x['n'], x.get('diam'))
@@ -234,6 +243,34 @@ def main():
                 falta.append('seções do dossiê na descrição' + ('' if x.get('mk') in (RD.MARCAS if RD else {}) else ' (marca sem dossiê em relogios_dossie_marcas.json)'))
             if falta:
                 av['relogio'].append(f"{x['n'][:60]}: {', '.join(falta)}")
+        # 10. páginas-guia: cada relógio exatamente nas guias que a regra manda (põe e tira; só mexe nas categorias-guia)
+        if api and RX:
+            try:
+                import relogios_guias as RG
+                av['relogio'] += RG.sincroniza(api.req, RX, feito)
+            except Exception as e:
+                av['relogio'].append(f'não conferi as páginas-guia ({e})')
+        # 11. página da marca com a história completa; marca nova sem categoria, sem dossiê ou sem "criador": aviso
+        if RD and RX:
+            marcas = sorted({x.get('mk') for x in RX if x.get('mk')})
+            try:
+                cats = RD.categorias_de_marca(api.req) if api else None
+            except Exception:
+                cats = None
+            for mk in marcas:
+                if mk not in RD.MARCAS:
+                    av['relogio'].append(f'marca {mk}: sem dossiê (escrever em ferramentas/relogios_dossie_marcas.json)'); continue
+                if not RD.MARCAS[mk].get('criador'):
+                    av['relogio'].append(f'marca {mk}: sem "criador" no dossiê (os posts das redes precisam; ver ferramentas/relogios_dossie.md)')
+                if cats is None:
+                    continue
+                if mk not in cats:
+                    av['relogio'].append(f'marca {mk}: sem página (criar a subcategoria "{mk}" em Relógios; a história entra sozinha)'); continue
+                r = RD.grava_marca(api.req, cats[mk], mk)
+                if r == 'ok':
+                    feito.append(f'página da marca {mk}: história completa atualizada')
+                elif r != 'já estava igual':
+                    av['relogio'].append(f'página da marca {mk}: {r}')
     except Exception as e:
         av['relogio'].append(f'não conferi os relógios ({e})')
     nomes = {'familia': 'sem família olfativa (dossiê)', 'dia_noite': 'sem dia/noite', 'estacao': 'sem estação',
