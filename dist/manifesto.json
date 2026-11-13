@@ -11,13 +11,13 @@
    "minificado": true
   },
   "rel.css": {
-   "bytes": 18706,
-   "sha256": "372d0b3a3c147477a7cc85b4b30950a5e663f817151de606c0ba52d698e4b4cd",
+   "bytes": 23181,
+   "sha256": "548116319678222cfd0c00a78a6e5c9f0b497b2b66df236597a1b7169ea68fdc",
    "minificado": true
   },
   "rel.js": {
-   "bytes": 51621,
-   "sha256": "c4fa473e5a4fd8a7b681acd36ff6e43199b6d368304eb02ab6673111fa914865",
+   "bytes": 54499,
+   "sha256": "c21aa165107fb6db584cd6d70e0dabce07c1610e9a3a0dc4905ad5f2278d0b8a",
    "minificado": true
   },
   "rod.css": {
@@ -27,7 +27,7 @@
   },
   "rod.js": {
    "bytes": 373794,
-   "sha256": "fd6a1a767ef083c3584050f0c6d73e3f093c5b316a066134c19dca33c78e8ada",
+   "sha256": "39f358d13612449d11dababef42fd0a945633bd88c99f80b68eba7c3ee22d6cb",
    "minificado": true
   }
  },

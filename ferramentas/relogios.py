@@ -148,6 +148,8 @@ def le(pid, url):
     if not r['tipo']: falta.append('tipo de movimento (automático, quartzo, solar...)')
     if r.get('diam') and not re.search(r'\d+(?:[.,]\d+)?\s?mm\b', nome, re.I): falta.append('diâmetro no título')
     r['falta'] = falta
+    # seções do dossiê (ferramentas/relogios_dossie.py) que a descrição já tem: m=modelo, u=onde usar, t=marca, v=você sabia
+    r['_sec'] = ''.join(k for k, t in (('m', '<h3>O dossiê d'), ('u', '<h3>Feito para quê e onde usar'), ('t', ' momentos</h3>'), ('v', '<h3>Você sabia?')) if t in desc)
     r['opc'] = [x for x, ok in (('peso', 'peso' in r), ('ponta a ponta', 'l2l' in r)) if not ok]
     return r
 
@@ -212,7 +214,7 @@ def main():
                 print(f"   {r['n'][:70]} -> {', '.join(r['opc'])}")
     if so_faltas:
         return
-    base = {'gerado': time.strftime('%Y-%m-%d %H:%M'), 'r': [{k: v for k, v in r.items() if k not in ('falta', 'opc') and v not in ('', None)} for r in R]}
+    base = {'gerado': time.strftime('%Y-%m-%d %H:%M'), 'r': [{k: v for k, v in r.items() if k not in ('falta', 'opc') and not k.startswith('_') and v not in ('', None)} for r in R]}
     antigo = None
     try:
         antigo = json.load(open(SAIDA, encoding='utf-8'))

@@ -215,6 +215,31 @@
 .lbrx-op button span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .lbrx-op button.on{border-color:#0A0A0B;background:#0A0A0B;color:#fff}
 html.lbrx-aberto,html.lbrx-aberto body{overflow:hidden!important}
+/* dossiê na descrição (linha do tempo, onde usar, você sabia); #descricao na frente para vencer os estilos da descrição */
+#descricao p.lbrd-dos::first-letter{font:500 46px/.82 "Cormorant Garamond",Georgia,serif!important;float:left;margin:6px 8px 0 0;color:#8F6E2E}
+#descricao ol.lbrd-tl{list-style:none!important;margin:14px 0 8px!important;padding:0!important;position:relative}
+#descricao ol.lbrd-tl:before{content:"";position:absolute;left:6px;top:8px;bottom:14px;width:2px;background:linear-gradient(#C9A55C,#ECE5DA)}
+#descricao ol.lbrd-tl li{position:relative!important;list-style:none!important;margin:0!important;padding:0 0 16px 30px!important;opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease;font-size:14px!important;line-height:1.55!important}
+#descricao ol.lbrd-tl li:before{content:""!important;display:block!important;position:absolute!important;left:0!important;top:5px!important;width:14px!important;height:14px!important;border-radius:50%!important;background:#fff!important;border:2px solid #8F6E2E!important;box-sizing:border-box!important;rotate:0deg!important;transform:none!important}
+#descricao ol.lbrd-tl li:first-child:before{background:#8F6E2E!important}
+#descricao ol.lbrd-tl li>strong:first-child{display:block!important;font:500 23px/1.1 "Cormorant Garamond",Georgia,serif!important;color:#8F6E2E!important;margin:0 0 3px!important;letter-spacing:.01em!important;text-transform:none!important}
+#descricao ol.lbrd-tl.on li{opacity:1;transform:none}
+#descricao ul.lbrd-vs{list-style:none!important;padding:0!important;margin:14px 0 8px!important;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+#descricao ul.lbrd-vs li{list-style:none!important;margin:0!important;background:#FAF7F2;border:1px solid #ECE5DA;border-radius:14px;padding:14px!important;font-size:13.5px!important;line-height:1.5!important;color:#403A34;position:relative!important}
+#descricao ul.lbrd-vs li:before{content:"?"!important;display:flex!important;align-items:center;justify-content:center;position:static!important;width:26px!important;height:26px!important;border-radius:50%!important;background:#0A0A0B!important;color:#C9A55C;font:600 14px/1 Jost,Arial,sans-serif;margin:0 0 8px!important;rotate:0deg!important;transform:none!important;border:0!important}
+#descricao ul.lbrd-vs li>strong:first-child{display:block!important;font:600 14.5px/1.3 Jost,Arial,sans-serif!important;color:#0A0A0B!important;margin:0 0 4px!important;text-transform:none!important;letter-spacing:0!important}
+@media (max-width:767px){#descricao ul.lbrd-vs{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:2px 2px 10px!important}#descricao ul.lbrd-vs::-webkit-scrollbar{display:none}#descricao ul.lbrd-vs li{flex:0 0 80%;scroll-snap-align:start}}
+#descricao .lbrd-dica{font:600 10px/1.2 Jost,Arial,sans-serif!important;letter-spacing:.14em!important;text-transform:uppercase;color:#8F6E2E!important;margin:-2px 0 0!important}
+@media (min-width:768px){#descricao .lbrd-dica{display:none}}
+#descricao ul.lbrd-uso{list-style:none!important;padding:0!important;margin:14px 0 8px!important;display:grid;gap:8px}
+@media (min-width:768px){#descricao ul.lbrd-uso{grid-template-columns:1fr 1fr}}
+#descricao ul.lbrd-uso li{list-style:none!important;margin:0!important;display:grid!important;grid-template-columns:36px 1fr;column-gap:10px;row-gap:2px;align-items:start;padding:11px 12px!important;border:1px solid #ECE5DA;border-radius:12px;background:#fff;font-size:13px!important;line-height:1.45!important;color:#776E64!important;position:relative!important}
+#descricao ul.lbrd-uso li:before{display:none!important;content:none!important}
+#descricao ul.lbrd-uso li svg{grid-row:1/span 2;width:36px;height:36px;padding:8px;border-radius:50%;background:#FAF7F2;fill:none;stroke:#8F6E2E;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;box-sizing:border-box}
+#descricao ul.lbrd-uso li.id svg{background:#0A0A0B;stroke:#C9A55C}
+#descricao ul.lbrd-uso li>strong{display:block!important;color:#0A0A0B!important;font:600 13.5px/1.3 Jost,Arial,sans-serif!important;text-transform:none!important;letter-spacing:0!important;margin:0!important}
+#descricao ul.lbrd-uso li.id>strong:after{content:"Ideal";display:inline-block;margin-left:6px;padding:2px 7px;border-radius:99px;background:#0A0A0B;color:#C9A55C;font:600 9px/1.4 Jost,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;vertical-align:1px}
+@media (prefers-reduced-motion:reduce){#descricao ol.lbrd-tl li{opacity:1;transform:none;transition:none}}
 /* glossário */
 .lbgl{border-bottom:1px dotted #8F6E2E;cursor:help;-webkit-tap-highlight-color:transparent}
 .lbgl-p{position:absolute;z-index:2147482000;max-width:280px;background:#0A0A0B;color:#f3eee6;font:400 12.5px/1.45 Jost,Arial,sans-serif;padding:10px 12px;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.18);text-align:left}
@@ -749,6 +774,62 @@ html.lbrx-aberto,html.lbrx-aberto body{overflow:hidden!important}
     window.addEventListener('scroll', function () { if (pop && Math.abs(pop.getBoundingClientRect().top) > innerHeight * 1.5) fecha(); }, { passive: true });
   }
 
+
+  /* ---------- dossiê na descrição: linha do tempo da marca, mapa de ocasiões e "Você sabia?" em blocos visuais ----------
+     O texto vem da descrição (ferramentas/relogios_dossie.py); aqui só ganha o desenho. Sem JavaScript, é texto normal. */
+  var ICU = {
+    trabalho: '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18"/>',
+    terno: '<path d="M3 7l7 4-7 4zM21 7l-7 4 7 4z"/><rect x="10" y="9.5" width="4" height="3" rx="1"/>',
+    dia: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+    viag: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',
+    praia: '<path d="M2 15c2 0 2-1.5 4.5-1.5S9 15 12 15s2.5-1.5 5-1.5S20 15 22 15M2 19c2 0 2-1.5 4.5-1.5S9 19 12 19s2.5-1.5 5-1.5S20 19 22 19"/><circle cx="17" cy="7" r="3"/>',
+    esporte: '<circle cx="12" cy="13" r="8"/><path d="M12 13V9M10 2h4M12 2v3"/>',
+    trilha: '<path d="M3 20l6-11 4 7 3-4 5 8z"/>',
+    noite: '<path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/>'
+  };
+  function dossie(d) {
+    [].forEach.call(d.querySelectorAll('h3, .lbzm-t'), function (h) {
+      var t = (h.firstChild && h.firstChild.nodeType === 3 ? h.firstChild.nodeValue : h.textContent || '').trim();
+      var tipo = /^Feito para quê/.test(t) ? 'uso' : /^A .{2,40} em \d+ momentos$/.test(t) ? 'tl' : /^Você sabia/.test(t) ? 'vs' : /^O dossiê d/.test(t) ? 'dos' : '';
+      if (!tipo) return;
+      var lista = null, par = null, det = h.closest && h.closest('details');
+      if (det) { var c = det.querySelector('.lbzm-c') || det; lista = c.querySelector(tipo === 'tl' ? 'ol' : 'ul'); par = c.querySelector('p'); }
+      else for (var e = h.nextElementSibling; e && e.tagName !== 'H3'; e = e.nextElementSibling) {
+        if (!lista && (e.tagName === 'OL' || e.tagName === 'UL')) lista = e;
+        if (!par && e.tagName === 'P') par = e;
+      }
+      if (tipo === 'dos') { if (par) par.classList.add('lbrd-dos'); return; }
+      if (!lista || lista.__lbrd) return;
+      lista.__lbrd = 1;
+      if (tipo === 'tl') {
+        lista.classList.add('lbrd-tl');
+        [].forEach.call(lista.children, function (li, k) {
+          var y = li.querySelector('strong');
+          if (y) y.textContent = y.textContent.replace(/:\s*$/, '');
+          li.style.transitionDelay = (k * 0.09).toFixed(2) + 's';
+        });
+        if ('IntersectionObserver' in window) {
+          var io = new IntersectionObserver(function (es) { es.forEach(function (x) { if (x.isIntersecting) { lista.classList.add('on'); io.disconnect(); } }); }, { threshold: .15 });
+          io.observe(lista);
+        } else lista.classList.add('on');
+      }
+      if (tipo === 'vs') {
+        lista.classList.add('lbrd-vs');
+        if (lista.children.length > 1) { var dica = document.createElement('div'); dica.className = 'lbrd-dica'; dica.textContent = 'Deslize para ver mais →'; lista.parentNode.insertBefore(dica, lista); }
+      }
+      if (tipo === 'uso') {
+        lista.classList.add('lbrd-uso');
+        [].forEach.call(lista.children, function (li) {
+          var s = li.querySelector('strong'), tx = sa(s ? s.textContent : '');
+          var k = /trabalho/.test(tx) ? 'trabalho' : /terno/.test(tx) ? 'terno' : /dia a dia/.test(tx) ? 'dia' : /viag/.test(tx) ? 'viag' : /praia/.test(tx) ? 'praia' : /esporte/.test(tx) ? 'esporte' : /trilha/.test(tx) ? 'trilha' : /jantar|noite/.test(tx) ? 'noite' : 'dia';
+          if (/^ideal/.test(tx)) { li.classList.add('id'); s.textContent = s.textContent.replace(/^Ideal para (o |a )?/, '').replace(/^./, function (c) { return c.toUpperCase(); }).replace(/\.$/, ''); }
+          else if (s) s.textContent = s.textContent.replace(/\.$/, '');
+          li.insertAdjacentHTML('afterbegin', '<svg viewBox="0 0 24 24" aria-hidden="true">' + ICU[k] + '</svg>');
+        });
+      }
+    });
+  }
+
   /* ---------- dados estruturados (Google): diâmetro, movimento, água... dentro do Product que a loja já tem ---------- */
   function microdados(r) {
     var P = document.querySelector('[itemscope][itemtype$="schema.org/Product"]');
@@ -1081,6 +1162,7 @@ html.lbrx-aberto,html.lbrx-aberto body{overflow:hidden!important}
       if (window.__lbRelP) return;
       window.__lbRelP = 1;
       naCompra(nome);
+      if (d) { try { dossie(d); } catch (e) {} } /* antes do glossário: as listas viram grade e o glossário não divide o texto delas */
       var r = temFicha ? dados() : null;
       if (r) {
         var sec = montar(r);

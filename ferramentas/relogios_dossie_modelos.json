@@ -1,0 +1,796 @@
+{
+ "_sobre": "Dossiê dos modelos de relógio da @LOJABIT (13/11/2026): história, tecnologia e curiosidades de cada família de relógio, com fontes. Usado por ferramentas/relogios_dossie.py. 'cats' = para que o tipo de relógio foi feito (mergulho, campo, cronografo, gmt, social, integrado, dia_a_dia). Relógio novo de família nova: acrescente uma família aqui (veja ferramentas/relogios_dossie.md).",
+ "familias": {
+  "prx": {
+   "titulo": "O dossiê do Tissot PRX",
+   "cats": [
+    "integrado"
+   ],
+   "p": [
+    "O PRX nasceu em 1978, em plena crise do quartzo, quando relógios a pilha mais baratos balançavam a relojoaria suíça. A Tissot respondeu com um relógio fino, de caixa em formato de barril achatado e pulseira de aço integrada, que sai direto da caixa. O nome resume a proposta: P de preciso, R de robusto e X, o 10 em algarismo romano, pelas 10 atmosferas de resistência à água.",
+    "O modelo saiu de linha no começo dos anos 1980 e ficou guardado no acervo até 2021, quando o presidente da Tissot, Sylvain Dolla, decidiu trazê-lo de volta. A primeira versão da volta, a quartzo, esgotou na loja da marca logo no lançamento, em março de 2021, e no mesmo ano chegou a versão automática com o Powermatic 80. O mostrador em relevo quadriculado, que os colecionadores chamam de waffle, virou a assinatura do PRX automático."
+   ],
+   "vs": [
+    [
+     "Sexta à noite, segunda de manhã",
+     "É assim que a Tissot explica as 80 horas do Powermatic 80: tire o relógio na sexta à noite e, na segunda de manhã, ele ainda estará na hora certa."
+    ],
+    [
+     "Como chegaram às 80 horas",
+     "A Tissot e a ETA baixaram a frequência do balanço de 4 para 3 Hz, alongaram a mola real e usaram um material sintético no escape, que reduz o atrito."
+    ],
+    [
+     "Esgotou na estreia",
+     "Quando voltou, em março de 2021, o PRX esgotou na loja online da Tissot e precisou de reposição no mesmo mês."
+    ],
+    [
+     "Espiral Nivachron",
+     "A espiral do balanço é de Nivachron, uma liga à base de titânio que resiste aos campos magnéticos de celulares e notebooks."
+    ]
+   ],
+   "fontes": [
+    "https://www.watchonista.com/articles/closer-look/comeback-kid-closer-look-tissots-relaunched-prx-collection",
+    "https://teddybaldassarre.com/blogs/watches/tissot-prx-chronograph-review",
+    "https://www.tissotwatches.com/pl-pl/magazine-news-powermatic-80.html",
+    "https://www.watchtime.com/wristwatch-industry-news/watches/tissots-luxury-automatics-offer-80-hour-power-reserve/"
+   ]
+  },
+  "prx_chrono": {
+   "titulo": "O dossiê do PRX Cronógrafo",
+   "cats": [
+    "cronografo",
+    "integrado"
+   ],
+   "p": [
+    "O PRX original, de 1978, era um relógio a quartzo fino, de caixa em barril e pulseira integrada, que saiu de linha no começo dos anos 1980. Quando voltou, em 2021, fez tanto sucesso que a Tissot deu o passo seguinte em 2022: os primeiros PRX cronógrafos automáticos, com caixa de 42 mm.",
+    "Dentro dele bate o calibre A05.H31, da família do lendário Valjoux 7750, a 28.800 alternâncias por hora. A Tissot aumentou o tambor da mola e levou a reserva de marcha a 60 horas, contra as 48 horas do calibre de base. É um movimento exclusivo das marcas do Swatch Group."
+   ],
+   "vs": [
+    [
+     "Panda invertido",
+     "Mostrador escuro com contadores claros é o que os colecionadores chamam de panda invertido; aqui, azul com contadores brancos."
+    ],
+    [
+     "Achado no acervo",
+     "O PRX ficou guardado no acervo da Tissot do começo dos anos 1980 até 2021, quando o presidente da marca, Sylvain Dolla, decidiu trazê-lo de volta."
+    ],
+    [
+     "Família 7750",
+     "O Valjoux 7750, base deste calibre, é um dos movimentos de cronógrafo automático mais conhecidos da relojoaria suíça."
+    ]
+   ],
+   "fontes": [
+    "https://teddybaldassarre.com/blogs/watches/tissot-prx-chronograph-review",
+    "https://en.wikipedia.org/wiki/Tissot"
+   ]
+  },
+  "ballade": {
+   "titulo": "O dossiê do Tissot Ballade COSC",
+   "cats": [
+    "social"
+   ],
+   "p": [
+    "A linha Ballade estreou em 1994, que a própria Tissot descreve como uma afirmação de modernidade num mundo ainda preso a convenções. Em 2024, nos 30 anos da coleção, ela foi relançada, e em 2025 ganhou a versão automática certificada como cronômetro pelo COSC.",
+    "Para receber o título, o movimento passa 15 dias seguidos de testes no Controle Oficial Suíço de Cronômetros, avaliado por sete critérios da norma ISO 3159. No Powermatic 80 COSC, a tolerância fica entre −4 e +6 segundos por dia, e o rotor que aparece pelo fundo leva a gravação Certified Chronometer."
+   ],
+   "vs": [
+    [
+     "Três níveis de Powermatic 80",
+     "A Tissot regula o Powermatic 80 em três níveis: padrão, refinado (como no PRX) e COSC, o mais preciso, usado no Ballade."
+    ],
+    [
+     "Luneta canelada",
+     "Os sulcos da luneta refletem a luz em pequenos brilhos, um detalhe clássico da alta relojoaria."
+    ],
+    [
+     "O fim de semana fora do pulso",
+     "Com 80 horas de reserva, ele pode passar o fim de semana guardado e continuar funcionando."
+    ]
+   ],
+   "fontes": [
+    "https://www.tissotwatches.com/pt-br/magazine-news-ballade-cosc.html",
+    "https://www.tissotwatches.com/pl-pl/magazine-news-powermatic-80.html"
+   ]
+  },
+  "carson": {
+   "titulo": "O dossiê do Carson Premium e do Powermatic 80",
+   "cats": [
+    "social"
+   ],
+   "p": [
+    "O Carson é a linha clássica da Tissot para quem gosta de um relógio social de traços limpos: caixa redonda de aço, ponteiros finos e alongados e só 10,25 mm de espessura, mesmo sendo automático.",
+    "O coração é o Powermatic 80, lançado pela Tissot em 2013 em parceria com a ETA, a fábrica de movimentos do Swatch Group. Para chegar às 80 horas de reserva, quase o dobro das cerca de 42 horas que eram o padrão, os engenheiros reduziram a frequência do balanço de 4 para 3 Hz, alongaram a mola real e usaram um material sintético de alto desempenho no escape. O movimento tem 143 peças e 23 rubis."
+   ],
+   "vs": [
+    [
+     "Sexta à noite, segunda de manhã",
+     "A Tissot explica assim as 80 horas: tire o relógio na sexta à noite e, na segunda de manhã, ele ainda estará na hora certa."
+    ],
+    [
+     "Evolução de um clássico",
+     "O Powermatic 80 é uma evolução do ETA 2824, um dos automáticos suíços mais usados do mundo."
+    ],
+    [
+     "Rotor à mostra",
+     "Pelo fundo transparente dá para ver o rotor girar com o movimento do pulso, dando corda na mola."
+    ]
+   ],
+   "fontes": [
+    "https://www.tissotwatches.com/pl-pl/magazine-news-powermatic-80.html",
+    "https://www.watchtime.com/wristwatch-industry-news/watches/tissots-luxury-automatics-offer-80-hour-power-reserve/"
+   ]
+  },
+  "gentleman": {
+   "titulo": "O dossiê do Tissot Gentleman Silicium",
+   "cats": [
+    "social",
+    "integrado"
+   ],
+   "p": [
+    "O Gentleman foi pensado para ser o relógio de todas as horas: elegante no trabalho e confortável no fim de semana. A caixa de 40 mm tem laterais retas escovadas, chanfros polidos e alças curvas, e o fundo plano deixa o relógio rente ao pulso.",
+    "A versão Silicium usa o Powermatic 80.811, com espiral de silício, material ainda pouco comum na relojoaria. O silício não sofre com o magnetismo do dia a dia e ajuda a manter a precisão por mais tempo, e o movimento guarda até 80 horas de reserva de marcha."
+   ],
+   "vs": [
+    [
+     "Índices de joalheria",
+     "Os índices aplicados são altos e facetados, com topo escovado e laterais polidas, para pegar a luz de vários ângulos."
+    ],
+    [
+     "Na medida",
+     "São cerca de 48 mm de alça a alça e 11,5 mm de espessura, medidas que vestem bem a maioria dos pulsos."
+    ],
+    [
+     "Social que nada",
+     "Mesmo com cara de social, ele tem 100 metros de resistência à água."
+    ]
+   ],
+   "fontes": [
+    "https://wornandwound.com/review/hands-on-tissot-gentleman-powermatic-80-silicium/"
+   ]
+  },
+  "speedtimer": {
+   "titulo": "O dossiê do Seiko Speedtimer",
+   "cats": [
+    "cronografo"
+   ],
+   "p": [
+    "Nos anos 1960 a Seiko entrou para valer na cronometragem esportiva, com cronômetros de mão usados nos grandes eventos do esporte. Em 1969 chegou o Speedtimer de calibre 6139, que a Seiko apresenta como o primeiro cronógrafo automático do mundo com roda de colunas e embreagem vertical, duas soluções da alta relojoaria.",
+    "Em 2021 o nome voltou na linha Prospex, com versões mecânicas e solares. Os Speedtimer solares usam o calibre V192, com ponteiro de 24 horas e indicador de reserva de energia, e em 2026 a família ganhou o HBJ001P1, com o clássico visual panda."
+   ],
+   "vs": [
+    [
+     "O cronômetro de 1964",
+     "A edição limitada SRQ035, de 2021, copiou o mostrador do cronômetro de mão de 1/5 de segundo que a Seiko fez em 1964."
+    ],
+    [
+     "O came em forma de coração",
+     "Os cronômetros de mão da Seiko dos anos 1960 usavam um came em formato de coração, que zera o ponteiro com precisão."
+    ],
+    [
+     "Meses no escuro",
+     "Com carga completa, o V192 funciona cerca de seis meses guardado no escuro."
+    ]
+   ],
+   "fontes": [
+    "https://www.seikowatches.com/global-en/news/20210929",
+    "https://en.wikipedia.org/wiki/Seiko"
+   ]
+  },
+  "s5gmt": {
+   "titulo": "O dossiê do Seiko 5 Sports GMT",
+   "cats": [
+    "gmt",
+    "campo"
+   ],
+   "p": [
+    "A família Seiko 5 existe desde 1963, e a versão esportiva, Seiko 5 Sports, nasceu em 1968. Em 2019 a linha foi totalmente renovada e, em junho de 2022, ganhou pela primeira vez a função GMT, com o calibre automático 4R34.",
+    "O 4R34 bate a 21.600 alternâncias por hora, tem 24 rubis e cerca de 41 horas de reserva de marcha, com um ponteiro de 24 horas ajustável para acompanhar um segundo fuso. A versão Field leva esse GMT para o visual de relógio de campo, com caixa de 39,4 mm, mais compacta que os 42,5 mm dos primeiros GMT da linha."
+   ],
+   "vs": [
+    [
+     "Herança do SKX",
+     "Os primeiros Seiko 5 Sports GMT, de 2022, herdaram caixa, mostrador e pulseira do lendário SKX, o mergulhador da Seiko."
+    ],
+    [
+     "Hora de casa e hora local",
+     "O ponteiro extra dá uma volta por dia: dá para deixá-lo no horário de casa enquanto o relógio mostra a hora do lugar onde você está."
+    ],
+    [
+     "Antimagnético",
+     "Ele resiste a campos magnéticos de 4.800 A/m, como os de celulares e caixas de som."
+    ]
+   ],
+   "fontes": [
+    "https://www.seikowatches.com/au-en/news/20220608"
+   ]
+  },
+  "cocktail": {
+   "titulo": "O dossiê do Cocktail Time",
+   "cats": [
+    "social"
+   ],
+   "p": [
+    "O primeiro Cocktail Time foi o SARB065, lançado em 2010 no Japão e apelidado de Cool, com mostrador azul-claro. A série nasceu da parceria com o bartender Shinobu Ishigaki, do bar Ishinohana, no bairro de Shibuya, em Tóquio, e cada mostrador traduz um coquetel em cor e textura.",
+    "Em 2017 a série entrou para a linha Presage, a família da Seiko dedicada ao acabamento e às tradições da relojoaria japonesa. Os modelos usam movimentos automáticos com corda manual e parada dos segundos, como o 4R35 deste relógio, e o catálogo de inspirações já passa de 29 coquetéis diferentes."
+   ],
+   "vs": [
+    [
+     "Índices de taça",
+     "Os índices finos e brilhantes lembram a haste de uma taça de coquetel, segundo a própria Seiko."
+    ],
+    [
+     "Vidro box",
+     "O vidro Hardlex em formato box, abaulado nas bordas, é outra assinatura clássica da série."
+    ],
+    [
+     "Meia-noite em Tóquio",
+     "A Seiko descreve a série como uma visita a um bar autêntico de Tóquio à meia-noite."
+    ]
+   ],
+   "fontes": [
+    "https://www.coronet.org/new-1minute-reads/everything-you-need-to-know-about-the-seiko-presage-cocktail-time",
+    "https://www.seikowatches.com/ph-en/products/presage/special/cocktailtime"
+   ]
+  },
+  "s5": {
+   "titulo": "O dossiê do Seiko 5 e do calibre 7S26",
+   "cats": [
+    "dia_a_dia"
+   ],
+   "p": [
+    "O Seiko 5 nasceu em 1963, com o Sportsmatic 5, e virou para muita gente no mundo o primeiro relógio automático da vida. A receita das cinco qualidades (movimento automático, dia e data, resistência à água, coroa protegida e caixa e pulseira resistentes) fez da família uma porta de entrada clássica para os relógios mecânicos.",
+    "Dentro dele bate o 7S26, lançado em 1996, o primeiro de uma família de movimentos da Seiko que inclui os conhecidos 4R35 e 4R36. É um movimento simples e muito resistente, com 21 rubis, 21.600 alternâncias por hora, mais de 40 horas de reserva e proteção contra choques Diashock, o mesmo calibre que equipou o lendário mergulhador SKX007."
+   ],
+   "vs": [
+    [
+     "Só com o pulso",
+     "O 7S26 ganha corda apenas com o movimento do pulso: é só usar, e ele se mantém funcionando."
+    ],
+    [
+     "Dia e data juntos",
+     "A janela às 3 horas mostra o dia da semana e a data juntos, uma marca registrada dos Seiko 5."
+    ],
+    [
+     "Feito para aguentar",
+     "O sistema Diashock protege o movimento contra impactos do dia a dia."
+    ]
+   ],
+   "fontes": [
+    "https://www.strapcode.com/en-au/blogs/seiko-mechanical-movements/seiko-7s26-caliber-reviews",
+    "https://en.wikipedia.org/wiki/Seiko"
+   ]
+  },
+  "ssb425": {
+   "titulo": "O dossiê do Seiko Cronógrafo Panda",
+   "cats": [
+    "cronografo"
+   ],
+   "p": [
+    "Este cronógrafo faz parte da coleção Discover More, da Seiko, e usa o calibre de quartzo 8T63: precisão de ±15 segundos por mês, bateria para cerca de 3 anos e cronógrafo de até 60 minutos em frações de 1/5 de segundo, além do ponteiro de 24 horas.",
+    "A Seiko tem tradição de sobra em cronometragem: seus cronômetros de mão foram escolhidos para os Jogos Olímpicos de Tóquio, em 1964, e em 1969 a marca lançou o Speedtimer, um dos primeiros cronógrafos automáticos do mundo. O SSB425 leva essa herança para o dia a dia, com 41,5 mm de caixa, 46,5 mm de ponta a ponta e 133 g."
+   ],
+   "vs": [
+    [
+     "1/5 de segundo",
+     "O cronógrafo mede em passos de 0,2 segundo, a mesma resolução do cronômetro de mão que a Seiko fez em 1964."
+    ],
+    [
+     "Quem inventou o quartzo",
+     "Foi a Seiko que lançou o primeiro relógio de pulso de quartzo do mundo, o Astron, em 1969."
+    ],
+    [
+     "Por que panda",
+     "Mostrador claro com contadores escuros lembra o rosto de um panda, daí o apelido."
+    ]
+   ],
+   "fontes": [
+    "https://www.seikowatches.com/us-en/products/discovermore/ssb425",
+    "https://en.wikipedia.org/wiki/Seiko"
+   ]
+  },
+  "zenshin": {
+   "titulo": "O dossiê do Citizen Zenshin",
+   "cats": [
+    "integrado"
+   ],
+   "p": [
+    "Zenshin quer dizer avanço, progresso em japonês. A coleção chegou em maio de 2025, depois da série NJ0180 de 2024, com caixa e pulseira integradas no visual esportivo-elegante que a Citizen trouxe de volta dos anos 1980 com a linha Tsuyosa.",
+    "O material é o Super Titanium, desenvolvido pela Citizen em 1990, com o tratamento de superfície Duratect, de 2006, que deixa a superfície cerca de cinco vezes mais resistente que a do aço inoxidável. A marca pesquisa o titânio há décadas: foi dela o primeiro relógio do mundo com caixa de titânio, o X-8 Chronometer, de 1970."
+   ],
+   "vs": [
+    [
+     "Bisel de 12 lados",
+     "O bisel tem 12 faces, e a caixa em formato de barril alterna acabamento escovado e polido."
+    ],
+    [
+     "Calibre 8322",
+     "Automático com 21 rubis, 21.600 alternâncias por hora, 60 horas de reserva e parada dos segundos."
+    ],
+    [
+     "Sem data, de propósito",
+     "O Zenshin tirou a janela de data da série anterior para deixar o mostrador limpo, com os segundos pequenos às 4h30."
+    ]
+   ],
+   "fontes": [
+    "https://monochrome-watches.com/citizen-zenshin-60-automatic-small-seconds-super-titanium-nk5020-collection-introducing-price",
+    "https://www.watch.co.uk/citizen-zenshin-60-titanium-automatic-watch-with-60h-power-reserve-nk5020-58x.htm"
+   ]
+  },
+  "citizen_mec": {
+   "titulo": "O dossiê do Citizen Mechanical",
+   "cats": [
+    "dia_a_dia",
+    "social"
+   ],
+   "p": [
+    "A linha Mechanical reúne os automáticos da Citizen, e este usa o calibre 8210, da família de movimentos 82 da Miyota, empresa do grupo Citizen. A família 82 completou 50 anos em 2025 e é uma das mais conhecidas da relojoaria japonesa, querida por marcas independentes pelo equilíbrio entre confiabilidade e manutenção simples.",
+    "A Miyota nasceu em 1959 na cidade que lhe dá nome, na província de Nagano, no Japão, e hoje faz cerca de 100 milhões de movimentos por ano, para a Citizen e para muitas outras marcas."
+   ],
+   "vs": [
+    [
+     "Meio século de estrada",
+     "A família de calibres 82 completou 50 anos em 2025, ainda em produção."
+    ],
+    [
+     "Sem pilha",
+     "Automático, ele ganha corda com o movimento do pulso e dispensa bateria."
+    ],
+    [
+     "Visto por trás",
+     "O fundo transparente mostra o movimento trabalhando."
+    ]
+   ],
+   "fontes": [
+    "https://www.fratellowatches.com/miyota-celebrates-50-years-of-the-caliber-82-series/",
+    "https://en.wikipedia.org/wiki/Miyota_(watch_movement_manufacturer)",
+    "https://en.wikipedia.org/wiki/Citizen_Watch"
+   ]
+  },
+  "citizen_auto": {
+   "titulo": "O dossiê do Citizen Automático",
+   "cats": [
+    "dia_a_dia",
+    "social"
+   ],
+   "p": [
+    "O calibre 8200 deste relógio é da família 82, criada pela Miyota, do grupo Citizen, que completou 50 anos em 2025. É um projeto robusto e simples de manter, e por isso segue em produção há meio século.",
+    "A Miyota nasceu em 1959 na cidade que lhe dá nome, em Nagano, no Japão, e hoje faz cerca de 100 milhões de movimentos por ano, para a Citizen e para muitas outras marcas. Com 21 rubis, 21.600 alternâncias por hora e dia e data à vista, o NH8350 é um automático feito para durar."
+   ],
+   "vs": [
+    [
+     "Meio século de estrada",
+     "A família de calibres 82 completou 50 anos em 2025, ainda em produção."
+    ],
+    [
+     "Romanos e bastões",
+     "O mostrador alterna índices em bastão e algarismos romanos, um toque clássico."
+    ],
+    [
+     "Sem pilha",
+     "Automático, ele ganha corda com o movimento do pulso e dispensa bateria."
+    ]
+   ],
+   "fontes": [
+    "https://www.fratellowatches.com/miyota-celebrates-50-years-of-the-caliber-82-series/",
+    "https://en.wikipedia.org/wiki/Miyota_(watch_movement_manufacturer)"
+   ]
+  },
+  "garrison": {
+   "titulo": "O dossiê do Citizen Garrison",
+   "cats": [
+    "campo"
+   ],
+   "p": [
+    "O Garrison é o relógio de campo da Citizen, com o DNA dos relógios militares: visual robusto, caixa de 37 mm com fundo rosqueado, ponteiros e marcações luminosos e 100 metros de resistência à água, que a Citizen indica para natação, banho e snorkel.",
+    "Ele funciona com Eco-Drive, a tecnologia que transforma qualquer luz em energia e guarda o excedente numa célula recarregável. A Citizen começou essa história em 1976, com o Crystron Solar Cell, o primeiro relógio analógico de quartzo movido a luz, e diz que, com carga completa, o Eco-Drive funciona seis meses ou mais no escuro total."
+   ],
+   "vs": [
+    [
+     "Leve de verdade",
+     "Com a pulseira de nylon, ele pesa cerca de 48 g."
+    ],
+    [
+     "Qualquer luz serve",
+     "Sol, janela ou lâmpada: qualquer luz recarrega o Eco-Drive."
+    ],
+    [
+     "Pulso pequeno e médio",
+     "Os 37 mm são a medida clássica dos relógios de campo, discretos e confortáveis."
+    ]
+   ],
+   "fontes": [
+    "https://www.citizenwatch.com/us/en/p/BM8180-03E.html",
+    "https://www.citizenwatch-global.com/citizen_l/special/reason/technology/"
+   ]
+  },
+  "prodiver": {
+   "titulo": "O dossiê do Invicta Pro Diver",
+   "cats": [
+    "mergulho"
+   ],
+   "p": [
+    "O Pro Diver é o carro-chefe de mergulho da Invicta e uma das linhas mais populares da marca no mundo. A receita é a dos mergulhadores clássicos: bisel giratório unidirecional, ponteiros e índices luminosos, coroa rosqueada e 200 metros de resistência à água.",
+    "Dentro dele bate o NH35A, automático japonês da Seiko Instruments, com 24 rubis, 21.600 alternâncias por hora, cerca de 41 horas de reserva, corda manual e parada dos segundos. No começo dos anos 2000, o Pro Diver e a linha Lupah ajudaram a popularizar os relógios de caixa grande."
+   ],
+   "vs": [
+    [
+     "Queridinho de quem personaliza",
+     "Por usar o NH35A, o Pro Diver aceita muitas peças de reposição e é um dos relógios favoritos de quem gosta de personalizar."
+    ],
+    [
+     "Por que o bisel só gira para um lado",
+     "No mergulho, o bisel marca o tempo de fundo; girando só para um lado, um esbarrão nunca aumenta o tempo restante."
+    ]
+   ],
+   "fontes": [
+    "https://en.wikipedia.org/wiki/Invicta_Watch_Group",
+    "https://wristwatchreview.com/invicta-with-conviction-the-8926ob",
+    "https://twobrokewatchsnobs.com/invicta-pro-diver-review-8926ob/"
+   ]
+  },
+  "expedition": {
+   "titulo": "O dossiê do Timex Expedition",
+   "cats": [
+    "campo"
+   ],
+   "p": [
+    "A Timex criou a linha Expedition em 1997 para esportes ao ar livre e uso pesado. O Expedition North Sierra segue a escola dos relógios de campo: mostrador limpo, algarismos grandes e uma escala interna de 13 a 24 para ler as horas no formato militar.",
+    "O grande trunfo é o Indiglo, que a Timex lançou em 1992: ao apertar a coroa, o mostrador inteiro acende num brilho azul-esverdeado uniforme. Em 1993, no atentado ao World Trade Center, um funcionário usou a luz Indiglo do seu Timex para guiar colegas por 40 andares de escada no escuro."
+   ],
+   "vs": [
+    [
+     "Luz por inteiro",
+     "O Indiglo é eletroluminescente: em vez de só os ponteiros brilharem, o mostrador inteiro acende por igual."
+    ],
+    [
+     "Hora militar",
+     "A escala de 13 a 24 ajuda a ler o horário no formato de 24 horas, como nos relógios de campo."
+    ],
+    [
+     "Feito para a trilha",
+     "A linha Expedition nasceu para acampar, caminhar e viajar, com relógios leves e fáceis de ler."
+    ]
+   ],
+   "fontes": [
+    "https://en.wikipedia.org/wiki/Timex_Group_USA",
+    "https://vivir.com/article/timex-expedition-sierra"
+   ]
+  },
+  "qgmt": {
+   "titulo": "O dossiê do Q Timex",
+   "cats": [
+    "gmt"
+   ],
+   "p": [
+    "O Q Timex original, de 1979, marcou a passagem da Timex dos movimentos mecânicos para o quartzo: o Q do nome é de quartzo, a tecnologia que oferecia precisão a um preço acessível. Em maio de 2019, nos 165 anos da marca, a Timex relançou o modelo com os detalhes do original, da tampa de bateria funcional no fundo ao Q logo abaixo das 12 horas.",
+    "A reedição esgotou em menos de 24 horas, chegou a ser revendida por mais que o dobro do preço e fez a Timex abrir lista de espera no site. Depois vieram as versões GMT, como esta, com ponteiro de 24 horas para acompanhar um segundo fuso."
+   ],
+   "vs": [
+    [
+     "Tampa de bateria",
+     "A tampa no fundo é funcional, como no original de 1979: a troca de pilha fica fácil."
+    ],
+    [
+     "Vidro abaulado",
+     "O vidro acrílico abaulado repete o visual vintage do relógio de 1979."
+    ],
+    [
+     "Lume como antes",
+     "Para a reedição, a Timex recriou até a tinta luminosa dos índices e ponteiros."
+    ],
+    [
+     "Batman",
+     "Batman é o apelido do bisel azul e preto, nas cores do uniforme do herói."
+    ]
+   ],
+   "fontes": [
+    "https://prnewswire.com/news-releases/announcing-q-timex-a-reissue-of-a-1979-retro-classic-returns-with-all-of-the-original-details-300851530.html",
+    "https://thegentlemanracer.com/2019/05/q-timex-reissue-sells-out-immediately.html"
+   ]
+  },
+  "mako": {
+   "titulo": "O dossiê do Orient Mako",
+   "cats": [
+    "mergulho",
+    "cronografo"
+   ],
+   "p": [
+    "A família Mako começou em 2004 com o EM65, um mergulhador automático de 41,5 mm e duas coroas, que a comunidade de colecionadores apelidou de Mako. Em 2016 a linha ganhou o calibre F6922, com corda manual e parada dos segundos, e em 2024 completou 20 anos com uma edição limitada de 3.000 peças.",
+    "O Mako Solar Cronógrafo leva esse desenho de mergulhador para a energia solar: os contadores captam luz, e o relógio funciona até seis meses no escuro com carga completa. Mantém o que fez a fama do Mako: bisel giratório de 120 cliques, coroa rosqueada e 200 metros de resistência à água."
+   ],
+   "vs": [
+    [
+     "O original",
+     "O Mako é mais antigo até que o Bambino, outro sucesso da Orient, e os fãs o chamam de o original."
+    ],
+    [
+     "Amarelo raro",
+     "Em 2009 saiu um Mako amarelo exclusivo para os Estados Unidos, até hoje caçado por colecionadores."
+    ],
+    [
+     "Família grande",
+     "Do Mako vieram o Ray, em 2010, e o Mako XL, de 44,5 mm, pedido pelos fãs que queriam um mergulhador maior."
+    ]
+   ],
+   "fontes": [
+    "https://orientwatchusa.com/blog/the-twenty-year-history-of-this-beloved-diver"
+   ]
+  },
+  "fab": {
+   "titulo": "O dossiê da Esquadrilha da Fumaça",
+   "cats": [
+    "cronografo"
+   ],
+   "p": [
+    "A Esquadrilha da Fumaça fez sua primeira apresentação em 14 de maio de 1952, sobre a praia de Copacabana, no Rio de Janeiro. Hoje tem base na Academia da Força Aérea, em Pirassununga (SP), e voa o Super Tucano, da Embraer, desde 2012.",
+    "O T-6 Texan, homenageado neste relógio, foi o primeiro avião da Esquadrilha e fez 1.225 demonstrações. Depois vieram o T-25 Universal e o Tucano, que passou de 2.000 apresentações. A Orient Brasil dedica à Esquadrilha uma série de cronógrafos limitados, e esta quarta edição, com 203 peças numeradas, homenageia o T-6."
+   ],
+   "vs": [
+    [
+     "Vermelho antes do azul",
+     "Os aviões da Esquadrilha já foram pintados de vermelho vivo, antes do azul brilhante de hoje."
+    ],
+    [
+     "Régua de cálculo",
+     "O bisel com régua de cálculo é herança dos relógios de piloto, usado para contas de voo."
+    ],
+    [
+     "Três pulseiras",
+     "Ele vem com pulseiras de aço, de couro e de nylon balístico, todas com troca rápida."
+    ]
+   ],
+   "fontes": [
+    "https://en.wikipedia.org/wiki/Smoke_Squadron"
+   ]
+  },
+  "mathy_gmt": {
+   "titulo": "O dossiê do Mathy Vintage GMT",
+   "cats": [
+    "gmt"
+   ],
+   "p": [
+    "O Mathy Vintage GMT traz o visual dos relógios de viagem clássicos com a praticidade do quartzo suíço: um ponteiro extra de 24 horas, lido no bisel giratório bicolor, mostra um segundo fuso horário.",
+    "A função GMT ganhou fama nos anos 1950, com os pilotos das companhias aéreas que cruzavam continentes, e o bisel de duas cores, metade dia e metade noite, virou a assinatura visual desse tipo de relógio."
+   ],
+   "vs": [
+    [
+     "Para que serve o GMT",
+     "Com o GMT você vê ao mesmo tempo a hora local e a de casa, ótimo para viagens, voos e reuniões com outros países."
+    ],
+    [
+     "Quartzo suíço",
+     "O movimento a quartzo suíço dispensa corda e mantém a precisão com manutenção simples."
+    ]
+   ],
+   "fontes": [
+    "https://en.wikipedia.org/wiki/Mathey-Tissot"
+   ]
+  },
+  "skydiver": {
+   "titulo": "O dossiê do Skydiver 500M",
+   "cats": [
+    "mergulho"
+   ],
+   "p": [
+    "A reedição de 2026 foi recriada a partir de desenhos, anúncios e documentos de fábrica dos anos 1960 e manteve a caixa compacta de 37,5 mm, com aro giratório unidirecional em alumínio e coroa e fundo rosqueados.",
+    "Por dentro bate o Sellita SW200-1, automático suíço de 26 rubis e 28.800 alternâncias por hora, com parada dos segundos. O conjunto resiste a 500 metros de profundidade, nível de relógio de mergulho profissional."
+   ],
+   "vs": [
+    [
+     "Âncora no fundo",
+     "O fundo rosqueado traz uma âncora em alto-relevo, símbolo dos relógios de mergulho."
+    ],
+    [
+     "1.000 no mundo",
+     "São só 1.000 peças numeradas no mundo inteiro."
+    ],
+    [
+     "Duas pulseiras",
+     "Ele vem com pulseira de aço no estilo Beads of Rice e de borracha FKM, ambas com troca rápida."
+    ]
+   ],
+   "fontes": [
+    "https://en.wikipedia.org/wiki/Technos_(watches)"
+   ]
+  },
+  "mido_tv": {
+   "titulo": "O dossiê do Multifort TV",
+   "cats": [
+    "integrado"
+   ],
+   "p": [
+    "A caixa em formato de televisão, um quadrado quase perfeito de cantos arredondados como as telas das primeiras TVs, apareceu na Mido em 1973, 1980 e 2000. Em 2023, 50 anos depois da primeira, voltou no Multifort TV Big Date, que estreou a data grande na coleção Multifort.",
+    "O Calibre 80 guarda até 80 horas de reserva de marcha, tem espiral Nivachron, resistente a campos magnéticos e choques, e rotor com Côtes de Genève e o logo da Mido gravado, visível pelo fundo transparente."
+   ],
+   "vs": [
+    [
+     "Do azul ao preto",
+     "O mostrador vai do azul no centro ao preto nas bordas, com escovado horizontal das 3 às 9 horas."
+    ],
+    [
+     "Um ponto no bisel",
+     "O pontinho às 12 horas no bisel conversa com os índices redondos com Super-LumiNova branca."
+    ],
+    [
+     "Estreia em família",
+     "O lançamento de 2023 teve outras quatro versões: verde e preta em aço, e azul-marinho e laranja Mido com pulseira de borracha."
+    ]
+   ],
+   "fontes": [
+    "https://www.swatchgroup.com/en/services/archive/2023/mido-multifort-tv-big-date",
+    "https://en.wikipedia.org/wiki/Mido_(watch)"
+   ]
+  }
+ },
+ "produtos": {
+  "404620686": {
+   "f": "prx"
+  },
+  "404925562": {
+   "f": "prx_chrono"
+  },
+  "404642724": {
+   "f": "ballade"
+  },
+  "403412257": {
+   "f": "carson",
+   "vs": [
+    [
+     "Preto coringa",
+     "O mostrador preto sunray com pulseira de aço é a combinação mais versátil da família Carson."
+    ]
+   ]
+  },
+  "403369673": {
+   "f": "carson",
+   "vs": [
+    [
+     "Couro com troca rápida",
+     "A pulseira de couro azul troca sem ferramenta, para variar o visual em segundos."
+    ]
+   ]
+  },
+  "403368499": {
+   "f": "gentleman"
+  },
+  "404925563": {
+   "f": "speedtimer"
+  },
+  "404642708": {
+   "f": "s5gmt"
+  },
+  "404620654": {
+   "f": "cocktail",
+   "vs": [
+    [
+     "O coquetel Blue Moon",
+     "O Blue Moon leva gim, licor de violeta e limão, e é famoso pela cor azulada."
+    ]
+   ]
+  },
+  "403425043": {
+   "f": "cocktail",
+   "vs": [
+    [
+     "Herdeiro do primeiro",
+     "O azul-gelo do Skydiving é o que mais lembra o SARB065 Cool, o primeiro Cocktail Time, de 2010."
+    ]
+   ]
+  },
+  "403413241": {
+   "f": "cocktail",
+   "vs": [
+    [
+     "O coquetel Mockingbird",
+     "O Mockingbird mistura tequila e menta, daí o verde do mostrador."
+    ]
+   ]
+  },
+  "403408978": {
+   "f": "cocktail",
+   "vs": [
+    [
+     "Para pulsos finos",
+     "Com 38,5 mm, o Old Clock é um dos Cocktail Time de caixa menor."
+    ]
+   ]
+  },
+  "402354884": {
+   "f": "s5"
+  },
+  "402331960": {
+   "f": "s5"
+  },
+  "402352749": {
+   "f": "ssb425"
+  },
+  "403410539": {
+   "f": "zenshin"
+  },
+  "402515032": {
+   "f": "citizen_mec"
+  },
+  "402339518": {
+   "f": "citizen_auto"
+  },
+  "402347992": {
+   "f": "garrison"
+  },
+  "402523155": {
+   "f": "prodiver",
+   "vs": [
+    [
+     "Borda de moeda",
+     "A borda serrilhada do bisel, a coin-edge, lembra a de uma moeda e dá firmeza aos dedos para girar."
+    ],
+    [
+     "Assinado de ponta a ponta",
+     "A Invicta assina o relógio na lateral da caixa, na coroa, no mostrador, no fecho e até no contrapeso do ponteiro dos segundos."
+    ]
+   ]
+  },
+  "402522968": {
+   "f": "prodiver",
+   "vs": [
+    [
+     "Bicolor",
+     "Aço e dourado se alternam na caixa e na pulseira e dão um toque de brilho ao visual de mergulhador."
+    ]
+   ]
+  },
+  "402517761": {
+   "f": "prodiver",
+   "vs": [
+    [
+     "Tritnite",
+     "A luminescência verde Tritnite, da própria Invicta, deixa ponteiros e índices legíveis no escuro."
+    ]
+   ]
+  },
+  "402517255": {
+   "f": "prodiver",
+   "vs": [
+    [
+     "Versão XL",
+     "Os 43 mm de caixa e a pulseira de 22 mm dão presença de mergulhador no pulso."
+    ]
+   ]
+  },
+  "404657484": {
+   "f": "expedition"
+  },
+  "402524740": {
+   "f": "qgmt"
+  },
+  "403418231": {
+   "f": "mako"
+  },
+  "402526517": {
+   "f": "fab"
+  },
+  "402524636": {
+   "f": "mathy_gmt",
+   "vs": [
+    [
+     "Sprite",
+     "Sprite é o apelido do bisel verde e preto, pelas cores da lata do refrigerante."
+    ]
+   ]
+  },
+  "403412952": {
+   "f": "mathy_gmt",
+   "vs": [
+    [
+     "Batman",
+     "Batman é o apelido do bisel azul e preto, nas cores do uniforme do herói."
+    ]
+   ]
+  },
+  "403418415": {
+   "f": "skydiver"
+  },
+  "403369306": {
+   "f": "mido_tv"
+  }
+ }
+}

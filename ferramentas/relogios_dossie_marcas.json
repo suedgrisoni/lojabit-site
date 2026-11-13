@@ -1,0 +1,603 @@
+{
+ "_sobre": "Dossiê das marcas de relógio da @LOJABIT (13/11/2026). Fatos conferidos nas fontes listadas em cada marca. Usado por ferramentas/relogios_dossie.py para montar, na descrição de cada relógio, a seção 'A história da marca em N momentos' (linha do tempo) e parte do 'Você sabia?'. Marca nova: acrescente aqui com fontes (veja ferramentas/relogios_dossie.md).",
+ "Seiko": {
+  "pais": "Japão",
+  "intro": [
+   "A Seiko começou em 1881 como a loja de relógios e joias de Kintarō Hattori, em Tóquio, e se tornou uma das marcas que mais mudaram a relojoaria do mundo.",
+   "Fundada por Kintarō Hattori em Tóquio, em 1881, a Seiko está por trás de algumas das maiores invenções da relojoaria moderna, do primeiro relógio de quartzo ao Spring Drive."
+  ],
+  "linha": [
+   [
+    "1881",
+    "Kintarō Hattori abre a loja K. Hattori, de relógios e joias, em Tóquio."
+   ],
+   [
+    "1913",
+    "Sai o Laurel, o primeiro relógio de pulso fabricado no Japão."
+   ],
+   [
+    "1924",
+    "O nome Seiko passa a aparecer nos relógios da casa."
+   ],
+   [
+    "1956",
+    "Chega o primeiro relógio de pulso automático do Japão."
+   ],
+   [
+    "1960",
+    "Nasce o Grand Seiko, o primeiro relógio com padrão de cronômetro feito no Japão."
+   ],
+   [
+    "1963",
+    "O Sportsmatic 5 inaugura a família Seiko 5."
+   ],
+   [
+    "1964",
+    "Os cronômetros da Seiko são escolhidos para os Jogos Olímpicos de Tóquio."
+   ],
+   [
+    "1965",
+    "A Seiko lança o primeiro relógio de mergulho japonês."
+   ],
+   [
+    "1969",
+    "No Natal, chega o Astron, o primeiro relógio de pulso de quartzo vendido no mundo."
+   ],
+   [
+    "1999",
+    "Estreia o Spring Drive, mecânico com precisão de quartzo."
+   ],
+   [
+    "2012",
+    "O Astron GPS Solar vira o primeiro relógio solar com GPS do mundo."
+   ]
+  ],
+  "vs": [
+   [
+    "O nome",
+    "Seikō quer dizer requinte, precisão em japonês, e soa igual à palavra que significa sucesso."
+   ],
+   [
+    "Quase se chamou Glory",
+    "Em 1923 os relógios da casa usaram o nome provisório Glory, trocado porque soava como gorori, palavra japonesa para tombo, considerada de azar."
+   ],
+   [
+    "Um quartzo do preço de um carro",
+    "O Astron, primeiro relógio de quartzo do mundo, custava em 1969 o mesmo que um carro médio."
+   ],
+   [
+    "Televisão no pulso",
+    "Em 1982 a Seiko lançou o primeiro relógio de pulso com televisão; em 1984, o primeiro relógio-computador."
+   ],
+   [
+    "As cinco qualidades do Seiko 5",
+    "O 5 do nome vem de cinco qualidades: movimento automático, dia e data, resistência à água, coroa embutida e caixa e pulseira resistentes."
+   ]
+  ],
+  "fontes": [
+   "https://en.wikipedia.org/wiki/Seiko"
+  ]
+ },
+ "Tissot": {
+  "pais": "Suíça",
+  "intro": [
+   "A Tissot nasceu em 1853 em Le Locle, nas montanhas do Jura suíço, fundada por Charles-Félicien Tissot e seu filho, Charles-Émile.",
+   "Pai e filho, Charles-Félicien e Charles-Émile Tissot, criaram a marca em 1853 em Le Locle, berço da relojoaria suíça, e desde então a Tissot coleciona estreias mundiais."
+  ],
+  "linha": [
+   [
+    "1853",
+    "Charles-Félicien Tissot e o filho, Charles-Émile, fundam a Tissot em Le Locle, na Suíça."
+   ],
+   [
+    "1858",
+    "Charles-Émile leva os relógios de bolso da marca para a Rússia, que vira o maior mercado da Tissot."
+   ],
+   [
+    "1930",
+    "A Tissot está entre as primeiras a fazer relógios antimagnéticos, entre 1929 e 1930."
+   ],
+   [
+    "1971",
+    "O Idea 2001 é um relógio feito de plástico, ousadia para a época."
+   ],
+   [
+    "1985",
+    "O RockWatch tem caixa de granito dos Alpes suíços."
+   ],
+   [
+    "1988",
+    "A marca lança um relógio de madeira."
+   ],
+   [
+    "1999",
+    "Estreia o T-Touch, o relógio de tela tátil."
+   ],
+   [
+    "2013",
+    "Chega o Powermatic 80, o automático com até 80 horas de reserva."
+   ],
+   [
+    "2015",
+    "A Tissot vira a cronometrista oficial da NBA."
+   ],
+   [
+    "2021",
+    "O PRX, de 1978, volta ao catálogo e vira febre."
+   ]
+  ],
+  "vs": [
+   [
+    "Dois fusos já em 1853",
+    "A Tissot diz ter feito, em 1853, o primeiro relógio de bolso produzido em série e o primeiro relógio de bolso com dois fusos horários."
+   ],
+   [
+    "Do Jura a Moscou",
+    "Em 1885 Charles Tissot, neto do fundador, mudou-se para Moscou para cuidar da filial russa da marca."
+   ],
+   [
+    "Tempo oficial do esporte",
+    "A Tissot marca o tempo da NBA, da MotoGP, do ciclismo da UCI e do basquete da FIBA."
+   ],
+   [
+    "Relógio de pedra e de madrepérola",
+    "Em 1985 a Tissot lançou o RockWatch, com caixa de granito dos Alpes, e em 1987 o Pearl, de madrepérola."
+   ],
+   [
+    "Do grupo Swatch",
+    "A Tissot faz parte do Swatch Group, o mesmo de Omega, Longines e Mido."
+   ]
+  ],
+  "fontes": [
+   "https://en.wikipedia.org/wiki/Tissot",
+   "https://www.watchtime.com/wristwatch-industry-news/watches/tissots-luxury-automatics-offer-80-hour-power-reserve/"
+  ]
+ },
+ "Citizen": {
+  "pais": "Japão",
+  "intro": [
+   "A Citizen começou em 1918, em Tóquio, como o Instituto de Pesquisa de Relógios Shokosha, de Kamekichi Yamazaki. O nome Citizen, cidadão em inglês, foi sugerido em 1924 pelo prefeito de Tóquio, Gotō Shinpei.",
+   "Nascida em Tóquio em 1918 e batizada em 1924 pelo então prefeito da cidade, a Citizen virou uma das maiores fabricantes de relógios do mundo e pioneira dos relógios movidos a luz."
+  ],
+  "linha": [
+   [
+    "1918",
+    "Kamekichi Yamazaki funda o Instituto de Pesquisa de Relógios Shokosha, em Tóquio."
+   ],
+   [
+    "1924",
+    "Sai o primeiro relógio de bolso com o nome Citizen, sugerido pelo prefeito de Tóquio."
+   ],
+   [
+    "1930",
+    "É criada a Citizen Watch Co."
+   ],
+   [
+    "1959",
+    "Nasce a Miyota, fabricante de movimentos do grupo."
+   ],
+   [
+    "1970",
+    "O X-8 Chronometer é o primeiro relógio do mundo com caixa de titânio."
+   ],
+   [
+    "1976",
+    "O Crystron Solar Cell é o primeiro relógio analógico de quartzo movido a luz."
+   ],
+   [
+    "1993",
+    "Chega o primeiro relógio controlado por rádio de várias estações."
+   ],
+   [
+    "1995",
+    "O Eco-Drive esconde a célula solar sob o mostrador e funciona meses no escuro."
+   ],
+   [
+    "2011",
+    "O Satellite Wave é o primeiro relógio a acertar a hora por satélite."
+   ],
+   [
+    "2019",
+    "O calibre 0100 chega a ±1 segundo por ano, sem rádio nem GPS."
+   ]
+  ],
+  "vs": [
+   [
+    "Movimentos para o mundo",
+    "A Miyota, do grupo Citizen, faz cerca de 100 milhões de movimentos por ano, usados por várias marcas além da própria Citizen."
+   ],
+   [
+    "Pilhas do tamanho do Everest",
+    "Segundo a Citizen, as pilhas jogadas fora em um ano formariam uma pilha da altura do Monte Everest; o Eco-Drive dispensa a troca de pilha comum."
+   ],
+   [
+    "Selo verde pioneiro",
+    "Em 1996 o Eco-Drive recebeu o selo ecológico japonês Eco Mark, o primeiro dado a um relógio."
+   ],
+   [
+    "Apelido que virou nome",
+    "O Fugu, mergulhador da Citizen, ganhou esse nome dos fãs, pelo baiacu, e a marca adotou o apelido oficialmente."
+   ],
+   [
+    "Dona da Bulova",
+    "Em 2008 a Citizen comprou a americana Bulova."
+   ]
+  ],
+  "fontes": [
+   "https://en.wikipedia.org/wiki/Citizen_Watch",
+   "https://www.citizenwatch-global.com/citizen_l/special/reason/technology/",
+   "https://monochrome-watches.com/citizen-zenshin-60-automatic-small-seconds-super-titanium-nk5020-collection-introducing-price"
+  ]
+ },
+ "Invicta": {
+  "pais": "Suíça e Estados Unidos",
+  "intro": [
+   "A Invicta foi fundada em 1837 por Raphael Picard em La Chaux-de-Fonds, um dos berços da relojoaria suíça, e ficou mais de um século nas mãos da família Picard.",
+   "Suíça de nascimento, a Invicta surgiu em 1837 em La Chaux-de-Fonds, pelas mãos de Raphael Picard, e hoje tem sede na Flórida, nos Estados Unidos."
+  ],
+  "linha": [
+   [
+    "1837",
+    "Raphael Picard funda a Invicta em La Chaux-de-Fonds, na Suíça."
+   ],
+   [
+    "1914",
+    "A marca ganha medalha de ouro na Exposição Nacional Suíça, em Berna."
+   ],
+   [
+    "1928",
+    "A empresa vira a sociedade anônima Invicta S.A."
+   ],
+   [
+    "1940",
+    "A Invicta chega aos Estados Unidos por um distribuidor de Nova York."
+   ],
+   [
+    "1959",
+    "Recebe da União Soviética a encomenda de relógios suíços para oficiais da Marinha."
+   ],
+   [
+    "1991",
+    "Um grupo liderado por Eyal Lalo compra a marca e leva a sede para Hollywood, na Flórida."
+   ],
+   [
+    "2016",
+    "A Invicta compra a suíça Glycine, de 1914."
+   ]
+  ],
+  "vs": [
+   [
+    "O nome",
+    "Invicta vem do latim e quer dizer o mesmo que em português: invicta, nunca vencida."
+   ],
+   [
+    "1.500 modelos por ano",
+    "A Invicta cria cerca de 1.500 modelos novos por ano, em mais de 30 linhas."
+   ],
+   [
+    "Mergulho de verdade",
+    "Alguns modelos da linha Venom resistem a até 1.000 metros de profundidade."
+   ],
+   [
+    "Coleções famosas",
+    "A marca tem coleções licenciadas de Marvel, Star Wars e DC Comics, e uma parceria com o jogador Shaquille O'Neal, de 2020."
+   ],
+   [
+    "O carro-chefe",
+    "O Pro Diver é a linha de mergulho mais conhecida da Invicta, quase sempre com o movimento automático japonês NH35A e 200 metros de resistência à água."
+   ]
+  ],
+  "fontes": [
+   "https://en.wikipedia.org/wiki/Invicta_Watch_Group"
+  ]
+ },
+ "Timex": {
+  "pais": "Estados Unidos",
+  "intro": [
+   "A Timex nasceu em 1854 como Waterbury Clock Company, em Waterbury, Connecticut, num vale tão cheio de fábricas de relógio que ganhou o apelido de Suíça da América.",
+   "Com mais de 170 anos, a Timex começou em 1854 como Waterbury Clock Company, em Connecticut, e ficou famosa por fazer relógios resistentes ao alcance de todos."
+  ],
+  "linha": [
+   [
+    "1854",
+    "Nasce a Waterbury Clock Company, em Waterbury, Connecticut."
+   ],
+   [
+    "1887",
+    "O relógio de bolso Jumbo ganha o nome do famoso elefante do circo de P. T. Barnum."
+   ],
+   [
+    "1896",
+    "O Yankee, da Ingersoll, feito pela Waterbury, vira o relógio de um dólar."
+   ],
+   [
+    "1914–18",
+    "Na Primeira Guerra, a Waterbury adapta um relógio de bolso feminino e cria um dos primeiros relógios de pulso."
+   ],
+   [
+    "1933",
+    "O relógio do Mickey Mouse estreia na Feira Mundial de Chicago."
+   ],
+   [
+    "1950",
+    "O nome Timex chega aos relógios."
+   ],
+   [
+    "1986",
+    "Nasce o Ironman, que vira o relógio esportivo mais vendido do mundo."
+   ],
+   [
+    "1992",
+    "A Timex lança o Indiglo, que ilumina o mostrador inteiro."
+   ],
+   [
+    "1997",
+    "Nasce a linha Expedition, para trilhas e vida ao ar livre."
+   ],
+   [
+    "2019",
+    "A reedição do Q Timex, de 1979, esgota em menos de 24 horas."
+   ]
+  ],
+  "vs": [
+   [
+    "1 em cada 3",
+    "Em 1962, um de cada três relógios vendidos nos Estados Unidos era um Timex."
+   ],
+   [
+    "Apanha e continua funcionando",
+    "O famoso slogan Takes a licking and keeps on ticking acompanhava os testes de resistência mostrados na TV pelo jornalista John Cameron Swayze."
+   ],
+   [
+    "O relógio do dólar",
+    "O Yankee, de 1896, ficou conhecido como o relógio que tornou o dólar famoso, por custar exatamente um dólar."
+   ],
+   [
+    "Câmeras e computador",
+    "A Timex fabricou mais de 44 milhões de câmeras Polaroid e teve até um computador, o Timex Sinclair 1000."
+   ],
+   [
+    "Maratona de Nova York",
+    "Em 2008 a Timex virou a primeira cronometrista oficial da Maratona de Nova York."
+   ]
+  ],
+  "fontes": [
+   "https://en.wikipedia.org/wiki/Timex_Group_USA",
+   "https://thegentlemanracer.com/2019/05/q-timex-reissue-sells-out-immediately.html"
+  ]
+ },
+ "Orient": {
+  "pais": "Japão",
+  "intro": [
+   "A história da Orient começa em 1901, quando Shogoro Yoshida abriu em Ueno, Tóquio, uma loja de relógios de bolso importados.",
+   "Da loja de Shogoro Yoshida, aberta em Tóquio em 1901, nasceu a Orient, conhecida por fazer os próprios movimentos e por automáticos de ótimo custo-benefício."
+  ],
+  "linha": [
+   [
+    "1901",
+    "Shogoro Yoshida abre a Yoshida Watch Shop em Ueno, Tóquio."
+   ],
+   [
+    "1913",
+    "Yoshida começa a fabricar caixas de relógio de pulso."
+   ],
+   [
+    "1934",
+    "A Toyo Tokei, criada em 1920, começa a fazer relógios de pulso."
+   ],
+   [
+    "1950",
+    "Nasce a Tama Keiki, para continuar a fábrica de Hino."
+   ],
+   [
+    "1951",
+    "A empresa passa a se chamar Orient e lança o primeiro Orient Star."
+   ],
+   [
+    "1967",
+    "O Fineness é o automático com dia e data mais fino do mundo na época."
+   ],
+   [
+    "2004",
+    "Nasce o EM65, o mergulhador que os fãs apelidaram de Mako."
+   ],
+   [
+    "2009",
+    "A Orient passa a fazer parte da Epson, do grupo Seiko."
+   ]
+  ],
+  "vs": [
+   [
+    "Movimento da casa",
+    "A Orient faz os próprios movimentos, no Japão, na fábrica de Akita."
+   ],
+   [
+    "Silício de alta tecnologia",
+    "Para os 70 anos do Orient Star, a marca usou um escape de silício feito com a tecnologia de microfabricação da Epson."
+   ],
+   [
+    "Apelido que pegou",
+    "Os nomes Mako e Ray não foram dados pela Orient: vieram dos fãs, e a marca acabou adotando."
+   ],
+   [
+    "Na Esquadrilha da Fumaça",
+    "No Brasil, a Orient tem uma série de edições limitadas dedicadas à Esquadrilha da Fumaça, da FAB."
+   ]
+  ],
+  "fontes": [
+   "https://en.wikipedia.org/wiki/Orient_Watch",
+   "https://orientwatchusa.com/blog/the-twenty-year-history-of-this-beloved-diver"
+  ]
+ },
+ "Mathey-Tissot": {
+  "pais": "Suíça",
+  "intro": [
+   "A Mathey-Tissot foi fundada em 1886 por Edmond Mathey-Tissot em Les Ponts-de-Martel, no cantão de Neuchâtel, e começou fazendo relógios de bolso com repetição, que tocam as horas.",
+   "Desde 1886 a Mathey-Tissot faz relógios na Suíça: a marca de Edmond Mathey-Tissot nasceu em Les Ponts-de-Martel, especialista em relógios que soam as horas e em cronógrafos."
+  ],
+  "linha": [
+   [
+    "1886",
+    "Edmond Mathey-Tissot funda a marca em Les Ponts-de-Martel, Neuchâtel."
+   ],
+   [
+    "1899",
+    "Na Guerra dos Bôeres, um nobre escocês encomenda 2.500 relógios, um para cada soldado do regimento do filho; a procura leva a uma fábrica nova."
+   ],
+   [
+    "1914",
+    "Seis cronômetros da marca recebem a nota máxima, Classe A, no concurso do Observatório de Kew, na Inglaterra."
+   ],
+   [
+    "1914–18",
+    "Na Primeira Guerra, fornece cronógrafos ao Corpo de Engenheiros do Exército dos Estados Unidos; o general Pershing escolhe a marca para presentear seu estado-maior."
+   ],
+   [
+    "1939–45",
+    "Na época da Segunda Guerra, segue fornecendo relógios ao Exército americano e à Marinha britânica."
+   ],
+   [
+    "1969",
+    "Elvis Presley encomenda dezenas de automáticos personalizados para família, amigos e equipe."
+   ]
+  ],
+  "vs": [
+   [
+    "Relógio que toca as horas",
+    "A especialidade dos primeiros anos eram os relógios de repetição, que soam as horas, os quartos de hora e até os minutos."
+   ],
+   [
+    "O relógio do Elvis",
+    "Os relógios de Elvis tinham ELVIS PRESLEY e quatro estrelas no aro; quem usava tinha passe livre para os shows e turnês."
+   ],
+   [
+    "Não é a Tissot",
+    "Apesar do sobrenome, a Mathey-Tissot é independente e não tem ligação com a Tissot."
+   ],
+   [
+    "O logotipo",
+    "O logo lembra o símbolo da paz de cabeça para baixo, com since 1886 logo abaixo do nome."
+   ]
+  ],
+  "fontes": [
+   "https://en.wikipedia.org/wiki/Mathey-Tissot"
+  ]
+ },
+ "Technos": {
+  "pais": "Suíça e Brasil",
+  "intro": [
+   "A Technos nasceu na Suíça: a empresa começou em 1900 como M. Gunzinger-Hug, criada por Melchior Gunzinger em Welschenrohr, nas montanhas do Jura, e chegou ao Brasil em 1956.",
+   "De origem suíça, nas montanhas do Jura, a Technos chegou ao Brasil em 1956 e virou uma das marcas de relógio mais conhecidas do país."
+  ],
+  "linha": [
+   [
+    "1900",
+    "Melchior Gunzinger funda a M. Gunzinger-Hug em Welschenrohr, no Jura suíço."
+   ],
+   [
+    "1924",
+    "Joseph Gunzinger, filho do fundador, registra a marca Technos."
+   ],
+   [
+    "1956",
+    "A Technos chega ao Brasil pela Centauro Importadora, do Rio Grande do Sul."
+   ],
+   [
+    "Anos 60",
+    "No auge dos relógios de mergulho, nasce o Skydiver."
+   ],
+   [
+    "1986",
+    "O Skydiver chega ao Brasil."
+   ],
+   [
+    "1995",
+    "Os direitos da marca na América do Sul passam para a Technos Relógios, do Brasil."
+   ],
+   [
+    "2026",
+    "O Skydiver completa 40 anos no Brasil e ganha reedição limitada."
+   ]
+  ],
+  "vs": [
+   [
+    "Feito no Brasil",
+    "A Technos fabrica cerca de 1 milhão de relógios por ano em Manaus."
+   ],
+   [
+    "Marca suíça, dona brasileira",
+    "Hoje a marca Technos no mundo todo pertence à empresa brasileira, por meio de uma empresa irmã em Neuchâtel, na Suíça."
+   ],
+   [
+    "Esgotou em 72 horas",
+    "A reedição de 1.000 peças do Skydiver esgotou em menos de 72 horas no lançamento."
+   ]
+  ],
+  "fontes": [
+   "https://en.wikipedia.org/wiki/Technos_(watches)"
+  ]
+ },
+ "Mido": {
+  "pais": "Suíça",
+  "intro": [
+   "A Mido foi fundada em 1918 por Georges G. Schaeren em Biel/Bienne, na Suíça. O nome vem do espanhol yo mido, eu meço.",
+   "Criada em 1918 em Biel/Bienne por Georges G. Schaeren, a Mido ganhou o nome do espanhol yo mido, eu meço, e ficou conhecida por relógios robustos e precisos."
+  ],
+  "linha": [
+   [
+    "1918",
+    "Georges G. Schaeren funda a Mido em Biel/Bienne, na Suíça."
+   ],
+   [
+    "Anos 20",
+    "A Mido faz relógios no formato da grade do radiador de carros da Buick, da Ford e da Fiat."
+   ],
+   [
+    "1934",
+    "Nasce o Multifort, resistente a choques, ao magnetismo e à água."
+   ],
+   [
+    "1954",
+    "Chega a coleção Powerwind, de automáticos de alta precisão."
+   ],
+   [
+    "1959",
+    "O Commander estreia com caixa de peça única."
+   ],
+   [
+    "1970",
+    "O sistema Aquadura veda a coroa com cortiça natural."
+   ],
+   [
+    "1973",
+    "A Mido usa pela primeira vez a caixa em formato de TV."
+   ],
+   [
+    "2023",
+    "O Multifort TV Big Date traz a caixa TV de volta, 50 anos depois."
+   ]
+  ],
+  "vs": [
+   [
+    "Um robô como garoto-propaganda",
+    "Nos anos 1930 a Mido teve um robô como embaixador, que virou personagem de tirinhas."
+   ],
+   [
+    "Cortiça na coroa",
+    "O Aquadura usa cortiça natural tratada para vedar a coroa, o ponto por onde a água mais tenta entrar."
+   ],
+   [
+    "Cronômetros em série",
+    "Em 2013 a Mido certificou 61.358 movimentos automáticos como cronômetros, a quarta maior marca suíça nesse quesito."
+   ],
+   [
+    "Relógio feminino mais fino",
+    "A Mido é apontada como autora do relógio feminino mais fino do mundo em 1967."
+   ]
+  ],
+  "fontes": [
+   "https://en.wikipedia.org/wiki/Mido_(watch)",
+   "https://www.swatchgroup.com/en/services/archive/2023/mido-multifort-tv-big-date"
+  ]
+ }
+}

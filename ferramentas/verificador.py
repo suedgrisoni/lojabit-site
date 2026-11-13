@@ -13,6 +13,8 @@ Confere, para cada perfume (árabe, nicho, importado):
   5. carrossel         — tem "Parecidos com"/"Mesma proposta" (ou é estilo raro e usa o carrossel antigo) [tarefa dos carrosséis]
   6. promoção decants  — produto com decant (3/5/10 ml) à venda está na categoria escondida 24495076 [corrige com chave]
   7. listagem decants  — perfume com decant à venda está em Decants (/decants) e na subcategoria do tipo [corrige com chave]
+  9. dossiê do relógio — seções "Feito para quê e onde usar", "A <marca> em N momentos" e "Você sabia?" (saem da ficha,
+                         corrige com chave) e "O dossiê do <modelo>" (precisa de pesquisa: só avisa se faltar a família)
   8. relógio no padrão — ficha técnica com os campos que o site usa (movimento, caixa com diâmetro e espessura, água,
                          vidro, fundo, funções, pulseira; reserva e frequência nos mecânicos) e o diâmetro no título
                          (ex.: "... Automático 40mm Mostrador Azul ...")                               [título: corrige com chave]
@@ -198,6 +200,10 @@ def main():
     try:
         sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
         import relogios as RL
+        try:
+            import relogios_dossie as RD
+        except Exception:
+            RD = None
         for p in [p for p in P if p['tipo'] == 'r']:
             try:
                 x = RL.le(p['id'], p['u'])
@@ -213,6 +219,19 @@ def main():
                     r = api.renomeia(p['id'], x['n'], novo); feito.append(f"{x['n']}: título -> \"{novo}\" ({r})")
                     if r == 'ok':
                         falta.remove('diâmetro no título')
+            # 9. dossiê na descrição (ferramentas/relogios_dossie.py): onde usar, linha do tempo da marca e "Você sabia?" saem
+            #    sozinhos da ficha; o dossiê do modelo precisa de uma família escrita com pesquisa em relogios_dossie_modelos.json
+            sec = x.get('_sec', '')
+            fam = RD.MODELOS['produtos'].get(str(p['id']), {}).get('f') if RD else None
+            precisa = any(k not in sec for k in 'utv') or (fam and 'm' not in sec)
+            if precisa and api and RD and x.get('mk') in RD.MARCAS:
+                r = RD.grava(api.req, p['id'], x); feito.append(f"{x['n'][:60]}: dossiê na descrição ({r})")
+                if r in ('ok', 'já estava igual'):
+                    sec = 'utv' + ('m' if fam or 'm' in sec else '')
+            if 'm' not in sec and not fam:
+                falta.append('dossiê do modelo (história e curiosidades: escrever a família em ferramentas/relogios_dossie_modelos.json)')
+            elif any(k not in sec for k in 'utv'):
+                falta.append('seções do dossiê na descrição' + ('' if x.get('mk') in (RD.MARCAS if RD else {}) else ' (marca sem dossiê em relogios_dossie_marcas.json)'))
             if falta:
                 av['relogio'].append(f"{x['n'][:60]}: {', '.join(falta)}")
     except Exception as e:
