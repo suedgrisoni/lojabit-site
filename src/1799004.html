@@ -217,18 +217,23 @@
 html.lbrx-aberto,html.lbrx-aberto body{overflow:hidden!important}
 /* dossiê na descrição (linha do tempo, onde usar, você sabia); #descricao na frente para vencer os estilos da descrição */
 #descricao p.lbrd-dos::first-letter{font:500 46px/.82 "Cormorant Garamond",Georgia,serif!important;float:left;margin:6px 8px 0 0;color:#8F6E2E}
-#descricao ol.lbrd-tl{list-style:none!important;margin:14px 0 8px!important;padding:0!important;position:relative}
-#descricao ol.lbrd-tl:before{content:"";position:absolute;left:6px;top:8px;bottom:14px;width:2px;background:linear-gradient(#C9A55C,#ECE5DA)}
-#descricao ol.lbrd-tl li{position:relative!important;list-style:none!important;margin:0!important;padding:0 0 16px 30px!important;opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease;font-size:14px!important;line-height:1.55!important}
-#descricao ol.lbrd-tl li:before{content:""!important;display:block!important;position:absolute!important;left:0!important;top:5px!important;width:14px!important;height:14px!important;border-radius:50%!important;background:#fff!important;border:2px solid #8F6E2E!important;box-sizing:border-box!important;rotate:0deg!important;transform:none!important}
-#descricao ol.lbrd-tl li:first-child:before{background:#8F6E2E!important}
-#descricao ol.lbrd-tl li>strong:first-child{display:block!important;font:500 23px/1.1 "Cormorant Garamond",Georgia,serif!important;color:#8F6E2E!important;margin:0 0 3px!important;letter-spacing:.01em!important;text-transform:none!important}
-#descricao ol.lbrd-tl.on li{opacity:1;transform:none}
-#descricao ul.lbrd-vs{list-style:none!important;padding:0!important;margin:14px 0 8px!important;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-#descricao ul.lbrd-vs li{list-style:none!important;margin:0!important;background:#FAF7F2;border:1px solid #ECE5DA;border-radius:14px;padding:14px!important;font-size:13.5px!important;line-height:1.5!important;color:#403A34;position:relative!important}
-#descricao ul.lbrd-vs li:before{content:"?"!important;display:flex!important;align-items:center;justify-content:center;position:static!important;width:26px!important;height:26px!important;border-radius:50%!important;background:#0A0A0B!important;color:#C9A55C;font:600 14px/1 Jost,Arial,sans-serif;margin:0 0 8px!important;rotate:0deg!important;transform:none!important;border:0!important}
-#descricao ul.lbrd-vs li>strong:first-child{display:block!important;font:600 14.5px/1.3 Jost,Arial,sans-serif!important;color:#0A0A0B!important;margin:0 0 4px!important;text-transform:none!important;letter-spacing:0!important}
-@media (max-width:767px){#descricao ul.lbrd-vs{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:2px 2px 10px!important}#descricao ul.lbrd-vs::-webkit-scrollbar{display:none}#descricao ul.lbrd-vs li{flex:0 0 80%;scroll-snap-align:start}}
+/* caixa do texto da categoria nas páginas de relógio, no celular e no tablet: creme do site no lugar do cinza do tema */
+@media (max-width:979px){.categoria-descricao.lbrm{background:#FAF7F2!important;border:1px solid #ECE5DA!important;border-radius:16px!important}
+.categoria-descricao.lbrm .lbdc-fechada:after{background:linear-gradient(rgba(250,247,242,0),#FAF7F2)!important}
+.categoria-descricao.lbrm .botao-veja-mais{background:#0A0A0B!important;color:#fff!important;border:0!important;border-radius:12px!important;min-height:46px!important;padding:0 24px!important;font:600 12px/1 Jost,Arial,sans-serif!important;letter-spacing:.14em!important;text-transform:uppercase!important}
+.categoria-descricao.lbrm ul.lbrd-vs li{background:#fff!important}}
+:is(#descricao,.categoria-descricao) ol.lbrd-tl{list-style:none!important;margin:14px 0 8px!important;padding:0!important;position:relative}
+:is(#descricao,.categoria-descricao) ol.lbrd-tl:before{content:"";position:absolute;left:6px;top:8px;bottom:14px;width:2px;background:linear-gradient(#C9A55C,#ECE5DA)}
+:is(#descricao,.categoria-descricao) ol.lbrd-tl li{position:relative!important;list-style:none!important;margin:0!important;padding:0 0 16px 30px!important;opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease;font-size:14px!important;line-height:1.55!important}
+:is(#descricao,.categoria-descricao) ol.lbrd-tl li:before{content:""!important;display:block!important;position:absolute!important;left:0!important;top:5px!important;width:14px!important;height:14px!important;border-radius:50%!important;background:#fff!important;border:2px solid #8F6E2E!important;box-sizing:border-box!important;rotate:0deg!important;transform:none!important}
+:is(#descricao,.categoria-descricao) ol.lbrd-tl li:first-child:before{background:#8F6E2E!important}
+:is(#descricao,.categoria-descricao) ol.lbrd-tl li>strong:first-child{display:block!important;font:500 23px/1.1 "Cormorant Garamond",Georgia,serif!important;color:#8F6E2E!important;margin:0 0 3px!important;letter-spacing:.01em!important;text-transform:none!important}
+:is(#descricao,.categoria-descricao) ol.lbrd-tl.on li{opacity:1;transform:none}
+:is(#descricao,.categoria-descricao) ul.lbrd-vs{list-style:none!important;padding:0!important;margin:14px 0 8px!important;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+:is(#descricao,.categoria-descricao) ul.lbrd-vs li{list-style:none!important;margin:0!important;background:#FAF7F2;border:1px solid #ECE5DA;border-radius:14px;padding:14px!important;font-size:13.5px!important;line-height:1.5!important;color:#403A34;position:relative!important}
+:is(#descricao,.categoria-descricao) ul.lbrd-vs li:before{content:"?"!important;display:flex!important;align-items:center;justify-content:center;position:static!important;width:26px!important;height:26px!important;border-radius:50%!important;background:#0A0A0B!important;color:#C9A55C;font:600 14px/1 Jost,Arial,sans-serif;margin:0 0 8px!important;rotate:0deg!important;transform:none!important;border:0!important}
+:is(#descricao,.categoria-descricao) ul.lbrd-vs li>strong:first-child{display:block!important;font:600 14.5px/1.3 Jost,Arial,sans-serif!important;color:#0A0A0B!important;margin:0 0 4px!important;text-transform:none!important;letter-spacing:0!important}
+@media (max-width:767px){:is(#descricao,.categoria-descricao) ul.lbrd-vs{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:2px 2px 10px!important}:is(#descricao,.categoria-descricao) ul.lbrd-vs::-webkit-scrollbar{display:none}:is(#descricao,.categoria-descricao) ul.lbrd-vs li{flex:0 0 80%;scroll-snap-align:start}}
 #descricao .lbrd-dica{font:600 10px/1.2 Jost,Arial,sans-serif!important;letter-spacing:.14em!important;text-transform:uppercase;color:#8F6E2E!important;margin:-2px 0 0!important}
 @media (min-width:768px){#descricao .lbrd-dica{display:none}}
 #descricao ul.lbrd-uso{list-style:none!important;padding:0!important;margin:14px 0 8px!important;display:grid;gap:8px}
@@ -239,7 +244,40 @@ html.lbrx-aberto,html.lbrx-aberto body{overflow:hidden!important}
 #descricao ul.lbrd-uso li.id svg{background:#0A0A0B;stroke:#C9A55C}
 #descricao ul.lbrd-uso li>strong{display:block!important;color:#0A0A0B!important;font:600 13.5px/1.3 Jost,Arial,sans-serif!important;text-transform:none!important;letter-spacing:0!important;margin:0!important}
 #descricao ul.lbrd-uso li.id>strong:after{content:"Ideal";display:inline-block;margin-left:6px;padding:2px 7px;border-radius:99px;background:#0A0A0B;color:#C9A55C;font:600 9px/1.4 Jost,Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;vertical-align:1px}
-@media (prefers-reduced-motion:reduce){#descricao ol.lbrd-tl li{opacity:1;transform:none;transition:none}}
+@media (prefers-reduced-motion:reduce){:is(#descricao,.categoria-descricao) ol.lbrd-tl li{opacity:1;transform:none;transition:none}}
+/* "no seu pulso" nos cartões */
+.lbrf{font:600 10.5px/1.3 Jost,Arial,sans-serif;color:#776E64;margin:0 0 4px;display:flex;align-items:center;gap:5px}
+.lbrf:before{content:"";width:7px;height:7px;border-radius:50%;background:#C9A55C;flex:none}
+.lbrf-i{color:#2f7d4f}.lbrf-i:before{background:#2f7d4f}
+.lbx-card .lbrf{margin:2px 0 0}
+.lbr-top .lbr-top-p{border-color:#cfe5d6;background:#f1f8f3}
+.lbr-top .lbr-top-p b{color:#2f7d4f}
+/* linha "Encontre o seu" (listagens de relógio) */
+.lbrb{display:flex;align-items:center;flex-wrap:wrap;gap:8px 12px;margin:12px 0 4px;font-family:Jost,Arial,sans-serif}
+.lbrb-k{font:600 10.5px/1 Jost,Arial,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#776E64;flex:none}
+.lbrb-s{display:flex;gap:6px;flex:1 1 calc(100% - 150px);min-width:0;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:2px 0}
+.lbrb-s::-webkit-scrollbar{display:none}
+.lbrb-s a,.lbrb-s button{flex:none;font:500 13px/1 Jost,Arial,sans-serif;padding:9px 13px;border-radius:99px;border:1px solid #ECE5DA;background:#fff;color:#0A0A0B!important;text-decoration:none!important;white-space:nowrap;cursor:pointer}
+.lbrb-s .lbrb-q{background:#0A0A0B;color:#C9A55C!important;border-color:#0A0A0B;font-weight:600}
+.lbrb-s .lbrb-p{border-color:#C9A55C;color:#8F6E2E!important;font-weight:600}
+.lbrb-s .lbrb-p.on{background:#f1f8f3;border-color:#cfe5d6;color:#2f7d4f!important}
+.lbrb-pp{flex:0 0 100%;max-width:420px;background:#FAF7F2;border:1px solid #ECE5DA;border-radius:14px;padding:12px 14px;font-size:13px;color:#403A34}
+.lbrb-pp label{display:block;font-weight:600;color:#0A0A0B}
+.lbrb-pp label b{color:#8F6E2E;font:500 20px/1 "Cormorant Garamond",Georgia,serif}
+.lbrb-pp input{width:100%;accent-color:#8F6E2E;margin:10px 0 4px}
+.lbrb-pp p{font-size:12px;color:#776E64;margin:0 0 10px}
+.lbrb-pp button{font:600 11px/1 Jost,Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase;border-radius:99px;padding:10px 16px;border:1px solid #0A0A0B;background:#0A0A0B;color:#fff;cursor:pointer;margin-right:6px}
+.lbrb-pp .lbrb-x{background:none;color:#0A0A0B}
+@media (max-width:767px){.lbrb{margin:10px 0 2px}.lbrb-k{display:none}.lbrb-s{flex-basis:100%;margin:0 -16px;padding:2px 16px}}
+/* página da marca: atalho para a história */
+.lbrm-t{display:inline-block;margin:10px 0 2px;font:600 12.5px/1.3 Jost,Arial,sans-serif;color:#8F6E2E!important;text-decoration:none!important;border-bottom:1px solid #C9A55C;padding-bottom:2px}
+/* simulador: medida guardada, tamanho real; som; guia do proprietário; quiz nos parecidos */
+.lbrn-pg{font-size:11.5px;color:#2f7d4f;margin-top:6px}
+.lbrn-tr{display:inline-block;margin-top:12px;font:600 11px/1 Jost,Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase;background:none;border:1px solid #0A0A0B;border-radius:99px;padding:11px 16px;color:#0A0A0B;cursor:pointer}
+.lbrn-som{border-color:#8F6E2E!important;box-shadow:0 0 0 3px rgba(201,165,92,.25)}
+.lbr-gd{display:block;margin-top:11px;padding-top:10px;border-top:1px solid #ECE5DA;font:500 12.5px/1.35 Jost,Arial,sans-serif;color:#8F6E2E!important;text-decoration:underline!important;text-underline-offset:3px}
+.lbrc-ac{display:flex;align-items:center;gap:12px;flex:none}
+.lbrc-q{font:600 12.5px/1 Jost,Arial,sans-serif;color:#8F6E2E!important;text-decoration:underline!important;text-underline-offset:3px;white-space:nowrap}
 /* glossário */
 .lbgl{border-bottom:1px dotted #8F6E2E;cursor:help;-webkit-tap-highlight-color:transparent}
 .lbgl-p{position:absolute;z-index:2147482000;max-width:280px;background:#0A0A0B;color:#f3eee6;font:400 12.5px/1.45 Jost,Arial,sans-serif;padding:10px 12px;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.18);text-align:left}
@@ -264,6 +302,7 @@ html.lbrx-aberto,html.lbrx-aberto body{overflow:hidden!important}
   if (!PROD && !LISTA) return;
   window.__lbRel = 1;
 
+  var EU = (document.currentScript && document.currentScript.src) || '';
   var WA = 'https://wa.me/5524981226521?text=';
   function num(s) { return parseFloat(String(s).replace(/\.(?=\d{3}\b)/g, '').replace(',', '.')); }
   function br(n, d) { return (d ? n.toFixed(d) : String(Math.round(n))).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.'); }
@@ -286,13 +325,61 @@ html.lbrx-aberto,html.lbrx-aberto body{overflow:hidden!important}
     if (longo && x.agua) a.push(x.agua + ' m');
     return a.join(' · ');
   }
+  /* ---------- "meu pulso": a medida fica guardada no navegador e vale no site todo ---------- */
+  var EN = { d: 'Discreto', i: 'Ideal', m: 'Marcante', g: 'Grande' }, AO_PULSO = [];
+  function pulsoCm() { try { var v = parseFloat(localStorage.getItem('lbPulso')); return v >= 12 && v <= 24 ? v : 0; } catch (e) { return 0; } }
+  function guardaPulso(v) {
+    try { if (v) localStorage.setItem('lbPulso', String(v)); else localStorage.removeItem('lbPulso'); } catch (e) {}
+    AO_PULSO.forEach(function (f) { try { f(); } catch (e) {} });
+  }
+  /* mesma conta do simulador: largura do dorso do pulso ≈ 32% da circunferência */
+  function encaixe(x, cm) {
+    var l = x.l2l || (x.diam ? x.diam * 1.2 : 0);
+    if (!l || !cm) return '';
+    var q = l / (cm * 3.2);
+    return q <= .78 ? 'd' : q <= .95 ? 'i' : q <= 1.03 ? 'm' : 'g';
+  }
+  function cmTxt(v) { return String(v).replace('.', ',') + ' cm'; }
+  /* extras sob demanda (quiz, tamanho real, guia do proprietário): dist/rex.css + dist/rex.js, do mesmo commit */
+  var EXQ = null;
+  function extra(cb) {
+    if (window.__lbRex) { cb(window.__lbRex); return; }
+    if (EXQ) { EXQ.push(cb); return; }
+    var b = EU.replace(/rel\.js.*$/, ''), v = (/\?v=\w+/.exec(EU) || [''])[0];
+    if (!b || b === EU) return;
+    EXQ = [cb];
+    var l = document.createElement('link');
+    l.rel = 'stylesheet'; l.href = b + 'rex.css' + v; l.crossOrigin = 'anonymous';
+    document.head.appendChild(l);
+    var sc = document.createElement('script');
+    sc.src = b + 'rex.js' + v; sc.crossOrigin = 'anonymous';
+    sc.onload = function () { var q = EXQ; EXQ = null; if (window.__lbRex) q.forEach(function (f) { try { f(window.__lbRex); } catch (e) {} }); };
+    sc.onerror = function () { EXQ = null; };
+    document.head.appendChild(sc);
+  }
   function nomeCurto(n) { return String(n || '').replace(/^\s*Rel[óo]gio\s+(Masculino|Feminino|Unissex)?\s*/i, '').trim(); }
 
   /* ---------- lê a ficha técnica ---------- */
+  function titulo(h) { return ((h.firstChild && h.firstChild.nodeType === 3 ? h.firstChild.nodeValue : h.textContent) || '').trim(); }
+  /* acha na descrição a seção de um título (computador: h3 + irmãos; celular: <details> com .lbzm-t) */
+  function secao(d, re) {
+    var hs = d.querySelectorAll('h3, .lbzm-t'), i, e;
+    for (i = 0; i < hs.length; i++) if (re.test(titulo(hs[i]))) {
+      var det = hs[i].closest && hs[i].closest('details'), nos = [];
+      if (det) nos = [].slice.call((det.querySelector('.lbzm-c') || det).children);
+      else for (e = hs[i].nextElementSibling; e && e.tagName !== 'H3'; e = e.nextElementSibling) nos.push(e);
+      return { h: hs[i], nos: nos, um: function (tag) { for (var k = 0; k < nos.length; k++) { if (nos[k].tagName === tag) return nos[k]; var q = nos[k].querySelector && nos[k].querySelector(tag.toLowerCase()); if (q) return q; } return null; } };
+    }
+    return null;
+  }
+  var FICHA = null;
   function ficha() {
+    if (FICHA) return FICHA;
     var d = document.getElementById('descricao'), o = {};
     if (!d) return o;
-    [].forEach.call(d.querySelectorAll('li'), function (li) {
+    var sf = secao(d, /^Ficha t[ée]cnica/i), ul = sf && sf.um('UL');
+    if (d.querySelector('li strong')) FICHA = o;
+    [].forEach.call((ul || d).querySelectorAll('li'), function (li) {
       var s = li.querySelector('strong');
       if (!s || li.firstElementChild !== s) return;
       var k = sa(s.textContent.replace(/[:\s]+$/, '')).trim(), v = li.textContent.slice(li.textContent.indexOf(s.textContent) + s.textContent.length).replace(/^[\s:]+/, '').trim();
@@ -337,7 +424,11 @@ html.lbrx-aberto,html.lbrx-aberto body{overflow:hidden!important}
     r.gmt = /gmt|segundo fuso/.test(fu + ' ' + nome);
     r.prec = (/precis[ãa]o de ([^,;]+)/i.exec(f.movimento || '') || /([±+\-][^,;]*segundos[^,;]*)/.exec(f.precisao || '') || [])[1] || '';
     var mk = f.marca || '';
-    r.origem = /suica/.test(sa(mk)) || /suico/.test(mov) ? 'suíço' : /japao/.test(sa(mk)) || /japones/.test(mov) ? 'japonês' : '';
+    /* origem do MOVIMENTO: primeiro o que a linha Movimento diz; senão, o país da marca (1º item entre parênteses) */
+    var pais = sa((/\(([^,)]+)/.exec(mk) || [])[1]);
+    r.origem = /japones/.test(mov) ? 'japonês' : /suico/.test(mov) ? 'suíço' : /suica/.test(pais) ? 'suíço' : /japao/.test(pais) ? 'japonês' : '';
+    r.lug = +((/(\d{2})\s*mm/.exec(f['largura da pulseira'] || f['largura entre as alcas'] || '') || /(\d{2})\s*mm/.exec(f.pulseira || '') || [])[1] || 0);
+    if (r.lug < 14 || r.lug > 26) r.lug = 0;
     r.cosc = /cosc|cronometro/.test(mov);
     r.hack = /parada dos segundos|hacking/.test(mov) || /segundos com parada/.test(fu);
     r.cordaManual = /corda manual|carga automatica e manual/.test(mov);
@@ -428,13 +519,15 @@ html.lbrx-aberto,html.lbrx-aberto body{overflow:hidden!important}
         '<path d="' + esp + '" style="fill:none;stroke:#8F6E2E;stroke-width:1.1"/><circle class="fi" cx="46" cy="56" r="2.6"/>';
       var mini = '<circle class="s" cx="94" cy="90" r="18" style="fill:#fff"/>' + mostrador(94, 90, 18).replace(/stroke-width:1\.8/g, 'stroke-width:1.2') + '<g class="bt-ps"><path d="M94 90V75" style="stroke:#8F6E2E;stroke-width:1.4;stroke-linecap:round"/></g><circle class="fi" cx="94" cy="90" r="1.6"/>';
       t.push(tile('bt', svg(bal + mini).replace('<svg ', '<svg style="--bt:' + (1 / (2 * hz)).toFixed(4) + 's;--st:' + (passos * 60) + '" '),
-        conta(r.freq), 'a/h', 'Batidas por hora', '<b>' + br(hz, hz % 1 ? 1 : 0) + ' Hz</b>: o ponteiro dá ' + passos + ' passinhos por segundo e parece <b>deslizar</b>' + (r.calibre ? '. Calibre ' + r.calibre : '')));
+        conta(r.freq), 'a/h', 'Batidas por hora', '<b>' + br(hz, hz % 1 ? 1 : 0) + ' Hz</b>: o ponteiro dá ' + passos + ' passinhos por segundo e parece <b>deslizar</b>' + (r.calibre ? '. Calibre ' + r.calibre : ''),
+        SOM ? '<span class="lbrn-dica" data-bps="' + passos + '">Toque para ouvir o tique-taque</span>' : '', SOM ? 'som' : ''));
     } else if (r.tipo === 'quartzo') {
       t.push(tile('qz', svg('<rect class="s" x="22" y="18" width="48" height="84" rx="10" style="stroke:#cfc6b8"/>' +
         '<g class="qz-d qz-d1"><path class="s" d="M38 30v34q0 8 8 8" style="stroke-width:5;stroke:#8F6E2E"/></g><g class="qz-d qz-d2"><path class="s" d="M54 30v34q0 8-8 8" style="stroke-width:5;stroke:#8F6E2E"/></g>' +
         '<path class="s" d="M46 72v18" style="stroke-width:4"/><circle class="s" cx="94" cy="90" r="18" style="fill:#fff"/>' + mostrador(94, 90, 18) +
         '<g class="bt-ps"><path d="M94 90V75" style="stroke:#8F6E2E;stroke-width:1.4;stroke-linecap:round"/></g><circle class="fi" cx="94" cy="90" r="1.6"/>').replace('<svg ', '<svg style="--st:60" '),
-        conta(32768), 'Hz', 'Cristal de quartzo', 'Vibra <b>32.768 vezes por segundo</b>: o ponteiro anda 1 passo por segundo' + (r.prec ? ', precisão de ' + r.prec : ', com a precisão do quartzo') + (r.calibre ? '. Calibre ' + r.calibre : '')));
+        conta(32768), 'Hz', 'Cristal de quartzo', 'Vibra <b>32.768 vezes por segundo</b>: o ponteiro anda 1 passo por segundo' + (r.prec ? ', precisão de ' + r.prec : ', com a precisão do quartzo') + (r.calibre ? '. Calibre ' + r.calibre : ''),
+        SOM ? '<span class="lbrn-dica" data-bps="1">Toque para ouvir o tique-taque</span>' : '', SOM ? 'som' : ''));
     } else if (r.tipo === 'solar') {
       var raios = '';
       for (var i = 0; i < 12; i++) { var a = i * Math.PI / 6; raios += '<line class="so" x1="' + (40 + 17 * Math.cos(a)).toFixed(1) + '" y1="' + (40 + 17 * Math.sin(a)).toFixed(1) + '" x2="' + (40 + 25 * Math.cos(a)).toFixed(1) + '" y2="' + (40 + 25 * Math.sin(a)).toFixed(1) + '"/>'; }
@@ -555,7 +648,8 @@ html.lbrx-aberto,html.lbrx-aberto body{overflow:hidden!important}
       '<circle cx="150" cy="75" r="15" fill="#f6f2ea"/><path d="M150 75V64M150 75l7 4" stroke="#0A0A0B" stroke-width="1.8" stroke-linecap="round"/></g></svg></div>' +
       '<div><div class="lbrn-k">Simulador</div><h3>Vai ficar bom no seu pulso?</h3><p>Arraste até a medida do seu pulso (passe uma fita ou barbante em volta).</p>' +
       '<input type="range" min="14" max="22" step=".5" value="17" aria-label="Medida do pulso em centímetros">' +
-      '<div><span class="lbrn-pm">17 cm</span></div><div class="lbrn-pv"></div>' +
+      '<div><span class="lbrn-pm">17 cm</span></div><div class="lbrn-pv"></div><div class="lbrn-pg" hidden>Medida guardada: os outros relógios do site já mostram como ficam no seu pulso.</div>' +
+      '<button type="button" class="lbrn-tr">Ver em tamanho real na tela</button>' +
       (r.pul === 'metal' ? '<div class="lbrn-aj"><span></span><a target="_blank" rel="noopener" href="#">Pedir ajuste</a></div>' : '') + '</div></div>';
   }
   function ligaPulso(sec, r) {
@@ -588,9 +682,16 @@ html.lbrx-aberto,html.lbrx-aberto body{overflow:hidden!important}
         aj.querySelector('a').href = WA + encodeURIComponent('Olá! Tenho interesse no ' + (r.nome || 'relógio') + ' e quero receber com a pulseira ajustada para o meu pulso de ' + cmt + '. ' + location.origin + location.pathname);
       }
     }
-    var aj = sec.querySelector('.lbrn-aj');
-    inp.addEventListener('input', atual);
+    var aj = sec.querySelector('.lbrn-aj'), pg = sec.querySelector('.lbrn-pg'), tg = 0, p0 = pulsoCm();
+    if (p0) inp.value = Math.max(14, Math.min(22, p0));
+    inp.addEventListener('input', function () {
+      atual();
+      clearTimeout(tg);
+      tg = setTimeout(function () { guardaPulso(+inp.value); if (pg) pg.hidden = false; }, 700);
+    });
     atual();
+    var tr = sec.querySelector('.lbrn-tr');
+    if (tr) tr.addEventListener('click', function () { extra(function (X) { X.real(r); }); });
   }
 
   /* ---------- animação ao aparecer (cada cartão na 1ª vez que entra na tela) ---------- */
@@ -621,6 +722,43 @@ html.lbrx-aberto,html.lbrx-aberto body{overflow:hidden!important}
     });
     if (t.classList.contains('lbrn-lzw') && !red) setTimeout(function () { t.classList.add('noite'); setTimeout(function () { t.classList.remove('noite'); }, 2600); }, 1400);
   }
+  /* ---------- som: o tique-taque no ritmo real (6 ou 8 batidas por segundo; quartzo, 1 por segundo), gerado na hora ---------- */
+  var SOM = !!(window.AudioContext || window.webkitAudioContext), AC = null, RUIDO = null, tocando = null, fontes = [], somT = 0;
+  function paraSom() {
+    clearTimeout(somT);
+    fontes.forEach(function (f) { try { f.stop(); } catch (e) {} });
+    fontes = [];
+    if (tocando) { tocando.classList.remove('lbrn-som'); var d = tocando.querySelector('.lbrn-dica'); if (d) d.textContent = 'Toque para ouvir o tique-taque'; }
+    tocando = null;
+  }
+  function tocaSom(el) {
+    var era = tocando;
+    paraSom();
+    if (era === el) return;
+    var dica = el.querySelector('.lbrn-dica'), bps = +(dica && dica.getAttribute('data-bps')) || 1;
+    try {
+      AC = AC || new (window.AudioContext || window.webkitAudioContext)();
+      if (AC.state === 'suspended') AC.resume();
+      if (!RUIDO) {
+        var n = Math.floor(AC.sampleRate * .03), dt;
+        RUIDO = AC.createBuffer(1, n, AC.sampleRate); dt = RUIDO.getChannelData(0);
+        for (var i = 0; i < n; i++) dt[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / n, 5);
+      }
+      var t0 = AC.currentTime + .06, seg = bps > 1 ? 8 : 10, total = Math.round(bps * seg);
+      for (var k = 0; k < total; k++) {
+        var f = AC.createBufferSource(), bp = AC.createBiquadFilter(), g = AC.createGain();
+        f.buffer = RUIDO; f.playbackRate.value = k % 2 ? .8 : 1;
+        bp.type = 'bandpass'; bp.frequency.value = bps > 1 ? 3400 : 2200; bp.Q.value = 1.2;
+        g.gain.value = bps > 1 ? .55 : .8;
+        f.connect(bp); bp.connect(g); g.connect(AC.destination);
+        f.start(t0 + k / bps);
+        fontes.push(f);
+      }
+      tocando = el; el.classList.add('lbrn-som');
+      if (dica) dica.textContent = 'Tocando… toque para parar';
+      somT = setTimeout(paraSom, seg * 1000 + 300);
+    } catch (e) { paraSom(); }
+  }
   function toques(sec) {
     var cr = { on: false, t0: 0, acc: 0, raf: 0 };
     function pinta(seg) {
@@ -632,6 +770,7 @@ html.lbrx-aberto,html.lbrx-aberto body{overflow:hidden!important}
     function age(el) {
       var k = el.getAttribute('data-toque');
       if (k === 'luz') el.classList.toggle('noite');
+      if (k === 'som') tocaSom(el);
       if (k === 'crono') {
         var dica = el.querySelector('.lbrn-dica');
         if (!cr.on && cr.acc && dica && dica.getAttribute('data-z')) { cr.acc = 0; pinta(0); dica.textContent = 'Toque para iniciar e parar'; dica.removeAttribute('data-z'); return; }
@@ -865,7 +1004,9 @@ html.lbrx-aberto,html.lbrx-aberto body{overflow:hidden!important}
     if (!h1 || !r.chips || !r.chips.length || document.querySelector('.lbr-top')) return;
     var d = document.createElement('div');
     d.className = 'lbr-top';
-    d.innerHTML = r.chips.map(function (c) { return '<span>' + c + '</span>'; }).join('') + (document.querySelector('.lbrn') ? '<a href="#lbrn">Ver em números ↓</a>' : '');
+    var en = encaixe(r, pulsoCm());
+    d.innerHTML = r.chips.map(function (c) { return '<span>' + c + '</span>'; }).join('') + (en ? '<span class="lbr-top-p"><b>' + EN[en] + '</b> no seu pulso</span>' : '') +
+      (document.querySelector('.lbrn') ? '<a href="#lbrn">Ver em números ↓</a>' : '');
     /* no computador o título fica numa linha com o coração (flex): os chips vão logo abaixo do bloco do título */
     var pai = h1.parentNode, cs = getComputedStyle(pai), ref = /flex/.test(cs.display) && !/column/.test(cs.flexDirection) ? pai : h1;
     ref.parentNode.insertBefore(d, ref.nextSibling);
@@ -896,14 +1037,15 @@ html.lbrx-aberto,html.lbrx-aberto body{overflow:hidden!important}
     var I = [['cx', 'Caixa, manual e certificado'], ['gar', 'Garantia de 90 dias'], ['foto', 'Foto ou vídeo antes do envio, se você pedir'], ['ras', 'Rastreio também pelo WhatsApp']];
     var d = document.createElement('div');
     d.className = 'lbr-vem';
-    d.innerHTML = '<div class="lbrn-k">Na sua compra</div><ul>' + I.map(function (i) { return '<li><svg viewBox="0 0 24 24" aria-hidden="true">' + IC[i[0]] + '</svg>' + i[1] + '</li>'; }).join('') + '</ul>';
+    d.innerHTML = '<div class="lbrn-k">Na sua compra</div><ul>' + I.map(function (i) { return '<li><svg viewBox="0 0 24 24" aria-hidden="true">' + IC[i[0]] + '</svg>' + i[1] + '</li>'; }).join('') + '</ul>' +
+      '<a class="lbr-gd" href="' + esc(location.pathname) + '?guia=1" rel="nofollow">Guia do proprietário: ficha, cuidados e história para imprimir ou salvar em PDF</a>';
     /* depois dos botões de comprar (no computador eles ficam fora do bloco do preço) */
     var bts = document.querySelector('.principal .lbp-bts'), ref = bts && bts.offsetParent ? bts : a;
     ref.parentNode.insertBefore(d, ref.nextSibling);
   }
 
   /* ---------- base dos relógios (carrossel/relogios.json pelo jsDelivr, preso ao commit do carrossel/v.json) ---------- */
-  var REPO = 'suedgrisoni/lojabit-site', CH = 'lbRelB', BASE = null, fila = null;
+  var REPO = 'suedgrisoni/lojabit-site', CH = 'lbRelB2', BASE = null, fila = null;
   function pega(urls, ok, falha) {
     var u = urls.shift();
     if (!u) { falha(); return; }
@@ -920,7 +1062,7 @@ html.lbrx-aberto,html.lbrx-aberto body{overflow:hidden!important}
     var c = null;
     try { c = JSON.parse(localStorage.getItem(CH)); } catch (e) {}
     function fim(d) {
-      if (d && d.r && d.r.length) { BASE = { r: d.r, id: {}, u: {} }; d.r.forEach(function (x) { BASE.id[x.id] = x; BASE.u[x.u] = x; }); }
+      if (d && d.r && d.r.length) { BASE = { r: d.r, g: d.g || [], id: {}, u: {} }; d.r.forEach(function (x) { BASE.id[x.id] = x; BASE.u[x.u] = x; }); }
       var f = fila; fila = null;
       f.forEach(function (g) { try { g(BASE); } catch (e) {} });
     }
@@ -937,33 +1079,52 @@ html.lbrx-aberto,html.lbrx-aberto body{overflow:hidden!important}
 
   /* ---------- etiqueta nos cartões de relógio (listagens, "Você também pode gostar"...) ---------- */
   function etiquetas(B) {
+    function encaixa(el, x, depois) {
+      var cm = pulsoCm();
+      if (el.__lbrW === cm) return;
+      el.__lbrW = cm;
+      var e = encaixe(x, cm), b = el.querySelector('.lbrf');
+      if (!e) { if (b) b.remove(); return; }
+      if (!b) { b = document.createElement('div'); depois.parentNode.insertBefore(b, depois.nextSibling); }
+      b.className = 'lbrf lbrf-' + e;
+      b.textContent = EN[e] + ' no seu pulso';
+    }
     function pinta() {
       [].forEach.call(document.querySelectorAll('.listagem-item'), function (it) {
-        if (it.__lbrl) return;
-        it.__lbrl = 1;
-        var a = it.querySelector('a.produto-sobrepor[href], a.nome-produto[href]');
-        var x = B.id[it.getAttribute('data-id')] || (a && B.u[caminho(a.href)]), nm = it.querySelector('.info-produto .nome-produto'), t = x && etiqueta(x, true);
-        if (!t || !nm || it.querySelector('.lbrl')) return;
-        var d = document.createElement('div');
-        d.className = 'lbrl'; d.textContent = t;
-        nm.parentNode.insertBefore(d, nm);
+        if (!it.__lbrl) {
+          it.__lbrl = 1;
+          var a = it.querySelector('a.produto-sobrepor[href], a.nome-produto[href]');
+          var x = B.id[it.getAttribute('data-id')] || (a && B.u[caminho(a.href)]), nm = it.querySelector('.info-produto .nome-produto'), t = x && etiqueta(x, true);
+          if (!t || !nm || it.querySelector('.lbrl')) return;
+          var d = document.createElement('div');
+          d.className = 'lbrl'; d.textContent = t;
+          nm.parentNode.insertBefore(d, nm);
+          it.__lbrX = x;
+        }
+        var l = it.__lbrX && it.querySelector('.lbrl');
+        if (l) encaixa(it, it.__lbrX, l);
       });
       [].forEach.call(document.querySelectorAll('.lbx-card'), function (c) {
         var tp = c.querySelector('.lbx-tipo');
-        if (!tp || tp.__lbrl === tp.textContent) return;
-        var u = (c.__d && c.__d.u) || (c.querySelector('a.lbx-nome') || {}).href, x = u && B.u[caminho(u)], t = x && etiqueta(x, false);
-        if (t) tp.textContent = t;
-        tp.__lbrl = tp.textContent;
+        if (!tp) return;
+        if (tp.__lbrl !== tp.textContent) {
+          var u = (c.__d && c.__d.u) || (c.querySelector('a.lbx-nome') || {}).href, x = u && B.u[caminho(u)], t = x && etiqueta(x, false);
+          if (t) tp.textContent = t;
+          tp.__lbrl = tp.textContent;
+          c.__lbrX = x || 0; c.__lbrW = -1;
+        }
+        if (c.__lbrX) encaixa(c, c.__lbrX, tp);
       });
     }
     pinta();
+    AO_PULSO.push(pinta);
     if (!window.MutationObserver) return;
     var pend = 0;
     new MutationObserver(function (rs) {
       if (pend) return;
       for (var i = 0; i < rs.length; i++) {
         var t = rs[i].target;
-        if (!(t.closest && t.closest('.lbrn,.lbrx,.lbrc,.lbgl-p'))) { pend = 1; setTimeout(function () { pend = 0; pinta(); }, 200); return; }
+        if (!(t.closest && t.closest('.lbrn,.lbrx,.lbrc,.lbgl-p,.lbrb,.lbrj,.lbrgd'))) { pend = 1; setTimeout(function () { pend = 0; pinta(); }, 200); return; }
       }
     }).observe(document.body, { childList: true, subtree: true });
   }
@@ -976,6 +1137,7 @@ html.lbrx-aberto,html.lbrx-aberto body{overflow:hidden!important}
     var GR = [
       ['rm', 'Movimento', 0, [['auto', 'Automático'], ['manual', 'Corda manual'], ['quartzo', 'Quartzo'], ['solar', 'Solar (movido a luz)']], function (x, o) { return x.tipo === o; }],
       ['rt', 'Tamanho da caixa', 0, [['p', 'Até 38,5 mm'], ['m', '39 a 41,5 mm'], ['g', '42 mm ou mais']], function (x, o) { var d = x.diam; return !!d && (o === 'p' ? d < 39 : o === 'm' ? d >= 39 && d < 42 : d >= 42); }],
+      ['rw', 'No meu pulso', 0, [['i', 'Proporção ideal'], ['d', 'Discreto e elegante'], ['m', 'Marcante'], ['g', 'Grande, de presença']], function (x, o) { return encaixe(x, pulsoCm()) === o; }],
       ['ra', 'Resistência à água', 1, [['a', 'Até 50 m · chuva e mãos'], ['n', '100 m · natação'], ['m', '200 m ou mais · mergulho']], function (x, o) { var a = x.agua; return !!a && (o === 'a' ? a < 100 : o === 'n' ? a >= 100 && a < 200 : a >= 200); }],
       ['rv', 'Vidro', 1, [['safira', 'Safira'], ['hardlex', 'Hardlex'], ['mineral', 'Mineral'], ['acrilico', 'Acrílico']], function (x, o) { return x.vidro === o; }],
       ['rf', 'Funções', 1, [['c', 'Cronógrafo'], ['g', 'GMT (2º fuso)'], ['d', 'Dia da semana e data'], ['t', 'Data'], ['l', 'Brilha no escuro'], ['f', 'Fundo transparente']], function (x, o) { return (x.fn || '').indexOf(o) > -1; }],
@@ -1010,8 +1172,13 @@ html.lbrx-aberto,html.lbrx-aberto body{overflow:hidden!important}
       }
       var ctx = M.contexto;
       M.contexto = function () { var v = ctx.apply(this, arguments); try { poda(); } catch (e) {} return v; };
+      /* mudou a medida do pulso: refaz as opções e a lista */
+      AO_PULSO.push(function () {
+        if (!pulsoCm() && M.st && M.st.F && M.st.F.rw) { delete M.st.F.rw; try { M.gravaHash(); } catch (e) {} }
+        if (M.st && M.st.pronto && M.aoAtualizar) M.aoAtualizar();
+      });
       if (M.st && M.st.pronto) {
-        if (/[#&]filtros=/.test(location.hash) && /(^|;|%3B)r[mtavfcpx]\./i.test(decodeURIComponent((/[#&]filtros=([^&]*)/.exec(location.hash) || [])[1] || ''))) { try { M.lerHash(); } catch (e) {} }
+        if (/[#&]filtros=/.test(location.hash) && /(^|;|%3B)r[mtavfcpxw]\./i.test(decodeURIComponent((/[#&]filtros=([^&]*)/.exec(location.hash) || [])[1] || ''))) { try { M.lerHash(); } catch (e) {} }
         if (M.aoAtualizar) M.aoAtualizar();
       }
     })();
@@ -1050,7 +1217,7 @@ html.lbrx-aberto,html.lbrx-aberto body{overflow:hidden!important}
     sec.className = 'lbrc';
     sec.setAttribute('aria-label', 'Relógios com a mesma proposta');
     sec.innerHTML = '<div class="lbrc-cab"><div><div class="lbrn-k">Com a mesma proposta</div><h2>Relógios <em>parecidos</em></h2><p>Mesmo tipo de movimento, tamanho e faixa de preço próximos</p></div>' +
-      '<button type="button" class="lbrc-cmp">Comparar lado a lado</button></div><div class="lbrc-row">' + top.map(function (x) {
+      '<span class="lbrc-ac"><a class="lbrc-q" href="/relogios-originais#quiz">Fazer o quiz</a><button type="button" class="lbrc-cmp">Comparar lado a lado</button></span></div><div class="lbrc-row">' + top.map(function (x) {
         return '<div class="lbrc-c"><a href="' + esc(x.u) + '" tabindex="-1"><img loading="lazy" src="' + esc(foto(x)) + '" alt="' + esc(x.n) + '"></a><a class="lbrc-n" href="' + esc(x.u) + '">' + esc(nomeCurto(x.n)) + '</a>' +
           '<div class="lbrc-e">' + esc(etiqueta(x, true)) + '</div><div class="lbrc-p">' + (x.p ? rs(x.p) + '<small>' + rs(x.p * .9) + ' no Pix</small>' : '') + '</div>' +
           '<button type="button" class="lbrc-b" data-id="' + x.id + '">Comparar</button></div>';
@@ -1136,6 +1303,86 @@ html.lbrx-aberto,html.lbrx-aberto body{overflow:hidden!important}
     if (x) x.focus();
   }
 
+  /* ---------- listagens só de relógio: linha "Encontre o seu" (quiz, meu pulso e páginas-guia) ---------- */
+  function soRelogios() {
+    if (/\bpagina-busca\b/.test(BC)) return false;
+    var a = document.querySelectorAll('.listagem-item a.produto-sobrepor[title]'), n = 0;
+    if (!a.length) { a = document.querySelectorAll('.lbx-card .lbx-nome'); }
+    for (var i = 0; i < a.length; i++) if (/^\s*Rel[óo]gio/i.test(a[i].getAttribute('title') || a[i].textContent)) n++;
+    return a.length > 0 && n === a.length;
+  }
+  function abreQuiz() { extra(function (X) { X.quiz(); }); }
+  function barra() {
+    if (document.querySelector('.lbrb') || !soRelogios()) return;
+    var h1 = document.querySelector('#corpo h1');
+    if (!h1) return;
+    var d = document.createElement('div');
+    d.className = 'lbrb';
+    d.innerHTML = '<span class="lbrb-k">Encontre o seu</span><div class="lbrb-s"><button type="button" class="lbrb-q">Qual combina comigo?</button><button type="button" class="lbrb-p" aria-expanded="false"></button></div>' +
+      '<div class="lbrb-pp" hidden><label for="lbrbR">Medida do seu pulso: <b></b></label><input id="lbrbR" type="range" min="14" max="22" step=".5"><p>Passe uma fita ou um barbante em volta do pulso e meça. Cada relógio passa a mostrar como fica em você.</p>' +
+      '<button type="button" class="lbrb-ok">Guardar</button><button type="button" class="lbrb-x">Limpar</button></div>';
+    var cab = h1.closest('.lbw-cab');
+    if (cab) cab.appendChild(d); else h1.parentNode.insertBefore(d, h1.nextSibling);
+    var bp = d.querySelector('.lbrb-p'), pp = d.querySelector('.lbrb-pp'), rg = pp.querySelector('input'), lb = pp.querySelector('b');
+    function rot() { var c = pulsoCm(); bp.textContent = c ? 'Meu pulso: ' + cmTxt(c) : 'Informar meu pulso'; bp.classList.toggle('on', !!c); }
+    rot(); AO_PULSO.push(rot);
+    rg.addEventListener('input', function () { lb.textContent = cmTxt(+rg.value); });
+    d.addEventListener('click', function (e) {
+      var t = e.target;
+      if (t === bp) { var ab = pp.hidden; pp.hidden = !ab; bp.setAttribute('aria-expanded', ab); rg.value = pulsoCm() || 17; lb.textContent = cmTxt(+rg.value); }
+      else if (t.classList.contains('lbrb-ok')) { guardaPulso(+rg.value); pp.hidden = true; bp.setAttribute('aria-expanded', 'false'); }
+      else if (t.classList.contains('lbrb-x')) { guardaPulso(0); pp.hidden = true; bp.setAttribute('aria-expanded', 'false'); }
+      else if (t.classList.contains('lbrb-q')) abreQuiz();
+    });
+    return d;
+  }
+  function guias(B) {
+    var s = document.querySelector('.lbrb-s');
+    if (!s || !B.g || s.querySelector('a')) return;
+    B.g.forEach(function (g) {
+      if (g[1] === location.pathname) return;
+      var a = document.createElement('a');
+      a.href = g[1]; a.textContent = g[0];
+      s.appendChild(a);
+    });
+  }
+
+  /* ---------- página da marca (categoria): a história completa vira linha do tempo, com atalho no topo ---------- */
+  function marca() {
+    var cd = document.querySelector('#corpo .categoria-descricao') || document.querySelector('.categoria-descricao');
+    if (!cd) return;
+    cd.classList.add('lbrm'); /* acabamento da caixa de texto nas páginas de relógio (marca e guia) */
+    var box = cd.querySelector('.descricao-completa') || cd;
+    var hs = box.querySelectorAll('h2'), h = null, v = null, i, e;
+    for (i = 0; i < hs.length; i++) { var t = hs[i].textContent.trim(); if (/^A história d[ao] .+ em \d+ momentos$/.test(t)) h = hs[i]; else if (/^Você sabia/.test(t)) v = hs[i]; }
+    if (!h || h.__lbrm) return;
+    h.__lbrm = 1;
+    function lista(de, tag) { for (e = de.nextElementSibling; e && e.tagName !== 'H2'; e = e.nextElementSibling) if (e.tagName === tag) return e; return null; }
+    var ol = lista(h, 'OL'), ul = v && lista(v, 'UL'), ano = '';
+    if (ol) {
+      ol.classList.add('lbrd-tl', 'on');
+      [].forEach.call(ol.children, function (li, k) { var y = li.querySelector('strong'); if (y) { y.textContent = y.textContent.replace(/:\s*$/, ''); if (!k) ano = y.textContent; } });
+    }
+    if (ul) ul.classList.add('lbrd-vs');
+    var h1 = document.querySelector('#corpo h1');
+    if (!h1 || document.querySelector('.lbrm-t')) return;
+    var a = document.createElement('a');
+    a.className = 'lbrm-t'; a.href = '#historia';
+    a.textContent = (/^\d{4}$/.test(ano) ? 'Desde ' + ano + ' · ' : '') + h.textContent.trim() + ' ↓';
+    var cab = h1.closest('.lbw-cab');
+    if (cab) cab.appendChild(a); else h1.parentNode.insertBefore(a, h1.nextSibling);
+    a.addEventListener('click', function (ev) {
+      ev.preventDefault();
+      var comp = cd.querySelector('.descricao-completa'), bt = cd.querySelector('.botao-veja-mais');
+      if (comp && bt && (comp.classList.contains('lbdc-fechada') || !comp.offsetParent)) bt.click();
+      setTimeout(function () { scrollTo({ top: h.getBoundingClientRect().top + scrollY - 110, behavior: 'smooth' }); }, 90);
+    });
+  }
+
+  /* o que os extras (dist/rex.js) usam daqui */
+  window.__lbRelX = { base: base, esc: esc, rs: rs, mm: mm, br: br, sa: sa, foto: foto, nomeCurto: nomeCurto, etiqueta: etiqueta, encaixe: encaixe, EN: EN, pulsoCm: pulsoCm,
+    guardaPulso: guardaPulso, cmTxt: cmTxt, TN: TN, VN: VN, WA: WA, ficha: ficha, secao: secao, titulo: titulo, cuidados: function (r) { return guia(r); } };
+
   /* ---------- página do relógio ---------- */
   function animaPainel(sec) {
     var tiles = [].slice.call(sec.querySelectorAll('.lbrn-t'));
@@ -1144,6 +1391,7 @@ html.lbrx-aberto,html.lbrx-aberto body{overflow:hidden!important}
       es.forEach(function (e) {
         /* animações contínuas só enquanto o cartão está na tela (economiza bateria); números e medidores na 1ª vez */
         e.target.classList.toggle('lbrn-on', e.isIntersecting);
+        if (!e.isIntersecting && tocando === e.target) paraSom();
         if (e.isIntersecting && !e.target.__lbrnF) { e.target.__lbrnF = 1; acende(e.target); }
       });
     }, { threshold: .35 });
@@ -1176,6 +1424,7 @@ html.lbrx-aberto,html.lbrx-aberto body{overflow:hidden!important}
         chipsTopo(h1, r);
         try { glossario(d); } catch (e) {}
         try { microdados(r); } catch (e) {}
+        if (/[?&]guia=1(&|$)/.test(location.search)) extra(function (X) { X.guia(r); });
       }
       depoisDoLoad(function () {
         base(function (B) {
@@ -1188,6 +1437,11 @@ html.lbrx-aberto,html.lbrx-aberto body{overflow:hidden!important}
   }
 
   if (PROD) produto();
-  else base(function (B) { if (!B) return; etiquetas(B); filtros(B); });
+  else {
+    try { barra(); marca(); } catch (e) {}
+    base(function (B) { if (!B) return; etiquetas(B); filtros(B); try { barra(); guias(B); } catch (e) {} });
+    if (location.hash === '#quiz') abreQuiz();
+    window.addEventListener('hashchange', function () { if (location.hash === '#quiz') abreQuiz(); });
+  }
 })();
 </script>

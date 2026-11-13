@@ -54,7 +54,8 @@ def le(pid, url):
         return None
     i = h.find('id="descricao"')
     desc = h[h.find('>', i) + 1: i + 120000] if i >= 0 else ''
-    f = ficha(desc)
+    mf = re.search(r'<h3>\s*Ficha t[ée]cnica\s*</h3>\s*<ul>([\s\S]*?)</ul>', desc)
+    f = ficha(mf.group(1) if mf else desc)
     nome = texto((re.search(r'<h1[^>]*class="[^"]*nome-produto[^"]*"[^>]*>([\s\S]*?)</h1>', h) or [None, ''])[1])
     r = {'id': pid, 'n': nome, 'u': url}
     m = re.search(r'<div class="acoes-produto ([^"]*)" data-produto-id="' + str(pid) + r'"[\s\S]{0,4000}?data-sell-price="([\d.]+)"', h)
@@ -135,7 +136,8 @@ def le(pid, url):
                 cor = c
                 break
     r['cor'] = {'prateado': 'prata', 'azul-gelo': 'azul-gelo'}.get(cor, cor)
-    r['orig'] = 'suico' if re.search(r'suica', sa(f.get('marca', ''))) or 'suico' in mov else 'japones' if re.search(r'japao', sa(f.get('marca', ''))) or 'japones' in mov else ''
+    pais = sa((re.search(r'\(([^,)]+)', f.get('marca', '')) or [None, ''])[1])
+    r['orig'] = 'japones' if 'japones' in mov else 'suico' if 'suico' in mov else 'suico' if 'suica' in pais else 'japones' if 'japao' in pais else ''
     # o que falta para o padrão (vai no aviso das tarefas): obrigatório x "pode completar" (o painel funciona sem)
     ks = ' | '.join(f)
     falta = [k for k in ('movimento', 'caixa', 'resistencia a agua', 'vidro', 'funcoes') if k not in f]
@@ -152,6 +154,37 @@ def le(pid, url):
     r['_sec'] = ''.join(k for k, t in (('m', '<h3>O dossiê d'), ('u', '<h3>Feito para quê e onde usar'), ('t', ' momentos</h3>'), ('v', '<h3>Você sabia?')) if t in desc)
     r['opc'] = [x for x, ok in (('peso', 'peso' in r), ('ponta a ponta', 'l2l' in r)) if not ok]
     return r
+
+
+# Páginas-guia de relógio (13/11/2026): subcategorias de "Relógios" criadas para o Google e para quem está escolhendo.
+# O verificador mantém cada relógio nas guias certas (põe e TIRA só estas categorias, conforme a regra abaixo).
+# Guia nova: crie a subcategoria em Relógios, ponha o texto e acrescente uma linha aqui.
+#   chave: (id da categoria, rótulo curto para o site, link, regra)
+GUIAS = {
+    'mergulho':   (24498592, 'De mergulho', '/relogios-de-mergulho', lambda r, c: r.get('agua', 0) >= 200),
+    'sociais':    (24498593, 'Sociais', '/relogios-sociais', lambda r, c: 'c' not in r.get('fn', '') and 'campo' not in c and 'gmt' not in c and bool(r.get('esp')) and (
+                      ('social' in c and r['esp'] <= 12.5) or (('integrado' in c or 'dia_a_dia' in c) and r['esp'] <= 11.5))),
+    'automaticos': (24498594, 'Automáticos', '/relogios-automaticos', lambda r, c: r.get('tipo') in ('auto', 'manual')),
+    'primeiro':   (24498595, 'Primeiro automático', '/primeiro-relogio-automatico', lambda r, c: r.get('tipo') == 'auto' and 0 < r.get('p', 0) <= 2500),
+    'cronografo': (24498596, 'Cronógrafos', '/relogios-cronografo', lambda r, c: 'c' in r.get('fn', '')),
+    'presente':   (24498597, 'Para presentear', '/relogios-para-presentear', lambda r, c: 37 <= r.get('diam', 0) <= 41 and 0 < r.get('p', 0) <= 5000),
+    'ate2000':    (24498598, 'Até R$ 2.000', '/relogios-ate-2000-reais', lambda r, c: 0 < r.get('p', 0) <= 2000),
+}
+CAT_L = {'mergulho': 'm', 'campo': 'c', 'cronografo': 'k', 'gmt': 'g', 'social': 's', 'integrado': 'i', 'dia_a_dia': 'd'}
+OC_L = {'trabalho': 't', 'terno': 'n', 'dia': 'd', 'viagem': 'v', 'praia': 'p', 'esporte': 'e', 'trilha': 'r', 'noite': 'j'}
+
+
+def uso(r):
+    """Para que o relógio foi feito (categorias) e as ocasiões, pelas mesmas regras do dossiê da descrição."""
+    import relogios_dossie as RD
+    fam = RD.MODELOS['produtos'].get(str(r['id']), {}).get('f')
+    cats = (RD.MODELOS['familias'].get(fam) or {}).get('cats') or RD.infere_cats(r)
+    oc = RD.ocasioes_chaves(r, cats, fam)
+    return cats, fam, oc
+
+
+def guias_de(r, cats):
+    return [k for k, g in GUIAS.items() if g[3](r, cats)]
 
 
 def titulo_com_diametro(n, diam):
@@ -214,13 +247,25 @@ def main():
                 print(f"   {r['n'][:70]} -> {', '.join(r['opc'])}")
     if so_faltas:
         return
-    base = {'gerado': time.strftime('%Y-%m-%d %H:%M'), 'r': [{k: v for k, v in r.items() if k not in ('falta', 'opc') and not k.startswith('_') and v not in ('', None)} for r in R]}
+    conta = {k: 0 for k in GUIAS}
+    for r in R:
+        try:
+            cats, fam, oc = uso(r)
+            r['ct'] = ''.join(CAT_L[c] for c in cats)
+            r['oi'] = ''.join(OC_L[k] for n, k, _ in oc if n == 'ideal')
+            r['oc'] = ''.join(OC_L[k] for n, k, _ in oc if n == 'combina')
+            r['_guias'] = guias_de(r, cats)
+            for k in r['_guias']:
+                conta[k] += 1 if r.get('disp') else 0
+        except Exception as e:
+            print('uso/ocasiões:', r.get('n', '')[:50], e)
+    base = {'gerado': time.strftime('%Y-%m-%d %H:%M'), 'g': [[g[1], g[2]] for k, g in GUIAS.items() if g[0] and conta[k] >= 3], 'r': [{k: v for k, v in r.items() if k not in ('falta', 'opc') and not k.startswith('_') and v not in ('', None)} for r in R]}
     antigo = None
     try:
         antigo = json.load(open(SAIDA, encoding='utf-8'))
     except Exception:
         pass
-    if antigo and antigo.get('r') == base['r']:
+    if antigo and antigo.get('r') == base['r'] and antigo.get('g') == base['g']:
         print(f'relógios: {len(R)} lidos, sem mudança')
         return
     json.dump(base, open(SAIDA, 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))

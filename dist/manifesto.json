@@ -11,13 +11,23 @@
    "minificado": true
   },
   "rel.css": {
-   "bytes": 23181,
-   "sha256": "548116319678222cfd0c00a78a6e5c9f0b497b2b66df236597a1b7169ea68fdc",
+   "bytes": 27320,
+   "sha256": "6bb20d95625a44b79f0abbe987ef665c94be085bec7bea4180da50350d0b6d56",
    "minificado": true
   },
   "rel.js": {
-   "bytes": 54499,
-   "sha256": "c21aa165107fb6db584cd6d70e0dabce07c1610e9a3a0dc4905ad5f2278d0b8a",
+   "bytes": 63875,
+   "sha256": "a2699b69a4e669ec1f7f02c34c79056c4a42202bc3f88fa524ed7ac4370b0a8e",
+   "minificado": true
+  },
+  "rex.css": {
+   "bytes": 12967,
+   "sha256": "9f11ff9ab3cb94736d2876d3a646ea1c63f0a6d0d543b0c00ba00b78d9292fdf",
+   "minificado": true
+  },
+  "rex.js": {
+   "bytes": 23821,
+   "sha256": "a0e71cd3dc81d89c32b60255f026b62f83a59e1370ca51c729e0c8cfe8ff0e35",
    "minificado": true
   },
   "rod.css": {
@@ -27,7 +37,7 @@
   },
   "rod.js": {
    "bytes": 373794,
-   "sha256": "39f358d13612449d11dababef42fd0a945633bd88c99f80b68eba7c3ee22d6cb",
+   "sha256": "245abf0aeaec19b60719afd925fe92b890d8adf26d7b1c98ea3505bebb6f56e8",
    "minificado": true
   }
  },
@@ -456,6 +466,11 @@
    "id": 1799004,
    "nome": "Relógios: o relógio em números (ficha em movimento) — vai para dist/rel.* (só páginas de relógio)",
    "grupo": "rel"
+  },
+  {
+   "id": 1799006,
+   "nome": "Relógios, extras sob demanda: quiz, tamanho real e guia do proprietário — vai para dist/rex.* (só no repositório)",
+   "grupo": "rex"
   },
   {
    "id": 1799005,

@@ -3,13 +3,13 @@
  "Seiko": {
   "pais": "Japão",
   "intro": [
-   "A Seiko começou em 1881 como a loja de relógios e joias de Kintarō Hattori, em Tóquio, e se tornou uma das marcas que mais mudaram a relojoaria do mundo.",
-   "Fundada por Kintarō Hattori em Tóquio, em 1881, a Seiko está por trás de algumas das maiores invenções da relojoaria moderna, do primeiro relógio de quartzo ao Spring Drive."
+   "A Seiko começou em 1881 como a loja de relógios e joias de Kintaro Hattori, em Tóquio, e se tornou uma das marcas que mais mudaram a relojoaria do mundo.",
+   "Fundada por Kintaro Hattori em Tóquio, em 1881, a Seiko está por trás de algumas das maiores invenções da relojoaria moderna, do primeiro relógio de quartzo ao Spring Drive."
   ],
   "linha": [
    [
     "1881",
-    "Kintarō Hattori abre a loja K. Hattori, de relógios e joias, em Tóquio."
+    "Kintaro Hattori abre a loja K. Hattori, de relógios e joias, em Tóquio."
    ],
    [
     "1913",
@@ -55,7 +55,7 @@
   "vs": [
    [
     "O nome",
-    "Seikō quer dizer requinte, precisão em japonês, e soa igual à palavra que significa sucesso."
+    "Seiko quer dizer requinte, precisão em japonês, e soa igual à palavra que significa sucesso."
    ],
    [
     "Quase se chamou Glory",
@@ -156,7 +156,7 @@
  "Citizen": {
   "pais": "Japão",
   "intro": [
-   "A Citizen começou em 1918, em Tóquio, como o Instituto de Pesquisa de Relógios Shokosha, de Kamekichi Yamazaki. O nome Citizen, cidadão em inglês, foi sugerido em 1924 pelo prefeito de Tóquio, Gotō Shinpei.",
+   "A Citizen começou em 1918, em Tóquio, como o Instituto de Pesquisa de Relógios Shokosha, de Kamekichi Yamazaki. O nome Citizen, cidadão em inglês, foi sugerido em 1924 pelo prefeito de Tóquio, Goto Shinpei.",
    "Nascida em Tóquio em 1918 e batizada em 1924 pelo então prefeito da cidade, a Citizen virou uma das maiores fabricantes de relógios do mundo e pioneira dos relógios movidos a luz."
   ],
   "linha": [
@@ -486,8 +486,8 @@
  "Technos": {
   "pais": "Suíça e Brasil",
   "intro": [
-   "A Technos nasceu na Suíça: a empresa começou em 1900 como M. Gunzinger-Hug, criada por Melchior Gunzinger em Welschenrohr, nas montanhas do Jura, e chegou ao Brasil em 1956.",
-   "De origem suíça, nas montanhas do Jura, a Technos chegou ao Brasil em 1956 e virou uma das marcas de relógio mais conhecidas do país."
+   "A Technos nasceu na Suíça: a empresa começou em 1900 como M. Gunzinger-Hug, criada por Melchior Gunzinger em Welschenrohr, nas montanhas do Jura, e chegou ao Brasil nos anos 1950.",
+   "De origem suíça, nas montanhas do Jura, a Technos chegou ao Brasil nos anos 1950 e virou uma das marcas de relógio mais conhecidas do país."
   ],
   "linha": [
    [
@@ -499,8 +499,8 @@
     "Joseph Gunzinger, filho do fundador, registra a marca Technos."
    ],
    [
-    "1956",
-    "A Technos chega ao Brasil pela Centauro Importadora, do Rio Grande do Sul."
+    "Anos 50",
+    "A Technos chega ao Brasil, representada por uma importadora do Rio Grande do Sul."
    ],
    [
     "Anos 60",
@@ -511,7 +511,7 @@
     "O Skydiver chega ao Brasil."
    ],
    [
-    "1995",
+    "Anos 90",
     "Os direitos da marca na América do Sul passam para a Technos Relógios, do Brasil."
    ],
    [
@@ -534,8 +534,10 @@
    ]
   ],
   "fontes": [
-   "https://en.wikipedia.org/wiki/Technos_(watches)"
-  ]
+   "https://en.wikipedia.org/wiki/Technos_(watches)",
+   "https://forbes.com.br/forbes-life/2025/05/infomercial-technos-tradicao-em-movimento/"
+  ],
+  "_nota": "As fontes divergem no ano da chegada ao Brasil (1956 na Wikipédia, 1958 no material da marca) e no da compra dos direitos (1994/1995): por isso a linha do tempo usa décadas."
  },
  "Mido": {
   "pais": "Suíça",

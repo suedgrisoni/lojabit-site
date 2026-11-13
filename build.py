@@ -84,7 +84,8 @@ const {minify}=require("terser");let s="";process.stdin.setEncoding("utf8");proc
 
 
 # rel = arquivos dos relógios (dist/rel.css e dist/rel.js), carregados sob demanda pelo código 1799005 só em página de relógio
-NOMES = {'cab': 'cabeçalho', 'rod': 'rodapé', 'rel': 'relógios (só nas páginas de relógio)'}
+# rex = extras dos relógios (dist/rex.css e dist/rex.js: quiz, tamanho real, guia do proprietário), que o rel.js só carrega quando o cliente pede
+NOMES = {'cab': 'cabeçalho', 'rod': 'rodapé', 'rel': 'relógios (só nas páginas de relógio)', 'rex': 'relógios, extras sob demanda (quiz, tamanho real, guia do proprietário)'}
 INJETA = ('window.__lbE3s=function(t,a){var s=document.createElement("style");for(var k in a)s.setAttribute(k,a[k]);'
           's.textContent=t;(document.head||document.documentElement).appendChild(s)};')
 
@@ -93,7 +94,7 @@ def main():
     ordem = json.load(open(os.path.join(AQUI, 'ordem.json'), encoding='utf-8'))
     tablet = 'var c=!0,d="lbMob"' in open(os.path.join(AQUI, 'src', '1717518.html'), encoding='utf-8').read()
     print('troca 767/768 -> 979/980 (celular app 1 ligado):', tablet)
-    blocos = {('cab', 'css'): [], ('cab', 'js'): [INJETA], ('rod', 'css'): [], ('rod', 'js'): [], ('rel', 'css'): [], ('rel', 'js'): []}
+    blocos = {('cab', 'css'): [], ('cab', 'js'): [INJETA], ('rod', 'css'): [], ('rod', 'js'): [], ('rel', 'css'): [], ('rel', 'js'): [], ('rex', 'css'): [], ('rex', 'js'): []}
     for c in ordem:
         seg = open(os.path.join(AQUI, 'src', f"{c['id']}.html"), encoding='utf-8').read()
         cab = f"/* {c['id']} {c['nome']} */"
@@ -121,7 +122,7 @@ def main():
     # rel antes de rod: a "versão" dos arquivos dos relógios vai dentro do rod.js (__REL_V__ no código 1799005), assim toda
     # mudança em rel.* também muda o rod.js e entra no mesmo commit que o carregador do painel aponta
     relv = ''
-    for (g, t) in [('cab', 'css'), ('cab', 'js'), ('rel', 'css'), ('rel', 'js'), ('rod', 'css'), ('rod', 'js')]:
+    for (g, t) in [('cab', 'css'), ('cab', 'js'), ('rel', 'css'), ('rel', 'js'), ('rex', 'css'), ('rex', 'js'), ('rod', 'css'), ('rod', 'js')]:
         bl = blocos[(g, t)]
         texto = '\n'.join(bl) + '\n'
         if (g, t) == ('rod', 'js'):
@@ -131,18 +132,18 @@ def main():
             texto, minif = terser(texto)
             # marca de "arquivo rodou até o fim": se faltar, o carregador do painel tenta o endereço reserva
             texto = ('/* LOJABIT - códigos do ' + NOMES[g] + ' (fonte: github.com/suedgrisoni/lojabit-site, src/) */\n'
-                     + texto.rstrip().rstrip(';') + ';\nwindow.lbE3' + {'cab': 'c', 'rod': 'r', 'rel': 'l'}[g] + '=1;\n')
+                     + texto.rstrip().rstrip(';') + ';\nwindow.lbE3' + {'cab': 'c', 'rod': 'r', 'rel': 'l', 'rex': 'x'}[g] + '=1;\n')
         else:
             texto = '/* LOJABIT - estilos do ' + NOMES[g] + ' (fonte: github.com/suedgrisoni/lojabit-site, src/) */\n' + texto + '\n'
         nome = f'{g}.{t}'
         open(os.path.join(AQUI, 'dist', nome), 'w', encoding='utf-8').write(texto)
         man['arquivos'][nome] = {'bytes': len(texto.encode()), 'sha256': hashlib.sha256(texto.encode()).hexdigest(), 'minificado': minif or t == 'css'}
-        if g == 'rel':
+        if g in ('rel', 'rex'):
             relv = hashlib.sha256((relv + texto).encode()).hexdigest()[:10]
         print(f"dist/{nome}: {len(texto.encode())/1024:.0f} KB{' (minificado)' if minif else ''}")
     json.dump(man, open(os.path.join(AQUI, 'dist', 'manifesto.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     # confere a sintaxe dos JS
-    for g in ('cab', 'rod', 'rel'):
+    for g in ('cab', 'rod', 'rel', 'rex'):
         r = subprocess.run(['node', '--check', os.path.join(AQUI, 'dist', f'{g}.js')], capture_output=True, text=True)
         if r.returncode != 0: sys.exit(f'ERRO de sintaxe em dist/{g}.js: {r.stderr[:300]}')
     print('ok')

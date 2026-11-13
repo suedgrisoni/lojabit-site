@@ -91,6 +91,11 @@ PRIOR = ['terno', 'noite', 'trabalho', 'viagem', 'praia', 'esporte', 'dia', 'tri
 
 
 def ocasioes(x, cats, fam):
+    """[(nivel, rótulo, porquê)] para a descrição."""
+    return [(n, ROTULO[k][0 if n == 'ideal' else 1], r) for n, k, r in ocasioes_chaves(x, cats, fam)]
+
+
+def ocasioes_chaves(x, cats, fam):
     """Mapa de ocasiões calculado da ficha. Devolve [(nivel, chave, porquê)]: todas as 'ideal' + até 3 'combina'."""
     esp, agua, pul = x.get('esp'), x.get('agua', 0), x.get('pul', '')
     couro, metal = pul == 'couro', pul == 'metal'
@@ -156,7 +161,7 @@ def ocasioes(x, cats, fam):
         O.append(('combina', 'noite', 'O aço polido ganha brilho à noite e combina com roupa de sair.'))
     ide = [o for o in O if o[0] == 'ideal']
     com = sorted([o for o in O if o[0] == 'combina'], key=lambda o: PRIOR.index(o[1]))[:3]
-    return [(n, ROTULO[k][0 if n == 'ideal' else 1], r) for n, k, r in sorted(ide, key=lambda o: PRIOR.index(o[1])) + com]
+    return sorted(ide, key=lambda o: PRIOR.index(o[1])) + com
 
 
 def secoes(pid, x=None):
@@ -251,6 +256,64 @@ def grava(req, pid, x=None, bk='/tmp/relogios_dossie_antigas'):
     return 'ok' if q.get('descricao_completa') == nd and q.get('nome') == p.get('nome') else 'ERRO %s' % c
 
 
+# ---------- página da marca (categoria): a história completa, embaixo da lista de relógios ----------
+RE_MARCA = r'\s*<h2>A história d[ao] [^<]{2,40} em \d+ momentos</h2>[\s\S]*$'
+
+
+def secao_marca(nome):
+    """Bloco da página da marca: TODOS os momentos da linha do tempo e TODAS as curiosidades. Sai de relogios_dossie_marcas.json."""
+    m = MARCAS.get(nome)
+    if not m:
+        return None
+    lis = ''.join('\r\n<li><strong>%s:</strong> %s</li>' % (E(a), E(t)) for a, t in m['linha'])
+    h = '<h2>A história da %s em %d momentos</h2>\r\n<p>%s</p>\r\n<ol>%s\r\n</ol>' % (E(nome), len(m['linha']), E(m['intro'][0]), lis)
+    if m.get('vs'):
+        h += '\r\n<h2>Você sabia?</h2>\r\n<ul>%s\r\n</ul>' % ''.join('\r\n<li><strong>%s.</strong> %s</li>' % (E(a), E(t)) for a, t in m['vs'])
+    return h
+
+
+def aplica_marca(d, nome):
+    bloco = secao_marca(nome)
+    if not bloco:
+        return d
+    return re.sub(RE_MARCA, '', d or '').rstrip() + '\r\n\r\n' + bloco
+
+
+def grava_marca(req, cat_id, nome, bk='/tmp/relogios_dossie_antigas'):
+    """Põe (ou atualiza) a história completa no fim da descrição da categoria da marca. O texto que já existe fica como está."""
+    if nome not in MARCAS:
+        return 'marca sem dossiê'
+    c, t = req('GET', f'/categoria/{cat_id}')
+    if c != 200:
+        return 'erro leitura %s' % c
+    p = json.loads(t); d = p.get('descricao') or ''
+    nd = aplica_marca(d, nome)
+    if nd == d:
+        return 'já estava igual'
+    os.makedirs(bk, exist_ok=True)
+    open(os.path.join(bk, f'categoria_{cat_id}_{int(time.time())}.html'), 'w', newline='').write(d)
+    c, t = req('PUT', f'/categoria/{cat_id}', {'descricao': nd})
+    c2, t2 = req('GET', f'/categoria/{cat_id}'); q = json.loads(t2)
+    return 'ok' if q.get('descricao') == nd and q.get('nome') == p.get('nome') and q.get('url') == p.get('url') else 'ERRO %s' % c
+
+
+def categorias_de_marca(req, pai=24410277):
+    """{nome da marca: id} das subcategorias de Relógios cujo nome é uma marca do dossiê."""
+    out, off = {}, 0
+    while True:
+        c, t = req('GET', f'/categoria/?limit=100&offset={off}')
+        if c != 200:
+            break
+        o = json.loads(t).get('objects', [])
+        for x in o:
+            if x.get('nome') in MARCAS and str(pai) in str(x.get('categoria_pai') or ''):
+                out[x['nome']] = x['id']
+        if len(o) < 100:
+            break
+        off += 100
+    return out
+
+
 def main():
     if '--mostrar' in sys.argv:
         S = secoes(sys.argv[sys.argv.index('--mostrar') + 1])
@@ -264,6 +327,12 @@ def main():
                 print('sem família no dossiê:', x['n'][:80])
             if x.get('mk') not in MARCAS:
                 print('marca sem dossiê:', x.get('mk'), '-', x['n'][:60])
+        return
+    if '--marcas' in sys.argv:
+        sys.path.insert(0, '/home/claude/compilado')
+        from api_li import req
+        for nome, cid in sorted(categorias_de_marca(req).items()):
+            print(nome, cid, grava_marca(req, cid, nome), flush=True)
         return
     if '--gravar' in sys.argv:
         sys.path.insert(0, '/home/claude/compilado')

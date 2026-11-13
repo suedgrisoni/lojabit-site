@@ -425,6 +425,11 @@
   "grupo": "rel"
  },
  {
+  "id": 1799006,
+  "nome": "Relógios, extras sob demanda: quiz, tamanho real e guia do proprietário — vai para dist/rex.* (só no repositório)",
+  "grupo": "rex"
+ },
+ {
   "id": 1799005,
   "nome": "Relógios: carrega dist/rel.* só em página de relógio — prévia ?lbrel=1 (só no repositório)",
   "grupo": "rod"
