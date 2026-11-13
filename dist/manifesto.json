@@ -16,8 +16,8 @@
    "minificado": true
   },
   "rel.js": {
-   "bytes": 51530,
-   "sha256": "0d5776d6be3bc821816c7a1ef4cfae4d7a8cc248eb9d5fa66e1fa982bed8d9a5",
+   "bytes": 51621,
+   "sha256": "c4fa473e5a4fd8a7b681acd36ff6e43199b6d368304eb02ab6673111fa914865",
    "minificado": true
   },
   "rod.css": {
@@ -27,7 +27,7 @@
   },
   "rod.js": {
    "bytes": 373794,
-   "sha256": "21318fe810be0b6e44a4cf7af9edf8f6f5d5ebcec146eecb1543ad159f285ae0",
+   "sha256": "fd6a1a767ef083c3584050f0c6d73e3f093c5b316a066134c19dca33c78e8ada",
    "minificado": true
   }
  },

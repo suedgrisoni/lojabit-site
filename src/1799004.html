@@ -857,10 +857,11 @@ html.lbrx-aberto,html.lbrx-aberto body{overflow:hidden!important}
   /* ---------- etiqueta nos cartões de relógio (listagens, "Você também pode gostar"...) ---------- */
   function etiquetas(B) {
     function pinta() {
-      [].forEach.call(document.querySelectorAll('.listagem-item[data-id]'), function (it) {
+      [].forEach.call(document.querySelectorAll('.listagem-item'), function (it) {
         if (it.__lbrl) return;
         it.__lbrl = 1;
-        var x = B.id[it.getAttribute('data-id')], nm = it.querySelector('.info-produto .nome-produto'), t = x && etiqueta(x, true);
+        var a = it.querySelector('a.produto-sobrepor[href], a.nome-produto[href]');
+        var x = B.id[it.getAttribute('data-id')] || (a && B.u[caminho(a.href)]), nm = it.querySelector('.info-produto .nome-produto'), t = x && etiqueta(x, true);
         if (!t || !nm || it.querySelector('.lbrl')) return;
         var d = document.createElement('div');
         d.className = 'lbrl'; d.textContent = t;
