@@ -136,6 +136,10 @@ Tudo abaixo se atualiza sozinho quando entra um relógio novo (sai da ficha téc
   Desde 14/11/2026 a lista "Na @LOJABIT você encontra N relógios {marca} originais" também é viva: um item por relógio À VENDA
   (link, ficha em uma linha, uso ideal e uma curiosidade), tirada do `carrossel/relogios.json`. Relógio que esgota sai; relógio
   novo entra. O parágrafo de abertura e o parágrafo final da categoria continuam escritos à mão.
+  **Atenção (visto em 14/11/2026):** o texto de categoria gravado pela API fica certo no cadastro, mas a loja pode levar horas
+  para mostrar (6 das 9 páginas de marca ainda mostravam o texto antigo 8 horas depois). Salvar a categoria pelo formulário do
+  painel (`/painel/catalogo/categoria/ID/editar`, enviando o próprio formulário da página, com o campo `parent` conferido)
+  atualiza na hora. O verificador diário só usa a API: a mudança dele aparece sozinha, com esse atraso.
 - **Menu Relógios em dois grupos** (`src/1799007.html`, só CSS + `src/1717276.html` no painel Departamentos): "Por marca" e
   "Por tipo e ocasião". Página-guia é a subcategoria cujo endereço tem "relogio"; marca é o resto. Está em PRÉVIA
   (`?lbmenu=1` liga, `?lbmenu=0` desliga); para publicar, `PUBLICADO = true` no `src/1799007.html`. O painel Departamentos
