@@ -6,8 +6,8 @@
    "minificado": true
   },
   "cab.js": {
-   "bytes": 205686,
-   "sha256": "67df8141ba454bd6d6e83d5b818e485b6d079bb341b4b310cc9f335a2edda65e",
+   "bytes": 208438,
+   "sha256": "f2f012d9db10f0307e786ed92f726e1b93e255c13e68f69cb971685ee24cef17",
    "minificado": true
   },
   "rel.css": {
@@ -36,12 +36,17 @@
    "minificado": true
   },
   "rod.js": {
-   "bytes": 375004,
-   "sha256": "597e13041dd4e4a94ed612c27e24d78daa3b2e337c2a4fbbe85a9f3dd480ee7c",
+   "bytes": 369923,
+   "sha256": "71dc6cf9f50f101b3b88a9932adae46a13209af734ac6e66d245ac6bc07dcc01",
    "minificado": true
   }
  },
  "codigos": [
+  {
+   "id": 1799008,
+   "nome": "Nitidez das fotos: cada foto de produto no tamanho certo para a tela (só no repositório) — ?lbnit=0 desliga",
+   "grupo": "cab"
+  },
   {
    "id": 1720982,
    "nome": "WhatsApp - etiqueta sem esticar",

@@ -1,0 +1,116 @@
+<script>
+/* LOJABIT - Nitidez das fotos (14/11/2026, pedido do Nevander: "fotos totalmente nítidas").
+   Problema: o site pedia ao servidor de imagens (cdn.awsli.com.br) fotos menores do que a tela mostra
+   (ex.: 600/800 px na galeria do celular, que ocupa ~1170 px reais numa tela de densidade 3; 300 px nos cartões
+   do computador, que ocupam até ~580 px reais) e o navegador esticava -> foto borrada/serrilhada.
+   Solução: cada foto de produto ganha uma versão nítida no tamanho certo para o espaço que ocupa
+   (tamanho na tela x densidade da tela, até o máximo do arquivo, 1448 px), como alternativa "alta densidade"
+   (srcset com "2x", "3x"...). O endereço original (src) NÃO muda: o tamanho da foto na página fica igual e os
+   códigos que trocam a foto (variação do decant etc.) continuam funcionando — quando trocam o src, a versão
+   nítida antiga sai na hora e a nova é calculada de novo.
+   - Vale para todas as fotos de produto do site, inclusive as que entram depois (carrosséis, filtros, "carregar mais").
+   - Só depois que a página monta (DOMContentLoaded) e só fotos visíveis perto da tela (veja MARGEM_NOVA/MARGEM_CARREGADA):
+     foto escondida ou lá embaixo não baixa nada a mais. Nunca pede tamanho menor do que já tem.
+   - Fotos com srcset de outro código (galeria do computador, "Visual novo 29") ficam com quem já escolhe o tamanho.
+   - window.__lbSS(src) devolve o srcset nítido para quem monta galeria (galeria do celular, código 1717557).
+   - O servidor já entrega WebP para quem aceita (mais leve). Modo economia de dados do celular: densidade máx. 1,5.
+   - ?lbnit=0 desliga só neste navegador (para comparar); ?lbnit=1 liga de novo. */
+(function () {
+  'use strict';
+  if (window.__lbNit) return; window.__lbNit = 1;
+  try {
+    var q = location.search;
+    if (/[?&]lbnit=0/.test(q)) localStorage.setItem('lbnit', '0');
+    if (/[?&]lbnit=1/.test(q)) localStorage.removeItem('lbnit');
+    if (localStorage.getItem('lbnit') === '0') return;
+  } catch (e) {}
+  if (!window.MutationObserver || !document.getElementsByTagName) return;
+
+  var RE = /(\/\/cdn\.awsli\.com\.br\/)(\d{2,4})x(\d{2,4})(\/278\/278816\/produto\/)/;
+  /* tamanhos que o site já usa (o servidor guarda em cache); 2500 = arquivo inteiro (1448 px) */
+  var T = [120, 160, 200, 300, 400, 600, 800, 1000, 1200, 2500];
+  /* foto ainda não baixada: já nasce nítida até 2500 px da tela (distância máxima em que o navegador começa a baixar);
+     foto já baixada: ganha a nítida a 1100 px da tela (dentro da distância em que o navegador baixa na hora,
+     assim a foto atual continua na tela até a nítida chegar) */
+  var MAX = 1448, MARGEM_NOVA = 2500, MARGEM_CARREGADA = 1100;
+  var dpr = Math.min(window.devicePixelRatio || 1, 3);
+  try { if (navigator.connection && navigator.connection.saveData) dpr = Math.min(dpr, 1.5); } catch (e) {}
+  var imgs = document.getElementsByTagName('img'); /* lista viva: inclui as fotos que entram depois */
+  var pronto = false, agendado = 0;
+
+  function px(t) { return t >= 2500 ? MAX : t; }
+  function escolhe(cssPx) {
+    var need = cssPx * dpr * 0.97;
+    for (var i = 0; i < T.length; i++) if (px(T[i]) >= need) return T[i];
+    return 2500;
+  }
+  /* srcset nítido para uma foto do produto que ocupa cssPx na tela ('' se a atual já basta) */
+  function srcsetPara(src, cssPx) {
+    var m = RE.exec(src || '');
+    if (!m) return '';
+    var atual = Math.min(+m[2], +m[3]);
+    if (atual >= MAX) return '';
+    var t = escolhe(cssPx), alvo = px(t);
+    if (alvo <= atual * 1.05) return '';
+    return src.replace(RE, m[1] + t + 'x' + t + m[4]) + ' ' + (Math.round(alvo / atual * 100) / 100) + 'x';
+  }
+  window.__lbSS = function (src, cssPx) { return srcsetPara(src, cssPx || window.innerWidth || 400); };
+
+  function ajusta(im) {
+    if (im.__lbnx) return;
+    var ss = im.getAttribute('srcset');
+    if (ss && ss !== im.__lbss) return;                 /* srcset de outro código */
+    var s = im.getAttribute('src') || '';
+    if (!RE.test(s)) return;
+    var r = im.getBoundingClientRect();
+    if (r.width < 8 || r.height < 8) return;                                     /* escondida */
+    var mg = (im.complete && im.naturalWidth > 0) ? MARGEM_CARREGADA : MARGEM_NOVA;
+    if (r.bottom < -mg || r.top > (window.innerHeight || 800) + mg) return;          /* longe da tela */
+    var fit = im.__lbfit;
+    if (!fit) { try { fit = getComputedStyle(im).objectFit || 'fill'; } catch (e) { fit = 'fill'; } im.__lbfit = fit; }
+    var lado = (fit === 'contain' || fit === 'scale-down') ? Math.min(r.width, r.height) : Math.max(r.width, r.height);
+    var novo = srcsetPara(s, lado);
+    if (!novo || novo === ss) return;
+    if (ss) { /* já tem uma versão nítida: só troca se a nova for maior (a foto cresceu na tela) */
+      var d0 = parseFloat(ss.split(' ').pop()), d1 = parseFloat(novo.split(' ').pop());
+      if (!(d1 > d0 * 1.05)) return;
+    }
+    if (!im.__lbev) {
+      im.__lbev = 1;
+      im.addEventListener('error', function () {
+        /* se a versão nítida falhar, volta para a foto original e não tenta mais */
+        if (im.__lbss && im.getAttribute('srcset') === im.__lbss) { im.__lbnx = 1; im.__lbss = ''; im.removeAttribute('srcset'); }
+      });
+    }
+    im.__lbss = novo; im.__lbsrc = s;
+    im.setAttribute('srcset', novo);
+  }
+
+  function confere() {
+    agendado = 0;
+    for (var i = 0; i < imgs.length; i++) { try { ajusta(imgs[i]); } catch (e) {} }
+  }
+  function agenda() { if (pronto && !agendado) agendado = setTimeout(confere, 150); }
+
+  new MutationObserver(function (ms) {
+    for (var i = 0; i < ms.length; i++) {
+      var im = ms[i].target;
+      /* outro código trocou a foto (ex.: variação do decant): a versão nítida da foto antiga sai na hora */
+      if (ms[i].attributeName === 'src' && im.__lbss && im.getAttribute('src') !== im.__lbsrc && im.getAttribute('srcset') === im.__lbss) {
+        im.__lbss = ''; im.removeAttribute('srcset');
+      }
+    }
+    agenda();
+  }).observe(document, { childList: true, subtree: true, attributes: true, attributeFilter: ['src', 'srcset', 'class'] });
+
+  /* scroll em captura pega também as galerias e carrosséis que rolam para o lado */
+  document.addEventListener('scroll', agenda, { passive: true, capture: true });
+  window.addEventListener('resize', agenda);
+  window.addEventListener('load', agenda);
+  document.addEventListener('click', agenda, true);
+
+  function liga() { pronto = true; confere(); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { setTimeout(liga, 120); });
+  else setTimeout(liga, 0);
+})();
+</script>

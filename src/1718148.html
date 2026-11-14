@@ -62,7 +62,7 @@ function carrega(u,cb){if(ok[u])return cb&&cb();var x=new Image();x.onload=funct
 function marca(){[].forEach.call(document.querySelectorAll(".lbg-th"),function(t){t.classList.toggle("on",+t.getAttribute("data-i")===cur)})}
 function lbMostra(){var f=F[cur];ls.classList.remove("z");li.src=f.g;li.alt=nome+" - foto "+(cur+1);ct2.textContent=(cur+1)+" / "+F.length}
 function vai(i,usuario){i=(i+F.length)%F.length;if(i===cur)return;cur=i;var f=F[i];
-mi.srcset=sz(f.g,"600x600")+" 600w, "+sz(f.g,"900x900")+" 900w, "+sz(f.g,"1200x1200")+" 1200w";mi.sizes="(min-width:1500px) 680px, 560px";mi.src=sz(f.g,"1200x1200");mi.alt=nome+" - foto "+(i+1);
+mi.srcset=sz(f.g,"600x600")+" 600w, "+sz(f.g,"900x900")+" 900w, "+sz(f.g,"1200x1200")+" 1200w, "+sz(f.g,"2500x2500")+" 1448w";mi.sizes="(min-width:1500px) 680px, 560px";mi.src=sz(f.g,"1200x1200");mi.alt=nome+" - foto "+(i+1);
 ct.textContent=(i+1)+" / "+F.length;zm.classList.remove("on");zm.style.backgroundImage="";marca();
 if(F.length>1)carrega(sz(F[(i+1)%F.length].g,"1200x1200"));
 if(L.classList.contains("on"))lbMostra();
