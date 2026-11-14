@@ -40,10 +40,18 @@ def js(arquivo, marca):
 
 # Foto principal do produto no celular (é o "maior bloco" da página, LCP): a Loja Integrada põe loading="lazy" nela,
 # então o navegador só começa a baixar depois de montar a página. Aqui ela começa a baixar já no cabeçalho, com prioridade alta.
-# O endereço vem do og:image (800x800) trocado por 600x700, o mesmo arquivo da foto principal (conferido em 60 produtos).
+# O endereço vem do og:image (800x800) trocado pelo tamanho que a galeria do celular vai mostrar (o mesmo arquivo da foto
+# principal, conferido em 60 produtos). Desde 14/11/2026 (Nitidez das fotos, src/1799008) a galeria do celular pede a foto
+# nítida: largura da tela x densidade (até 3; 1,5 no modo economia de dados), no mesmo degrau de tamanhos do 1799008
+# (600, 800, 1000, 1200 ou 2500 = arquivo inteiro de 1448 px). Se a 600x700 já basta (tela de densidade 1) ou se a nitidez
+# está desligada neste aparelho (?lbnit=0), continua 600x700, como antes.
 # Só em telas até 979 px (no computador a galeria usa outra foto) e só em página de produto (og:image com /produto/).
 FOTO = ('<script>!function(d){try{if(screen.width>979)return;var m=d.querySelector(\'meta[property="og:image"]\'),u=m&&m.content||"";'
-        'if(u.indexOf("/produto/")<0)return;u=u.replace(/\\/\\d+x\\d+\\//,"/600x700/");var l=d.createElement("link");l.rel="preload";l.as="image";'
+        'if(u.indexOf("/produto/")<0)return;var p=Math.min(window.devicePixelRatio||1,3),z="600x700",t=[600,800,1000,1200,2500],n,i,k;'
+        'try{if(navigator.connection&&navigator.connection.saveData)p=Math.min(p,1.5)}catch(e){}'
+        'n=screen.width*p*.97;for(i=0;i<t.length;i++){k=t[i]>=2500?1448:t[i];if(k>=n||t[i]>=2500)break}'
+        'try{if(localStorage.getItem("lbnit")==="0")k=0}catch(e){}if(k>630)z=t[i]+"x"+t[i];'
+        'u=u.replace(/\\/\\d+x\\d+\\//,"/"+z+"/");var l=d.createElement("link");l.rel="preload";l.as="image";'
         'l.href=u;l.setAttribute("fetchpriority","high");d.head.appendChild(l)}catch(e){}}(document)</script>')
 
 
