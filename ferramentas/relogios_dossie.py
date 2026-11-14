@@ -346,7 +346,7 @@ def secao_modelos(nome):
             cab = 'Na <strong>@LOJABIT</strong> você encontra %d relógios %s originais: %s,%s.' % (n, E(nome), _lista(partes), med)
         else:
             cab = 'Na <strong>@LOJABIT</strong> você encontra %d relógios %s originais:' % (n, E(nome))
-    return ('<p>%s</p>\r\n<ul>%s\r\n</ul>\r\n<p>Não sabe qual escolher? <a href="/relogios-originais#quiz">Faça o quiz</a> e veja em 4 perguntas qual combina com você.</p>' % (cab, ''.join(L)))
+    return ('<p>%s</p>\r\n<ul>%s\r\n</ul>\r\n<p>Não sabe qual escolher? <a href="/relogios-originais#quiz">Faça o quiz</a> e descubra em 4 perguntas qual relógio combina com você.</p>' % (cab, ''.join(L)))
 
 
 def aplica_modelos(d, nome):
