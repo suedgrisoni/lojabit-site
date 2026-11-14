@@ -181,3 +181,24 @@ Pedido do Nevander: um vídeo em cada relógio, que gere desejo. Piloto aprovado
   só baixa quando o cliente toca: abre por cima da página, com som, e fecha no X, fora do vídeo ou no Esc.
   Endereço: `https://cdn.jsdelivr.net/gh/suedgrisoni/lojabit-site@<vd>/v/<id>.mp4` (capa: `.jpg`).
 - **Relógio novo**: a tarefa "Carrossel: preços atualizados" roda `--novos` e `--publicar` e o vídeo entra sozinho.
+
+## Nitidez das fotos (14/11/2026)
+
+Pedido do Nevander: "fotos totalmente nítidas". O site pedia ao servidor de imagens fotos menores do que a tela mostra
+(galeria do celular 600/800 px numa tela que precisa de ~1170 px; cartões do computador 300 px onde precisam de até ~580 px)
+e o navegador esticava. Os arquivos em si estão bons: 3.238 de 3.258 fotos dos produtos ativos estão no máximo que a
+Loja Integrada guarda (1448 px; pedir 2500x2500 entrega o arquivo inteiro).
+
+- `src/1799008.html` (cabeçalho, primeiro da ordem): cada foto de produto ganha um `srcset` "Nx" com a versão no tamanho
+  certo (tamanho na tela x densidade, até 3; 1,5 no modo economia de dados; degraus 120…1200 e 2500=1448 px). O `src`
+  não muda (tamanho na página igual; códigos que trocam a foto continuam funcionando: quando trocam o `src`, a versão
+  nítida antiga sai na hora). Só depois do DOMContentLoaded e só fotos visíveis: ainda não baixadas até 2500 px da tela,
+  já baixadas até 1100 px (assim a atual fica na tela até a nítida chegar). Fotos com `srcset` de outro código ficam de fora.
+  `?lbnit=0` desliga só no aparelho (para comparar), `?lbnit=1` liga de novo.
+- `src/1717557.html` (galeria do celular): já nasce com o `srcset` nítido (`window.__lbSS`), sem baixar a de 800 px antes.
+- `src/1718148.html` (galeria do computador): `srcset` vai até o arquivo inteiro (1448w).
+- `ferramentas/carregador.py`: a foto adiantada no celular (preload da 1ª foto) é a do tamanho nítido, a mesma da galeria.
+- Medido no ar (Playwright, iPhone 13 e PC 1440 px densidade 2): fotos esticadas na tela 0 (antes 5 de 6 na página do
+  produto no celular e 4 de 4 na categoria no computador); o servidor já entrega WebP para quem aceita.
+- Fotos com arquivo pequeno de origem (nenhum código resolve): 17 fotos de relógio (fundo/caixa/ambiente, 687–1000 px,
+  a última de cada galeria) e 3 do kit Dolce & Gabbana K (1024 px).
