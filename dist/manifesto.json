@@ -11,8 +11,8 @@
    "minificado": true
   },
   "rel.css": {
-   "bytes": 27320,
-   "sha256": "6bb20d95625a44b79f0abbe987ef665c94be085bec7bea4180da50350d0b6d56",
+   "bytes": 26778,
+   "sha256": "26de7edf0fe0f254dbc1a4af046cabd988975fb04bcca27ecf8245241a8933fd",
    "minificado": true
   },
   "rel.js": {
@@ -31,13 +31,13 @@
    "minificado": true
   },
   "rod.css": {
-   "bytes": 57840,
-   "sha256": "de1d44b19097587c2ff05ec9be8cfa4c49ed3d2fef4c5073c508c1a5ee58dcd2",
+   "bytes": 60910,
+   "sha256": "45ff5093d7c3ffc3a6d84a043cf08fbe873d6afbffa37ca3f2b445dbeeb0d740",
    "minificado": true
   },
   "rod.js": {
-   "bytes": 373794,
-   "sha256": "245abf0aeaec19b60719afd925fe92b890d8adf26d7b1c98ea3505bebb6f56e8",
+   "bytes": 375011,
+   "sha256": "775b2d7e5f2d6c12f8100ad007347899a5252f2b1bf836407497006a097cb4d9",
    "minificado": true
   }
  },
@@ -475,6 +475,11 @@
   {
    "id": 1799005,
    "nome": "Relógios: carrega dist/rel.* só em página de relógio — prévia ?lbrel=1 (só no repositório)",
+   "grupo": "rod"
+  },
+  {
+   "id": 1799007,
+   "nome": "Menu Relógios em dois grupos (por marca / por tipo) — prévia ?lbmenu=1 (só no repositório)",
    "grupo": "rod"
   }
  ],

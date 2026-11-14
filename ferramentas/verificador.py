@@ -21,7 +21,8 @@ Confere, para cada perfume (árabe, nicho, importado):
  10. páginas-guia      — cada relógio está exatamente nas páginas-guia que a regra manda (Relógios de Mergulho, Sociais,
                          Automáticos, Primeiro Automático, Cronógrafo, Para Presentear, Até R$ 2.000; regras em
                          ferramentas/relogios.py, GUIAS)                                               [corrige com chave]
- 11. página da marca   — a categoria de cada marca de relógio tem a história completa ("A história da <marca> em N
+ 11. página da marca   — a categoria de cada marca de relógio tem a lista viva dos modelos à venda ("Na @LOJABIT você
+                         encontra…", do carrossel/relogios.json) e a história completa ("A história da <marca> em N
                          momentos" + "Você sabia?", de relogios_dossie_marcas.json)                    [corrige com chave]
                          Marca sem categoria em Relógios, sem dossiê ou sem "criador" (para os posts): só avisa.
 

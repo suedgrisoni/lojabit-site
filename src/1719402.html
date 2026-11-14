@@ -1,6 +1,10 @@
 <style>
 .lbdc-fechada{max-height:300px;overflow:hidden;position:relative}
 .lbdc-fechada:after{content:"";position:absolute;left:0;right:0;bottom:0;height:70px;background:linear-gradient(rgba(255,255,255,0),#fff)}
+/* caixa do texto das categorias no celular e no tablet (14/11/2026): creme do site no lugar do cinza do tema, e o "Veja mais" no padrão dos botões */
+@media (max-width:979px){.categoria-descricao{background:#FAF7F2!important;border:1px solid #ECE5DA!important;border-radius:16px!important}
+.categoria-descricao .lbdc-fechada:after{background:linear-gradient(rgba(250,247,242,0),#FAF7F2)}
+#corpo .categoria-descricao .botao-veja-mais,html body .categoria-descricao .botao.botao-veja-mais{background:#0A0A0B!important;color:#fff!important;border:0!important;border-radius:12px!important;min-height:46px!important;padding:0 24px!important;font:600 12px/1 Jost,Arial,sans-serif!important;letter-spacing:.14em!important;text-transform:uppercase!important}}
 </style>
 <script>/* LOJABIT - SEO: (1) na home, os títulos das seções antigas escondidas do tema ("COMPRE POR CATEGORIA", "COMPRE POR MARCA") deixam de ser H2, porque repetem os títulos visíveis; (2) nas categorias, o texto da descrição aparece uma vez só (o tema repetia o começo num resumo) e o "Veja Mais" abre e fecha o mesmo texto; (3) a segunda foto dos produtos nas vitrines e os ícones de categoria ganham texto alternativo. */(function(){"use strict";
 if(window.__lbSeoDup)return;window.__lbSeoDup=1;

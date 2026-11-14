@@ -133,6 +133,13 @@ Tudo abaixo se atualiza sozinho quando entra um relógio novo (sai da ficha téc
   `relogios_guias.py --criar`, pôr o id devolvido em `GUIAS` e acertar o endereço no painel (a API troca letra acentuada por "-").
 - **Página da marca**: `relogios_dossie.py --marcas` (e o verificador, item 11) põe no fim do texto da categoria da marca
   "A história da {marca} em N momentos" e "Você sabia?", com todos os momentos de `relogios_dossie_marcas.json`.
+  Desde 14/11/2026 a lista "Na @LOJABIT você encontra N relógios {marca} originais" também é viva: um item por relógio À VENDA
+  (link, ficha em uma linha, uso ideal e uma curiosidade), tirada do `carrossel/relogios.json`. Relógio que esgota sai; relógio
+  novo entra. O parágrafo de abertura e o parágrafo final da categoria continuam escritos à mão.
+- **Menu Relógios em dois grupos** (`src/1799007.html`, só CSS + `src/1717276.html` no painel Departamentos): "Por marca" e
+  "Por tipo e ocasião". Página-guia é a subcategoria cujo endereço tem "relogio"; marca é o resto. Está em PRÉVIA
+  (`?lbmenu=1` liga, `?lbmenu=0` desliga); para publicar, `PUBLICADO = true` no `src/1799007.html`. O painel Departamentos
+  já conta certo para todos: "9 marcas e 7 guias".
 - **`carrossel/relogios.json`** leva, por relógio, `ct` (tipos), `oi`/`oc` (ocasiões ideais e em que também vai bem) e, no topo,
   `g` (páginas-guia com 3 relógios ou mais à venda). O quiz e a barra leem daí.
 - **Posts "Você sabia?"** (`ferramentas/relogios_posts.py`): um relógio por post, com legenda para Instagram Reels, TikTok,

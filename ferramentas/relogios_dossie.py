@@ -272,11 +272,116 @@ def secao_marca(nome):
     return h
 
 
+# lista viva dos modelos da marca (14/11/2026): sai do carrossel/relogios.json, então acompanha o que está à venda
+TIPO_N = {'auto': 'automático', 'manual': 'de corda manual', 'quartzo': 'a quartzo', 'solar': 'solar'}
+TIPO_NS = {'auto': 'automáticos', 'manual': 'de corda manual', 'quartzo': 'a quartzo', 'solar': 'solares'}
+ORIG_N = {'japones': 'japonês', 'suico': 'suíço'}
+VIDRO_N = {'safira': 'vidro de safira', 'hardlex': 'vidro Hardlex', 'mineral': 'vidro mineral', 'acrilico': 'vidro acrílico'}
+RE_MODELOS = r'<p>Na <strong>@LOJABIT</strong> você encontra[\s\S]*?<p>Não sabe qual escolher\?[\s\S]*?</p>'
+RE_SEM_ESTOQUE = r'<p>Os relógios [^<]{2,40} da <strong>@LOJABIT</strong> estão a caminho[\s\S]*?</p>'
+_CUR = None
+
+
+def curiosidades():
+    """{id: (título, texto)}: uma curiosidade por relógio, sem repetir entre relógios (a do produto primeiro, depois as da família).
+    Percorre do mais antigo para o mais novo: relógio novo não muda a curiosidade dos antigos."""
+    global _CUR
+    if _CUR is None:
+        _CUR, usados = {}, set()
+        for pid in sorted(BASE, key=int):
+            pr = MODELOS['produtos'].get(pid, {})
+            F = MODELOS['familias'].get(pr.get('f')) or {}
+            V = list(pr.get('vs', [])) + list(F.get('vs', []))
+            livre = [v for v in V if v[0] not in usados] or V
+            if livre:
+                _CUR[pid] = tuple(livre[0]); usados.add(livre[0][0])
+    return _CUR
+
+
+def _lista(itens):
+    return itens[0] if len(itens) == 1 else ', '.join(itens[:-1]) + ' e ' + itens[-1]
+
+
+def secao_modelos(nome):
+    """Bloco "Na @LOJABIT você encontra…": um item por relógio da marca À VENDA, com link, ficha em uma linha, uso ideal e uma curiosidade."""
+    R = sorted([x for x in BASE.values() if x.get('mk') == nome and x.get('disp') and x.get('p', 0) > 0],
+               key=lambda x: (MODELOS['produtos'].get(str(x['id']), {}).get('f', 'zz'), x['n']))
+    if not R:
+        return ('<p>Os relógios %s da <strong>@LOJABIT</strong> estão a caminho: fale com a gente no WhatsApp (24) 98122-6521 para saber da próxima chegada.</p>' % E(nome))
+    cur = curiosidades()
+    L = []
+    for x in R:
+        pid = str(x['id'])
+        fam = MODELOS['produtos'].get(pid, {}).get('f')
+        cats = (MODELOS['familias'].get(fam) or {}).get('cats') or infere_cats(x)
+        f = [TIPO_N.get(x.get('tipo'), '') + ((' ' + ORIG_N[x['orig']]) if x.get('orig') in ORIG_N and x.get('tipo') in ('auto', 'manual') else '')]
+        if x.get('agua'):
+            f.append('%d m de resistência à água' % x['agua'])
+        if x.get('vidro') in VIDRO_N:
+            f.append(VIDRO_N[x['vidro']])
+        f = [i for i in f if i]
+        txt = (f[0][0].upper() + f[0][1:] + (', ' + ', '.join(f[1:]) if len(f) > 1 else '') + '.') if f else ''
+        ideal = [k for n, k, r in ocasioes_chaves(x, cats, fam) if n == 'ideal']
+        if ideal:
+            txt += ' ' + ROTULO[ideal[0]][0] + '.'
+        if pid in cur:
+            txt += ' ' + cur[pid][1]
+        nm = re.sub(r'^Relógio (Masculino|Feminino|Unissex)\s+', '', x['n'])
+        L.append('\r\n<li><a href="%s">%s</a>: %s</li>' % (E(x['u']), E(nm), E(txt.strip())))
+    n = len(R)
+    if n == 1:
+        cab = 'Na <strong>@LOJABIT</strong> você encontra 1 relógio %s original:' % E(nome)
+    else:
+        tipos = {}
+        for x in R:
+            tipos[x.get('tipo')] = tipos.get(x.get('tipo'), 0) + 1
+        partes = ['%d %s' % (q, (TIPO_N if q == 1 else TIPO_NS).get(t, 'relógio' if q == 1 else 'relógios')) for t, q in sorted(tipos.items(), key=lambda kv: -kv[1]) if t]
+        D = sorted(x['diam'] for x in R if x.get('diam'))
+        med = (' com caixas de %s a %s mm' % (br(D[0]), br(D[-1])) if D and D[0] != D[-1] else (' com caixa de %s mm' % br(D[0]) if D else ''))
+        if len(tipos) == 1 and partes:
+            um = {'auto': 'automáticos', 'solar': 'solares', 'quartzo': 'a quartzo', 'manual': 'de corda manual'}.get(list(tipos)[0], '')
+            um = (('os dois ' if n == 2 else 'todos ') + um) if um else ''
+            cab = 'Na <strong>@LOJABIT</strong> você encontra %d relógios %s originais%s%s:' % (n, E(nome), (', ' + um) if um else '', (',' + med) if med and um else med)
+        elif partes:
+            cab = 'Na <strong>@LOJABIT</strong> você encontra %d relógios %s originais: %s,%s.' % (n, E(nome), _lista(partes), med)
+        else:
+            cab = 'Na <strong>@LOJABIT</strong> você encontra %d relógios %s originais:' % (n, E(nome))
+    return ('<p>%s</p>\r\n<ul>%s\r\n</ul>\r\n<p>Não sabe qual escolher? <a href="/relogios-originais#quiz">Faça o quiz</a> e veja em 4 perguntas qual combina com você.</p>' % (cab, ''.join(L)))
+
+
+def aplica_modelos(d, nome):
+    """Põe (ou atualiza) a lista viva dos modelos. Na 1ª vez troca o parágrafo antigo "Na @LOJABIT você encontra…" e o comentário
+    que vinha logo depois dele (os dois citavam modelos e ficavam velhos)."""
+    bloco = secao_modelos(nome)
+    d = d or ''
+    if re.search(RE_MODELOS, d):
+        return re.sub(RE_MODELOS, lambda m: bloco, d, count=1)
+    if re.search(RE_SEM_ESTOQUE, d):
+        return re.sub(RE_SEM_ESTOQUE, lambda m: bloco, d, count=1)
+    m = re.search(r'<p>Na <strong>@LOJABIT</strong> você encontra[\s\S]*?</p>', d)
+    if m:
+        fim = m.end()
+        m2 = re.match(r'\s*<p>([\s\S]*?)</p>', d[fim:])
+        if m2 and 'garantia legal' not in m2.group(1) and '<a ' not in m2.group(1) and '<h2' not in m2.group(1):
+            fim += m2.end()
+        return d[:m.start()] + bloco + d[fim:]
+    # descrição sem a lista: entra antes do parágrafo final (garantia), antes da história ou no fim
+    for pat in (r'<p>(?:(?!</p>)[\s\S])*garantia legal(?:(?!</p>)[\s\S])*</p>', r'<h2>A história d[ao] '):
+        m = re.search(pat, d)
+        if m:
+            return d[:m.start()] + bloco + '\r\n\r\n' + d[m.start():]
+    if not d.strip():  # categoria nova, sem texto: começa com o título e a origem da marca
+        mk = MARCAS.get(nome) or {}
+        d = '<h2>Relógio %s original</h2>\r\n\r\n<p>%s</p>' % (E(nome), E((mk.get('intro') or [''])[0]))
+    return d.rstrip() + '\r\n\r\n' + bloco
+
+
 def aplica_marca(d, nome):
     bloco = secao_marca(nome)
     if not bloco:
         return d
-    return re.sub(RE_MARCA, '', d or '').rstrip() + '\r\n\r\n' + bloco
+    d = aplica_modelos(re.sub(RE_MARCA, '', d or '').rstrip(), nome)
+    return d.rstrip() + '\r\n\r\n' + bloco
 
 
 def grava_marca(req, cat_id, nome, bk='/tmp/relogios_dossie_antigas'):
