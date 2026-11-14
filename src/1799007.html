@@ -1,7 +1,7 @@
 <style>
 /* LOJABIT - Menu Relógios em dois grupos: "Por marca" e "Por tipo e ocasião" (14/11/2026).
    Só CSS: página-guia é o item cujo endereço tem "relogio" (/relogios-de-mergulho, /primeiro-relogio-automatico...); marca é o resto
-   (/seiko). Guia ou marca nova entra no grupo certo sozinha. Em PRÉVIA: só aparece com a classe lbmr no <html> (ver o script). */
+   (/seiko). Guia ou marca nova entra no grupo certo sozinha. Vale quando o <html> tem a classe lbmr (ver o script). */
 html.lbmr li.categoria-id-24410277>ul.nivel-dois>li{order:2}
 html.lbmr li.categoria-id-24410277>ul.nivel-dois>li.lbm-ver,html.lbmr li.categoria-id-24410277>ul.nivel-dois>li.lbm-todos{order:0}
 html.lbmr li.categoria-id-24410277>ul.nivel-dois>li:has(>a[href*="relogio"]):not(.lbm-ver):not(.lbm-todos){order:4}
@@ -20,10 +20,10 @@ html.lbmr .main-menu-mobile li.categoria-id-24410277>ul.nivel-dois>li:not(.lbm-t
 html.lbmr .main-menu-mobile li.categoria-id-24410277>ul.nivel-dois>li:not(.lbm-todos)>a{display:block!important;padding:10px 14px!important;border:1px solid #ECE5DA!important;border-radius:99px!important;background:#fff!important;font:500 14px/1.2 Jost,Arial,sans-serif!important;color:#0A0A0B!important;white-space:nowrap}
 </style>
 <script>
-/* Menu Relógios em dois grupos: PRÉVIA. Liga com ?lbmenu=1 e desliga com ?lbmenu=0 (fica guardado no aparelho).
-   Para publicar para todos: PUBLICADO = true. */
+/* Menu Relógios em dois grupos. Publicado para todos em 14/11/2026 (PUBLICADO = true; com false volta a ser prévia:
+   liga com ?lbmenu=1 e desliga com ?lbmenu=0, guardado no aparelho). Fica antes do 1717276 (Departamentos) na ordem. */
 (function () {
-  var PUBLICADO = false;
+  var PUBLICADO = true; /* publicado para todos em 14/11/2026 */
   try {
     var s = location.search;
     if (/[?&]lbmenu=1(&|$)/.test(s)) localStorage.setItem('lbMenuRel', '1');

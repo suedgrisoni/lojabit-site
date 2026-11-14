@@ -151,3 +151,33 @@ Tudo abaixo se atualiza sozinho quando entra um relógio novo (sai da ficha téc
   gancho de venda, limites e hashtags de cada rede, conferidos por código). `--novos ARQ.md` gera só os relógios que ainda não
   tiveram post (`relogios_posts_feitos.json`). Os números de hashtags e limites ficam na tabela `REDES`, com a data da pesquisa;
   depois de 60 dias o programa avisa para pesquisar de novo.
+
+### Vídeo de cada relógio (14/11/2026)
+
+Pedido do Nevander: um vídeo em cada relógio, que gere desejo. Piloto aprovado em 14/11/2026 ("Ficou bom, pode fazer nos outros também").
+
+- **O que é**: vídeo em pé (720x1280, 30 qps, 13 a 16 s, cerca de 2 MB) feito só com as fotos reais do relógio e os dados
+  da ficha. Cenas: a foto principal com o nome; um close (mostrador, cronógrafo, bisel ou zoom da foto principal) com o que
+  ele tem de mais especial; outro ângulo (perfil ou três-quartos) com a segunda coisa especial ou o movimento; o fundo
+  transparente com o movimento, quando existe a foto; e o convite final (original, 10% off no Pix, 6x sem juros). Som:
+  tique-taque sintetizado no ritmo do movimento (6 ou 8 batidas por segundo nos mecânicos; 1 por segundo no quartzo e no
+  solar). Os textos não citam a marca (o vídeo também serve para as redes).
+- **Como gera**: `ferramentas/relogios_video.py` (lê a página do relógio, escolhe as fotos pelo nome do arquivo, leva o
+  fundo da foto ao branco puro, enquadra pelo recorte do relógio, escreve os textos pela ficha e pelo dossiê, filma
+  `ferramentas/relogios_video/modelo.html` com Playwright e junta o som com ffmpeg). As fontes ficam em
+  `ferramentas/relogios_video/fontes/` (Cormorant Garamond e Jost, licença SIL OFL), para não depender da internet.
+  - `--plano [IDs]` mostra fotos e textos; `--quadros ID` monta uma folha com um quadro de cada cena; `--gerar [IDs]`
+    filma; `--novos` filma só o relógio sem vídeo ou cujo vídeo precisa ser refeito (pela impressão digital: nomes das
+    fotos da página, campos da ficha usados nos textos, curiosidade do dossiê, `VERSAO` e o modelo); `--publicar` envia.
+  - Mudou o desenho do vídeo? Aumente `VERSAO` no topo do arquivo: todos são refeitos na próxima rodada.
+  - A curiosidade que fala do fundo da caixa só entra quando a página tem a foto do fundo (senão o texto não bate com a
+    imagem); nesse caso vai a próxima curiosidade do dossiê.
+- **Onde ficam**: no ramo `videos` do repositório (não pesa no `main` nem nos clones das tarefas). Cada publicação é um
+  commit só com os vídeos daquele lote (até 8), para cada pacote ficar pequeno na jsDelivr; os anteriores continuam no
+  histórico do ramo. `carrossel/videos.json` guarda, por relógio, o commit (`s`), a impressão digital (`h`) e a duração.
+  `ferramentas/relogios.py` copia o commit para `carrossel/relogios.json` (`vd`) e a duração (`vt`).
+- **No site** (`rel.js`, função `video`): botão "Ver em vídeo" no canto da foto do produto (no celular embaixo à esquerda,
+  ao lado do "Toque para ampliar"; no computador em cima à esquerda, longe da dica de zoom e do contador). O vídeo
+  só baixa quando o cliente toca: abre por cima da página, com som, e fecha no X, fora do vídeo ou no Esc.
+  Endereço: `https://cdn.jsdelivr.net/gh/suedgrisoni/lojabit-site@<vd>/v/<id>.mp4` (capa: `.jpg`).
+- **Relógio novo**: a tarefa "Carrossel: preços atualizados" roda `--novos` e `--publicar` e o vídeo entra sozinho.

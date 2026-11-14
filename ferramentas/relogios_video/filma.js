@@ -12,7 +12,7 @@ const fs = require('fs'), path = require('path');
   const lista = [];
   for (let s = 0; s < C.length - 1; s++) {
     const tmp = `cena${s + 1}.tmp.mp4`, fim = `cena${s + 1}.mp4`;
-    const ff = spawn('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'image2pipe', '-framerate', String(FPS), '-c:v', 'mjpeg', '-i', '-', '-c:v', 'libx264', '-crf', '20', '-preset', 'medium', '-pix_fmt', 'yuv420p', '-r', String(FPS), tmp]);
+    const ff = spawn('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'image2pipe', '-framerate', String(FPS), '-c:v', 'mjpeg', '-i', '-', '-c:v', 'libx264', '-crf', process.env.CRF || '28', '-preset', process.env.PRESET || 'slow', '-pix_fmt', 'yuv420p', '-g', '60', '-r', String(FPS), tmp]);
     let err = ''; ff.stderr.on('data', d => err += d);
     const f0 = Math.round(C[s] * FPS), f1 = Math.round(C[s + 1] * FPS);
     for (let f = f0; f < f1; f++) {

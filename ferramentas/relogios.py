@@ -260,6 +260,17 @@ def main():
         except Exception as e:
             print('uso/ocasiões:', r.get('n', '')[:50], e)
     base = {'gerado': time.strftime('%Y-%m-%d %H:%M'), 'g': [[g[1], g[2]] for k, g in GUIAS.items() if g[0] and conta[k] >= 3], 'r': [{k: v for k, v in r.items() if k not in ('falta', 'opc') and not k.startswith('_') and v not in ('', None)} for r in R]}
+    # vídeo de cada relógio (ferramentas/relogios_video.py): vd = commit do ramo "videos", vt = duração em segundos
+    try:
+        V = json.load(open(os.path.join(os.path.dirname(SAIDA), 'videos.json'), encoding='utf-8')).get('v', {})
+    except Exception:
+        V = {}
+    for r in base['r']:
+        v = V.get(str(r.get('id')))
+        if v and v.get('s'):
+            r['vd'] = v['s']
+            if v.get('dur'):
+                r['vt'] = int(round(v['dur']))
     antigo = None
     try:
         antigo = json.load(open(SAIDA, encoding='utf-8'))

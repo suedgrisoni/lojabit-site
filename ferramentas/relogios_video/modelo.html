@@ -1,73 +1,89 @@
 <!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- LOJABIT - vídeo do relógio (720x1280). Página animada por cenas: window.seek(t) desenha o instante t.
+     Os dados (fotos, enquadramento, textos e tempos) entram no lugar de __DADOS__ (ferramentas/relogios_video.py). -->
+<link rel="stylesheet" href="fontes.css">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{background:#111}
-#palco{position:relative;width:720px;height:1280px;overflow:hidden;background:radial-gradient(ellipse 90% 60% at 50% 40%,#FFFFFF 0%,#FBF8F3 48%,#EDE4D5 100%);font-family:Jost,Arial,sans-serif;color:#0A0A0B}
-.cena{position:absolute;left:0;top:0;width:720px;height:1280px;opacity:0;will-change:opacity;overflow:hidden;background:radial-gradient(ellipse 90% 60% at 50% 40%,#FFFFFF 0%,#FBF8F3 48%,#EDE4D5 100%)}
-.quadro{position:absolute;left:50%;top:50%;transform-origin:50% 50%;will-change:transform}
-.quadro img{position:absolute;left:0;top:0;width:100%;height:100%;mix-blend-mode:multiply}
+#palco{position:relative;width:720px;height:1280px;overflow:hidden;background:#FAF7F2;font-family:Jost,Arial,sans-serif;color:#0A0A0B}
+.cena{position:absolute;left:0;top:0;width:720px;height:1280px;opacity:0;overflow:hidden;background:radial-gradient(ellipse 90% 60% at 50% 40%,#FFFFFF 0%,#FBF8F3 48%,#EDE4D5 100%)}
+/* o quadro (foto + brilho) se mistura com o fundo da cena como um grupo: o branco da foto some no creme, mesmo girado */
+.quadro{position:absolute;left:50%;top:50%;transform-origin:50% 50%;mix-blend-mode:multiply}
+.quadro img{position:absolute;left:0;top:0;width:100%;height:100%}
 .brilho{position:absolute;left:0;top:0;width:100%;height:100%;-webkit-mask-size:100% 100%;mask-size:100% 100%;overflow:hidden;mix-blend-mode:screen;pointer-events:none}
-.brilho i{position:absolute;top:-20%;left:0;width:34%;height:140%;background:linear-gradient(100deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.0) 20%,rgba(255,255,255,.75) 50%,rgba(255,255,255,0) 80%);will-change:transform}
-.veu{position:absolute;left:0;right:0;bottom:0;height:520px;background:linear-gradient(rgba(250,247,242,0),rgba(250,247,242,.94) 46%,#FAF7F2 70%)}
-.txt{position:absolute;left:56px;right:56px;opacity:0;will-change:transform,opacity}
+.brilho i{position:absolute;top:-20%;left:0;width:34%;height:140%;background:linear-gradient(100deg,rgba(255,255,255,0) 20%,rgba(255,255,255,.7) 50%,rgba(255,255,255,0) 80%)}
+.veu{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(rgba(250,247,242,0),rgba(250,247,242,.94) 46%,#FAF7F2 70%)}
+.veu-topo{position:absolute;left:0;right:0;top:0;height:190px;background:linear-gradient(#FAF7F2 0%,rgba(250,247,242,.85) 40%,rgba(250,247,242,0))}
+.txt{position:absolute;left:56px;right:56px;opacity:0}
+.selo{display:inline-block;margin:0 0 16px;padding:9px 16px 8px 18px;border-radius:99px;background:#0A0A0B;color:#E6D3A8;font:600 15px/1 Jost,Arial,sans-serif;letter-spacing:.24em;text-transform:uppercase}
 .k{font:600 19px/1.3 Jost,Arial,sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#8F6E2E}
-.t{font:500 78px/1.02 "Cormorant Garamond",Georgia,serif;letter-spacing:-.005em;margin-top:14px}
+.t{font:500 78px/1.04 "Cormorant Garamond",Georgia,serif;letter-spacing:-.005em;margin-top:14px}
+.t span{display:block;white-space:nowrap}
 .t em{font-style:italic;color:#8F6E2E}
 .l{font:400 33px/1.32 Jost,Arial,sans-serif;color:#403A34;margin-top:14px}
 .l b{font-weight:600;color:#0A0A0B}
+.fio{position:absolute;left:0;top:-22px;width:64px;height:2px;background:#C9A55C}
 #topo{position:absolute;left:50%;top:44px;transform:translateX(-50%);white-space:nowrap;padding:13px 22px 12px 26px;border-radius:99px;background:rgba(250,247,242,.9);box-shadow:0 2px 14px rgba(10,10,11,.08);font:600 16px/1 Jost,Arial,sans-serif;letter-spacing:.32em;color:#0A0A0B;opacity:0}
 #topo span{color:#8F6E2E}
-#fim .t{font-size:92px}
-#fim .marca{margin-top:34px;font:600 30px/1 Jost,Arial,sans-serif;letter-spacing:.3em}
-#fim .site{margin-top:12px;font:400 22px/1 Jost,Arial,sans-serif;letter-spacing:.08em;color:#776E64}
-.fio{position:absolute;left:56px;width:64px;height:2px;background:#C9A55C;transform-origin:0 50%}
+.fim{text-align:center}
+.fim .t{font-size:92px}
+.fim .marca{margin-top:34px;font:600 30px/1 Jost,Arial,sans-serif;letter-spacing:.3em}
+.fim .site{margin-top:12px;font:400 22px/1 Jost,Arial,sans-serif;letter-spacing:.08em;color:#776E64}
 </style></head><body>
-<div id="palco">
-  <div class="cena" id="c1"><div class="quadro" id="q1"><img src="f1.jpg"><div class="brilho" style="-webkit-mask-image:url(m1.png);mask-image:url(m1.png)"><i id="b1"></i></div></div><div class="veu" style="height:560px"></div></div>
-  <div class="cena" id="c2"><div class="quadro" id="q2"><img src="f2.jpg"><div class="brilho" style="-webkit-mask-image:url(m2.png);mask-image:url(m2.png)"><i id="b2"></i></div></div><div class="veu"></div></div>
-  <div class="cena" id="c3"><div class="quadro" id="q3"><img src="f3.jpg"><div class="brilho" style="-webkit-mask-image:url(m3.png);mask-image:url(m3.png)"><i id="b3"></i></div></div><div class="veu"></div></div>
-  <div class="cena" id="c4"><div class="quadro" id="q4"><img src="f4.jpg"><div class="brilho" style="-webkit-mask-image:url(m4.png);mask-image:url(m4.png)"><i id="b4"></i></div></div><div class="veu" style="height:600px"></div></div>
-  <div id="topo">@LOJABIT <span>·</span> RELÓGIOS ORIGINAIS</div>
-  <div class="txt" id="t1" style="top:940px"><div class="k" data-k="k1"></div><div class="t" data-k="t1"></div></div>
-  <div class="txt" id="t2" style="top:960px"><div class="fio" style="left:0;top:-22px"></div><div class="k" data-k="k2"></div><div class="l" data-k="l2"></div></div>
-  <div class="txt" id="t3" style="top:960px"><div class="fio" style="left:0;top:-22px"></div><div class="k" data-k="k3"></div><div class="l" data-k="l3"></div></div>
-  <div class="txt" id="fim" style="top:820px;text-align:center"><div class="k" data-k="k4"></div><div class="t" data-k="t4"></div><div class="l" data-k="l4"></div><div class="marca">@LOJABIT</div><div class="site">lojabit.com</div></div>
-</div>
+<div id="palco"><div id="topo">@LOJABIT <span>·</span> RELÓGIOS ORIGINAIS</div></div>
 <script>
-var TXT = __TXT__;
-[].forEach.call(document.querySelectorAll('[data-k]'), function (e) { e.innerHTML = TXT[e.getAttribute('data-k')] || ''; });
-var DUR = 12.6;
-function sm(x) { return x <= 0 ? 0 : x >= 1 ? 1 : x * x * (3 - 2 * x); }
-function r(t, a, b) { return sm((t - a) / (b - a)); }           /* 0→1 entre a e b */
-function fx(t, a, b, c, d) { return r(t, a, b) * (1 - r(t, c, d)); } /* entra em a..b, sai em c..d */
-function mix(a, b, k) { return a + (b - a) * k; }
-function quadro(id, lado, cx, cy, esc, rot) {
-  var q = document.getElementById(id);
-  q.style.width = lado + 'px'; q.style.height = lado + 'px';
-  q.style.transform = 'translate(-50%,-50%) translate(' + cx.toFixed(2) + 'px,' + cy.toFixed(2) + 'px) scale(' + esc.toFixed(4) + ') rotate(' + (rot || 0).toFixed(3) + 'deg)';
+var D = __DADOS__;
+var palco = document.getElementById('palco'), topo = document.getElementById('topo'), C = [];
+function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+D.cenas.forEach(function (c, i) {
+  var e = document.createElement('div'); e.className = 'cena';
+  e.innerHTML = '<div class="quadro"><img src="' + esc(c.f) + '"><div class="brilho" style="-webkit-mask-image:url(' + esc(c.m) + ');mask-image:url(' + esc(c.m) + ')"><i></i></div></div>' +
+    '<div class="veu-topo"></div><div class="veu" style="height:' + (c.veu || 540) + 'px"></div>';
+  palco.insertBefore(e, topo);
+  var t = document.createElement('div'); t.className = 'txt' + (c.txt.fim ? ' fim' : ''); t.style.top = c.txt.top + 'px';
+  var h = '';
+  if (c.txt.selo) h += '<div class="selo">' + c.txt.selo + '</div>';
+  if (!c.txt.fim && i > 0) h += '<div class="fio"></div>';
+  if (c.txt.k) h += '<div class="k">' + c.txt.k + '</div>';
+  if (c.txt.t) h += '<div class="t">' + c.txt.t.map(function (s) { return '<span>' + s + '</span>'; }).join('') + '</div>';
+  if (c.txt.l) h += '<div class="l">' + c.txt.l + '</div>';
+  if (c.txt.fim) h += '<div class="marca">@LOJABIT</div><div class="site">lojabit.com</div>';
+  t.innerHTML = h; palco.insertBefore(t, topo);
+  C.push({ c: c, e: e, q: e.querySelector('.quadro'), b: e.querySelector('.brilho i'), t: t });
+});
+/* o título cabe sempre: diminui a letra até cada linha caber na largura (608 px) */
+function cabe() {
+  [].forEach.call(document.querySelectorAll('.t'), function (t) {
+    var fs = parseFloat(getComputedStyle(t).fontSize);
+    for (var n = 0; n < 40 && [].some.call(t.children, function (s) { return s.scrollWidth > 608; }); n++) { fs -= 2; t.style.fontSize = fs + 'px'; }
+  });
+  [].forEach.call(document.querySelectorAll('.l'), function (l) {
+    var fs = 33;
+    for (var n = 0; n < 10 && l.scrollHeight > fs * 1.32 * 3 + 4; n++) { fs -= 1; l.style.fontSize = fs + 'px'; }
+  });
 }
-function brilho(id, k) { document.getElementById(id).style.transform = 'translateX(' + mix(-120, 320, k).toFixed(1) + '%)'; }
-function texto(id, k, dy) { var e = document.getElementById(id); e.style.opacity = k.toFixed(3); e.style.transform = 'translateY(' + ((1 - k) * (dy || 26)).toFixed(1) + 'px)'; }
+function sm(x) { return x <= 0 ? 0 : x >= 1 ? 1 : x * x * (3 - 2 * x); }
+function r(t, a, b) { return sm((t - a) / (b - a)); }
+function mix(a, b, k) { return a + (b - a) * k; }
 window.seek = function (t) {
-  var k;
-  /* cena 1: frente, aproxima devagar */
-  document.getElementById('c1').style.opacity = fx(t, 0, .6, 3.2, 3.7).toFixed(3);
-  k = r(t, 0, 3.7); quadro('q1', 1000, 0, mix(-205, -185, k), mix(1.14, 1.0, k), 0); brilho('b1', r(t, .9, 2.3));
-  texto('t1', fx(t, .7, 1.3, 3.0, 3.4));
-  /* cena 2: mostrador de perto, passeia até o ponteiro GMT */
-  document.getElementById('c2').style.opacity = fx(t, 3.2, 3.7, 6.4, 6.9).toFixed(3);
-  k = r(t, 3.2, 6.9); quadro('q2', 2050, mix(150, -170, k), mix(-40, -330, k), mix(1.0, 1.06, k), 0); brilho('b2', r(t, 4.3, 5.9));
-  texto('t2', fx(t, 3.8, 4.4, 6.2, 6.6));
-  /* cena 3: perfil */
-  document.getElementById('c3').style.opacity = fx(t, 6.4, 6.9, 9.3, 9.8).toFixed(3);
-  k = r(t, 6.4, 9.8); quadro('q3', 1240, mix(120, 60, k), mix(-200, -185, k), mix(1.08, 1.0, k), mix(-4, 0, k)); brilho('b3', r(t, 7.2, 8.6));
-  texto('t3', fx(t, 7.0, 7.6, 9.1, 9.5));
-  /* cena 4: três quartos + oferta */
-  document.getElementById('c4').style.opacity = r(t, 9.3, 9.8).toFixed(3);
-  k = r(t, 9.3, 12.6); quadro('q4', 1040, mix(-10, 0, k), mix(-265, -245, k), mix(1.12, 1.0, k), 0); brilho('b4', r(t, 10.0, 11.4));
-  texto('fim', r(t, 10.0, 10.7));
-  document.getElementById('topo').style.opacity = r(t, .3, .9).toFixed(3);
+  var N = C.length;
+  C.forEach(function (o, i) {
+    var c = o.c, ultimo = i === N - 1;
+    var op = (i === 0 ? 1 : r(t, c.a, c.a + .5)) * (ultimo ? 1 : 1 - r(t, c.b - .5, c.b));
+    o.e.style.opacity = op.toFixed(3);
+    o.e.style.visibility = op > 0 ? 'visible' : 'hidden';
+    if (op <= 0) { o.t.style.opacity = 0; return; }
+    var k = r(t, c.a, c.b);
+    o.q.style.width = c.lado + 'px'; o.q.style.height = c.lado + 'px';
+    o.q.style.transform = 'translate(-50%,-50%) translate(' + mix(c.x0, c.x1, k).toFixed(2) + 'px,' + mix(c.y0, c.y1, k).toFixed(2) + 'px) scale(' + mix(c.e0, c.e1, k).toFixed(4) + ') rotate(' + mix(c.r0 || 0, c.r1 || 0, k).toFixed(3) + 'deg)';
+    o.b.style.transform = 'translateX(' + mix(-120, 320, r(t, c.a + .9, c.a + 2.3)).toFixed(1) + '%)';
+    var to = ultimo ? r(t, c.a + .7, c.a + 1.4) : r(t, c.a + .6, c.a + 1.2) * (1 - r(t, c.b - .6, c.b - .2));
+    o.t.style.opacity = to.toFixed(3);
+    o.t.style.transform = 'translateY(' + ((1 - to) * 26).toFixed(1) + 'px)';
+  });
+  topo.style.opacity = r(t, .3, .9).toFixed(3);
 };
-window.pronto = Promise.all([document.fonts.ready].concat([].map.call(document.images, function (i) { return i.complete ? 1 : new Promise(function (ok) { i.onload = i.onerror = ok; }); })));
+window.pronto = Promise.all([document.fonts.ready].concat([].map.call(document.images, function (i) {
+  return i.complete ? 1 : new Promise(function (ok) { i.onload = i.onerror = ok; });
+}))).then(function () { cabe(); return document.fonts.ready; });
 </script></body></html>

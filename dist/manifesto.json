@@ -11,13 +11,13 @@
    "minificado": true
   },
   "rel.css": {
-   "bytes": 26778,
-   "sha256": "26de7edf0fe0f254dbc1a4af046cabd988975fb04bcca27ecf8245241a8933fd",
+   "bytes": 28615,
+   "sha256": "23038fd235abc83e29e3232c0bd64a3caffd1cf0547397bc2f073f1b56334335",
    "minificado": true
   },
   "rel.js": {
-   "bytes": 63875,
-   "sha256": "a2699b69a4e669ec1f7f02c34c79056c4a42202bc3f88fa524ed7ac4370b0a8e",
+   "bytes": 65942,
+   "sha256": "dfc7eae84b61a50661021dbeaacbfe347c13a7aad7850d2065768e44ee0c1f4a",
    "minificado": true
   },
   "rex.css": {
@@ -32,12 +32,12 @@
   },
   "rod.css": {
    "bytes": 60910,
-   "sha256": "45ff5093d7c3ffc3a6d84a043cf08fbe873d6afbffa37ca3f2b445dbeeb0d740",
+   "sha256": "1555b8436bf1dd9868eaa59a659eb3d79c95ec19602e681189cf65b2d0ab3d01",
    "minificado": true
   },
   "rod.js": {
-   "bytes": 375011,
-   "sha256": "775b2d7e5f2d6c12f8100ad007347899a5252f2b1bf836407497006a097cb4d9",
+   "bytes": 375004,
+   "sha256": "597e13041dd4e4a94ed612c27e24d78daa3b2e337c2a4fbbe85a9f3dd480ee7c",
    "minificado": true
   }
  },
@@ -313,6 +313,11 @@
    "grupo": "rod"
   },
   {
+   "id": 1799007,
+   "nome": "Menu Relógios em dois grupos (por marca / por tipo) — prévia ?lbmenu=1 (só no repositório)",
+   "grupo": "rod"
+  },
+  {
    "id": 1717276,
    "nome": "Visual novo 16 - deptos (painel)",
    "grupo": "rod"
@@ -475,11 +480,6 @@
   {
    "id": 1799005,
    "nome": "Relógios: carrega dist/rel.* só em página de relógio — prévia ?lbrel=1 (só no repositório)",
-   "grupo": "rod"
-  },
-  {
-   "id": 1799007,
-   "nome": "Menu Relógios em dois grupos (por marca / por tipo) — prévia ?lbmenu=1 (só no repositório)",
    "grupo": "rod"
   }
  ],
