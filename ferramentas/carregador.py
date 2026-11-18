@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Gera o conteúdo dos 2 códigos carregadores do painel (painel/cabecalho.html e painel/rodape.html).
+"""Gera o conteúdo dos 2 códigos carregadores do painel (painel/cabecalho.html e painel/rodape.html)
+e o das tags da prévia do link nas redes (painel/compartilhar.html, 2 códigos: home e categorias).
 
 Cada arquivo de dist/ é chamado pelo commit em que ele mudou pela última vez (git log),
 assim, depois de uma mudança, o celular do cliente só baixa de novo o arquivo que mudou.
@@ -55,6 +56,34 @@ FOTO = ('<script>!function(d){try{if(screen.width>979)return;var m=d.querySelect
         'l.href=u;l.setAttribute("fetchpriority","high");d.head.appendChild(l)}catch(e){}}(document)</script>')
 
 
+# Prévia do link nas redes (WhatsApp, Instagram, Facebook, Telegram, X) da página inicial e das categorias: a Loja Integrada
+# põe como og:image o logo (499x138), pequeno demais para os apps, e a prévia saía sem foto. Este bloco vai no painel em 2
+# códigos de cabeçalho ("Página inicial" e "Página da categoria"), não no carregador geral, para não disputar com a foto do
+# produto. Os apps ficam com a primeira imagem válida, que passa a ser esta. Detalhes em ferramentas/compartilhar/LEIA.md.
+IMG_COMPARTILHAR = 'social/compartilhar-1200x630.jpg'
+ALT_COMPARTILHAR = '@LOJABIT: perfumes árabes, de nicho e importados, em frasco ou decant, e relógios originais. Volta Redonda, desde 2014.'
+
+
+def compartilhar():
+    r = subprocess.run(['git', 'log', '-1', '--format=%H', '--', IMG_COMPARTILHAR], cwd=RAIZ, capture_output=True, text=True)
+    sha = r.stdout.strip()
+    if not sha:
+        return None
+    u = f'{CDN}@{sha}/{IMG_COMPARTILHAR}'
+    return '\n'.join([
+        '<!-- LOJABIT: imagem da prévia do link nas redes (home e categorias). Fonte: github.com/' + REPO + ' (ferramentas/compartilhar) -->',
+        f'<meta property="og:image" content="{u}">',
+        f'<meta property="og:image:secure_url" content="{u}">',
+        '<meta property="og:image:type" content="image/jpeg">',
+        '<meta property="og:image:width" content="1200">',
+        '<meta property="og:image:height" content="630">',
+        f'<meta property="og:image:alt" content="{ALT_COMPARTILHAR}">',
+        '<meta name="twitter:card" content="summary_large_image">',
+        f'<meta name="twitter:image" content="{u}">',
+        f'<meta name="twitter:image:alt" content="{ALT_COMPARTILHAR}">',
+    ])
+
+
 def main():
     aviso = '<!-- LOJABIT Etapa 3: códigos de todas as páginas em arquivos com cache. Fonte e instruções: github.com/' + REPO + ' -->'
     # sem preload/preconnect dos arquivos: o HTML ficou pequeno e o navegador já acha o rod.js cedo sozinho
@@ -62,7 +91,11 @@ def main():
     cab = '\n'.join([FOTO, css('cab.css'), js('cab.js', 'lbE3c'), aviso])
     rod = '\n'.join([css('rod.css'), js('rod.js', 'lbE3r'), aviso])
     os.makedirs(os.path.join(RAIZ, 'painel'), exist_ok=True)
-    for nome, txt in (('cabecalho.html', cab), ('rodape.html', rod)):
+    arquivos = [('cabecalho.html', cab), ('rodape.html', rod)]
+    comp = compartilhar()
+    if comp:
+        arquivos.append(('compartilhar.html', comp))
+    for nome, txt in arquivos:
         open(os.path.join(RAIZ, 'painel', nome), 'w', encoding='utf-8').write(txt + '\n')
         print(f'painel/{nome}:\n{txt}\n')
 
