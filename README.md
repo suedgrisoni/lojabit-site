@@ -202,3 +202,13 @@ Loja Integrada guarda (1448 px; pedir 2500x2500 entrega o arquivo inteiro).
   produto no celular e 4 de 4 na categoria no computador); o servidor já entrega WebP para quem aceita.
 - Fotos com arquivo pequeno de origem (nenhum código resolve): 17 fotos de relógio (fundo/caixa/ambiente, 687–1000 px,
   a última de cada galeria) e 3 do kit Dolce & Gabbana K (1024 px).
+
+### Prévia do link nas redes (18/11/2026)
+Quando alguém manda o link da home ou de uma categoria no WhatsApp, Instagram, Facebook, Telegram ou X, o app monta a prévia
+com o `og:image`. A Loja Integrada põe ali o logo (499x138), e o Facebook avisava "Imagem muito pequena" (mínimo de 200x200):
+a prévia saía sem foto. Nos produtos ela já põe a foto do produto (800x800), que está certa.
+- `social/compartilhar-1200x630.jpg` (ferramentas/compartilhar: modelo, LEIA.md) e `painel/compartilhar.html`, gerado pelo
+  `carregador.py`, colado no painel em 2 códigos de **cabeçalho**: "Compartilhar - home" (Página inicial) e "Compartilhar -
+  categorias" (Página da categoria). Os apps ficam com a primeira imagem válida, que passa a ser a nossa.
+- `carregador.py` agora para se o clone for raso demais (com `--depth` curto, o commit mais antigo parece ter mudado tudo e o
+  carregador apontava para o commit errado): rode `git fetch --depth=500 origin main` antes.

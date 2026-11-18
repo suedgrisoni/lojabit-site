@@ -14,11 +14,21 @@ CDN = 'https://cdn.jsdelivr.net/gh/' + REPO
 RESERVA = 'https://fastly.jsdelivr.net/gh/' + REPO   # se o cdn.jsdelivr.net falhar
 
 
+def raso(sha):
+    """Clone raso (--depth): o commit mais antigo que veio parece ter mudado todos os arquivos, e o carregador apontaria
+    para o commit errado. Nesse caso para e pede para buscar mais histórico."""
+    f = os.path.join(RAIZ, '.git', 'shallow')
+    return os.path.exists(f) and sha in open(f).read().split()
+
+
 def commit_de(arquivo):
     r = subprocess.run(['git', 'log', '-1', '--format=%H', '--', 'dist/' + arquivo], cwd=RAIZ, capture_output=True, text=True)
     sha = r.stdout.strip()
     if not sha:
         sys.exit(f'dist/{arquivo} ainda não tem commit — faça o commit e o push antes')
+    if raso(sha):
+        sys.exit(f'dist/{arquivo}: o histórico deste clone é curto demais para achar o commit certo — '
+                 'rode  git fetch --depth=500 origin main  e tente de novo')
     pend = subprocess.run(['git', 'status', '--porcelain', '--', 'dist/' + arquivo], cwd=RAIZ, capture_output=True, text=True).stdout.strip()
     if pend:
         sys.exit(f'dist/{arquivo} mudou e não foi para o commit — faça o commit e o push antes')
@@ -67,7 +77,7 @@ ALT_COMPARTILHAR = '@LOJABIT: perfumes árabes, de nicho e importados, em frasco
 def compartilhar():
     r = subprocess.run(['git', 'log', '-1', '--format=%H', '--', IMG_COMPARTILHAR], cwd=RAIZ, capture_output=True, text=True)
     sha = r.stdout.strip()
-    if not sha:
+    if not sha or raso(sha):
         return None
     u = f'{CDN}@{sha}/{IMG_COMPARTILHAR}'
     return '\n'.join([
