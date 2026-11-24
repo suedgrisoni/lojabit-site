@@ -443,5 +443,10 @@
   "id": 1799005,
   "nome": "Relógios: carrega dist/rel.* só em página de relógio — prévia ?lbrel=1 (só no repositório)",
   "grupo": "rod"
+ },
+ {
+  "id": 1799009,
+  "nome": "Compartilhar produto: botão abaixo do nome (só no repositório)",
+  "grupo": "rod"
  }
 ]

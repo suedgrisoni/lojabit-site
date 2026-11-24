@@ -6,9 +6,9 @@
    "minificado": true
   },
   "cab.js": {
-   "bytes": 208438,
-   "sha256": "f2f012d9db10f0307e786ed92f726e1b93e255c13e68f69cb971685ee24cef17",
-   "minificado": true
+   "bytes": 228684,
+   "sha256": "7131c5fb4534dbed535c4134da6e43a8a530bd378afaf0d7d26ca2cf1d73a4eb",
+   "minificado": false
   },
   "rel.css": {
    "bytes": 28615,
@@ -16,9 +16,9 @@
    "minificado": true
   },
   "rel.js": {
-   "bytes": 65942,
-   "sha256": "dfc7eae84b61a50661021dbeaacbfe347c13a7aad7850d2065768e44ee0c1f4a",
-   "minificado": true
+   "bytes": 87965,
+   "sha256": "2be3ea7ad97e9b4c0875d0f0744fa07739a638f07d3efd34a87cce04624ebc77",
+   "minificado": false
   },
   "rex.css": {
    "bytes": 12967,
@@ -26,19 +26,19 @@
    "minificado": true
   },
   "rex.js": {
-   "bytes": 23821,
-   "sha256": "a0e71cd3dc81d89c32b60255f026b62f83a59e1370ca51c729e0c8cfe8ff0e35",
-   "minificado": true
+   "bytes": 31992,
+   "sha256": "ec1222da770b0fc6d18833e9f60fde23f7702e9042c819a1a8a195fb23faea6a",
+   "minificado": false
   },
   "rod.css": {
-   "bytes": 60910,
-   "sha256": "1555b8436bf1dd9868eaa59a659eb3d79c95ec19602e681189cf65b2d0ab3d01",
+   "bytes": 62117,
+   "sha256": "ea18b3916f1102b99430b2371b1fa78dbde85f1f0b581d8de0a2be8c74d2e743",
    "minificado": true
   },
   "rod.js": {
-   "bytes": 369923,
-   "sha256": "71dc6cf9f50f101b3b88a9932adae46a13209af734ac6e66d245ac6bc07dcc01",
-   "minificado": true
+   "bytes": 401157,
+   "sha256": "a7db4d9aef700e04d3bcbdce4a6affc55d7d8752a636c36ec472f189beeecdb8",
+   "minificado": false
   }
  },
  "codigos": [
@@ -485,6 +485,11 @@
   {
    "id": 1799005,
    "nome": "Relógios: carrega dist/rel.* só em página de relógio — prévia ?lbrel=1 (só no repositório)",
+   "grupo": "rod"
+  },
+  {
+   "id": 1799009,
+   "nome": "Compartilhar produto: botão abaixo do nome (só no repositório)",
    "grupo": "rod"
   }
  ],

@@ -1,0 +1,59 @@
+<style>
+/* LOJABIT - Botão "Compartilhar" na página do produto (24/11/2026, aprovado pelo Nevander).
+   Fica logo abaixo do nome do produto, alinhado à direita. No celular abre a tela de compartilhar do aparelho
+   (WhatsApp, Instagram, Telegram...); onde não há essa tela (computador), abre um menu com WhatsApp e "Copiar link".
+   O link vai marcado (utm_source=compartilhar) para a planilha de vendas por origem contar as vendas por indicação. */
+.lbsh{display:flex;justify-content:flex-end;margin:6px 0 2px;position:relative}
+.lbsh>button{display:inline-flex;align-items:center;gap:7px;border:1px solid #E4DACB;background:#fff;color:#0A0A0B;border-radius:99px;padding:8px 14px 8px 12px;font:500 13px/1 Jost,Arial,sans-serif;letter-spacing:.02em;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.lbsh>button:hover{border-color:#C9A55C}
+.lbsh>button:focus-visible{outline:2px solid #C9A55C;outline-offset:2px}
+.lbsh svg{width:15px;height:15px;stroke:#8F6E2E;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.lbsh-m{position:absolute;right:0;top:calc(100% + 6px);z-index:40;background:#fff;border:1px solid #E4DACB;border-radius:12px;box-shadow:0 10px 30px rgba(10,10,11,.12);padding:6px;min-width:190px;display:flex;flex-direction:column}
+.lbsh-m a,.lbsh-m button{display:block;text-align:left;border:0;background:none;padding:10px 12px;border-radius:8px;font:500 14px/1.2 Jost,Arial,sans-serif;color:#0A0A0B!important;text-decoration:none!important;cursor:pointer}
+.lbsh-m a:hover,.lbsh-m button:hover{background:#FAF7F2}
+.lbsh-ok{color:#2F7D4F!important}
+</style>
+<script>
+(function () {
+  if (!document.querySelector('.pagina-produto, body.pagina-produto') && !document.querySelector('h1.nome-produto')) return;
+  function monta() {
+    var h1 = document.querySelector('h1.nome-produto');
+    if (!h1 || document.querySelector('.lbsh')) return;
+    var nome = (h1.textContent || '').replace(/\s+/g, ' ').trim();
+    var can = document.querySelector('link[rel="canonical"]');
+    var base = ((can && can.href) || location.href).split('#')[0].split('?')[0].replace(/^http:/, 'https:');
+    var url = base + '?utm_source=compartilhar&utm_medium=social&utm_campaign=indicacao';
+    var txt = 'Olha esse na @LOJABIT: ' + nome;
+    var box = document.createElement('div');
+    box.className = 'lbsh';
+    box.innerHTML = '<button type="button" aria-haspopup="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M12 3v12"/><path d="M7 8l5-5 5 5"/></svg>Compartilhar</button>';
+    h1.parentNode.insertBefore(box, h1.nextSibling);
+    var bt = box.firstChild, menu = null;
+    function fecha() { if (menu) { menu.remove(); menu = null; bt.setAttribute('aria-expanded', 'false'); } }
+    function copia(b) {
+      var ok = function () { b.textContent = 'Link copiado ✓'; b.className = 'lbsh-ok'; setTimeout(fecha, 1400); };
+      try {
+        navigator.clipboard.writeText(url).then(ok, function () { window.prompt('Copie o link:', url); fecha(); });
+      } catch (e) { window.prompt('Copie o link:', url); fecha(); }
+    }
+    bt.addEventListener('click', function (ev) {
+      ev.preventDefault(); ev.stopPropagation();
+      if (navigator.share && /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)) {
+        navigator.share({ title: nome, text: txt, url: url }).catch(function () {});
+        return;
+      }
+      if (menu) { fecha(); return; }
+      menu = document.createElement('div');
+      menu.className = 'lbsh-m';
+      menu.innerHTML = '<a target="_blank" rel="noopener" href="https://wa.me/?text=' + encodeURIComponent(txt + '\n' + url) + '">WhatsApp</a><button type="button">Copiar link</button>';
+      box.appendChild(menu);
+      bt.setAttribute('aria-expanded', 'true');
+      menu.querySelector('button').addEventListener('click', function (e) { e.stopPropagation(); copia(this); });
+      menu.querySelector('a').addEventListener('click', function () { setTimeout(fecha, 300); });
+    });
+    document.addEventListener('click', function (e) { if (menu && !box.contains(e.target)) fecha(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') fecha(); });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', monta); else monta();
+})();
+</script>
