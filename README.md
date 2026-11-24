@@ -212,3 +212,8 @@ a prévia saía sem foto. Nos produtos ela já põe a foto do produto (800x800),
   categorias" (Página da categoria). Os apps ficam com a primeira imagem válida, que passa a ser a nossa.
 - `carregador.py` agora para se o clone for raso demais (com `--depth` curto, o commit mais antigo parece ter mudado tudo e o
   carregador apontava para o commit errado): rode `git fetch --depth=500 origin main` antes.
+- 24/11/2026: códigos "Compartilhar - home" e "Compartilhar - categorias" criados no painel; nome da loja trocado para
+  "@LOJABIT · Perfumes Importados, Árabes, Nicho e Relógios"; favicon novo (social/icone-512.png); botão "Compartilhar" na
+  página do produto (src/1799009, link com utm_source=compartilhar&utm_campaign=indicacao).
+- Container novo sem terser: o build.py deixa o JS sem minificar (e muda cab/rel/rex à toa). Antes do build:
+  `npm i -g terser@5 && export NODE_PATH=$(npm root -g)`.
