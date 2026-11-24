@@ -251,6 +251,10 @@ html.lbrx-aberto,html.lbrx-aberto body{overflow:hidden!important}
 .lbr-top .lbr-top-p b{color:#2f7d4f}
 /* linha "Encontre o seu" (listagens de relógio) */
 .lbrb{display:flex;align-items:center;flex-wrap:wrap;gap:8px 12px;margin:12px 0 4px;font-family:Jost,Arial,sans-serif}
+/* a barra e o link da história ocupam a largura toda do cabeçalho da categoria (grade de 2 colunas no computador): sem isso a barra
+   entrava na 2ª coluna (auto) e espremia o título e o texto numa coluna de 0 px (24/11/2026) */
+.lbw-cab>.lbrb,.lbw-cab>.lbrm-t{grid-column:1/-1;min-width:0}
+.lbw-cab>.lbrm-t{justify-self:start}
 .lbrb-k{font:600 10.5px/1 Jost,Arial,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#776E64;flex:none}
 .lbrb-s{display:flex;gap:6px;flex:1 1 calc(100% - 150px);min-width:0;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:2px 0}
 .lbrb-s::-webkit-scrollbar{display:none}
